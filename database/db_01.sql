@@ -9,6 +9,7 @@ date_created date,
 id_department int(11),
 id_team int(11)
 );
+
 CREATE TABLE book (
 id INT(11)  AUTO_INCREMENT PRIMARY KEY,
 book_title VARCHAR(30) NOT NULL,
