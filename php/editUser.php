@@ -74,7 +74,7 @@ while($res = mysqli_fetch_array($result))
 
 		<div class="main">
 			<h2 style="text-align: center;">Edit</h2>
-			<form action="add.php" method="post" name="form1" class="form">
+			<form action="addUser.php" method="post" name="form1" class="form">
 			  <div class="form-group">
 			    <label for="name">Name:</label>
 			    <input type="text" class="form-control" name="name" value="<?php echo $name;?>">

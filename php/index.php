@@ -26,7 +26,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM user ORDER BY id DESC"); // using
 
 	<div class="container" style="margin-top: 50px;">
 			<div class="float-left">
-				<button type="button" class="btn btn-primary"><a href="add.php">Add New Data</a></button>
+				<button type="button" class="btn btn-primary"><a href="addUser.php">Add New Data</a></button>
 			</div>
 
 			<div class="float-right">
@@ -62,7 +62,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM user ORDER BY id DESC"); // using
 							echo "<td>".$res['name']."</td>";
 							echo "<td>".$res['age']."</td>";
 							echo "<td>".$res['email']."</td>";	
-							echo "<td><button type=\"button\" class=\"btn btn-primary edit\"><a href=\"edit.php?id=$res[id]\">Edit</a></button> | <button type=\"button\" class=\"btn btn-danger delete\"><a href=\"delete.php?id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></button></td>";		
+							echo "<td><button type=\"button\" class=\"btn btn-primary edit\"><a href=\"editUser.php?id=$res[id]\">Edit</a></button> | <button type=\"button\" class=\"btn btn-danger delete\"><a href=\"deleteUser.php?id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></button></td>";		
 						}
 						?>
 			  </tbody>

@@ -57,12 +57,12 @@ if(isset($_POST['Submit'])) {
 		<div class="head">
 			<a href="index.php" class="text1">Home</a>
 			>
-			<a href="add.php" class="text2">Add new data</a>	
+			<a href="addUser.php" class="text2">Add new data</a>	
 		</div>
 
 		<div class="main">
 			<h2 style="text-align: center;">Add new data</h2>
-			<form action="add.php" method="post" name="form1" class="form">
+			<form action="addUser.php" method="post" name="form1" class="form">
 			  <div class="form-group">
 			    <label for="name">Name:</label>
 			    <input type="text" class="form-control" name="name" placeholder="Enter name">
