@@ -1,0 +1,28 @@
+*{
+	margin:0px;
+	padding: 0px;
+}
+
+
+a{
+	text-decoration: none;
+	color: white;
+}
+
+a:hover{
+	color: white;
+	text-decoration: none;
+}
+
+.table{
+	margin-top: 10px;
+}
+
+.float-right{
+	margin-right:15px;
+}
+
+.table{
+	table-layout: fixed;
+	width: 100%;
+}
