@@ -6,7 +6,7 @@
  $list = 0;
  ?>
 
-  <div align ="right">
+  <div style="margin-left: 200px; padding: 20px;">
  <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextCategory">
       <button class="btn btn-outline-success" type="submit" name="searchCategory">Search</button>

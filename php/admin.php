@@ -1,19 +1,20 @@
 <?php 
       require_once 'dbase/dbase.php';
       include 'include/head.php';
-      include 'include/navibar.php';
+      include 'include/adminbar.php';
 
  ?>
 <!-- header -->
 
      <div id="main">
  <?php
-if(!isset($_GET['page'])){
-  include 'page/adminBook.php';
+if(!isset($_GET['adminpage'])){
+  include 'adminpage/adminBook.php';
 } else {
-  $page=$_GET['page'];
-  include 'page/'.$page.'.php';
+  $adminpage=$_GET['adminpage'];
+  include 'adminpage/'.$adminpage.'.php';
 }
+
 
  ?>
 

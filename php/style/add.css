@@ -3,35 +3,43 @@
 	padding: 0px;
 }
 
-.head {
-	font-size: 20px;
-	border-bottom: 2px solid #1C5CA3;
-	width: 230px;
-}
 
-.text1,.text2{
-	height: 200px;
-	width: 200px;
-
-}
-
-.text2{
-	background:#1C5CA3;
-	color: white;
-}
-
-.text2:hover,.text1:hover{
-	color: white;
-	text-decoration:none;
-	background: #1C5CA3;
-}
-
-.form{
+/*.form{
 	width: 400px;
 	margin-left:33%;
 	margin-top: 5%;
+}*/
+
+.container{
+	margin-top: 20px;
+	margin-bottom: 50px;
 }
 
 .form button{
 	margin-left:10px;
+	margin-top: 50px;
+}
+
+a,a:hover{
+	color: white;
+}
+
+.select {
+	height: 50px;
+	width: 100px;
+	flex:1;
+}
+
+.select-group{
+	display: flex;
+}
+
+
+
+.error {
+	color: red;
+}
+
+.success {
+	color: green;
 }
