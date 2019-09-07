@@ -16,13 +16,29 @@ a:hover{
 
 .table{
 	margin-top: 10px;
+	table-layout: auto;
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+
+.table .btn{
+	height: 30px;
+	width: 70px;
+	padding: 2px 2px 2px 2px;
+}
+
+.table th{
+	text-align: center;
+}
+
+.cell-breakWord {
+   word-wrap: break-word;
+   max-width: 135px;
 }
 
 .float-right{
 	margin-right:15px;
 }
 
-.table{
-	table-layout: fixed;
-	width: 100%;
-}
+
