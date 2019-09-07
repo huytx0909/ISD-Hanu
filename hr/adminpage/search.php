@@ -145,3 +145,102 @@
 <?php
 }
 ?>
+
+
+
+
+<?php 
+   if(isset($_POST['searchCategory'])) {
+  $search=$_POST['searchtextCategory'];
+  if(empty($search)){
+    header("Location:admin.php?adminpage=adminBookCategory");
+  }
+
+
+
+  $search_sql = "SELECT * FROM category WHERE `category_name` LIKE '%$search%'";
+   $list = 0;
+   if(!empty($search_sql)){
+   
+        if($search_query= mysqli_query($db,$search_sql)){
+     $searchCategory = mysqli_fetch_assoc($search_query); 
+     }
+} 
+?>
+
+
+ <div align ="right">
+ <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextCategory">
+      <button class="btn btn-outline-success" type="submit" name="searchCategory">Search</button>
+    </form> </div>
+
+
+
+  
+ <div class = "header">
+    <h3 align="center">Book category table</h3>
+  </div> <br>
+
+  
+  <div class="container">
+    <div class="row">
+        <div class="col-md-12 col-md-10 col-md-offset-1">
+            <table class="table">
+             
+                <thead>
+                    <tr>
+                       <th>list</th>                  
+                        <th>Book Category</th>
+                        <th> </th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                     
+                    <tr>
+                         <?php do {  $list = $list + 1;   ?>
+                      
+
+                      <td>
+                           
+                                <h5><?= $list; ?></h5>
+                                                 
+                        </td>
+                      
+
+
+                        <td class=""><strong><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$searchCategory['id'];?>" style="text-decoration-color: none;"><?= $searchCategory['category_name']; ?>
+                             </a> </strong></td>
+                           
+                         <td>
+                        <a href = "admin.php?adminpage=editBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-remove"></span> Edit</a>
+                        </td>
+                        <td>
+                        <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span> Remove</a>
+                        </td>
+                  
+                    </tr>
+                  <?php } while($searchCategory = mysqli_fetch_assoc($search_query)); ?>
+
+                                       
+                
+                    
+
+                 
+
+                </tbody>
+           
+
+            </table>
+             <a href = "admin.php?adminpage=addBookCategory" class="btn btn-success">
+                            <span class="glyphicon glyphicon-remove"></span> add new category</a>
+        </div>
+    </div>
+</div>
+<?php
+}
+?>
