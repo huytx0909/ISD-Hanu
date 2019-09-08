@@ -6,7 +6,7 @@ $category_ID = "";
 	
 	$name = $_POST['name'];
   
-    $subject_pattern = '/^[a-zA-Z ]*$/';
+    $category_pattern = '/^[a-zA-Z ]*$/';
    
 	$sql1 = "SELECT * FROM category WHERE category_name = '$name' and id != '$category_ID'";
 	$result1 = mysqli_query($db, $sql1); 
@@ -14,7 +14,7 @@ $category_ID = "";
 		$_SESSION['message'] = "subject existed in database";
 	} else {
 		
-       if(!preg_match($subject_pattern, $name) || strlen($fullname) > 100) {
+       if(!preg_match($category_pattern, $name)) {
        $_SESSION['message'] = "Only alphabets and white space allowed";
                   }
             else { 	

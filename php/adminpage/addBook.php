@@ -51,7 +51,12 @@ if (isset($_POST['submit'])) {
 	if (isset($_SESSION['message'])) {
 		echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
 		unset($_SESSION['message']);
-	} 
+	}
+
+	$category1_sql = "SELECT * from category";
+ if($category1_query = mysqli_query($db,$category1_sql)) {
+  $category1 = mysqli_fetch_assoc($category1_query);
+ } 
 
 	?>
 	
@@ -105,11 +110,18 @@ if (isset($_POST['submit'])) {
 				<td><input type="number" min="1" max = "30" name="max_expired_day" class="form-control" required></td>
 			</tr>
 		</div>
+        		
+
         		<div class="form-group">
     <label for="category"><strong>category</strong></label>
     <select  class="form-control" id="category" name="category" required>
-      <option value="science">science</option>
-      <option value="literature">literature</option>
+      <?php
+           do {
+      ?>
+      <option value="<?= $category1['category_name'] ?>"><?= $category1['category_name'] ?></option>
+      <?php
+        } while($category1 = mysqli_fetch_assoc($category1_query));
+      ?>
     </select>
   </div>
 
@@ -124,7 +136,7 @@ if (isset($_POST['submit'])) {
 
 
 		
-
+ 	
 
   <div class="form-group">
     <label for="image"><strong>Image</strong></label>

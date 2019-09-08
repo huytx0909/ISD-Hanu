@@ -11,7 +11,6 @@
 
  $list = 0;
  ?>
-
 	
 	<div class = "header">
 		<h3 align="center">Book table</h3>
@@ -100,7 +99,7 @@
 
                                 
 
-                                <td class="" align="center"><image src="img/<?= $image['url'];?>" width="50" height="50" alt="book">
+                                <td class="" align="center"><image src="image/<?= $image['url'];?>" width="50" height="50" alt="book">
                                 </td>
 
                                 <td class="" align="center"><strong><?php if(isset($book['date_publication'])) { echo date("d-m-Y",strtotime($book['date_publication'])); } ?>
