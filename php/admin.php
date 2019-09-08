@@ -9,7 +9,7 @@
      <div id="main">
  <?php
 if(!isset($_GET['adminpage'])){
-  include 'adminpage/adminBook.php';
+  include 'adminpage/index.php';
 } else {
   $adminpage=$_GET['adminpage'];
   include 'adminpage/'.$adminpage.'.php';

@@ -92,7 +92,6 @@ while($res = mysqli_fetch_array($result))
 		<div class="main">
 			<h2 style="text-align: center;">Edit</h2>
 			<form action="admin.php?adminpage=editUser" method="post" name="form1" class="form">
-			  <span class="success"><?php echo $success; ?></span>
 				  <div class="form-group">
 				    <label for="name">User Name:</label><br>
 				    <span class="error"><?php echo $nameErr; ?></span>

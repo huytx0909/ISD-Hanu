@@ -1,8 +1,7 @@
 <?php
  require_once 'dbase/dbase.php';
-      include 'include/head.php';
-      include 'include/adminbar.php';
-
+ 
+      include 'include/sign-in.php';
 
 
 if (isset($_POST['login_button'])) {
@@ -27,45 +26,45 @@ if (isset($_POST['login_button'])) {
 }
 
  ?>
-<div class="row">
-<div class="col-md-4"></div>
-<div calss="col-md-4">
 
-<div class="header" align="center"> 
-	<h1> Log in </h1>
-</div>
 
 <?php 
 if (isset($_SESSION['message'])) {
  	echo "<div id = 'error_msg'>".$_SESSION['message']."</div>";
  	unset($_SESSION['message']);
  } ?>
-<div class = "content">
-<form method="POST" action="adminLogin.php" class="beta-form-checkout">
-	<table>
-		 <div class="form-group">
-		<tr>
-			<td>Username: </td>
-			<td><input type="text" name="admin" class="form-control" required></td>
-		</tr>
-	    </div>
 
-		 <div class="form-group">
-		<tr>
-			<td>Password: </td>
-			<td><input type="password" name="password" class="form-control" required></td>
-		</tr>
-	   </div>
+<div class = "container">
+<div class="login-form">
+			<div class="icon">
+				<i class="far fa-user"></i>
+			</div>
+			<h1>Sign In</h1>
+			
+			<form action="adminLogin.php" method="POST" role="form" class="beta-form-checkout">
+				<div class="form-group">
+					<input type="text" name="admin" class="form-control" id="" placeholder="Username" required="">
+				</div>
+				<div class="form-group">
+					
+					<input  type="password" name="password" class="form-control" id="" placeholder="Password" required="">
+				</div>
+				<button  type="submit" name="login_button" class="btn btn-primary">Login</button>
 
-		<tr>
-			<td></td>
-			<td><input type="submit" name="login_button" value="Log in" class="btn btn-primary"></td>
-		</tr>
-	</table>
-</form>
+				<div class="float-right">
+					<a href="#">Forgot Password?</a>
+				</div>
+
+				<div class="float-left">
+			      <input type="checkbox" value="" class="checkbox">
+			  	  <a style="text-decoration: none;position: absolute;bottom:2px;left:30px;">Remember me</a>
+			    </div>
+			</form>
+
+			
+		</div>
 </div>
-</div>
-</div>
+
 <?php
 include 'include/footer.php';
 ?>

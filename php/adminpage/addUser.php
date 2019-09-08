@@ -4,15 +4,15 @@
 	$nameErr=$passwordErr=$emailErr=$phoneErr=$addressErr=$salaryErr=$departmentErr=$teamErr= $roleErr =$success="";
 
 	if(isset($_POST['Submit'])) {	
-		$userName = mysqli_real_escape_string($mysqli, $_POST['user-name']);
-		$password = mysqli_real_escape_string($mysqli, $_POST['password']);
-		$email = mysqli_real_escape_string($mysqli, $_POST['email']);
-		$phone = mysqli_real_escape_string($mysqli, $_POST['phone']);
-		$address = mysqli_real_escape_string($mysqli, $_POST['address']);
-		$salary = mysqli_real_escape_string($mysqli, $_POST['salary']);
-		$department = mysqli_real_escape_string($mysqli, $_POST['department']);
-		$team = mysqli_real_escape_string($mysqli, $_POST['team']);
-		$role = mysqli_real_escape_string($mysqli, $_POST['role']);
+		$userName = mysqli_real_escape_string($db, $_POST['user-name']);
+		$password = mysqli_real_escape_string($db, $_POST['password']);
+		$email = mysqli_real_escape_string($db, $_POST['email']);
+		$phone = mysqli_real_escape_string($db, $_POST['phone']);
+		$address = mysqli_real_escape_string($db, $_POST['address']);
+		$salary = mysqli_real_escape_string($db, $_POST['salary']);
+		$department = mysqli_real_escape_string($db, $_POST['department']);
+		$team = mysqli_real_escape_string($db, $_POST['team']);
+		$role = mysqli_real_escape_string($db, $_POST['role']);
 			
 		// checking empty fields
 		if(empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role)) {

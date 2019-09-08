@@ -1,0 +1,92 @@
+*{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.container{
+	height: 100%;
+	width: 100%;
+	background: url(../img/images.jpg);
+	background-size: cover;
+}
+
+.login-form{
+	width: 520px;
+	height: 420px;
+	background: rgba(255,255,255,0.39);
+	position: absolute;
+	top: 20%;
+	left: 30%;
+	border-radius: 50px;
+}
+
+.icon{
+	height: 100px;
+	width: 100px;
+	background: rgba(30, 139, 195, 0.3);
+	font-size: 50px;
+	position: absolute;
+	right: 40%;
+	top:-10%;
+	color: white;
+	border-radius: 50%;
+}
+
+.fa-user{
+	position: absolute;
+	top:20px;
+	left:27px;
+}
+
+h1{
+	margin-top: 15%;
+	text-align: center;
+}
+
+form{
+	height: 55px;
+	position: absolute;
+	top: 30%;
+	text-align: center;
+}
+
+
+.form-control{
+	width: 350px;
+	height: 60px;
+	margin-left: 85px;
+}
+
+
+.btn{
+	width: 350px;
+	height: 60px;
+	font-size: 30px;
+	background: rgba(30, 139, 195);
+}
+
+.float-right{
+	position: absolute;
+	left: 22%;
+}
+
+.float-left{
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	left:17%;
+
+}
+
+.checkbox{
+	height: 20px;
+	width: 20px;
+	
+}
+
+.float-left a:hover{
+	color: none;
+}
+
