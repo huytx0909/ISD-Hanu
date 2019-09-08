@@ -12,6 +12,12 @@
  $list = 0;
  ?>
 
+
+ <div style="margin-left: 200px; padding: 20px;">
+ <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtext">
+      <button class="btn btn-outline-success" type="submit" name="search">Search</button>
+   </form> </div>
 	
 	<div class = "header">
 		<h3 align="center">Book table</h3>
@@ -100,7 +106,7 @@
 
                                 
 
-                                <td class="" align="center"><image src="img/<?= $image['url'];?>" width="50" height="50" alt="book">
+                                <td class="" align="center"><image src="image/<?= $image['url'];?>" width="50" height="50" alt="book">
                                 </td>
 
                                 <td class="" align="center"><strong><?php if(isset($book['date_publication'])) { echo date("d-m-Y",strtotime($book['date_publication'])); } ?>
