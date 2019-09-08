@@ -22,12 +22,12 @@
       </li>
 
        <li class="nav-item active">
-        <a class="nav-link" href="admin.php?adminpage=
+        <a class="nav-link" href="admin.php?adminpage=adminDepartment
 "> Department <span class="sr-only"></span></a>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="admin.php?adminpage=
+        <a class="nav-link" href="admin.php?adminpage=adminTeam
 "> Team <span class="sr-only"></span></a>
       </li>
     

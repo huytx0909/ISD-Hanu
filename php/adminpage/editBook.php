@@ -88,6 +88,13 @@ if (isset($_POST['submit'])) {
  }
 
 
+
+ $categoryID = $book['id_category'];
+$category2_sql = "SELECT * from category where id = '$categoryID'";
+ if($category2_query = mysqli_query($db,$category2_sql)) {
+  $category2 = mysqli_fetch_assoc($category2_query);
+ }
+
 ?>
 
 
@@ -159,17 +166,22 @@ if (isset($_POST['submit'])) {
 				<td><input type="number" min="1" max = "30" name="max_expired_day"  value="<?= $book['max_expired_day']; ?>" class="form-control"></td>
 			</tr>
 		</div>
+
         		<div class="form-group">
-    <label for="category"><strong>category</strong></label>
+        			<tr>
+                   <td>Category: </td>
+                   <td>
     <select  class="form-control" id="category" name="category" required>
       <?php
            do {
       ?>
-      <option value="<?= $category1['category_name'] ?>"><?= $category1['category_name'] ?></option>
+      <option value="<?= $category1['category_name'] ?>"  <?php if($category2['category_name'] == $category1['category_name']) { ?> selected="selected"  <?php } ?>    ><?= $category1['category_name'] ?></option>
       <?php
         } while($category1 = mysqli_fetch_assoc($category1_query));
       ?>
     </select>
+</td>
+</tr>
   </div>
 
 
