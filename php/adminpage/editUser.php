@@ -1,7 +1,5 @@
 <?php
 // including the database connection file
-include_once "config.php";
-
 $nameErr = $passwordErr = $emailErr = $phoneErr = $addressErr = $salaryErr = $departmentErr = $teamErr = $roleErr = "";
 
 function logConsole($msg) {
@@ -12,7 +10,7 @@ function logConsole($msg) {
 $id = $_GET['id'];
 
 //selecting data associated with this particular id
-$result = mysqli_query($mysqli, "SELECT * FROM user WHERE id=$id");
+$result = mysqli_query($db, "SELECT * FROM user WHERE id=$id");
 while ($res = mysqli_fetch_array($result)) {
 	$userName = $res['username'];
 	$password = $res['password'];
@@ -30,32 +28,32 @@ while ($res = mysqli_fetch_array($result)) {
 	$teamSql = "SELECT name FROM team WHERE id = '$teamId'";
 	$roleSql = "SELECT name FROM role WHERE id = '$roleId'";
 
-	$departmentNameRs = mysqli_query($mysqli, $departmentSql);
-	$teamNameRs = mysqli_query($mysqli, $teamSql);
-	$roleNameRs = mysqli_query($mysqli, $roleSql);
+	$departmentNameRs = mysqli_query($db, $departmentSql);
+	$teamNameRs = mysqli_query($db, $teamSql);
+	$roleNameRs = mysqli_query($db, $roleSql);
 
 	$departmentName = mysqli_fetch_array($departmentNameRs);
 	$teamName = mysqli_fetch_array($teamNameRs);
 	$roleName = mysqli_fetch_array($roleNameRs);
 
 	// get all possible options
-	$roleResult = mysqli_query($mysqli, "SELECT * FROM role ORDER BY id DESC");
-	$departmentResult = mysqli_query($mysqli, "SELECT * FROM department ORDER BY id DESC");
-	$teamResult = mysqli_query($mysqli, "SELECT * FROM team ORDER BY id DESC");
+	$roleResult = mysqli_query($db, "SELECT * FROM role ORDER BY id DESC");
+	$departmentResult = mysqli_query($db, "SELECT * FROM department ORDER BY id DESC");
+	$teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 }
 
 if (isset($_POST['update'])) {
 	logConsole($id);
-	$userName = mysqli_real_escape_string($mysqli, $_POST['username']);
-	$password = mysqli_real_escape_string($mysqli, $_POST['password']);
-	$email = mysqli_real_escape_string($mysqli, $_POST['email']);
-	$phone = mysqli_real_escape_string($mysqli, $_POST['phone']);
-	$address = mysqli_real_escape_string($mysqli, $_POST['address']);
-	$salary = mysqli_real_escape_string($mysqli, $_POST['salary']);
+	$userName = mysqli_real_escape_string($db, $_POST['username']);
+	$password = mysqli_real_escape_string($db, $_POST['password']);
+	$email = mysqli_real_escape_string($db, $_POST['email']);
+	$phone = mysqli_real_escape_string($db, $_POST['phone']);
+	$address = mysqli_real_escape_string($db, $_POST['address']);
+	$salary = mysqli_real_escape_string($db, $_POST['salary']);
 
-	$departmentName = mysqli_real_escape_string($mysqli, $_POST['id_department']);
-	$teamName = mysqli_real_escape_string($mysqli, $_POST['id_team']);
-	$roleName = mysqli_real_escape_string($mysqli, $_POST['id_role']);
+	$departmentName = mysqli_real_escape_string($db, $_POST['id_department']);
+	$teamName = mysqli_real_escape_string($db, $_POST['id_team']);
+	$roleName = mysqli_real_escape_string($db, $_POST['id_role']);
 
 	// echo $password, $email, $phone, $address, $salary, $departmentName, $teamName, $roleName;
 
@@ -95,9 +93,9 @@ if (isset($_POST['update'])) {
 		}
 	} else {
 		// query id from name
-		$departmentIdRs = mysqli_fetch_array(mysqli_query($mysqli, "SELECT id FROM department WHERE name = '$departmentName'"));
-		$teamIdRs = mysqli_fetch_array(mysqli_query($mysqli, "SELECT id FROM team WHERE name = '$teamName'"));
-		$roleIdRs = mysqli_fetch_array(mysqli_query($mysqli, "SELECT id FROM role WHERE name = '$roleName'"));
+		$departmentIdRs = mysqli_fetch_array(mysqli_query($db, "SELECT id FROM department WHERE name = '$departmentName'"));
+		$teamIdRs = mysqli_fetch_array(mysqli_query($db, "SELECT id FROM team WHERE name = '$teamName'"));
+		$roleIdRs = mysqli_fetch_array(mysqli_query($db, "SELECT id FROM role WHERE name = '$roleName'"));
 		//updating the table
 		// logConsole($userName);
 		// logConsole($password);
@@ -110,7 +108,7 @@ if (isset($_POST['update'])) {
 		// logConsole($departmentIdRs[0]);
 		logConsole($id);
 
-		$result = mysqli_query($mysqli, "UPDATE user SET username = '$userName', password = '$password', email = '$email', phone = '$phone',
+		$result = mysqli_query($db, "UPDATE user SET username = '$userName', password = '$password', email = '$email', phone = '$phone',
 		address = '$address', salary = '$salary', id_department = $departmentIdRs[0], id_team=$teamIdRs[0], id_role=$roleIdRs[0] WHERE id=$id");
 		//redirectig to the display page. In our case, it is index.php
 		header("Location: index.php");

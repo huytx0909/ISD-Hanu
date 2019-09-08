@@ -1,14 +1,13 @@
 
 <?php
 //including the database connection file
-include_once "config.php";
 
 function logConsole($msg) {
 	echo "<script>console.log(" . json_encode($msg) . ")</script>";
 }
 
 //fetching data in descending order (lastest entry first)
-$result = mysqli_query($mysqli, "SELECT * FROM user ORDER BY id DESC");
+$result = mysqli_query($db, "SELECT * FROM user ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,9 +68,9 @@ while ($res = mysqli_fetch_array($result)) {
 	$roleSql = "SELECT name FROM role WHERE id = " . $res['id_role'];
 
 	// get result
-	$departmentResult = mysqli_query($mysqli, $departmentSql);
-	$teamResult = mysqli_query($mysqli, $teamSql);
-	$roleResult = mysqli_query($mysqli, $roleSql);
+	$departmentResult = mysqli_query($db, $departmentSql);
+	$teamResult = mysqli_query($db, $teamSql);
+	$roleResult = mysqli_query($db, $roleSql);
 
 	//fetch to array
 	$departmentName = mysqli_fetch_array($departmentResult);
