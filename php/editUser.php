@@ -4,23 +4,65 @@ include_once("config.php");
 
 $nameErr=$passwordErr=$emailErr=$phoneErr=$addressErr=$salaryErr=$departmentErr=$teamErr= $roleErr ="";
 
+function logConsole($msg) { 
+	echo "<script>console.log(".json_encode($msg).")</script>";
+}
+
+//getting id from url
+$id = $_GET['id'];
+
+//selecting data associated with this particular id
+$result = mysqli_query($mysqli, "SELECT * FROM user WHERE id=$id");
+while($res = mysqli_fetch_array($result))
+{
+	$userName = $res['username'];
+	$password = $res['password'];
+	$email = $res['email'];
+	$phone = $res['phone'];
+	$address = $res['address'];
+	$salary = $res['salary'];
+	
+	$departmentId = $res['id_department'];
+	$teamId = $res['id_team'];
+	$roleId = $res['id_role'];
+
+	//get the name of 3 fields from id
+	$departmentSql = "SELECT name FROM department WHERE id = '$departmentId'";
+	$teamSql = "SELECT name FROM team WHERE id = '$teamId'";
+	$roleSql = "SELECT name FROM role WHERE id = '$roleId'";
+
+	$departmentNameRs = mysqli_query($mysqli, $departmentSql);
+	$teamNameRs = mysqli_query($mysqli, $teamSql);
+	$roleNameRs = mysqli_query($mysqli, $roleSql);
+
+	$departmentName = mysqli_fetch_array($departmentNameRs);
+	$teamName = mysqli_fetch_array($teamNameRs);
+	$roleName = mysqli_fetch_array($roleNameRs);
+
+	// get all possible options
+	$roleResult = mysqli_query($mysqli, "SELECT * FROM role ORDER BY id DESC"); 
+	$departmentResult = mysqli_query($mysqli, "SELECT * FROM department ORDER BY id DESC"); 
+	$teamResult = mysqli_query($mysqli, "SELECT * FROM team ORDER BY id DESC");
+}
+
 if(isset($_POST['update']))
 {	
-
-	$id = mysqli_real_escape_string($mysqli, $_POST['id']);
-	
-	$userName = mysqli_real_escape_string($mysqli, $_POST['user-name']);
+	logConsole($id);
+	$userName = mysqli_real_escape_string($mysqli, $_POST['username']);
 	$password = mysqli_real_escape_string($mysqli, $_POST['password']);
 	$email = mysqli_real_escape_string($mysqli, $_POST['email']);
 	$phone = mysqli_real_escape_string($mysqli, $_POST['phone']);
 	$address = mysqli_real_escape_string($mysqli, $_POST['address']);
 	$salary = mysqli_real_escape_string($mysqli, $_POST['salary']);
-	$department = mysqli_real_escape_string($mysqli, $_POST['department']);
-	$team = mysqli_real_escape_string($mysqli, $_POST['team']);
-	$role = mysqli_real_escape_string($mysqli, $_POST['role']);
+	
+	$departmentName = mysqli_real_escape_string($mysqli, $_POST['id_department']);
+	$teamName = mysqli_real_escape_string($mysqli, $_POST['id_team']);
+	$roleName = mysqli_real_escape_string($mysqli, $_POST['id_role']);
+
+	// echo $password, $email, $phone, $address, $salary, $departmentName, $teamName, $roleName; 
 	
 	// checking empty fields
-	if(empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role)) {
+	if(empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($departmentName) || empty($teamName) || empty($roleName)) {
 					
 			if(empty($userName)) {
 				$nameErr = "Name field is empty";
@@ -41,51 +83,44 @@ if(isset($_POST['update']))
 			if(empty($address)) {
 				$addressErr = "Address field is empty";
 			}
-			
-			if(empty($salary)) {
-				$salaryErr = "Salary field is empty";
-			}
 
-			if(empty($department)) {
+			if(empty($departmentName)) {
 				$departmentErr = "Department field is empty";
 			}
 			
-			if(empty($team)) {
+			if(empty($teamName)) {
 				$teamErr = "Team field is empty";
 			}
 			
-			if(empty($role)) {
+			if(empty($roleName)) {
 				$roleErr = "Role field is empty";
-			}
-			
+			}			
 		} else { 
+		// query id from name
+		$departmentIdRs = mysqli_fetch_array(mysqli_query($mysqli, "SELECT id FROM department WHERE name = '$departmentName'"));
+		$teamIdRs = mysqli_fetch_array(mysqli_query($mysqli, "SELECT id FROM team WHERE name = '$teamName'"));
+		$roleIdRs = mysqli_fetch_array(mysqli_query($mysqli, "SELECT id FROM role WHERE name = '$roleName'"));
 		//updating the table
-		$result = mysqli_query($mysqli, "UPDATE user SET name='$userName',password='$password',email='$email',phone='$phone',address='$address',salary='$salary',department='$department',team='$team',role='$role'WHERE id=$id");
-		
+		// logConsole($userName);
+		// logConsole($password);
+		// logConsole($email);
+		// logConsole($phone);
+		// logConsole($address);
+		// logConsole($salary);
+		// logConsole($teamIdRs[0]);	
+		// logConsole($roleIdRs[0]);
+		// logConsole($departmentIdRs[0]);
+		logConsole($id);
+	
+		$result = mysqli_query($mysqli, "UPDATE user SET username = '$userName', password = '$password', email = '$email', phone = '$phone',
+		address = '$address', salary = '$salary', id_department = $departmentIdRs[0], id_team=$teamIdRs[0], id_role=$roleIdRs[0] WHERE id=$id");		
 		//redirectig to the display page. In our case, it is index.php
 		header("Location: index.php");
 	}
 }
 ?>
-<?php
-//getting id from url
-$id = $_GET['id'];
 
-//selecting data associated with this particular id
-$result = mysqli_query($mysqli, "SELECT * FROM user WHERE id=$id");
-while($res = mysqli_fetch_array($result))
-{
-	$userName = $res['name'];
-	$password = $res['password'];
-	$email = $res['email'];
-	$phone = $res['phone'];
-	$address = $res['address'];
-	$salary = $res['salary'];
-	$department = $res['department'];
-	$team = $res['team'];
-	$role = $res['role'];
-}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,12 +142,11 @@ while($res = mysqli_fetch_array($result))
 
 		<div class="main">
 			<h2 style="text-align: center;">Edit</h2>
-			<form action="editUser.php" method="post" name="form1" class="form">
-			  <span class="success"><?php echo $success; ?></span>
+			<form action="" method="post" name="form1" class="form">
 				  <div class="form-group">
-				    <label for="name">User Name:</label><br>
+				    <label for="username">User Name:</label><br>
 				    <span class="error"><?php echo $nameErr; ?></span>
-				    <input type="text" class="form-control" name="user-name" value=<?php echo $userName; ?>>
+				    <input type="text" class="form-control" name="username" value=<?php echo $userName; ?>>
 				  </div>
 
 				  <div class="form-group">
@@ -146,53 +180,50 @@ while($res = mysqli_fetch_array($result))
 				  </div>
 				<div class="select-group">
 				  <div class="form-group select">
-				  		<label for="department">Department:</label><br>
+				  		<label for="id_department">Department:</label><br>
 				  		<span class="error"><?php echo $departmentErr; ?></span>
-				  		<br>
-				  		
-				    	<select class="custom-select" name="department">
-					   		<?php
+				  		<br>				  		
+				    	<select class="custom-select" name="id_department">
+							<?php
 					   		while($res = mysqli_fetch_array($departmentResult)) { ?> 
-					      	<option  value=<?php echo  $department; ?>>
-
+					      	<option>
 					      	 <?php echo "<td>".$res['name']."</td>"?>    		
 					      	</option>									
 							<?php
 						 }
-						?>
-						</select>
+						?>						
+						</select>						
 				  </div>
 
 				  <div class="form-group select">
-				  		<label for="team">Team:</label><br>
+				  		<label for="id_team">Team:</label><br>
 				  		<span class="error"><?php echo $teamErr; ?></span>
-				  		<br>
-				  		
-				    	<select class="custom-select" name="team">
-					   		<?php
-					   		while($res = mysqli_fetch_array($teamResult)) { ?> 
-					      	<option value=<?php echo $team;?>>   		
-					      	</option>									
+				  		<br>				  		
+				    	<select class="custom-select" name="id_team">
 							<?php
-						 }
-						?>
+								while($res = mysqli_fetch_array($teamResult)) { ?> 
+								<option>
+								<?php echo "<td>".$res['name']."</td>"?>    		
+								</option>									
+								<?php
+							}
+							?>  
 						</select>
 				  </div>
 
 				    <div class="form-group select">
-				    	<label for="role">Role:</label><br>
+				    	<label for="id_role">Role:</label><br>
 				    	<span class="error"><?php echo $roleErr; ?></span>
-				    	<br>
-				    	
-					   <select class="custom-select" name="role">
-					   		<?php
-					   		while($res = mysqli_fetch_array($roleResult)) { ?> 
-					      	<option value=<?php echo $role;?>>
-   		
-					      	</option>									
+				    	<br>				    	
+					   <select class="custom-select" name="id_role">
 							<?php
-						 }
-						?>
+								while($res = mysqli_fetch_array($roleResult)) { ?> 
+								<option>
+								<?php echo "<td>".$res['name']."</td>"?>    		
+								</option>									
+								<?php
+							}
+							?>							
 						</select>
 						
 					</div>
@@ -207,3 +238,5 @@ while($res = mysqli_fetch_array($result))
 	</div>
 </body>
 </html>
+
+

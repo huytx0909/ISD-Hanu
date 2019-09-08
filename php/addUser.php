@@ -11,9 +11,19 @@
 		$phone = mysqli_real_escape_string($mysqli, $_POST['phone']);
 		$address = mysqli_real_escape_string($mysqli, $_POST['address']);
 		$salary = mysqli_real_escape_string($mysqli, $_POST['salary']);
+		
 		$department = mysqli_real_escape_string($mysqli, $_POST['department']);
 		$team = mysqli_real_escape_string($mysqli, $_POST['team']);
 		$role = mysqli_real_escape_string($mysqli, $_POST['role']);
+
+		$departmentIdResult = mysqli_query($mysqli, "SELECT id FROM department WHERE name = '$department'");
+		$teamIdResult = mysqli_query($mysqli, "SELECT id FROM team WHERE name = '$team'");
+		$roleIdResult = mysqli_query($mysqli, "SELECT id FROM role WHERE name = '$role'");
+
+		$departmentId = mysqli_fetch_array($departmentIdResult);
+		$teamId = mysqli_fetch_array($teamIdResult);
+		$roleId = mysqli_fetch_array($roleIdResult);
+		
 			
 		// checking empty fields
 		if(empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role)) {
@@ -58,17 +68,16 @@
 			// if all the fields are filled (not empty) 
 
 			//insert data to database	
-			echo $userName, $password, $email, $phone, $address, $salary, $department, $team, $role;
-			$insertResult = mysqli_query($mysqli, "INSERT INTO user(`name`, password, email, phone, address, salary, department, team, role) VALUES('$userName','$password','$email','$phone','$address','$salary','$department','$team','$role')");
-			
+			// echo $userName, $password, $email, $phone, $address, $salary, $departmentId[0], $teamId[0], $roleId[0];
+			$insertResult = mysqli_query($mysqli, "INSERT INTO user(username, password, email, phone, address, salary, id_department, id_team, id_role)
+			VALUES('$userName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]')");			
 			//display success message
 			$success = "Data added successfully.";
 		}
 	}
-
-			$roleResult = mysqli_query($mysqli, "SELECT * FROM role ORDER BY id DESC"); // using mysqli_query instead
-			$departmentResult = mysqli_query($mysqli, "SELECT * FROM department ORDER BY id DESC"); // using mysqli_query instead
-			$teamResult = mysqli_query($mysqli, "SELECT * FROM team ORDER BY id DESC"); // using mysqli_query instead
+			$roleResult = mysqli_query($mysqli, "SELECT * FROM role ORDER BY id DESC"); 
+			$departmentResult = mysqli_query($mysqli, "SELECT * FROM department ORDER BY id DESC"); 
+			$teamResult = mysqli_query($mysqli, "SELECT * FROM team ORDER BY id DESC");
 	?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -128,6 +137,7 @@
 				    <span class="error"><?php echo $salaryErr; ?></span>
 				    <input type="text" class="form-control" name="salary" placeholder="Enter salary">
 				  </div>
+
 				<div class="select-group">
 				  <div class="form-group select">
 				  		<label for="department">Department:</label><br>
@@ -138,8 +148,7 @@
 				    		<option></option>
 					   		<?php
 					   		while($res = mysqli_fetch_array($departmentResult)) { ?> 
-					      	<option  value=<?php echo "<td>".$res['name']."</td>"?>>
-
+					      	<option>
 					      	 <?php echo "<td>".$res['name']."</td>"?>    		
 					      	</option>									
 							<?php
@@ -157,8 +166,7 @@
 				    		<option></option>
 					   		<?php
 					   		while($res = mysqli_fetch_array($teamResult)) { ?> 
-					      	<option value=<?php "<td>".$res['name']."</td>"?>>
-
+					      	<option>
 					      	 <?php echo "<td>".$res['name']."</td>"?>    		
 					      	</option>									
 							<?php
@@ -166,6 +174,7 @@
 						?>
 						</select>
 				  </div>
+
 
 				    <div class="form-group select">
 				    	<label for="role">Role:</label><br>
@@ -176,8 +185,7 @@
 					   		<option></option>
 					   		<?php
 					   		while($res = mysqli_fetch_array($roleResult)) { ?> 
-					      	<option value=<?php echo "<td>".$res['name']."</td>"?>>
-
+					      	<option>
 					      	 <?php echo "<td>".$res['name']."</td>"?>    		
 					      	</option>									
 							<?php
