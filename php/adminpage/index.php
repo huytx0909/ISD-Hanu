@@ -27,24 +27,20 @@ $result = mysqli_query($mysqli, "SELECT * FROM user ORDER BY id DESC");
 <body>
 	<?php include 'include/header.html';?>
 
+	<div class = "header">
+		<h3 align="center">User table</h3>
+	</div> <br>
 	<div class="container" style="margin-top: 50px;">
 			<div class="float-left">
-				<button type="button" class="btn btn-primary"><a href="addUser.php">Add New Data</a></button>
+				<button type="button" class="btn btn-primary"><a href="admin.php?adminpage=addUser">Add New User</a></button>
 			</div>
 
 			<div class="float-right">
-				<form action="" method="GET">
-				  <div class="row">
-				      <div class="input-group">
-				        <input type="text" class="form-control" placeholder="Search" id="txtSearch"/>
-				        <div class="input-group-btn">
-				          <button class="btn btn-primary" type="button">
-				            <span class="glyphicon glyphicon-search"></span> Search
-				          </button>
-				        </div>
-				      </div>
-				  </div>
-				</form>
+
+				<form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+			      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtext">
+			      <button class="btn btn-outline-success" type="submit" name="search">Search</button>
+			    </form>
 			</div>
 
 			<div class="clearfix"></div>

@@ -1,4 +1,4 @@
-
+<header>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="admin.php?">HR management</a>
@@ -7,18 +7,14 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
         <a class="nav-link" href="admin.php?adminpage=index
 ">User list <span class="sr-only">(current)</span></a>
       </li>
        <li class="nav-item active">
         <a class="nav-link" href="admin.php?adminpage=adminBook
-">book list <span class="sr-only"></span></a>
-      </li>
-       <li class="nav-item active">
-        <a class="nav-link" href="admin.php?adminpage=adminBookCategory
-">book category <span class="sr-only"></span></a>
+">Book list <span class="sr-only"></span></a>
       </li>
 
        <li class="nav-item active">
@@ -52,3 +48,4 @@
 
   </div>
 </nav>
+</header>
