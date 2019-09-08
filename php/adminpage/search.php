@@ -87,17 +87,17 @@
 
                       <td  align="center">
                            
-                                <h5><?= $list; ?></h5>
+                                <?= $list; ?>
                                                  
                         </td>
                       
 
 
-                              <td class=""  align="center"><strong><?= $searchbook['book_title']; ?></a>
-                              </strong></td>
+                              <td class=""  align="center"><?= $searchbook['book_title']; ?></a>
+                              </td>
 
-                               <td class=""  align="center"><strong><?= $searchbook['author_name']; ?>
-                              </strong></td>
+                               <td class=""  align="center"><?= $searchbook['author_name']; ?>
+                              </td>
 
 
 
@@ -106,21 +106,21 @@
                                 <td class=""  align="center"><image src="image/<?= $image['url'];?>" width="50" height="50">
                               </td>
 
-                                <td class=""  align="center"><strong><?php if(isset($searchbook['date_publication'])) { echo date("d-m-Y",strtotime($searchbook['date_publication'])); } ?>
-                              </strong></td>
+                                <td class=""  align="center"><?php if(isset($searchbook['date_publication'])) { echo date("d-m-Y",strtotime($searchbook['date_publication'])); } ?>
+                              </td>
 
-                                 <td class=""  align="center"><strong><?= $searchbook['status']; ?>
-                              </strong></td>                               
+                                 <td class=""  align="center"><?= $searchbook['status']; ?>
+                              </td>                               
 
-                                 <td class=""  align="center"><strong><?= $searchbook['prize']; ?>
-                              </strong></td>   
+                                 <td class=""  align="center"><?= $searchbook['prize']; ?>
+                              </td>   
 
 
-                               <td class=""  align="center"><strong><?= $searchbook['max_expired_day']; ?>
-                              </strong></td>
+                               <td class=""  align="center"><?= $searchbook['max_expired_day']; ?>
+                              </td>
 
-                               <td class=""  align="center"><strong><?= $category['category_name']; ?>
-                              </strong></td>
+                               <td class=""  align="center"><?= $category['category_name']; ?>
+                              </td>
 
                          <td  align="center">
                         <a href = "admin.php?adminpage=editBook&ID=<?=$searchbook['id'];?>" class="btn btn-primary">
@@ -209,20 +209,20 @@
 
                       <td align="center">
                            
-                                <h5><?= $list; ?></h5>
+                                <?= $list; ?>
                                                  
                         </td>
                       
 
 
-                        <td class="" align="center"><strong><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$searchCategory['id'];?>" style="color:black;"><?= $searchCategory['category_name']; ?>
-                             </a> </strong></td>
+                        <td class="" align="center"><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$searchCategory['id'];?>" style="color:black;"><?= $searchCategory['category_name']; ?>
+                             </a></td>
                            
                          <td align="center">
                         <a href = "admin.php?adminpage=editBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-primary">
                             <span class="glyphicon glyphicon-remove"></span> Edit</a>
                         <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Remove</a>
+                            <span class="glyphicon glyphicon-remove"></span>Delete</a>
                         </td>
                   
                     </tr>

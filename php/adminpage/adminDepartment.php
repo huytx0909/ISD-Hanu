@@ -51,14 +51,14 @@
 
                       <td align="center">
                            
-                                <h5><?= $list; ?></h5>
+                                <?= $list; ?>
                                                  
                         </td>
                       
 
 
-                        <td class="" align="center"><strong><a href="admin.php?adminpage=adminDepartmentTeam&IDdepartment=<?=$department['id'];?>" style="color: black;"><?= $department['name']; ?>
-                             </a> </strong></td>
+                        <td class="" align="center"><a href="admin.php?adminpage=adminDepartmentTeam&IDdepartment=<?=$department['id'];?>" style="color: black;"><?= $department['name']; ?>
+                             </a></td>
 
                        <td class="" align="center"><?= $department['description']; ?>
                               </td>

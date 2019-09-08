@@ -83,17 +83,17 @@
 
                     	<td align="center">
                            
-                                <h5><?= $list; ?></h5>
+                                <?= $list; ?>
                                                  
                         </td>
                       
 
 
-                              <td class="" align="center"><strong><?= $book['book_title']; ?></a>
-                              </strong></td>
+                              <td class="" align="center"><?= $book['book_title']; ?></a>
+                              </td>
 
-                               <td class="" align="center"><strong><?= $book['author_name']; ?>
-                              </strong></td>
+                               <td class="" align="center"><?= $book['author_name']; ?>
+                              </td>
 
 
 
@@ -102,21 +102,21 @@
                                 <td class="" align="center"><image src="image/<?= $image['url'];?>" width="50" height="50" alt="book">
                                 </td>
 
-                                <td class="" align="center"><strong><?php if(isset($book['date_publication'])) { echo date("d-m-Y",strtotime($book['date_publication'])); } ?>
-                              </strong></td>
+                                <td class="" align="center"><?php if(isset($book['date_publication'])) { echo date("d-m-Y",strtotime($book['date_publication'])); } ?>
+                              </td>
 
-                                 <td class="" align="center"><strong><?= $book['status']; ?>
-                              </strong></td>                               
+                                 <td class="" align="center"><?= $book['status']; ?>
+                              </td>                               
 
-                                 <td class="" align="center"><strong><?= $book['prize']; ?>
-                              </strong></td>   
+                                 <td class="" align="center"><?= $book['prize']; ?>
+                              </td>   
 
 
-                               <td class="" align="center"><strong><?= $book['max_expired_day']; ?>
-                              </strong></td>
+                               <td class="" align="center"><?= $book['max_expired_day']; ?>
+                              </td>
 
-                               <td class="" align="center"><strong><?= $category['category_name']; ?>
-                              </strong></td>
+                               <td class="" align="center"><?= $category['category_name']; ?>
+                              </td>
 
                          <td align="center">
                         <a href = "admin.php?adminpage=editBook&ID=<?=$book['id'];?>" class="btn btn-primary">
