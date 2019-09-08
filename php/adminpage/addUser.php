@@ -1,25 +1,23 @@
 	<?php
-
 //including the database connection file
-include_once "config.php";
 
 $nameErr = $passwordErr = $emailErr = $phoneErr = $addressErr = $salaryErr = $departmentErr = $teamErr = $roleErr = $success = "";
 
 if (isset($_POST['Submit'])) {
-	$userName = mysqli_real_escape_string($mysqli, $_POST['user-name']);
-	$password = mysqli_real_escape_string($mysqli, $_POST['password']);
-	$email = mysqli_real_escape_string($mysqli, $_POST['email']);
-	$phone = mysqli_real_escape_string($mysqli, $_POST['phone']);
-	$address = mysqli_real_escape_string($mysqli, $_POST['address']);
-	$salary = mysqli_real_escape_string($mysqli, $_POST['salary']);
+	$userName = mysqli_real_escape_string($db, $_POST['user-name']);
+	$password = mysqli_real_escape_string($db, $_POST['password']);
+	$email = mysqli_real_escape_string($db, $_POST['email']);
+	$phone = mysqli_real_escape_string($db, $_POST['phone']);
+	$address = mysqli_real_escape_string($db, $_POST['address']);
+	$salary = mysqli_real_escape_string($db, $_POST['salary']);
 
-	$department = mysqli_real_escape_string($mysqli, $_POST['department']);
-	$team = mysqli_real_escape_string($mysqli, $_POST['team']);
-	$role = mysqli_real_escape_string($mysqli, $_POST['role']);
+	$department = mysqli_real_escape_string($db, $_POST['department']);
+	$team = mysqli_real_escape_string($db, $_POST['team']);
+	$role = mysqli_real_escape_string($db, $_POST['role']);
 
-	$departmentIdResult = mysqli_query($mysqli, "SELECT id FROM department WHERE name = '$department'");
-	$teamIdResult = mysqli_query($mysqli, "SELECT id FROM team WHERE name = '$team'");
-	$roleIdResult = mysqli_query($mysqli, "SELECT id FROM role WHERE name = '$role'");
+	$departmentIdResult = mysqli_query($db, "SELECT id FROM department WHERE name = '$department'");
+	$teamIdResult = mysqli_query($db, "SELECT id FROM team WHERE name = '$team'");
+	$roleIdResult = mysqli_query($db, "SELECT id FROM role WHERE name = '$role'");
 
 	$departmentId = mysqli_fetch_array($departmentIdResult);
 	$teamId = mysqli_fetch_array($teamIdResult);
@@ -70,15 +68,15 @@ if (isset($_POST['Submit'])) {
 
 		//insert data to database
 		// echo $userName, $password, $email, $phone, $address, $salary, $departmentId[0], $teamId[0], $roleId[0];
-		$insertResult = mysqli_query($mysqli, "INSERT INTO user(username, password, email, phone, address, salary, id_department, id_team, id_role)
+		$insertResult = mysqli_query($db, "INSERT INTO user(username, password, email, phone, address, salary, id_department, id_team, id_role)
 			VALUES('$userName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]')");
 		//display success message
 		$success = "Data added successfully.";
 	}
 }
-$roleResult = mysqli_query($mysqli, "SELECT * FROM role ORDER BY id DESC");
-$departmentResult = mysqli_query($mysqli, "SELECT * FROM department ORDER BY id DESC");
-$teamResult = mysqli_query($mysqli, "SELECT * FROM team ORDER BY id DESC");
+$roleResult = mysqli_query($db, "SELECT * FROM role ORDER BY id DESC");
+$departmentResult = mysqli_query($db, "SELECT * FROM department ORDER BY id DESC");
+$teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 ?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -95,13 +93,12 @@ $teamResult = mysqli_query($mysqli, "SELECT * FROM team ORDER BY id DESC");
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	</head>
 	<body>
-		<?php include 'include/header.html';?>
-
+		
 		<div class="container">
 
 			<div class="main">
 				<h2 style="text-align: center;">Add new data</h2>
-				<form action="addUser.php" method="post" name="form1" class="form">
+				<form action="admin.php?adminpage=addUser" method="post" name="form1" class="form">
 					<span class="success"><?php echo $success; ?></span>
 				  <div class="form-group">
 				    <label for="name">User Name:</label><br>

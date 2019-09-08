@@ -81,7 +81,7 @@
                             ?>
                       
 
-                    	<td>
+                    	<td align="center">
                            
                                 <h5><?= $list; ?></h5>
                                                  
@@ -118,7 +118,7 @@
                                <td class="" align="center"><strong><?= $category['category_name']; ?>
                               </strong></td>
 
-                         <td>
+                         <td align="center">
                         <a href = "admin.php?adminpage=editBook&ID=<?=$book['id'];?>" class="btn btn-primary">
                             <span class="glyphicon glyphicon-remove"></span> Edit</a>
                         

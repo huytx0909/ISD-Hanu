@@ -1,14 +1,13 @@
 
 <?php
 //including the database connection file
-include_once "config.php";
 
 function logConsole($msg) {
 	echo "<script>console.log(" . json_encode($msg) . ")</script>";
 }
 
 //fetching data in descending order (lastest entry first)
-$result = mysqli_query($mysqli, "SELECT * FROM user ORDER BY id DESC");
+$result = mysqli_query($db, "SELECT * FROM user ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +24,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM user ORDER BY id DESC");
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-	<?php include 'include/header.html';?>
+	
 
 	<div class = "header">
 		<h3 align="center">User table</h3>
@@ -70,9 +69,9 @@ while ($res = mysqli_fetch_array($result)) {
 	$roleSql = "SELECT name FROM role WHERE id = " . $res['id_role'];
 
 	// get result
-	$departmentResult = mysqli_query($mysqli, $departmentSql);
-	$teamResult = mysqli_query($mysqli, $teamSql);
-	$roleResult = mysqli_query($mysqli, $roleSql);
+	$departmentResult = mysqli_query($db, $departmentSql);
+	$teamResult = mysqli_query($db, $teamSql);
+	$roleResult = mysqli_query($db, $roleSql);
 
 	//fetch to array
 	$departmentName = mysqli_fetch_array($departmentResult);
@@ -80,17 +79,17 @@ while ($res = mysqli_fetch_array($result)) {
 	$roleName = mysqli_fetch_array($roleResult);
 
 	echo "<tr>";
-	echo "<td class=\"cell-breakWord\">" . $res['username'] . "</td>";
-	echo "<td class=\"cell-breakWord\">" . $res['password'] . "</td>";
-	echo "<td class=\"cell-breakWord\">" . $res['email'] . "</td>";
-	echo "<td class=\"cell-breakWord\">" . $res['phone'] . "</td>";
-	echo "<td class=\"cell-breakWord\">" . $res['address'] . "</td>";
-	echo "<td class=\"cell-breakWord\">" . $res['salary'] . "</td>";
-	echo "<td class=\"cell-breakWord\">" . $departmentName[0] . "</td>";
-	echo "<td class=\"cell-breakWord\">" . $teamName[0] . "</td>";
-	echo "<td class=\"cell-breakWord\">" . $roleName[0] . "</td>";
-	echo "<td class=\"cell-breakWord\">" . $res['date_created'] . "</td>";
-	echo "<td><button type=\"button\" class=\"btn btn-primary edit\"><a href=\"editUser.php?id=$res[id]\">Edit</a></button> | <button type=\"button\" class=\"btn btn-danger delete\"><a href=\"deleteUser.php?id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></button></td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['username'] . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['password'] . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['email'] . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['phone'] . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['address'] . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['salary'] . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $departmentName[0] . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $teamName[0] . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $roleName[0] . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['date_created'] . "</td>";
+	echo "<td align=\"center\"><button type=\"button\" class=\"btn btn-primary edit\"><a href=\"editUser.php?id=$res[id]\">Edit</a></button> | <button type=\"button\" class=\"btn btn-danger delete\"><a href=\"deleteUser.php?id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></button></td>";
 }
 ?>
 			  </tbody>

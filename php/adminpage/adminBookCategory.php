@@ -45,7 +45,7 @@
                          <?php do {  $list = $list + 1;   ?>
                       
 
-                    	<td>
+                    	<td align="center">
                            
                                 <h5><?= $list; ?></h5>
                                                  
@@ -53,10 +53,10 @@
                       
 
 
-                        <td class=""><strong><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$category['id'];?>" style="text-decoration-color: none;"><?= $category['category_name']; ?>
+                        <td class="" align="center"><strong><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$category['id'];?>" style="color: black;"><?= $category['category_name']; ?>
                              </a> </strong></td>
                            
-                         <td style="padding-left: 350px;">
+                         <td align="center">
                         <a href = "admin.php?adminpage=editBookCategory&ID=<?=$category['id'];?>" class="btn btn-primary">
                             <span class="glyphicon glyphicon-remove"></span> Edit</a>
                         <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$category['id'];?>" class="btn btn-danger">
