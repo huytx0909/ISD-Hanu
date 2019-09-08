@@ -132,13 +132,15 @@ if (isset($_POST['update'])) {
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-	<?php include 'include/header.html';?>
+	
 
 	<div class="container">
 
 		<div class="main">
 			<h2 style="text-align: center;">Edit</h2>
-			<form action="" method="post" name="form1" class="form">
+
+			<form action="admin.php?adminpage=editUser" method="post" name="form1" class="form">
+
 				  <div class="form-group">
 				    <label for="username">User Name:</label><br>
 				    <span class="error"><?php echo $nameErr; ?></span>

@@ -32,6 +32,7 @@ if (isset($_POST['Submit'])) {
 
 		if (empty($password)) {
 			$passwordErr = "Password field is empty";
+
 		}
 
 		if (empty($email)) {
@@ -92,8 +93,7 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	</head>
 	<body>
-		<?php include 'include/header.html';?>
-
+		
 		<div class="container">
 
 			<div class="main">

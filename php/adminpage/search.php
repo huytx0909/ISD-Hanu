@@ -17,27 +17,32 @@
 } 
 ?>
 
-
- <div style="margin-left: 200px;">
- <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtext">
-      <button class="btn btn-outline-success" type="submit" name="search">Search</button>
-    </form> </div>
-
-
-
-  
   <div class = "header">
     <h3 align="center">Book table</h3>
   </div> <br>
 
   
-  <div class="container">
+  <div class="container" style="margin-top: 50px;">
+    <div class="float-left">
+        <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBook" > Add new Book</a></button>
+
+        <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=adminBookCategory" > Book category</a></button>
+         
+  </div>
+
+ <div class="float-right">
+        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtext">
+            <button class="btn btn-outline-success" type="submit" name="search">Search</button>
+          </form>
+      </div>
+
+      <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
             
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                        <th>list</th>                  
                         <th>book title</th>               
@@ -50,8 +55,8 @@
                         <th>category</th>
 
 
-                        <th> </th>
-                        <th> </th>
+                        <th>Actions</th>
+                
                     </tr>
                 </thead>
                 <tbody>
@@ -80,50 +85,48 @@
                             ?>
                       
 
-                      <td>
+                      <td  align="center">
                            
-                                <h5><?= $list; ?></h5>
+                                <?= $list; ?>
                                                  
                         </td>
                       
 
 
-                              <td class=""><strong><?= $searchbook['book_title']; ?></a>
-                              </strong></td>
+                              <td class=""  align="center"><?= $searchbook['book_title']; ?></a>
+                              </td>
 
-                               <td class=""><strong><?= $searchbook['author_name']; ?>
-                              </strong></td>
+                               <td class=""  align="center"><?= $searchbook['author_name']; ?>
+                              </td>
 
 
 
                                 
 
-                                <td class=""><image src="image/<?= $image['url'];?>" width="50" height="50">
+                                <td class=""  align="center"><image src="image/<?= $image['url'];?>" width="50" height="50">
                               </td>
 
-                                <td class=""><strong><?php if(isset($searchbook['date_publication'])) { echo date("d-m-Y",strtotime($searchbook['date_publication'])); } ?>
-                              </strong></td>
+                                <td class=""  align="center"><?php if(isset($searchbook['date_publication'])) { echo date("d-m-Y",strtotime($searchbook['date_publication'])); } ?>
+                              </td>
 
-                                 <td class=""><strong><?= $searchbook['status']; ?>
-                              </strong></td>                               
+                                 <td class=""  align="center"><?= $searchbook['status']; ?>
+                              </td>                               
 
-                                 <td class=""><strong><?= $searchbook['prize']; ?>
-                              </strong></td>   
+                                 <td class=""  align="center"><?= $searchbook['prize']; ?>
+                              </td>   
 
 
-                               <td class=""><strong><?= $searchbook['max_expired_day']; ?>
-                              </strong></td>
+                               <td class=""  align="center"><?= $searchbook['max_expired_day']; ?>
+                              </td>
 
-                               <td class=""><strong><?= $category['category_name']; ?>
-                              </strong></td>
+                               <td class=""  align="center"><?= $category['category_name']; ?>
+                              </td>
 
-                         <td>
+                         <td  align="center">
                         <a href = "admin.php?adminpage=editBook&ID=<?=$searchbook['id'];?>" class="btn btn-primary">
                             <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        </td>
-                        <td>
                         <a href = "admin.php?adminpage=deleteBook&ID=<?=$searchbook['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Remove</a>
+                            <span class="glyphicon glyphicon-remove"></span> Delete</a>
                         </td>
                   
                     </tr>
@@ -137,8 +140,6 @@
                 </tbody>
 
             </table>
-             <a href = "admin.php?adminpage=addBook" class="btn btn-success">
-                            <span class="glyphicon glyphicon-remove"></span> add new course</a>
         </div>
     </div>
 </div>
@@ -169,31 +170,34 @@
 ?>
 
 
- <div align ="right">
- <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextCategory">
-      <button class="btn btn-outline-success" type="submit" name="searchCategory">Search</button>
-    </form> </div>
-
-
-
-  
  <div class = "header">
     <h3 align="center">Book category table</h3>
   </div> <br>
 
   
-  <div class="container">
+  <div class="container" style="margin-top: 50px;">
+    <div class="float-left">
+        <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBookCategory" > Add new Category</a></button>
+
+  </div>
+
+ <div class="float-right">
+        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextCategory">
+            <button class="btn btn-outline-success" type="submit" name="searchCategory">Search</button>
+          </form>
+      </div>
+
+      <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
              
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                        <th>list</th>                  
                         <th>Book Category</th>
-                        <th> </th>
-                        <th> </th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -203,24 +207,22 @@
                          <?php do {  $list = $list + 1;   ?>
                       
 
-                      <td>
+                      <td align="center">
                            
-                                <h5><?= $list; ?></h5>
+                                <?= $list; ?>
                                                  
                         </td>
                       
 
 
-                        <td class=""><strong><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$searchCategory['id'];?>" style="text-decoration-color: none;"><?= $searchCategory['category_name']; ?>
-                             </a> </strong></td>
+                        <td class="" align="center"><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$searchCategory['id'];?>" style="color:black;"><?= $searchCategory['category_name']; ?>
+                             </a></td>
                            
-                         <td>
+                         <td align="center">
                         <a href = "admin.php?adminpage=editBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-primary">
                             <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        </td>
-                        <td>
                         <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Remove</a>
+                            <span class="glyphicon glyphicon-remove"></span>Delete</a>
                         </td>
                   
                     </tr>
@@ -236,8 +238,6 @@
            
 
             </table>
-             <a href = "admin.php?adminpage=addBookCategory" class="btn btn-success">
-                            <span class="glyphicon glyphicon-remove"></span> add new category</a>
         </div>
     </div>
 </div>

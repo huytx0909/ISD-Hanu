@@ -6,12 +6,6 @@
  $list = 0;
  ?>
 
-  <div style="margin-left: 200px; padding: 20px;">
- <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextDepartment">
-      <button class="btn btn-outline-success" type="submit" name="searchDepartment">Search</button>
-    </form> </div>
-
 
   
   <div class = "header">
@@ -19,19 +13,33 @@
   </div> <br>
 
   
-  <div class="container">
+  <div class="container" style="margin-top: 50px;">
+    <div class="float-left">
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addDepartment">Add new department</a></button>
+
+           
+         
+  </div>
+
+ <div class="float-right">
+        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextDepartment">
+            <button class="btn btn-outline-success" type="submit" name="searchDepartment">Search</button>
+          </form>
+      </div>
+
+      <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
              
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                        <th>list</th>                  
                         <th>Department</th>
                         <th>Description</th>
 
-                        <th> </th>
-                        <th> </th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,27 +49,25 @@
                          <?php do {  $list = $list + 1;   ?>
                       
 
-                      <td>
+                      <td align="center">
                            
-                                <h5><?= $list; ?></h5>
+                                <?= $list; ?>
                                                  
                         </td>
                       
 
 
-                        <td class=""><strong><a href="admin.php?adminpage=adminDepartmentTeam&IDdepartment=<?=$department['id'];?>" style="text-decoration-color: none;"><?= $department['name']; ?>
-                             </a> </strong></td>
+                        <td class="" align="center"><a href="admin.php?adminpage=adminDepartmentTeam&IDdepartment=<?=$department['id'];?>" style="color: black;"><?= $department['name']; ?>
+                             </a></td>
 
-                       <td class=""><?= $department['description']; ?>
+                       <td class="" align="center"><?= $department['description']; ?>
                               </td>
                            
-                         <td>
+                         <td align="center">
                         <a href = "admin.php?adminpage=editDepartment&ID=<?=$department['id'];?>" class="btn btn-primary">
                             <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        </td>
-                        <td>
                         <a href = "admin.php?adminpage=deleteDepartment&ID=<?=$department['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Remove</a>
+                            <span class="glyphicon glyphicon-remove"></span>Delete</a>
                         </td>
                   
                     </tr>
@@ -77,8 +83,7 @@
            
 
             </table>
-             <a href = "admin.php?adminpage=addDepartment" class="btn btn-success">
-                            <span class="glyphicon glyphicon-remove"></span> add new department</a>
+         
         </div>
     </div>
 </div>
