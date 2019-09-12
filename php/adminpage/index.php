@@ -89,7 +89,7 @@ while ($res = mysqli_fetch_array($result)) {
 	echo "<td class=\"cell-breakWord\" align=\"center\">" . $teamName[0] . "</td>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" . $roleName[0] . "</td>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['date_created'] . "</td>";
-	echo "<td align=\"center\"><button type=\"button\" class=\"btn btn-primary edit\"><a href=\"editUser.php?id=$res[id]\">Edit</a></button> | <button type=\"button\" class=\"btn btn-danger delete\"><a href=\"deleteUser.php?id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></button></td>";
+	echo "<td align=\"center\"><button type=\"button\" class=\"btn btn-primary edit\"><a href=\"admin.php?adminpage=editUser&id=$res[id]\">Edit</a></button> | <button type=\"button\" class=\"btn btn-danger delete\"><a href=\"admin.php?adminpage=deleteUser&id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></button></td>";
 }
 ?>
 			  </tbody>
