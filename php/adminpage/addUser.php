@@ -71,6 +71,7 @@ if (isset($_POST['Submit'])) {
 		$insertResult = mysqli_query($db, "INSERT INTO user(username, password, email, phone, address, salary, id_department, id_team, id_role)
 			VALUES('$userName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]')");
 		//display success message
+		header("Location: ../php/admin.php?adminpage=index");
 		$success = "Data added successfully.";
 	}
 }
