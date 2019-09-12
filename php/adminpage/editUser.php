@@ -111,7 +111,7 @@ if (isset($_POST['update'])) {
 		$result = mysqli_query($db, "UPDATE user SET username = '$userName', password = '$password', email = '$email', phone = '$phone',
 		address = '$address', salary = '$salary', id_department = $departmentIdRs[0], id_team=$teamIdRs[0], id_role=$roleIdRs[0] WHERE id=$id");
 		//redirectig to the display page. In our case, it is index.php
-		header("Location: index.php");
+		header("Location: ../php/admin.php?adminpage=index");
 	}
 }
 ?>
@@ -139,7 +139,7 @@ if (isset($_POST['update'])) {
 		<div class="main">
 			<h2 style="text-align: center;">Edit</h2>
 
-			<form action="admin.php?adminpage=editUser" method="post" name="form1" class="form">
+			<form action="" method="post" name="form1" class="form">
 
 				  <div class="form-group">
 				    <label for="username">User Name:</label><br>
