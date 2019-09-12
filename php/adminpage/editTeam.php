@@ -41,9 +41,9 @@ if(isset($_GET['ID'])) {
   $team = mysqli_fetch_assoc($team_query);
  }
 
- $departmen1_sql = "SELECT * from department";
- if($departmen1_query = mysqli_query($db,$departmen1_sql)) {
-  $departmen1 = mysqli_fetch_assoc($departmen1_query);
+ $department1_sql = "SELECT * from department";
+ if($department1_query = mysqli_query($db,$department1_sql)) {
+  $department1 = mysqli_fetch_assoc($department1_query);
  }
 
   $departmentID = $team['id_department'];
@@ -103,7 +103,8 @@ $department2_sql = "SELECT * from department where id = '$departmentID'";
       <?php
            do {
       ?>
-      <option value="<?= $departmen1['name'] ?>"  <?php if($department2['name'] == $departmen1['name']) { ?> selected="selected"  <?php } ?>    ><?= $departmen1['name'] ?></option>
+      <option value="<?= $department1['name'] ?>"  <?php if($department1['name'] == $department2['name']) { ?> selected="selected"  <?php } ?>    > <?= $department1['name'] ?> </option>
+
       <?php
         } while($department1 = mysqli_fetch_assoc($department1_query));
       ?>
