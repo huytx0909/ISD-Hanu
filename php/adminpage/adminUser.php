@@ -32,13 +32,15 @@ $result = mysqli_query($db, "SELECT * FROM user ORDER BY id DESC");
 	<div class="container" style="margin-top: 50px;">
 			<div class="float-left">
 				<button type="button" class="btn btn-primary"><a href="admin.php?adminpage=addUser">Add New User</a></button>
+				        <button type="button" class="btn btn-info"><a href = "admin.php?adminpage=adminRole" > User Role</a></button>
+
 			</div>
 
 			<div class="float-right">
 
 				<form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
-			      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtext">
-			      <button class="btn btn-outline-success" type="submit" name="search">Search</button>
+			      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextUser">
+			      <button class="btn btn-outline-success" type="submit" name="searchUser">Search</button>
 			    </form>
 
 			</div>
@@ -49,6 +51,7 @@ $result = mysqli_query($db, "SELECT * FROM user ORDER BY id DESC");
 			    <tr>
 			      <th scope="col">Username</th>
 			      <th scope="col">Password</th>
+			      <th scope="col">Full Name</th>
 			      <th scope="col">Email</th>
 			      <th scope="col">Phone</th>
 			      <th scope="col">Address</th>
@@ -56,6 +59,7 @@ $result = mysqli_query($db, "SELECT * FROM user ORDER BY id DESC");
 			      <th scope="col">Department</th>
 			      <th scope="col">Team</th>
 			      <th scope="col">Role</th>
+			      <th scope="col">Level</th>
 			      <th scope="col">Date Created</th>
 			      <th scope="col">Actions</th>
 			    </tr>
@@ -69,27 +73,41 @@ while ($res = mysqli_fetch_array($result)) {
 	$roleSql = "SELECT name FROM role WHERE id = " . $res['id_role'];
 
 	// get result
-	$departmentResult = mysqli_query($db, $departmentSql);
-	$teamResult = mysqli_query($db, $teamSql);
-	$roleResult = mysqli_query($db, $roleSql);
-
-	//fetch to array
+	if($departmentResult = mysqli_query($db, $departmentSql)){
 	$departmentName = mysqli_fetch_array($departmentResult);
+         $depart = $departmentName[0];      	
+               	} else {
+               		$depart = "none";
+               	}
+	
+	if($teamResult = mysqli_query($db, $teamSql)){
 	$teamName = mysqli_fetch_array($teamResult);
+	  $team = $teamName[0];
+	} else {
+		$team = "none";
+	}
+
+	if(	$roleResult = mysqli_query($db, $roleSql)){
 	$roleName = mysqli_fetch_array($roleResult);
+	$role = $roleName[0];
+        } else {
+        	$role = "none";
+        }
 
 	echo "<tr>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['username'] . "</td>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['password'] . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['fullName'] . "</td>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['email'] . "</td>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['phone'] . "</td>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['address'] . "</td>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['salary'] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $departmentName[0] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $teamName[0] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $roleName[0] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['date_created'] . "</td>";
-	echo "<td align=\"center\"><button type=\"button\" class=\"btn btn-primary edit\"><a href=\"admin.php?adminpage=editUser&id=$res[id]\">Edit</a></button> | <button type=\"button\" class=\"btn btn-danger delete\"><a href=\"admin.php?adminpage=deleteUser&id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></button></td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $depart . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $team . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $role . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['level'] . "</td>";
+	echo "<td class=\"cell-breakWord\" align=\"center\">" . date("d-m-Y",strtotime($res['date_created'])) . "</td>";
+	echo "<td align=\"center\"><button type=\"button\" class=\"btn btn-primary edit\"><a href=\"admin.php?adminpage=editUser&id=$res[id]\">Edit</a></button>  <button type=\"button\" class=\"btn btn-danger delete\"><a href=\"admin.php?adminpage=deleteUser&id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></button></td>";
 }
 ?>
 			  </tbody>
@@ -97,3 +115,4 @@ while ($res = mysqli_fetch_array($result)) {
 	</div>
 </body>
 </html>
+ 

@@ -9,7 +9,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="admin.php?adminpage=index
+        <a class="nav-link" href="admin.php?adminpage=adminUser
 ">User list <span class="sr-only">(current)</span></a>
       </li>
        <li class="nav-item active">
@@ -32,7 +32,7 @@
           <?php if(isset($_SESSION['admin'])) { ?>
         <a class="nav-link" href="#"><strong> <?=$_SESSION['admin']; ?> </strong> </a>
        <?php }  else { ?>
-              <a class="nav-link" href="adminLogin.php"><strong> log in </strong> </a>
+              <a class="nav-link" href="index.php"><strong> log in </strong> </a>
               <?php } ?>
 
       </li> 
@@ -40,7 +40,7 @@
 
 
        <li class="nav-item">
-        <a class="nav-link" href="admin.php?adminpage=adminlogout
+        <a class="nav-link" href="index.php
 "> Log out  </a>
       </li>
     </ul>

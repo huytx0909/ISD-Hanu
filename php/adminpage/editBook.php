@@ -17,7 +17,10 @@ if (isset($_POST['submit'])) {
     $category = $_POST['category'];
 	$image = $_POST['image'];
 
-
+    if(!is_numeric($prize) || $prize < 0) {
+       $_SESSION['message'] = "prize has to be numberic and greater than 0";
+	}
+      else {
 
 
 
@@ -63,8 +66,10 @@ if (isset($_POST['submit'])) {
             $sql = "UPDATE book set book_title = '$title', author_name = '$authorName', date_publication = '$datePublication', prize = '$prize', max_expired_day = '$max_expired_day', id_category = '$IDcategory', status = '$status' WHERE id = '$book_ID'";
 			$result = mysqli_query($db, $sql);
 			
+			$message = "edit successfully";
+echo "<script type='text/javascript'>alert('$message');</script>";
 			
-			header("location: admin.php?adminpage=adminBook"); //redirect to home after registering successfully
+			 //redirect to home after registering successfully
                
 
 
@@ -72,7 +77,7 @@ if (isset($_POST['submit'])) {
 
 	}
 	
-
+       }
 
 
  $book_sql = "SELECT * from book where id = '$book_ID'";
@@ -108,16 +113,15 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 
 	<div class="header" align="center"> 
 		<h1> Edit Book </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-		unset($_SESSION['message']);
-	} 
 
-	?>
 	
 	</div>
-
+	<?php 
+	if (isset($_SESSION['message'])) {
+		echo "<div id = 'error_msg'><span class='error'>".$_SESSION['message']."</span></div>";
+		unset($_SESSION['message']);
+	} 
+	?>
 
 	<form method="POST" action="admin.php?adminpage=editBook&ID=<?= $book['id'];?>" class="beta-form-checkout">
 			 <div class="form-group" style="padding: 3px;">
@@ -155,7 +159,7 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 		 <div class="form-group" style="padding: 3px;">
 			<tr>
 				<td><strong>prize (USD): </strong></td>
-				<td><input type="number" min="0" name="prize" class="form-control"  value="<?= $book['prize']; ?>"></td>
+				<td><input type="text"  name="prize" class="form-control"  value="<?= $book['prize']; ?>"></td>
 			</tr>
 		</div>
   
@@ -205,9 +209,14 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 			 		
 			<tr>
 				<td></td>
+			
+
+
 				<td><button type="submit" name="submit" class="btn btn-primary">submit</button></td>
 			</tr>
 	</form>
+
+	
 </div>
 </div>
 

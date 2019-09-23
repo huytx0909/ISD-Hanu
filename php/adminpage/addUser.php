@@ -1,15 +1,20 @@
 	<?php
 //including the database connection file
+date_default_timezone_set("Asia/Ho_Chi_Minh");
 
-$nameErr = $passwordErr = $emailErr = $phoneErr = $addressErr = $salaryErr = $departmentErr = $teamErr = $roleErr = $success = "";
+$nameErr = $passwordErr = $emailErr = $phoneErr = $addressErr = $salaryErr = $departmentErr = $teamErr = $roleErr = $success = $fullnameErr = $levelErr = "";
 
 if (isset($_POST['Submit'])) {
 	$userName = mysqli_real_escape_string($db, $_POST['user-name']);
+	$fullName = mysqli_real_escape_string($db, $_POST['fullName']);
 	$password = mysqli_real_escape_string($db, $_POST['password']);
 	$email = mysqli_real_escape_string($db, $_POST['email']);
 	$phone = mysqli_real_escape_string($db, $_POST['phone']);
 	$address = mysqli_real_escape_string($db, $_POST['address']);
 	$salary = mysqli_real_escape_string($db, $_POST['salary']);
+	$level = mysqli_real_escape_string($db, $_POST['level']);
+
+	$date = date("Y/m/d");
 
 	$department = mysqli_real_escape_string($db, $_POST['department']);
 	$team = mysqli_real_escape_string($db, $_POST['team']);
@@ -24,7 +29,7 @@ if (isset($_POST['Submit'])) {
 	$roleId = mysqli_fetch_array($roleIdResult);
 
 	// checking empty fields
-	if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role)) {
+	if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role) || empty($fullName) || empty($level)) {
 
 		if (empty($userName)) {
 			$nameErr = "Name field is empty";
@@ -33,6 +38,10 @@ if (isset($_POST['Submit'])) {
 		if (empty($password)) {
 			$passwordErr = "Password field is empty";
 
+		}
+
+		if (empty($fullName)) {
+			$fullnameErr = "Full Name field is empty";
 		}
 
 		if (empty($email)) {
@@ -61,17 +70,23 @@ if (isset($_POST['Submit'])) {
 
 		if (empty($role)) {
 			$roleErr = "Role field is empty";
-		}
+		} 
 
-	} else {
+		if (empty($level)) {
+			$levelErr = "level field is empty";
+		} 
+
+	} else if(ctype_alpha(str_replace(' ', '', $fullName)) === false) {
+			$fullnameErr = "Full Name could not contain numbers";
+		} else {
 		// if all the fields are filled (not empty)
 
 		//insert data to database
 		// echo $userName, $password, $email, $phone, $address, $salary, $departmentId[0], $teamId[0], $roleId[0];
-		$insertResult = mysqli_query($db, "INSERT INTO user(username, password, email, phone, address, salary, id_department, id_team, id_role)
-			VALUES('$userName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]')");
+		$insertResult = mysqli_query($db, "INSERT INTO user(username, fullName, password, email, phone, address, salary, id_department, id_team, id_role, date_created, level)
+			VALUES('$userName', '$fullName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]', '$date', '$level')");
 		//display success message
-		header("Location: ../php/admin.php?adminpage=index");
+		header("Location: admin.php?adminpage=adminUser");
 		$success = "Data added successfully.";
 	}
 }
@@ -108,6 +123,12 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 				  </div>
 
 				  <div class="form-group">
+				    <label for="name">Full Name:</label><br>
+				    <span class="error"><?php echo $fullnameErr; ?></span>
+				    <input type="text" class="form-control" name="fullName" placeholder="Enter full name">
+				  </div>
+
+				  <div class="form-group">
 				    <label for="password">Password:</label><br>
 				    <span class="error"><?php echo $passwordErr; ?></span>
 				    <input type="password" class="form-control" name="password" placeholder="Enter password">
@@ -116,7 +137,7 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 				  <div class="form-group">
 				    <label for="email">Email:</label><br>
 				    <span class="error"><?php echo $emailErr; ?></span>
-				    <input type="text" class="form-control" name="email" placeholder="Enter email">
+				    <input type="email" class="form-control" name="email" placeholder="Enter email">
 				  </div>
 
 				   <div class="form-group">
@@ -193,6 +214,18 @@ while ($res = mysqli_fetch_array($roleResult)) {?>
 						</select>
 
 					</div>
+
+                 <div class="form-group select">
+    <label for="level">Level:</label><br>
+   	<span class="error"><?php echo $levelErr; ?></span>
+
+    <br>
+    <select  class="form-control" id="level" name="level"  required>
+      <option value="level 1">level 1</option>
+      <option value="level 2">level 2</option>
+    </select>
+  </div>
+
 				</div>
 
 				   	<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>

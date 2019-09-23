@@ -1,7 +1,7 @@
 <?php 
-  $department_sql = "SELECT * FROM department";
-  if($department_query = mysqli_query($db,$department_sql)) {
-  $department = mysqli_fetch_assoc($department_query);
+  $role_sql = "SELECT * FROM role";
+  if($role_query = mysqli_query($db,$role_sql)) {
+  $role = mysqli_fetch_assoc($role_query);
  }
  $list = 0;
  ?>
@@ -9,13 +9,13 @@
 
   
   <div class = "header">
-    <h3 align="center">Department table</h3>
+    <h3 align="center">Role table</h3>
   </div> <br>
 
   
   <div class="container" style="margin-top: 50px;">
     <div class="float-left">
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addDepartment">Add new department</a></button>
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addRole">Add new role</a></button>
 
            
          
@@ -23,8 +23,8 @@
 
  <div class="float-right">
         <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextDepartment">
-            <button class="btn btn-outline-success" type="submit" name="searchDepartment">Search</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRole">
+            <button class="btn btn-outline-success" type="submit" name="searchRole">Search</button>
           </form>
       </div>
 
@@ -36,7 +36,7 @@
                 <thead class="thead-dark">
                     <tr>
                        <th>list</th>                  
-                        <th>Department</th>
+                        <th>Role</th>
                         <th>Description</th>
 
                         <th>Actions</th>
@@ -57,21 +57,21 @@
                       
 
 
-                        <td class="" align="center"><a href="admin.php?adminpage=adminDepartmentTeam&IDdepartment=<?=$department['id'];?>" style="color: black;"><strong><?= $department['name']; ?></strong>
+                        <td class="" align="center"><a href="admin.php?adminpage=adminRoleUser&IDrole=<?=$role['id'];?>" style="color: black;"><strong><?= $role['name']; ?></strong>
                              </a></td>
 
-                       <td class="" align="center"><?= $department['description']; ?>
+                       <td class="" align="center"><?= $role['description']; ?>
                               </td>
                            
                          <td align="center">
-                        <a href = "admin.php?adminpage=editDepartment&ID=<?=$department['id'];?>" class="btn btn-primary">
+                        <a href = "admin.php?adminpage=editRole&ID=<?=$role['id'];?>" class="btn btn-primary">
                             <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        <a href = "admin.php?adminpage=deleteDepartment&ID=<?=$department['id'];?>" class="btn btn-danger">
+                        <a href = "admin.php?adminpage=deleteRole&ID=<?=$role['id'];?>" class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove"></span>Delete</a>
                         </td>
                   
                     </tr>
-                  <?php } while($department = mysqli_fetch_assoc($department_query)); ?>
+                  <?php } while($role = mysqli_fetch_assoc($role_query)); ?>
 
                                        
                 
