@@ -6,6 +6,7 @@
 
  }
 
+    $todayDate = date("Y/m/d");
 
 
 
@@ -41,10 +42,10 @@
                         <th>Book Name</th>
                         <th>Author</th>
                         <th>Prize</th>
-                        <th>max expired days</th>
                         <th>type of order</th>
                         <th>order date</th>
                          <th>expired date</th>
+                         <th>status</th>
 
 
 
@@ -102,8 +103,7 @@
                                <td class="" align="center"><?= $book['prize']; ?>
                               </td>
 
-                                  <td class="" align="center"><?= $book['max_expired_day']; ?>
-                              </td>
+                               
 
                                 <td class="" align="center"><?= $order['type']; ?>
                               </td>
@@ -111,11 +111,23 @@
                                <td class="" align="center"><?php if(isset($order['placeOrder_date'])) { echo date("d-m-Y",strtotime($order['placeOrder_date'])); } ?>
                               </td>
 
-                                 <td class="" align="center"><?php if(isset($order['expired_date'])) { echo date("d-m-Y",strtotime($order['expired_date'])); } ?>
+                                 <td class="" align="center"><?php if(isset($order['expired_date'])) {  echo date("d-m-Y",strtotime($order['expired_date'])); } ?>
                               </td>
+
+                               <td class="" align="center"><span <?php if($order['status'] == "completed") { ?> class="badge badge-success" <?php } else { ?>  class="badge badge-danger" <?php } ?> ><?= $order['status']; ?>
+                              </span></td>
 
                          <td align="center">
 
+                          <?php
+                           if($order['status'] == "incompleted") {
+
+                          ?>
+                            <a href = "admin.php?adminpage=editBookOrder&ID=<?=$order['id'];?>" class="btn btn-success">
+                            <span class="glyphicon glyphicon-remove"></span> Returned</a>
+                            <?php
+                              }
+                              ?>
                         
                         <a href = "admin.php?adminpage=deleteBookOrder&ID=<?=$order['id'];?>" class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove"></span> Delete</a>
