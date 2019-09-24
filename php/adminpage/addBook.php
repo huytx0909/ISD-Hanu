@@ -11,6 +11,16 @@ if (isset($_POST['submit'])) {
     $category = $_POST['category'];
 	$image = $_POST['image'];
 
+	$sql1 = "SELECT * FROM book WHERE book_title = '$title' AND author_name = '$authorName' AND date_publication = '$datePublication' ";
+	$result1 = mysqli_query($db, $sql1); 
+	if (mysqli_num_rows($result1) >= 1) {
+		$_SESSION['message'] = "book existed in database";
+	} else {
+
+	if(!is_numeric($prize) || $prize < 0) {
+       $_SESSION['message'] = "prize has to be numberic and greater than 0";
+	}
+      else {
     $category_sql = "SELECT * from category where category_name = '$category'";
     $category_query = mysqli_query($db, $category_sql);
     if($category_q = mysqli_fetch_assoc($category_query)){
@@ -30,14 +40,24 @@ if (isset($_POST['submit'])) {
 			$result = mysqli_query($db, $sql);
 			
 			
-			header("location: admin.php?adminpage=adminBook"); //redirect to home after registering successfully
-               
+$message = "add successfully";
+echo "<script type='text/javascript'>alert('$message');</script>";               
 
 	}
+}
+}
 ?>
 
 
+<?php
 
+	$category1_sql = "SELECT * from category";
+ if($category1_query = mysqli_query($db,$category1_sql)) {
+  $category1 = mysqli_fetch_assoc($category1_query);
+ } 
+
+	?>
+	
 
 
 
@@ -47,20 +67,15 @@ if (isset($_POST['submit'])) {
 
 	<div class="header" align="center"> 
 		<h1> Add Book </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-		unset($_SESSION['message']);
-	}
-
-	$category1_sql = "SELECT * from category";
- if($category1_query = mysqli_query($db,$category1_sql)) {
-  $category1 = mysqli_fetch_assoc($category1_query);
- } 
-
-	?>
-	
+ 
 	</div>
+
+	<?php 
+	if (isset($_SESSION['message'])) {
+		echo "<div id = 'error_msg'><span class='error'>".$_SESSION['message']."</span></div>";
+		unset($_SESSION['message']);
+	} 
+	?>
 
 
 	<form method="POST" action="admin.php?adminpage=addBook" class="beta-form-checkout">
@@ -99,7 +114,7 @@ if (isset($_POST['submit'])) {
 		 <div class="form-group" style="padding: 3px;">
 			<tr>
 				<td><strong>prize (USD): </strong></td>
-				<td><input type="number" min="0" name="prize" class="form-control" required></td>
+				<td><input type="text" name="prize" class="form-control" required></td>
 			</tr>
 		</div>
   
@@ -140,15 +155,23 @@ if (isset($_POST['submit'])) {
 
   <div class="form-group">
     <label for="image"><strong>Image</strong></label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
+    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image" required>
   </div>
 
 			 		
 			<tr>
 				<td></td>
-				<td><button type="submit" name="submit" class="btn btn-primary">submit</button></td>
+
+				
+				<td>
+
+	     		<button type="submit" name="submit" class="btn btn-primary">submit</button></td>
+
 			</tr>
 	</form>
+	
+	
+
 </div>
 </div>
 

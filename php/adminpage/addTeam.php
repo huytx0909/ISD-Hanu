@@ -68,7 +68,7 @@ if (isset($_POST['register_button'])) {
 			 <div class="form-group">
 		<tr>
 				<td>Team description: </td>
-				<td><div class="form-group">
+				<td><div class="form-group"  style="padding: 10px;">
  				 <textarea class="form-control" rows="5" id="description" name="description"></textarea>
 				</div></td>
 			</tr>
@@ -95,7 +95,7 @@ if (isset($_POST['register_button'])) {
 			 		
 			<tr>
 				<td></td>
-				<td><input type="submit" name="register_button" value="add" class="btn btn-primary"></td>
+				<td  style="padding: 10px;"><input type="submit" name="register_button" value="add" class="btn btn-primary"></td>
 			</tr>
 		</table>
 	</form>

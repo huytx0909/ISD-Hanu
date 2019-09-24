@@ -13,6 +13,7 @@
 
 	
 	<div class="container" style="margin-top: 50px;">
+    
 
   <div class="float-left">
         <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBookCategory" > Add new Category</a></button>
@@ -53,7 +54,7 @@
                       
 
 
-                        <td class="" align="center"><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$category['id'];?>" style="color: black;"><?= $category['category_name']; ?>
+                        <td class="" align="center"><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$category['id'];?>" style="color: black;"><strong><?= $category['category_name']; ?></strong>
                              </a></td>
                            
                          <td align="center">

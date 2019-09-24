@@ -72,7 +72,7 @@
                       
 
 
-                              <td class="" align="center"><?= $team['name']; ?></a>
+                              <td class="" align="center"><a href="admin.php?adminpage=adminTeamUser&IDteam=<?=$team['id'];?>" style="color: black;"><strong><?= $team['name']; ?></strong>
                              </td>
 
                                <td class="" align="center"><?= $team['description']; ?>

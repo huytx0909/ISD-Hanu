@@ -1,6 +1,6 @@
 <?php
 // including the database connection file
-$nameErr = $passwordErr = $emailErr = $phoneErr = $addressErr = $salaryErr = $departmentErr = $teamErr = $roleErr = "";
+$nameErr = $passwordErr = $emailErr = $phoneErr = $addressErr = $salaryErr = $departmentErr = $teamErr = $roleErr = $fullnameErr = $levelErr = "";
 
 function logConsole($msg) {
 	echo "<script>console.log(" . json_encode($msg) . ")</script>";
@@ -13,11 +13,14 @@ $id = $_GET['id'];
 $result = mysqli_query($db, "SELECT * FROM user WHERE id=$id");
 while ($res = mysqli_fetch_array($result)) {
 	$userName = $res['username'];
+	$fullName = $res['fullName'];
 	$password = $res['password'];
 	$email = $res['email'];
 	$phone = $res['phone'];
 	$address = $res['address'];
 	$salary = $res['salary'];
+	$level = $res['level'];
+
 
 	$departmentId = $res['id_department'];
 	$teamId = $res['id_team'];
@@ -45,6 +48,8 @@ while ($res = mysqli_fetch_array($result)) {
 if (isset($_POST['update'])) {
 	logConsole($id);
 	$userName = mysqli_real_escape_string($db, $_POST['username']);
+	$fullName = mysqli_real_escape_string($db, $_POST['fullName']);
+
 	$password = mysqli_real_escape_string($db, $_POST['password']);
 	$email = mysqli_real_escape_string($db, $_POST['email']);
 	$phone = mysqli_real_escape_string($db, $_POST['phone']);
@@ -58,7 +63,7 @@ if (isset($_POST['update'])) {
 	// echo $password, $email, $phone, $address, $salary, $departmentName, $teamName, $roleName;
 
 	// checking empty fields
-	if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($departmentName) || empty($teamName) || empty($roleName)) {
+	if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($departmentName) || empty($teamName) || empty($roleName) || empty($level) || empty($fullName)) {
 
 		if (empty($userName)) {
 			$nameErr = "Name field is empty";
@@ -66,6 +71,10 @@ if (isset($_POST['update'])) {
 
 		if (empty($password)) {
 			$passwordErr = "Password field is empty";
+		}
+
+		if (empty($fullName)) {
+			$fullnameErr = "Full Name field is empty";
 		}
 
 		if (empty($email)) {
@@ -91,7 +100,17 @@ if (isset($_POST['update'])) {
 		if (empty($roleName)) {
 			$roleErr = "Role field is empty";
 		}
-	} else {
+
+		if (empty($level)) {
+			$levelErr = "level field is empty";
+		} 
+	} 
+
+	else if(ctype_alpha(str_replace(' ', '', $fullName)) === false) {
+			$fullnameErr = "Full Name could not contain numbers";
+		}
+
+	 else {
 		// query id from name
 		$departmentIdRs = mysqli_fetch_array(mysqli_query($db, "SELECT id FROM department WHERE name = '$departmentName'"));
 		$teamIdRs = mysqli_fetch_array(mysqli_query($db, "SELECT id FROM team WHERE name = '$teamName'"));
@@ -108,10 +127,10 @@ if (isset($_POST['update'])) {
 		// logConsole($departmentIdRs[0]);
 		logConsole($id);
 
-		$result = mysqli_query($db, "UPDATE user SET username = '$userName', password = '$password', email = '$email', phone = '$phone',
+		$result = mysqli_query($db, "UPDATE user SET username = '$userName', fullName = '$fullName', password = '$password', email = '$email', phone = '$phone',
 		address = '$address', salary = '$salary', id_department = $departmentIdRs[0], id_team=$teamIdRs[0], id_role=$roleIdRs[0] WHERE id=$id");
 		//redirectig to the display page. In our case, it is index.php
-		header("Location: ../php/admin.php?adminpage=index");
+		header("Location: admin.php?adminpage=adminUser");
 	}
 }
 ?>
@@ -145,6 +164,12 @@ if (isset($_POST['update'])) {
 				    <label for="username">User Name:</label><br>
 				    <span class="error"><?php echo $nameErr; ?></span>
 				    <input type="text" class="form-control" name="username" value=<?php echo $userName; ?>>
+				  </div>
+
+				   <div class="form-group">
+				    <label for="name">Full Name:</label><br>
+				    <span class="error"><?php echo $fullnameErr; ?></span>
+				    <input type="text" class="form-control" name="fullName" value=<?php echo $fullName; ?>>
 				  </div>
 
 				  <div class="form-group">
@@ -225,6 +250,18 @@ while ($res = mysqli_fetch_array($roleResult)) {?>
 						</select>
 
 					</div>
+   				<div class="form-group select">
+    			<label for="level">Level:</label><br>
+    			   	<span class="error"><?php echo $levelErr; ?></span>
+
+    		  	<br>
+    			<select  class="form-control" id="level" name="level">
+      			<option value="level 1" <?php if($level == "level 1") { ?> selected="selected"  <?php } ?> >level 1</option>
+      			<option value="level 2" <?php if($level == "level 2") { ?> selected="selected"  <?php } ?> >level 2</option>
+    			</select>
+  </div>
+
+
 				</div>
 
 			   	<button type="reset" class="btn btn-danger float-right" name="cancel">Cancel</button>

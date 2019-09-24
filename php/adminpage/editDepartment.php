@@ -14,7 +14,7 @@ $department_ID = "";
 		$_SESSION['message'] = "department existed in database";
 	} else {
 		
-       if(!preg_match($department_pattern, $name)) {
+       if(!preg_match($department_pattern, $name) || strlen($name) > 255) {
        $_SESSION['message'] = "Only alphabets and white space allowed";
                   }
             else { 	
