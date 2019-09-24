@@ -10,4 +10,23 @@
 
 }
 
+ else if(isset($_GET['IDbook'])){
+  	$delete_ID = "";
+  	$delete_ID = $_GET['IDbook'];
+ $delete_sql = "DELETE FROM book WHERE id='$delete_ID'";
+
+
+ $book_sql = "SELECT * FROM book where id='$delete_ID'";
+ if($book_query = mysqli_query($db, $book_sql)){
+ 	$book = mysqli_fetch_assoc($book_query);
+ }
+ $IDcategory = $book['id_category'];
+
+ if($delete_query = mysqli_query($db, $delete_sql)) {
+ 	header("Location: admin.php?adminpage=adminBookinCate&IDcategory=$IDcategory");
+ }
+
+
+}
+
 ?>

@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 //getting id of the data from url
 $id = $_GET['id'];
@@ -7,7 +7,7 @@ $id = $_GET['id'];
 $result = mysqli_query($db, "DELETE FROM user WHERE id=$id");
 
 //redirecting to the display page (index.php in our case)
-header("Location:../php/admin.php?adminpage=index");
+header("Location: admin.php?adminpage=adminUser");
 ?>
 
 
