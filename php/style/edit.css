@@ -33,13 +33,3 @@ a,a:hover{
 .select-group{
 	display: flex;
 }
-
-
-
-.error {
-	color: red;
-}
-
-.success {
-	color: green;
-}

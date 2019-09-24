@@ -70,9 +70,8 @@ if (isset($_POST['Submit'])) {
 		// echo $userName, $password, $email, $phone, $address, $salary, $departmentId[0], $teamId[0], $roleId[0];
 		$insertResult = mysqli_query($db, "INSERT INTO user(username, password, email, phone, address, salary, id_department, id_team, id_role)
 			VALUES('$userName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]')");
-		//display success message
-		header("Location: ../php/admin.php?adminpage=index");
-		$success = "Data added successfully.";
+		
+		include 'include/success.php';
 	}
 }
 $roleResult = mysqli_query($db, "SELECT * FROM role ORDER BY id DESC");
@@ -196,7 +195,7 @@ while ($res = mysqli_fetch_array($roleResult)) {?>
 				</div>
 
 				   	<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
-				  	<button type="submit" class="btn btn-primary float-right" name="Submit">Add</button>
+				  	<button type="submit" class="btn btn-primary float-right" name="Submit" data-toggle="modal" data-target="#success">Add</button>
 
 				  <div class="clearfix"></div>
 				</form>
