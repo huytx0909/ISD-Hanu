@@ -17,3 +17,4 @@ add, edit xong rồi có 2 phương án làm. 1 là thông báo rồi ko redirec
 - Add go back button.
 - Remake/Synchronize Addbook/addteam pages
 - Upgrade notifications UI
+- Let user confirms the "delete" action
