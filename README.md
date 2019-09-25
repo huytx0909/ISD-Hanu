@@ -18,3 +18,6 @@ add, edit xong rồi có 2 phương án làm. 1 là thông báo rồi ko redirec
 - Remake/Synchronize Addbook/addteam pages
 - Upgrade notifications UI
 - Let user confirms the "delete" action
+
+Duong: 
+- Viet project Description (SAD template)
