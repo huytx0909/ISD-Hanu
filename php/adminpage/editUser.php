@@ -59,6 +59,7 @@ if (isset($_POST['update'])) {
 	$departmentName = mysqli_real_escape_string($db, $_POST['id_department']);
 	$teamName = mysqli_real_escape_string($db, $_POST['id_team']);
 	$roleName = mysqli_real_escape_string($db, $_POST['id_role']);
+	$level = mysqli_real_escape_string($db, $_POST['level']);
 
 	// echo $password, $email, $phone, $address, $salary, $departmentName, $teamName, $roleName;
 
@@ -128,7 +129,7 @@ if (isset($_POST['update'])) {
 		logConsole($id);
 
 		$result = mysqli_query($db, "UPDATE user SET username = '$userName', fullName = '$fullName', password = '$password', email = '$email', phone = '$phone',
-		address = '$address', salary = '$salary', id_department = $departmentIdRs[0], id_team=$teamIdRs[0], id_role=$roleIdRs[0] WHERE id=$id");
+		address = '$address', salary = '$salary', id_department = $departmentIdRs[0], id_team=$teamIdRs[0], id_role=$roleIdRs[0], level = '$level' WHERE id=$id");
 		//redirectig to the display page. In our case, it is index.php
 		header("Location: admin.php?adminpage=adminUser");
 	}

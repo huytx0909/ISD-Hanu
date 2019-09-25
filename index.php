@@ -18,7 +18,7 @@ if (isset($_POST['login_button'])) {
 		if(isset($_SESSION['admin'])) {
 			header("location: admin.php");
 		} else {
-		header("location: adminLogin.php"); //redirect to home page
+		header("location: adminUser.php"); //redirect to home page
 	           }
 	} else {
 		 $_SESSION['message'] = "Incorrect password or username";
@@ -41,7 +41,7 @@ if (isset($_SESSION['message'])) {
 			</div>
 			<h1>Sign In</h1>
 			
-			<form action="adminLogin.php" method="POST" role="form" class="beta-form-checkout">
+			<form action="index.php" method="POST" role="form" class="beta-form-checkout">
 				<div class="form-group">
 					<input type="text" name="admin" class="form-control" id="" placeholder="Username" required="">
 				</div>
