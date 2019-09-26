@@ -26,11 +26,15 @@ if (isset($_POST['register_button'])) {
 			$IDuser = $user['id'];
 
          if($type == "borrow") {
-		 $sql = "INSERT INTO `order`(id_user, id_book, placeOrder_date, type, expired_date) VALUES('$IDuser', '$IDbook','$orderDate', '$type', '$expiredDate')";
+         	$status = "incompleted";
+
+		 $sql = "INSERT INTO `order`(id_user, id_book, placeOrder_date, type, expired_date, status) VALUES('$IDuser', '$IDbook','$orderDate', '$type', '$expiredDate', '$status')";
 
 		     } else {
 
-		     	 $sql = "INSERT INTO `order`(id_user, id_book, placeOrder_date, type) VALUES('$IDuser', '$IDbook','$orderDate', '$type')";
+		     	$status = "completed";
+
+		     	 $sql = "INSERT INTO `order`(id_user, id_book, placeOrder_date, type, status) VALUES('$IDuser', '$IDbook','$orderDate', '$type', '$status')";
 
 		     }
 			$result = mysqli_query($db, $sql);
