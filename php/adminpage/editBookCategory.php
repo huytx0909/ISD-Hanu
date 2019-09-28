@@ -1,5 +1,5 @@
 <?php 
-if (isset($_POST['register_button'])) {
+if (isset($_POST['update'])) {
 if(isset($_GET['ID'])) {
 $category_ID = "";
  $category_ID = $_GET['ID']; 
@@ -38,43 +38,32 @@ if(isset($_GET['ID'])) {
  }
 ?>
 
+<div class = "header">
+    <h2>Add Book Category</h2>
+</div> 
 
+<div class="container">
+	<div class="main">
+		<?php 
+			if (isset($_SESSION['message'])) {
+				echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
+				unset($_SESSION['message']);
+			} 
+		?>
 
+		<form method="POST" action="admin.php?adminpage=editBookCategory&ID=<?= $category_ID; ?>"  class="form beta-form-checkout">
+			<div class="form-group">
+				<label for="name">Category Name: </label>
+				<input type="text" name="name" class="form-control" value="<?=$category['category_name'];?>" required>
+			</div>
 
-
-
-  <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Edit Book Category </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-		unset($_SESSION['message']);
-	} 
-	?>
+			<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+			<button type="submit" class="btn btn-primary float-right" name="update">Update</button>
+			
+		
+			<div class="clearfix"></div>
+		</form>
 	</div>
-
-
-	<form method="POST" action="admin.php?adminpage=editBookCategory&ID=<?= $category_ID; ?>"  class="beta-form-checkout">
-		<table>
-			 <div class="form-group">
-			<tr>
-				<td>Category name: </td>
-				<td><input type="text" name="name" class="form-control" value="<?=$category['category_name'];?>" required></td>
-			</tr>
-		</div>
-
-			 		
-			<tr>
-				<td></td>
-				<td><input type="submit" name="register_button" value="edit" class="btn btn-primary"></td>
-			</tr>
-		</table>
-	</form>
-</div>
 </div>
 
 <?php

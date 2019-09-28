@@ -8,33 +8,27 @@
 
 	
 	<div class = "header">
-		<h3 align="center">Book category table</h3>
-	</div> <br>
+		<h2>Book Category Table</h2>
+	</div>
 
-	
-	<div class="container" style="margin-top: 50px;">
+	<div class="container">
     
-
   <div class="float-left">
-        <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBookCategory" > Add new Category</a></button>
-
+      <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBookCategory" > Add new Category</a></button>
   </div>
 
- <div class="float-right">
-        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextCategory">
-            <button class="btn btn-outline-success" type="submit" name="searchCategory">Search</button>
-          </form>
-      </div>
+  <div class="float-right">
+      <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextCategory">
+          <button class="btn btn-outline-success" type="submit" name="searchCategory">Search</button>
+      </form>
+  </div>
 
-      <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
+  <div class="clearfix"></div>
             <table class="table">
-             
                 <thead class="thead-dark">
                     <tr>
-                       <th>list</th>                  
+                        <th>list</th>                  
                         <th>Book Category</th>
                         <th>Actions</th>
                     </tr>
@@ -54,24 +48,19 @@
                       
 
 
-                        <td class="" align="center"><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$category['id'];?>" style="color: black;"><strong><?= $category['category_name']; ?></strong>
+                        <td align="center" class="cell-breakWord"><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$category['id'];?>"><strong><?= $category['category_name']; ?></strong>
                              </a></td>
                            
                          <td align="center">
-                        <a href = "admin.php?adminpage=editBookCategory&ID=<?=$category['id'];?>" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$category['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Delete</a>
+                        <a href = "admin.php?adminpage=editBookCategory&ID=<?=$category['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                            <i class="far fa-edit"></i></a>
+                        <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$category['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                            <i class="far fa-trash-alt"></i></a>
                         </td>
                   
                     </tr>
                   <?php } while($category = mysqli_fetch_assoc($category_query)); ?>
 
-                                       
-                
-                    
-
-                 
 
                 </tbody>
            

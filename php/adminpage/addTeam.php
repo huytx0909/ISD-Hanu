@@ -1,5 +1,5 @@
 <?php 
-if (isset($_POST['register_button'])) {
+if (isset($_POST['Submit'])) {
 	
 	  $name = $_POST['name'];
       $description = $_POST['description'];
@@ -36,68 +36,47 @@ if (isset($_POST['register_button'])) {
               }
 ?>
 
-
-
-
-
-
-  <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Add Team </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-		unset($_SESSION['message']);
-	} 
-	?>
-	</div>
-
-
-	<form method="POST" action="admin.php?adminpage=addTeam"  class="beta-form-checkout">
-		<table>
-			 <div class="form-group">
-			<tr>
-				<td>Team name: </td>
-				<td><input type="text" name="name" class="form-control" required></td>
-			</tr>
-		</div>
-
-			 <div class="form-group">
-		<tr>
-				<td>Team description: </td>
-				<td><div class="form-group"  style="padding: 10px;">
- 				 <textarea class="form-control" rows="5" id="description" name="description"></textarea>
-				</div></td>
-			</tr>
-			</div>
-
-
-         <div class="form-group">
-         <td>Department: </td>
-       <td>
-    <select  class="form-control" id="department" name="department" required>
-      <?php
-           do {
-      ?>
-      <option value="<?= $department['name']; ?>"><?= $department['name']; ?></option>
-      <?php
-        } while($department = mysqli_fetch_assoc($department_query));
-      ?>
-    </select>
-    </td>
-  </div>
-
-
-
-			 		
-			<tr>
-				<td></td>
-				<td  style="padding: 10px;"><input type="submit" name="register_button" value="add" class="btn btn-primary"></td>
-			</tr>
-		</table>
-	</form>
+<div class = "header">
+	<h2>Add Team</h2>
 </div>
+
+<div class="container">
+	<div class="main">
+		 <?php 
+			if (isset($_SESSION['message'])) {
+				echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
+				unset($_SESSION['message']);
+			} 
+			?>
+
+			<form method="POST" action="admin.php?adminpage=addTeam"  class="form beta-form-checkout">
+				<div class="form-group">
+					<label for="name">Team Name:</label>
+					<input type="text" name="name" class="form-control" required>
+				</div>
+
+				<div class="form-group">
+					<label for="description">Team Description:</label>
+					<textarea class="form-control" rows="5" id="description" name="description"></textarea>
+				</div>
+
+		       <div class="form-group">
+		        	<label for="department">Department:</label>
+		       		<select class="form-control" id="department" name="department" required>
+			      		<?php
+			           		do {
+			      		?>
+			      		<option value="<?= $department['name']; ?>"><?= $department['name']; ?></option>
+			      		<?php
+			        		} while($department = mysqli_fetch_assoc($department_query));
+			      		?>
+		    		</select>
+		  		</div>
+
+					<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				  	<button type="submit" class="btn btn-primary float-right" name="Submit">Add</button>
+				
+				<div class="clearfix"></div>
+			</form>
+	</div>
 </div>

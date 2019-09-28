@@ -1,5 +1,5 @@
 <?php 
-if (isset($_POST['register_button'])) {
+if (isset($_POST['update'])) {
 if(isset($_GET['ID'])) {
 $department_ID = "";
  $department_ID = $_GET['ID']; 
@@ -39,54 +39,39 @@ if(isset($_GET['ID'])) {
 ?>
 
 
-
-
-
-
-  <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Edit department </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-		unset($_SESSION['message']);
-	} 
-	?>
-	</div>
-
-
-	<form method="POST" action="admin.php?adminpage=editDepartment&ID=<?= $department_ID; ?>"  class="beta-form-checkout">
-		<table>
-			 <div class="form-group">
-			<tr>
-				<td>Department name: </td>
-				<td><input type="text" name="name" class="form-control" value="<?=$department['name'];?>" required></td>
-			</tr>
-		</div>
-
-
-			 <div class="form-group">
-			<tr>
-				<td>Department description: </td>
-				<td><div class="form-group">
- 				 <textarea class="form-control" rows="5" id="description"  name="description"><?=$department['description'];?>
- 				 	
- 				 </textarea>
-				</div></td>
-			</tr>
-	     	</div>
-
-			 		
-			<tr>
-				<td></td>
-				<td><input type="submit" name="register_button" value="edit" class="btn btn-primary"></td>
-			</tr>
-		</table>
-	</form>
+<div class = "header">
+	<h2>Edit Department</h2>
 </div>
+
+<div class="container">
+	<div class="main">
+		 <?php 
+			if (isset($_SESSION['message'])) {
+				echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
+				unset($_SESSION['message']);
+			} 
+			?>
+			</div>
+
+
+			<form method="POST" action="admin.php?adminpage=editDepartment&ID=<?= $department_ID; ?>"  class="form beta-form-checkout">
+				<div class="form-group">
+					<label for="name">Department Name:</label>
+					<input type="text" name="name" class="form-control" value="<?=$department['name'];?>" required>
+				</div>
+
+				<div class="form-group">
+					<label for="description">Department Description:</label>
+					<textarea class="form-control" rows="5" id="description"  name="description"><?=$department['description'];?></textarea>
+			    </div>
+
+					 		
+					<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				  	<button type="submit" class="btn btn-primary float-right" name="update">Update</button>
+
+			  	<div class="clearfix"></div>
+			</form>
+	</div>
 </div>
 
 <?php

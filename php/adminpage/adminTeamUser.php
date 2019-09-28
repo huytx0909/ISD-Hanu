@@ -17,42 +17,44 @@
  $list = 0;
  ?>
 
- 
-
-
-
   
   <div class = "header">
-    <h3 align="center">User in <?= $team1['name']; ?> team</h3>
-  </div> <br>
-
+    <h2>User in <?= $team1['name']; ?> Team</h2>
+  </div>
   
   <div class="container">
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
+    <div class="float-left">
+        <button type="button" class="btn btn-primary"><a href="admin.php?adminpage=addUser">Add New User</a></button>
+        <button type="button" class="btn btn-info"><a href = "admin.php?adminpage=adminRole" > User Role</a></button>
+      </div>
+
+      <div class="float-right">
+        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextUser">
+            <button class="btn btn-outline-success" type="submit" name="searchUser">Search</button>
+          </form>
+      </div>
+
+      <div class="clearfix"></div>
             <table class="table">
-            
                 <thead class="thead-dark">
                     <tr>
-                       <th>list</th>                  
-                        <th>Username</th>               
-                        <th>Email</th>
-                        <th>Phone</th>                        
-                       <th>Salary</th>
+                      <th>list</th>                  
+                      <th>Username</th>               
+                      <th>Email</th>
+                      <th>Phone</th>                        
+                      <th>Salary</th>
                       <th>Address</th>
-
-                        <th>Department</th>
-                        <th>Team</th>
-                        <th>Role</th>
-                        <th>Date Created</th>
-                        <th>Actions</th>
+                      <th>Department</th>
+                      <th>Team</th>
+                      <th>Role</th>
+                      <th>Date Created</th>
+                      <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                   
-                     
+                <tbody>   
                     <tr>
-                         <?php 
+                        <?php 
                           do {
                             $list = $list + 1;  
                             $IDdepartment = $user['id_department'];
@@ -60,9 +62,9 @@
                             $IDrole = $user['id_role']; 
 
 
-                           $departmentSql = "SELECT * FROM department WHERE id = '$IDdepartment'";
-                          $teamSql = "SELECT * FROM team WHERE id = '$IDteam' ";
-                           $roleSql = "SELECT * FROM role WHERE id = '$IDrole' ";
+                            $departmentSql = "SELECT * FROM department WHERE id = '$IDdepartment'";
+                            $teamSql = "SELECT * FROM team WHERE id = '$IDteam' ";
+                            $roleSql = "SELECT * FROM role WHERE id = '$IDrole' ";
 
                                 // get result
                            
@@ -84,58 +86,27 @@
                            }
 
                               //fetch to array
-                           
-
-
 
                             ?>
                       
 
-                              <td align="center">
-                                <?= $list; ?>                
-                             </td>
-                      
+                        <td align="center">
+                          <?= $list; ?>                
+                        </td>
 
+                        <td align="center" class="cell-breakWord"><?= $user['username']; ?></a></td>
+                        <td align="center" class="cell-breakWord"><?= $user['email']; ?></td>
+                        <td align="center" class="cell-breakWord"><?= $user['phone']; ?></td>
+                        <td align="center" class="cell-breakWord"><?= $user['salary']; ?></td>
+                        <td align="center" class="cell-breakWord"><?= $user['address']; ?></td>
+                        <td align="center" class="cell-breakWord"><?= $departmentName['name']; ?></td>  
+                        <td align="center" class="cell-breakWord"><?= $teamName['name']; ?></td>   
+                        <td align="center" class="cell-breakWord"><?= $roleName['name']; ?></td>
+                        <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?></td>
 
-                              <td class="" align="center"><?= $user['username']; ?></a>
-                              </td>
-
-                               <td class="" align="center"><?= $user['email']; ?>
-                              </td>
-
-
-                              <td class="" align="center"><?= $user['phone']; ?>
-                              </td>
-
-                              <td class="" align="center"><?= $user['salary']; ?>
-                              </td>
-
-                              <td class="" align="center"><?= $user['address']; ?>
-                              </td>
-
-
-                                
-
-                                 <td class="" align="center"><?= $departmentName['name']; ?>
-                              </td>                               
-
-                                 <td class="" align="center"><?= $teamName['name']; ?>
-                              </td>   
-
-
-                               <td class="" align="center"><?= $roleName['name']; ?>
-                              </td>
-
-                            
-
-                              <td class="" align="center"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?>
-                              </td>
-
-                         <td align="center">
-                      
-
-                        <a href = "admin.php?adminpage=deleteTeamUser&IDteam=<?=$user['id_team'];?>&ID=<?=$user['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Remove</a>
+                        <td align="center">
+                          <a href = "admin.php?adminpage=deleteTeamUser&IDteam=<?=$user['id_team'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                            <i class="far fa-trash-alt"></i></a>
                         </td>
                   
                     </tr>
@@ -144,16 +115,8 @@
                       } while($user = mysqli_fetch_assoc($user_query));
                    ?>
 
-                                       
-                
-                    
-
-                 
-
                 </tbody>
-
-            </table>
-            
+            </table>            
         </div>
     </div>
 </div>

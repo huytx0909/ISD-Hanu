@@ -1,5 +1,5 @@
 <?php 
-if (isset($_POST['register_button'])) {
+if (isset($_POST['update'])) {
 if(isset($_GET['ID'])) {
 $team_ID = "";
  $team_ID = $_GET['ID']; 
@@ -53,73 +53,52 @@ $department2_sql = "SELECT * from department where id = '$departmentID'";
  }
 ?>
 
-
-
-
-
-
-  <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Edit team </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-		unset($_SESSION['message']);
-	} 
-	?>
-	</div>
-
-
-	<form method="POST" action="admin.php?adminpage=editTeam&ID=<?= $team_ID; ?>"  class="beta-form-checkout">
-		<table>
-			 <div class="form-group">
-			<tr>
-				<td>Team name: </td>
-				<td><input type="text" name="name" class="form-control" value="<?=$team['name'];?>" required></td>
-			</tr>
-		</div>
-
-
-			 <div class="form-group">
-			<tr>
-				<td>Team description: </td>
-				<td><div class="form-group">
- 				 <textarea class="form-control" rows="5" id="description"  name="description"><?=$team['description'];?>
- 				 	
- 				 </textarea>
-				</div></td>
-			</tr>
-	     	</div>
-
-
-	     	<div class="form-group">
-        <tr>
-        	<td>Department: </td>
-        	<td>
-    <select  class="form-control" id="department" name="department" required>
-      <?php
-           do {
-      ?>
-      <option value="<?= $department1['name'] ?>"  <?php if($department1['name'] == $department2['name']) { ?> selected="selected"  <?php } ?>    > <?= $department1['name'] ?> </option>
-
-      <?php
-        } while($department1 = mysqli_fetch_assoc($department1_query));
-      ?>
-    </select> </td>
-</tr>
-  </div>
-
-			 		
-			<tr>
-				<td></td>
-				<td><input type="submit" name="register_button" value="edit" class="btn btn-primary"></td>
-			</tr>
-		</table>
-	</form>
+<div class = "header">
+	<h2>Edit Team</h2>
 </div>
+
+<div class="container">
+	<div class="main">
+		<?php 
+			if (isset($_SESSION['message'])) {
+				echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
+				unset($_SESSION['message']);
+			} 
+		?>
+
+
+		<form method="POST" action="admin.php?adminpage=editTeam&ID=<?= $team_ID; ?>" class="form beta-form-checkout">
+			<div class="form-group">
+				<label for="name">Team Name:</label>
+				<input type="text" name="name" class="form-control" value="<?=$team['name'];?>" required>
+			</div>
+
+			<div class="form-group">
+				<label for="description">Team Description:</label>
+		 		<textarea class="form-control" rows="5" id="description"  name="description"><?=$team['description'];?></textarea>
+			</div>
+
+			<div class="form-group">
+		        <label for="department">Department:</label>
+		    	<select  class="form-control" id="department" name="department" required>
+			      	<?php
+			           do {
+			      	?>
+			      	<option value="<?= $department1['name'] ?>"  <?php if($department1['name'] == $department2['name']) { ?> selected="selected"  <?php } ?>    > <?= $department1['name'] ?> </option>
+
+			      	<?php
+			        } while($department1 = mysqli_fetch_assoc($department1_query));
+			      	?>
+		    	</select>
+		  	</div>
+
+					 		
+				<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				<button type="submit" class="btn btn-primary float-right" name="update">Update</button>
+
+			  	<div class="clearfix"></div>
+			</form>
+	</div>
 </div>
 
 <?php

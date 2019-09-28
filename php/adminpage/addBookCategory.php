@@ -1,5 +1,5 @@
  <?php 
-if (isset($_POST['register_button'])) {
+if (isset($_POST['Submit'])) {
 	
 	$name = $_POST['name'];
       $category_pattern = '/^[a-zA-Z ]*$/';
@@ -28,41 +28,29 @@ if (isset($_POST['register_button'])) {
 }
 ?>
 
+<div class = "header">
+    <h2>Add Book Category</h2>
+</div> 
 
+<div class="container">
+	<div class="main">
+		 <?php 
+			if (isset($_SESSION['message'])) {
+				echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
+				unset($_SESSION['message']);
+			} 
+			?>
 
-
-
-
-  <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Add Category </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-		unset($_SESSION['message']);
-	} 
-	?>
+			<form method="POST" action="admin.php?adminpage=addBookCategory"  class="form beta-form-checkout">
+				<div class="form-group">
+					<label for="name">Category Name: </label>
+					<input type="text" name="name" class="form-control" required>
+				</div>
+		
+				<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				<button type="submit" class="btn btn-primary float-right" name="Submit">Add</button>
+			
+				<div class="clearfix"></div>
+			</form>
 	</div>
-
-
-	<form method="POST" action="admin.php?adminpage=addBookCategory"  class="beta-form-checkout">
-		<table>
-			 <div class="form-group">
-			<tr>
-				<td>Category name: </td>
-				<td><input type="text" name="name" class="form-control" required></td>
-			</tr>
-		</div>
-
-			 		
-			<tr>
-				<td></td>
-				<td><input type="submit" name="register_button" value="add" class="btn btn-primary"></td>
-			</tr>
-		</table>
-	</form>
-</div>
 </div>

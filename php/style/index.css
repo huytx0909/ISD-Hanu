@@ -3,13 +3,21 @@
 	padding: 0px;
 }
 
+h2{
+	text-align: center;
+}
 
-a{
+.container{
+	margin-top: 100px;
+	margin-bottom: 50px;
+}
+
+button a{
 	text-decoration: none;
 	color: white;
 }
 
-a:hover{
+button a:hover{
 	color: white;
 	text-decoration: none;
 }
@@ -34,9 +42,14 @@ a:hover{
 
 .cell-breakWord {
    word-wrap: break-word;
-   max-width: 135px;
+   max-width: 60px;
 }
 
 .float-right{
 	margin-right:15px;
+}
+
+.table .btn{
+	width: 30px;
+	font-size: 16px;
 }

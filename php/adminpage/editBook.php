@@ -4,7 +4,7 @@
        $book_ID = $_GET['ID']; 
    	
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['update'])) {
 
 
 
@@ -107,117 +107,79 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 
 
 
-   <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Edit Book </h1>
-
-	
-	</div>
-	<?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'><span class='error'>".$_SESSION['message']."</span></div>";
-		unset($_SESSION['message']);
-	} 
-	?>
-
-	<form method="POST" action="admin.php?adminpage=editBook&ID=<?= $book['id'];?>" class="beta-form-checkout">
-			 <div class="form-group" style="padding: 3px;">
-			<tr>
-				<td><strong>Book title: </strong></td>
-				<td><input type="text" name="title" class="form-control" value="<?= $book['book_title']; ?>" ></td>
-			</tr>
-		</div>
-
-        <div class="form-group" style="padding: 3px;">
-			<tr>
-				<td><strong>author's name: </strong></td>
-				<td>
-			<input type="text"  name="authorName" class="form-control"  value="<?= $book['author_name']; ?>" >
-
-			</td>
-			</tr>
-		</div>
-        
-
-
-		<div class="form-group" style="padding: 3px;">
-		 <div class='input-group date' id='datetimepicker1'>
-			<tr>
-				<td><strong>date of publication: </strong></td>
-				<td><input type="date" name="datePublication" class="form-control"  value="<?= $book['date_publication']; ?>" >
-				 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span></td>
-			</tr>
-		</div>
-		</div>
-
-
-
-		 <div class="form-group" style="padding: 3px;">
-			<tr>
-				<td><strong>prize (USD): </strong></td>
-				<td><input type="text"  name="prize" class="form-control"  value="<?= $book['prize']; ?>"></td>
-			</tr>
-		</div>
-  
-
-		 <div class="form-group" style="padding: 3px;">
-			<tr>
-				<td><strong>max expired day:</strong> </td>
-				<td><input type="number" min="1" max = "30" name="max_expired_day"  value="<?= $book['max_expired_day']; ?>" class="form-control"></td>
-			</tr>
-		</div>
-
-        		<div class="form-group">
-        			<tr>
-                   <td>Category: </td>
-                   <td>
-    <select  class="form-control" id="category" name="category" required>
-      <?php
-           do {
-      ?>
-      <option value="<?= $category1['category_name'] ?>"  <?php if($category2['category_name'] == $category1['category_name']) { ?> selected="selected"  <?php } ?>    ><?= $category1['category_name'] ?></option>
-      <?php
-        } while($category1 = mysqli_fetch_assoc($category1_query));
-      ?>
-    </select>
-</td>
-</tr>
-  </div>
-
-
-   		<div class="form-group">
-    <label for="status"><strong>status</strong></label>
-    <select  class="form-control" id="status" name="status"  required>
-      <option value="available" <?php if($book['status'] == "available") { ?> selected="selected"  <?php } ?> >available</option>
-      <option value="unavailable" <?php if($book['status'] == "unavailable") { ?> selected="selected"  <?php } ?> >unavailable</option>
-    </select>
-  </div>
-
-
-		
-
-
-  <div class="form-group">
-    <label for="image"><strong>Image</strong></label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
-  </div>
-
-			 		
-			<tr>
-				<td></td>
-			
-
-
-				<td><button type="submit" name="submit" class="btn btn-primary">submit</button></td>
-			</tr>
-	</form>
-
-	
+<div class = "header">
+	<h2>Edit Book</h2>
 </div>
+
+<div class="container">
+	<div class="main">
+		<?php 
+		if (isset($_SESSION['message'])) {
+			echo "<div id = 'error_msg'><span class='error'>".$_SESSION['message']."</span></div>";
+			unset($_SESSION['message']);
+		} 
+		?>
+
+		<form method="POST" action="admin.php?adminpage=editBook&ID=<?= $book['id'];?>" class="form beta-form-checkout">
+			<div class="form-group">
+				<label for="title">Book title:</label>
+				<input type="text" name="title" class="form-control" value="<?= $book['book_title']; ?>">
+			</div>
+
+	        <div class="form-group">
+				<label for="name">Author's name: </label>
+				<input type="text"  name="authorName" class="form-control"  value="<?= $book['author_name']; ?>">
+			</div>
+	        
+			<div class="form-group">
+				<label for="date">Date of publication:</label>
+				<input type="date" name="datePublication" class="form-control" value="<?= $book['date_publication']; ?>">
+			</div>
+
+			<div class="form-group">
+				<label for="prize">Prize (USD):</label>
+				<input type="text" name="prize" class="form-control" value="<?= $book['prize']; ?>">	
+			</div>
+	  
+			<div class="form-group">
+				<label for="expired">Max Expired Day:</label>
+				<input type="number" min="1" max = "30" name="max_expired_day" value="<?= $book['max_expired_day']; ?>" class="form-control">
+			</div>
+
+	        <div class="form-group">
+	        	<label for="category">Category</label>
+	    		<select  class="form-control" id="category" name="category" required>
+			      	<?php
+			        	do {
+			      	?>
+			      	<option value="<?= $category1['category_name'] ?>"  <?php if($category2['category_name'] == $category1['category_name']) { ?> selected="selected"  <?php } ?>    ><?= $category1['category_name'] ?></option>
+			      	<?php
+			        	} while($category1 = mysqli_fetch_assoc($category1_query));
+			      	?>
+	    		</select>
+	  		</div>
+
+	   		<div class="form-group">
+	     		<label for="status">Status</label>
+	    		<select class="form-control" id="status" name="status" required>
+	    			<option></option>
+			    	<option value="available" <?php if($book['status'] == "available") { ?> selected="selected"  <?php } ?> >available</option>
+			      	<option value="unavailable" <?php if($book['status'] == "unavailable") { ?> selected="selected"  <?php } ?> >unavailable</option>
+	    		</select>
+	 		</div>
+
+	  		<div class="form-group">
+	    		<label for="image">Image</label>
+	    		<input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
+	  		</div>
+
+				<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				<button type="submit" class="btn btn-primary float-right" name="update">Update</button>
+			
+		
+			<div class="clearfix"></div>
+		</form>
+	</div>
 </div>
 
 <?php
