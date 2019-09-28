@@ -16,8 +16,10 @@
 
 if(mysqli_num_rows($search_query) == 0) {
 
-      header("Location:admin.php?adminpage=adminBook");
-    
+echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminBook';
+</script>";      
  } 
 
     $list = 0;
@@ -177,8 +179,10 @@ if(mysqli_num_rows($search_query) == 0) {
 
  if(mysqli_num_rows($search_query) == 0) {
 
-      header("Location:admin.php?adminpage=adminBookCategory");
-    
+echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminBookCategory';
+</script>";   
  } 
 ?>
 
@@ -282,8 +286,10 @@ if(mysqli_num_rows($search_query) == 0) {
 
 if(mysqli_num_rows($department_query) == 0) {
 
-      header("Location:admin.php?adminpage=adminDepartment");
-    
+echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminDepartment';
+</script>";    
  }
  ?>
 
@@ -398,8 +404,10 @@ if(isset($_POST['searchTeam'])) {
 
 if(mysqli_num_rows($team_query) == 0) {
 
-      header("Location:admin.php?adminpage=adminTeam");
-    
+echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminTeam';
+</script>";      
  }
  ?>
 
@@ -539,8 +547,10 @@ $result = mysqli_query($db, $user_sql);
 
 if(mysqli_num_rows($result) == 0) {
 
-      header("Location:admin.php?adminpage=adminUser");
-    
+echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminUser';
+</script>";    
  }
 ?>
 <!DOCTYPE html>
@@ -677,8 +687,10 @@ while ($res = mysqli_fetch_array($result)) {
 
 if(mysqli_num_rows($role_query) == 0) {
 
-      header("Location:admin.php?adminpage=adminRole");
-    
+echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminRole';
+</script>";    
  }
 
 
@@ -793,109 +805,268 @@ function logConsole($msg) {
  $user_sql ="SELECT * FROM user WHERE id_role = $IDrole AND `id` LIKE '%$search%' or `username` LIKE '%$search%' or `email` LIKE '%$search%' or `phone` LIKE '%$search%' or `address` LIKE '%$search%' or `salary` LIKE '%$search%' ORDER BY id DESC";
 if(!empty($user_sql)){
 
-$result = mysqli_query($db, $user_sql);    
+$user_query = mysqli_query($db, $user_sql); 
+$user = mysqli_fetch_assoc($user_query);   
  } 
   
-  if(mysqli_num_rows($result) == 0) {
+  if(mysqli_num_rows($user_query) == 0) {
 
-      header("Location:admin.php?adminpage=adminRoleUser&IDrole=$IDrole");
-    
+echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole';
+</script>";   
  }
 
-}
+  $role1_sql = "SELECT * FROM role where id = '$IDrole'";
+  if($role1_query = mysqli_query($db,$role1_sql)) {
+  $role1 = mysqli_fetch_assoc($role1_query);
+
+ }
+
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Homepage</title>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="style/index.css">
-  <link rel="stylesheet" href="style/header.css">
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</head>
-<body>
-  
-
-  <div class = "header">
-    <h3 align="center">User table</h3>
+<div class = "header">
+    <h3 align="center">Users have <?= $role1['name']; ?> Role</h3>
   </div> <br>
-  <div class="container" style="margin-top: 50px;">
-      <div class="float-left">
-        <button type="button" class="btn btn-primary"><a href="admin.php?adminpage=addUser">Add New User</a></button>
-      </div>
 
-      <div class="float-right">
+  
+  <div class="container">
 
-        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextUser">
-            <button class="btn btn-outline-success" type="submit" name="searchUser">Search</button>
-          </form>
+ <div class="float-left">
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add User</button>
+  </div>
 
-      </div>
+  <div class="float-right">
+ <form  class="form-inline" action="admin.php?adminpage=search&IDrole=<?=$IDrole;?>" method="post" enctype="multipart/form-data">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRoleUser">
+      <button class="btn btn-outline-success" type="submit" name="searchRoleUser">Search</button>
+    </form> </div>
 
       <div class="clearfix"></div>
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Username</th>
-            <th scope="col">Password</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Address</th>
-            <th scope="col">Salary</th>
-            <th scope="col">Department</th>
-            <th scope="col">Team</th>
-            <th scope="col">Role</th>
-            <th scope="col">Date Created</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-            <?php
-while ($res = mysqli_fetch_array($result)) {
-  // prepare query by id
-  $departmentSql = "SELECT name FROM department WHERE id = " . $res['id_department'];
-  $teamSql = "SELECT name FROM team WHERE id = " . $res['id_team'];
-  $roleSql = "SELECT name FROM role WHERE id = " . $res['id_role'];
 
-  // get result
-  $departmentResult = mysqli_query($db, $departmentSql);
-  $teamResult = mysqli_query($db, $teamSql);
-  $roleResult = mysqli_query($db, $roleSql);
 
-  //fetch to array
-  $departmentName = mysqli_fetch_array($departmentResult);
-  $teamName = mysqli_fetch_array($teamResult);
-  $roleName = mysqli_fetch_array($roleResult);
+    <div class="row">
+        <div class="col-md-12 col-md-10 col-md-offset-1">
+            <table class="table">
+            
+                <thead class="thead-dark">
+                    <tr>
+                       <th>list</th>                  
+                        <th>Username</th>               
+                        <th>Email</th>
+                        <th>Phone</th>                        
+                       <th>Salary</th>
+                      <th>Address</th>
 
-  echo "<tr>";
-  echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['username'] . "</td>";
-  echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['password'] . "</td>";
-  echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['email'] . "</td>";
-  echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['phone'] . "</td>";
-  echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['address'] . "</td>";
-  echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['salary'] . "</td>";
-  echo "<td class=\"cell-breakWord\" align=\"center\">" . $departmentName[0] . "</td>";
-  echo "<td class=\"cell-breakWord\" align=\"center\">" . $teamName[0] . "</td>";
-  echo "<td class=\"cell-breakWord\" align=\"center\">" . $roleName[0] . "</td>";
-  echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['date_created'] . "</td>";
-  echo "<td align=\"center\"><button type=\"button\" class=\"btn btn-primary edit\"><a href=\"admin.php?adminpage=editUser&id=$res[id]\">Edit</a></button> | <button type=\"button\" class=\"btn btn-danger delete\"><a href=\"admin.php?adminpage=deleteUser&id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></button></td>";
-}
+                        <th>Department</th>
+                        <th>Team</th>
+                        <th>Role</th>
+                        <th>Date Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                     
+                    <tr>
+                         <?php 
+                         $list = 0;
+                          do {
+                            $list = $list + 1;  
+                            $IDdepartment = $user['id_department'];
+                            $IDteam = $user['id_team'];
+                            $IDrole = $user['id_role']; 
+
+
+                           $departmentSql = "SELECT * FROM department WHERE id = '$IDdepartment'";
+                          $teamSql = "SELECT * FROM team WHERE id = '$IDteam' ";
+                           $roleSql = "SELECT * FROM role WHERE id = '$IDrole' ";
+
+                                // get result
+                           
+
+                          if($departmentResult = mysqli_query($db, $departmentSql)){
+                          $departmentName = mysqli_fetch_assoc($departmentResult);
+
+                          }
+
+                           if($teamResult = mysqli_query($db, $teamSql)) {
+                             $teamName = mysqli_fetch_assoc($teamResult);
+                           }
+
+
+                           if($roleResult = mysqli_query($db, $roleSql)){
+
+                            $roleName = mysqli_fetch_assoc($roleResult);
+
+                           }
+
+                              //fetch to array
+                           
+
+
+
+                            ?>
+                      
+
+                      <td>
+                           
+                                <?= $list; ?>
+                                                 
+                        </td>
+                      
+
+
+                              <td class="" align="center"><?= $user['username']; ?></a>
+                              </td>
+
+                               <td class="" align="center"><?= $user['email']; ?>
+                              </td>
+
+
+                              <td class="" align="center"><?= $user['phone']; ?>
+                              </td>
+
+                              <td class="" align="center"><?= $user['salary']; ?>
+                              </td>
+
+                              <td class="" align="center"><?= $user['address']; ?>
+                              </td>
+
+
+                                
+
+                                 <td class="" align="center"><?= $departmentName['name']; ?>
+                              </td>                               
+
+                                 <td class="" align="center"><?= $teamName['name']; ?>
+                              </td>   
+
+
+                               <td class="" align="center"><?= $roleName['name']; ?>
+                              </td>
+
+                            
+
+                              <td class="" align="center"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?>
+                              </td>
+
+                         <td align="center">
+                      
+
+                        <a href = "admin.php?adminpage=deleteRoleUser&IDrole=<?=$user['id_role'];?>&ID=<?=$user['id'];?>" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span> Remove</a>
+                        </td>
+                  
+                    </tr>
+                  <?php 
+
+                      } while($user = mysqli_fetch_assoc($user_query));
+                   ?>
+
+                                       
+                
+                    
+
+                 
+
+                </tbody>
+
+            </table>
+            
+        </div>
+    </div>
+</div>
+
+
+<?php 
+ }
 ?>
-        </tbody>
-      </table>
+
+
+<?php  
+    if(isset($_GET['IDrole'])) {
+      $IDrole1 = $_GET['IDrole'];
+    if(isset($_POST['add'])) {
+
+      if(isset($_POST['userRole'])) {
+       $userRole = $_POST['userRole'];
+       $userR = "";
+
+
+      foreach($userRole as $userR) 
+ {
+
+       $userUpdate = "UPDATE user set id_role = '$IDrole1' where username = '$userR' ";
+       $userUpdate_query = mysqli_query($db, $userUpdate);
+       
+
+  }  
+
+      echo "<script>
+alert('add successfully');
+window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole1';
+</script>";
+         }  
+
+          }
+
+    $user_sql = "SELECT * FROM user where id_role != '$IDrole1'";
+    $user_query = mysqli_query($db,$user_sql);
+    $user = mysqli_fetch_assoc($user_query);
+
+  ?>
+    
+
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <form method="POST" action="admin.php?adminpage=adminRoleUser&IDrole=<?=$IDrole1;?>" class="beta-form-checkout">
+
+        <div class="modal-header">
+         <div class="float-left">
+          <h4 class="modal-title">List of users </h4></div>
+        </div>
+        <div class="modal-body">
+          <?php
+              if(mysqli_num_rows($user_query) > 0) {
+             do { 
+          ?>
+                
+          <div class="checkbox">
+            <label><input type="checkbox" name="userRole[]" value="<?= $user['username']; ?>"> <?= $user['username']; ?> </label>
+            </div>
+
+            <?php
+             } while($user = mysqli_fetch_assoc($user_query));
+             } else {
+              echo "There are no users in other roles!";
+             }
+            ?>
+
+        </div>
+        <div class="modal-footer">
+          <input type="submit" name="add" value="submit" class="btn btn-primary">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        </div>
+      </form>
+      </div>
+      
+    </div>
   </div>
-</body>
-</html>
+
+
+
 <?php
 }
 
-
+}
 ?>
 
 
@@ -922,8 +1093,10 @@ if(isset($_POST['searchOrder'])) {
 
  if(mysqli_num_rows($order_query) == 0) {
 
-      header("Location:admin.php?adminpage=adminBookOrder");
-    
+echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminBookOrder';
+</script>";        
  }
 
  ?>
@@ -1063,6 +1236,155 @@ if(isset($_POST['searchOrder'])) {
                 </tbody>
 
             </table>
+        </div>
+    </div>
+</div>
+
+<?php
+}
+?>
+
+
+
+
+<?php 
+
+if(isset($_POST['searchTraining'])) {
+  $search=$_POST['searchtextTraining'];
+  if(empty($search)){
+    header("Location:admin.php?adminpage=adminTraining");
+  }
+  
+  $training_sql = "SELECT * FROM training WHERE `id` LIKE '%$search%' OR `training_name` LIKE '%$search%' OR `start_date` LIKE '%$search%' OR end_date LIKE '%$search%' OR description LIKE '%$search%' OR `max_trainees` LIKE '%$search%' OR `number_trainees` LIKE '%$search%'";
+  if($training_query = mysqli_query($db,$training_sql)) {
+  $training = mysqli_fetch_assoc($training_query);
+
+ }
+
+ if(mysqli_num_rows($training_query) == 0) {
+
+  echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminTraining';
+</script>";   
+   }
+
+ $list = 0;
+ ?>
+
+
+
+
+  
+  <div class = "header">
+    <h3 align="center">Training course</h3>
+  </div> <br>
+
+  
+  <div class="container" style="margin-top: 50px;">
+    <div class="float-left">
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addTraining" >Add new training course</a></button>
+
+  </div>
+
+ <div class="float-right">
+        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextTraining">
+            <button class="btn btn-outline-success" type="submit" name="searchTraining">Search</button>
+          </form>
+      </div>
+
+      <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-md-10 col-md-offset-1">
+            <table class="table">
+            
+                <thead class="thead-dark">
+                    <tr>
+                       <th>List</th>                  
+                        <th>Training Course Name</th> 
+                        <th>Trainer</th>                                                                               
+                        <th>Description</th>
+                        <th> Max number of trainees</th> 
+                      <th>  number of trainees</th> 
+                        <th>Start Date</th>
+                       <th>End Date</th>                        
+                        
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                     
+                    <tr>
+                         <?php 
+                          do {
+                            $list = $list + 1;   
+
+                            $IDtrainer = $training['id_trainer'];
+                            $trainer_sql = "SELECT * FROM user where id = '$IDtrainer'";
+                          if($trainer_query = mysqli_query($db,$trainer_sql)) {
+                           $trainer = mysqli_fetch_assoc($trainer_query);
+                                                                            }            
+
+
+                            ?>
+                      
+
+                                <td>
+                           
+                                <?= $list; ?>
+                                                 
+                                </td>
+                      
+
+
+                              <td class="" align="center"><a href="admin.php?adminpage=adminTrainee&IDtraining=<?=$training['id'];?>" style="color: black;"><strong><?= $training['training_name']; ?></strong>
+                             </td>
+
+                              <td class="" align="center"><?= $trainer['username']; ?>
+                              </td>
+
+                               <td class="" align="center"><?= $training['description']; ?>
+                              </td>
+
+                               <td class="" align="center"><?= $training['max_trainees']; ?>
+                              </td>
+
+                               <td class="" align="center"><?= $training['number_trainees']; ?>
+                              </td>
+
+                               <td class="" align="center"><?php if(isset($training['start_date'])) {  echo date("d-m-Y",strtotime($training['start_date'])); } ?>
+                              </td>
+
+                               <td class="" align="center"><?php if(isset($training['end_date'])) {  echo date("d-m-Y",strtotime($training['end_date'])); } ?>
+                              </td>
+
+                                                                                       
+
+                         <td align="center">
+                        <a href = "admin.php?adminpage=editTraining&ID=<?=$training['id'];?>" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-remove"></span> Edit</a>
+                        <a href = "admin.php?adminpage=deleteTraining&ID=<?=$training['id'];?>" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>Delete</a>
+                        </td>
+                  
+                    </tr>
+                  <?php 
+
+                      } while($training = mysqli_fetch_assoc($training_query));
+                   ?>
+
+                                       
+                
+                    
+
+                 
+
+                </tbody>
+
+            </table>
+             
         </div>
     </div>
 </div>

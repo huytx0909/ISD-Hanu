@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set("Asia/Ho_Chi_Minh");
+
  if(isset($_GET['ID'])) { 
    $IDbook = $_GET['ID'];
 
@@ -43,9 +45,12 @@ if (isset($_POST['register_button'])) {
 			$book1_query = mysqli_query($db, $book1_sql);
 
 
-			header("location: admin.php?adminpage=adminBook"); //redirect to home after registering successfully
+			header("location: admin.php?adminpage=adminBookOrder"); //redirect to home after registering successfully
                
 	
+			} else {
+
+				$_SESSION['message'] = "there is no such user";
 			}
 
 }
@@ -64,7 +69,7 @@ if (isset($_POST['register_button'])) {
 		<h1> Add Order </h1>
  <?php 
 	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
+		echo "<div id = 'error_msg'><span class = 'error'>".$_SESSION['message']."</span></div";
 		unset($_SESSION['message']);
 	} 
 	?>

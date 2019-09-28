@@ -9,7 +9,11 @@ if (isset($_POST['register_button'])) {
     
 	$sql1 = "SELECT * FROM department WHERE name = '$name'";
 	$result1 = mysqli_query($db, $sql1); 
-	if (mysqli_num_rows($result1) >= 1) {
+	
+	if (ctype_alpha(str_replace(' ', '', $name)) === false) {
+   $_SESSION['message']  = 'Name must contain letters and spaces only';
+	}
+	else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] = "department existed in database";
 	} else {
 		
