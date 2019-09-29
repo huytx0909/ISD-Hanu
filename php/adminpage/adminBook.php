@@ -36,15 +36,15 @@
             
                 <thead class="thead-dark">
                     <tr>
-                       <th>list</th>                  
-                        <th>book title</th>               
-                        <th>author</th>
-                        <th>image</th>                        
-                        <th>publication date</th>
-                        <th>prize($)</th>
-                        <th>status</th>
-                        <th>max expired days</th>
-                        <th>category</th>
+                       <th>List</th>                  
+                        <th>Book Title</th>               
+                        <th>Author</th>
+                        <th>Image</th>                        
+                        <th>Publication Date</th>
+                        <th>Prize($)</th>
+                        <th>Status</th>
+                        <th>Max Expired Days</th>
+                        <th>Category</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

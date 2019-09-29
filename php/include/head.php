@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="style/header.css">
 	<link rel="stylesheet" href="style/index.css">
 	<link rel="stylesheet" href="style/add.css">
+	<link rel="stylesheet" href="style/msg.css">
 	<script src="https://kit.fontawesome.com/b7e0631a93.js"></script>
 	
 

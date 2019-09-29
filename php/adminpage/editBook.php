@@ -1,4 +1,5 @@
 <?php 
+$success = "";
   if(isset($_GET['ID'])) {
 
        $book_ID = $_GET['ID']; 
@@ -18,7 +19,7 @@ if (isset($_POST['update'])) {
 	$image = $_POST['image'];
 
     if(!is_numeric($prize) || $prize < 0) {
-       $_SESSION['message'] = "prize has to be numberic and greater than 0";
+       $_SESSION['message'] = "Prize has to be numberic and greater than 0";
 	}
       else {
 
@@ -31,7 +32,7 @@ if (isset($_POST['update'])) {
       }
      
    
-     if(!empty($image)) {
+    if(!empty($image)) {
 
 
     $image0_sql= "SELECT * from image where url = '$image'";
@@ -50,26 +51,16 @@ if (isset($_POST['update'])) {
     if($image1 = mysqli_fetch_assoc($image1_query)) {
     $IDimage = $image1['id'];
      }
-
- $sql = "UPDATE book set book_title = '$title', author_name = '$authorName', date_publication = '$datePublication', prize = '$prize', max_expired_day = '$max_expired_day', id_category = '$IDcategory', id_image = '$IDimage', status = '$status' WHERE id = '$book_ID'";
-			$result = mysqli_query($db, $sql);
-			
-			
-			header("location: admin.php?adminpage=adminBook"); //redirect to home after registering successfully
                
-
-               
-
           }  else {
 
 
             $sql = "UPDATE book set book_title = '$title', author_name = '$authorName', date_publication = '$datePublication', prize = '$prize', max_expired_day = '$max_expired_day', id_category = '$IDcategory', status = '$status' WHERE id = '$book_ID'";
 			$result = mysqli_query($db, $sql);
 			
-			$message = "edit successfully";
-echo "<script type='text/javascript'>alert('$message');</script>";
-			
-			 //redirect to home after registering successfully
+			$success = "<div class='success' id='success'>
+							Success.
+				  		</div>";           
                
 
 
@@ -108,20 +99,26 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 
 
 <div class = "header">
+	<button type="submit" class="btn btn-primary float-left" name="Submit">
+		<a href="admin.php?adminpage=adminBook">
+			<i class="fas fa-chevron-left"></i>
+			Back
+		</a>
+	</button>
 	<h2>Edit Book</h2>
 </div>
 
 <div class="container">
 	<div class="main">
-		<?php 
-		if (isset($_SESSION['message'])) {
-			echo "<div id = 'error_msg'><span class='error'>".$_SESSION['message']."</span></div>";
-			unset($_SESSION['message']);
-		} 
-		?>
-
 		<form method="POST" action="admin.php?adminpage=editBook&ID=<?= $book['id'];?>" class="form beta-form-checkout">
 			<div class="form-group">
+				<?php 
+					echo $success;
+					if (isset($_SESSION['message'])) {
+					echo "<div class='error'>".$_SESSION['message']."</div>";
+					unset($_SESSION['message']);
+					} 
+					?>
 				<label for="title">Book title:</label>
 				<input type="text" name="title" class="form-control" value="<?= $book['book_title']; ?>">
 			</div>

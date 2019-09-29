@@ -1,4 +1,5 @@
 <?php 
+$success =  "";
 if (isset($_POST['Submit'])) {
 	
 	  $name = $_POST['name'];
@@ -8,45 +9,53 @@ if (isset($_POST['Submit'])) {
 
     
 	$sql1 = "SELECT * FROM role WHERE name = '$name'";
-	$result1 = mysqli_query($db, $sql1); 
+	$result1 = mysqli_query($db, $sql1);
+
+	
 	if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "role existed in database";
+		$_SESSION['message'] =  "Role existed in database."; 
 	} else {
-		
-       if(!preg_match($role_pattern, $name) || strlen($name) > 255) {
-       $_SESSION['message'] = "Only alphabets and white space allowed";
-                  }
-            else { 	
-		 $sql = "INSERT INTO role(name, description) VALUES('$name', '$description')";
+		if (empty($name) || empty($description)) {
+			$_SESSION['message'] =  "All fields are required."; 
+		}else if(!preg_match($role_pattern, $name) || strlen($name) > 255){
+       		$_SESSION['message'] = "Only alphabets and white space allowed."
+					; 
+        }else { 	
+			$sql = "INSERT INTO role(name, description) VALUES('$name', '$description')";
 			$result = mysqli_query($db, $sql);
 			
 
-			$message = "add successfully";
-			echo "<script type='text/javascript'>alert('$message');</script>";               
-               
-			
+			$success = "<div class='success' id='success'>
+							Success.
+				  		</div>";              	
 		} 
 	}
-	
 }
 ?>
 
 <div class = "header">
+	<button type="submit" class="btn btn-primary float-left" name="Submit">
+		<a href="admin.php?adminpage=adminRole">
+			<i class="fas fa-chevron-left"></i>
+			Back
+		</a>
+	</button>
 	<h2>Add Role</h2>
 </div>
 
 <div class="container">
 	<div class="main">
-	<?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'><span class='error'>".$_SESSION['message']."</span></div>";
-		unset($_SESSION['message']);
-	} 
-	?>
 		<form method="POST" action="admin.php?adminpage=addRole"  class="form beta-form-checkout">
 				<div class="form-group">
+					<?php 
+					echo $success;
+					if (isset($_SESSION['message'])) {
+					echo "<div class='error'>".$_SESSION['message']."</div>";
+					unset($_SESSION['message']);
+					} 
+					?>
 					<label for="name">Role Name:</label>
-					<input type="text" name="name" class="form-control" required>
+					<input type="text" name="name" class="form-control">
 				</div>
 
 				<div class="form-group">

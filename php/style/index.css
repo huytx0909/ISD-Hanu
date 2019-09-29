@@ -3,8 +3,13 @@
 	padding: 0px;
 }
 
-h2{
+.header{
 	text-align: center;
+}
+
+.header button{
+	position: absolute;
+	left:150px;
 }
 
 .container{

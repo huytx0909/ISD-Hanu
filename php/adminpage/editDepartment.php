@@ -1,4 +1,5 @@
 <?php 
+$success = "";
 if (isset($_POST['update'])) {
 if(isset($_GET['ID'])) {
 $department_ID = "";
@@ -11,18 +12,16 @@ $department_ID = "";
 	$sql1 = "SELECT * FROM department WHERE name = '$name' and id != '$department_ID'";
 	$result1 = mysqli_query($db, $sql1); 
 	if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "department existed in database";
-	} else {
-		
-       if(!preg_match($department_pattern, $name) || strlen($name) > 255) {
-       $_SESSION['message'] = "Only alphabets and white space allowed";
-                  }
-            else { 	
-		 $sql = " UPDATE department SET name = '$name', description = '$description' WHERE id ='$department_ID'";
+		$_SESSION['message'] = "Department existed in database";
+	} else {	
+       	if(!preg_match($department_pattern, $name) || strlen($name) > 255) {
+       		$_SESSION['message'] = "Only alphabets and white space allowed";
+        }else { 	
+		 	$sql = " UPDATE department SET name = '$name', description = '$description' WHERE id ='$department_ID'";
 			$result = mysqli_query($db, $sql);
-			
-
-			header("location: admin.php?adminpage=adminDepartment"); //redirect to home after registering successfully
+			$success = "<div class='success' id='success'>
+								Success.
+				  			</div>"; 
                
 			
 		} 
@@ -40,22 +39,25 @@ if(isset($_GET['ID'])) {
 
 
 <div class = "header">
+	<button type="submit" class="btn btn-primary float-left" name="Submit">
+		<a href="admin.php?adminpage=adminDepartment">
+			<i class="fas fa-chevron-left"></i>
+			Back
+		</a>
+	</button>
 	<h2>Edit Department</h2>
 </div>
 
 <div class="container">
 	<div class="main">
-		 <?php 
-			if (isset($_SESSION['message'])) {
-				echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-				unset($_SESSION['message']);
-			} 
-			?>
-			</div>
-
-
 			<form method="POST" action="admin.php?adminpage=editDepartment&ID=<?= $department_ID; ?>"  class="form beta-form-checkout">
 				<div class="form-group">
+					<?php 
+						echo $success;
+						if (isset($_SESSION['message'])) {
+						echo "<div class = 'error'>".$_SESSION['message']."</div>";
+						unset($_SESSION['message']);
+					}?>
 					<label for="name">Department Name:</label>
 					<input type="text" name="name" class="form-control" value="<?=$department['name'];?>" required>
 				</div>

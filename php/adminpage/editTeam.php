@@ -1,4 +1,5 @@
-<?php 
+<?php
+$success = ""; 
 if (isset($_POST['update'])) {
 if(isset($_GET['ID'])) {
 $team_ID = "";
@@ -18,18 +19,15 @@ $team_ID = "";
 	$sql1 = "SELECT * FROM team WHERE name = '$name' and id != '$team_ID'";
 	$result1 = mysqli_query($db, $sql1); 
 	if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "team existed in database";
+		$_SESSION['message'] = "Team existed in database";
 	} else {
-		
-       
-		 $sql = " UPDATE team SET name = '$name', description = '$description', id_department = '$IDdepartment' WHERE id ='$team_ID'";
-			$result = mysqli_query($db, $sql);
+		$sql = " UPDATE team SET name = '$name', description = '$description', id_department = '$IDdepartment' WHERE id ='$team_ID'";
+		$result = mysqli_query($db, $sql);
 			
 
-			header("location: admin.php?adminpage=adminTeam"); //redirect to home after registering successfully
-               
-			
-		
+		$success = "<div class='success' id='success'>
+							Success.
+				  		</div>";  	 	
 	}
   }	
 }
@@ -54,21 +52,26 @@ $department2_sql = "SELECT * from department where id = '$departmentID'";
 ?>
 
 <div class = "header">
+	<button type="submit" class="btn btn-primary float-left" name="Submit">
+		<a href="admin.php?adminpage=adminTeam">
+			<i class="fas fa-chevron-left"></i>
+			Back
+		</a>
+	</button>
 	<h2>Edit Team</h2>
 </div>
 
 <div class="container">
 	<div class="main">
-		<?php 
-			if (isset($_SESSION['message'])) {
-				echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-				unset($_SESSION['message']);
-			} 
-		?>
-
-
 		<form method="POST" action="admin.php?adminpage=editTeam&ID=<?= $team_ID; ?>" class="form beta-form-checkout">
 			<div class="form-group">
+				<?php 
+					echo $success;
+					if (isset($_SESSION['message'])) {
+					echo "<div class='error'>".$_SESSION['message']."</div>";
+					unset($_SESSION['message']);
+					} 
+					?>
 				<label for="name">Team Name:</label>
 				<input type="text" name="name" class="form-control" value="<?=$team['name'];?>" required>
 			</div>
