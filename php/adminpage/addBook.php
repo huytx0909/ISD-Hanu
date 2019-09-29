@@ -1,6 +1,6 @@
 <?php 
-
-if (isset($_POST['submit'])) {
+$success = "";
+if (isset($_POST['Submit'])) {
 	
 	$title = $_POST['title'];
 	$authorName = $_POST['authorName'];
@@ -12,37 +12,39 @@ if (isset($_POST['submit'])) {
 	$image = $_POST['image'];
 
 	$sql1 = "SELECT * FROM book WHERE book_title = '$title' AND author_name = '$authorName' AND date_publication = '$datePublication' ";
-	$result1 = mysqli_query($db, $sql1); 
+	$result1 = mysqli_query($db, $sql1);
+
 	if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "book existed in database";
+		$_SESSION['message'] = "Book existed in database";
 	} else {
+		if (empty($title) || empty($authorName) || empty($datePublication) || empty($prize)
+			|| empty($status) || empty($max_expired_day) || empty($category)) {
+			$_SESSION['message'] =  "All fields are required."; 
+		}else if(!is_numeric($prize) || $prize < 0) {
+	       $_SESSION['message'] = "Prize has to be numberic and greater than 0";
+		}else {
+	    $category_sql = "SELECT * from category where category_name = '$category'";
+	    $category_query = mysqli_query($db, $category_sql);
+	    if($category_q = mysqli_fetch_assoc($category_query)){
+	    $IDcategory = $category_q['id'];
+	      }
 
-	if(!is_numeric($prize) || $prize < 0) {
-       $_SESSION['message'] = "prize has to be numberic and greater than 0";
-	}
-      else {
-    $category_sql = "SELECT * from category where category_name = '$category'";
-    $category_query = mysqli_query($db, $category_sql);
-    if($category_q = mysqli_fetch_assoc($category_query)){
-    $IDcategory = $category_q['id'];
-      }
-
-    $image_sql = "INSERT INTO image(url) VALUES ('$image')";
-    $image_query = mysqli_query($db, $image_sql);
-   
-    $image1_sql = "SELECT * from image where url = '$image'";
-    $image1_query = mysqli_query($db, $image1_sql);
-    if($image1 = mysqli_fetch_assoc($image1_query)) {
-    $IDimage = $image1['id'];
+	    $image_sql = "INSERT INTO image(url) VALUES ('$image')";
+	    $image_query = mysqli_query($db, $image_sql);
+	   
+	    $image1_sql = "SELECT * from image where url = '$image'";
+	    $image1_query = mysqli_query($db, $image1_sql);
+	    if($image1 = mysqli_fetch_assoc($image1_query)) {
+	    $IDimage = $image1['id'];
      }
 
- $sql = "INSERT INTO book(book_title, author_name, date_publication, prize, status, max_expired_day, id_category, id_image) VALUES('$title', '$authorName', '$datePublication', '$prize', '$status', '$max_expired_day','$IDcategory' ,'$IDimage')";
+ 	$sql = "INSERT INTO book(book_title, author_name, date_publication, prize, status, max_expired_day, id_category, id_image) VALUES('$title', '$authorName', '$datePublication', '$prize', '$status', '$max_expired_day','$IDcategory' ,'$IDimage')";
 			$result = mysqli_query($db, $sql);
 			
 			
-$message = "add successfully";
-echo "<script type='text/javascript'>alert('$message');</script>";               
-
+	$success = "<div class='success' id='success'>
+							Success.
+				  		</div>";               
 	}
 }
 }
@@ -57,121 +59,87 @@ echo "<script type='text/javascript'>alert('$message');</script>";
  } 
 
 	?>
-	
 
-
-
-  <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Add Book </h1>
- 
-	</div>
-
-	<?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'><span class='error'>".$_SESSION['message']."</span></div>";
-		unset($_SESSION['message']);
-	} 
-	?>
-
-
-	<form method="POST" action="admin.php?adminpage=addBook" class="beta-form-checkout">
-			 <div class="form-group" style="padding: 3px;">
-			<tr>
-				<td><strong>Book title: </strong></td>
-				<td><input type="text" name="title" class="form-control" required></td>
-			</tr>
-		</div>
-
-        <div class="form-group" style="padding: 3px;">
-			<tr>
-				<td><strong>author's name: </strong></td>
-				<td>
-			<input type="text"  name="authorName" class="form-control" required>
-
-			</td>
-			</tr>
-		</div>
-        
-
-
-		<div class="form-group" style="padding: 3px;">
-		 <div class='input-group date' id='datetimepicker1'>
-			<tr>
-				<td><strong>date of publication: </strong></td>
-				<td><input type="date" name="datePublication" class="form-control" required>
-				 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span></td>
-			</tr>
-		</div>
-		</div>
-
-
-
-		 <div class="form-group" style="padding: 3px;">
-			<tr>
-				<td><strong>prize (USD): </strong></td>
-				<td><input type="text" name="prize" class="form-control" required></td>
-			</tr>
-		</div>
-  
-
-		 <div class="form-group" style="padding: 3px;">
-			<tr>
-				<td><strong>max expired day:</strong> </td>
-				<td><input type="number" min="1" max = "30" name="max_expired_day" class="form-control" required></td>
-			</tr>
-		</div>
-        		
-
-        		<div class="form-group">
-    <label for="category"><strong>category</strong></label>
-    <select  class="form-control" id="category" name="category" required>
-      <?php
-           do {
-      ?>
-      <option value="<?= $category1['category_name'] ?>"><?= $category1['category_name'] ?></option>
-      <?php
-        } while($category1 = mysqli_fetch_assoc($category1_query));
-      ?>
-    </select>
-  </div>
-
-
-   		<div class="form-group">
-    <label for="status"><strong>status</strong></label>
-    <select  class="form-control" id="status" name="status" required>
-      <option value="available">available</option>
-      <option value="unavailable">unavailable</option>
-    </select>
-  </div>
-
-
-		
- 	
-
-  <div class="form-group">
-    <label for="image"><strong>Image</strong></label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image" required>
-  </div>
-
-			 		
-			<tr>
-				<td></td>
-
-				
-				<td>
-
-	     		<button type="submit" name="submit" class="btn btn-primary">submit</button></td>
-
-			</tr>
-	</form>
-	
-	
-
+<div class = "header">
+	<button type="submit" class="btn btn-primary float-left" name="Submit">
+		<a href="admin.php?adminpage=adminBook">
+			<i class="fas fa-chevron-left"></i>
+			Back
+		</a>
+	</button>
+    <h2>Add Book</h2>
 </div>
+
+<div class="container">
+	<div class="main">
+		<form method="POST" action="admin.php?adminpage=addBook" class="form beta-form-checkout">
+			<div class="form-group">
+				<?php 
+					echo $success;
+					if (isset($_SESSION['message'])) {
+					echo "<div class='error'>".$_SESSION['message']."</div>";
+					unset($_SESSION['message']);
+					} 
+					?>
+				<label for="title">Book Title:</label>
+				<input type="text" name="title" class="form-control">
+			</div>
+
+	        <div class="form-group">
+				<label for="name">Author's Name: </label>
+				<input type="text"  name="authorName" class="form-control">
+			</div>
+	        
+			<div class="form-group">
+				<label for="date">Date of Publication:</label>
+				<input type="date" name="datePublication" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label for="prize">Prize (USD):</label>
+				<input type="text" name="prize" class="form-control">
+			</div>
+	  
+			<div class="form-group">
+				<label for="expired">Max Expired Day:</label>
+				<input type="number" min="1" max = "30" name="max_expired_day" class="form-control">
+			</div>
+	        		
+
+	        <div class="form-group">
+			    <label for="category">Category</label>
+			    <select  class="form-control" id="category" name="category">
+			    	<option></option>
+		     		<?php
+		           		do {
+		      		?>
+		      		<option value="<?= $category1['category_name'] ?>"><?= $category1['category_name'] ?></option>
+		      		<?php
+		        		} while($category1 = mysqli_fetch_assoc($category1_query));
+		      		?>
+	    		</select>
+	  		</div>
+
+	   		<div class="form-group">
+			    <label for="status">Status</label>
+			    <select  class="form-control" id="status" name="status">
+			    	<option></option>
+			    	<option value="available">available</option>
+			    	<option value="unavailable">unavailable</option>
+	    		</select>
+	  		</div>
+
+	  		<div class="form-group">
+	    		<label for="image">Image</label>
+	    		<input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
+	  		</div>	
+			
+				<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				<button type="submit" class="btn btn-primary float-right" name="Submit">Add</button>
+			
+		
+			<div class="clearfix"></div>
+		</form>
+	</div>
 </div>
 

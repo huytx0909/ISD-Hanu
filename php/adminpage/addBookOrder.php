@@ -4,7 +4,7 @@ date_default_timezone_set("Asia/Ho_Chi_Minh");
  if(isset($_GET['ID'])) { 
    $IDbook = $_GET['ID'];
 
-if (isset($_POST['register_button'])) {
+if (isset($_POST['Submit'])) {
 	  $IDbook = $_GET['ID'];
 	  $username = $_POST['username'];
 	  $type = $_POST['type'];
@@ -30,7 +30,7 @@ if (isset($_POST['register_button'])) {
          if($type == "borrow") {
          	$status = "incompleted";
 
-		 $sql = "INSERT INTO `order`(id_user, id_book, placeOrder_date, type, expired_date, status) VALUES('$IDuser', '$IDbook','$orderDate', '$type', '$expiredDate', '$status')";
+		 	$sql = "INSERT INTO `order`(id_user, id_book, placeOrder_date, type, expired_date, status) VALUES('$IDuser', '$IDbook','$orderDate', '$type', '$expiredDate', '$status')";
 
 		     } else {
 
@@ -56,54 +56,39 @@ if (isset($_POST['register_button'])) {
 }
 ?>
 
-
-
-
-
-
-  <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Add Order </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'><span class = 'error'>".$_SESSION['message']."</span></div";
-		unset($_SESSION['message']);
-	} 
-	?>
-	</div>
-
-
-	<form method="POST" action="admin.php?adminpage=addBookOrder&ID=<?=$IDbook;?>"  class="beta-form-checkout">
-		<table>
-			 <div class="form-group" align="center">
-			<tr>
-				<td><strong>Username: </strong></td>
-				<td><input type="text" name="username" class="form-control" required></td>
-			</tr>
-		</div>
-
-
-			<div class="form-group" align="center">
-   			 <td><strong>Type of order: </strong></td>
-   			<td> <select  class="form-control" id="type" name="type" required>
-    		  <option value="borrow">Borrow</option>
-     		 <option value="purchase">Purchase</option>
-   			 </select>
-   			</td>
- 			 </div>
-
-			
-			 		
-			<tr>
-				<td></td>
-				<td><input type="submit" name="register_button" value="submit" class="btn btn-primary"></td>
-			</tr>
-		</table>
-	</form>
+<div class = "header">
+	<h2>Add Order</h2>
 </div>
+
+<div class="container">
+	<div class="main">
+		<?php 
+			if (isset($_SESSION['message'])) {
+				echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
+				unset($_SESSION['message']);
+			} 
+		?>
+
+		<form method="POST" action="admin.php?adminpage=addBookOrder&ID=<?=$IDbook;?>" class="form beta-form-checkout">
+			<div class="form-group">
+				<label for="name">User Name:</label>
+				<input type="text" name="username" class="form-control" required>
+			</div>
+
+			<div class="form-group">
+		   		<label for="type">Type of Order:</label>
+		   		<select  class="form-control" id="type" name="type" required>
+		    		<option value="borrow">Borrow</option>
+		     		<option value="purchase">Purchase</option>
+		   		</select>
+		 	</div>
+
+				<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				<button type="submit" class="btn btn-primary float-right" name="Submit">Add</button>
+					
+			<div class="clearfix"></div>
+			</form>
+	</div>
 </div>
 
 <?php

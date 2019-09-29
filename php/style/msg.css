@@ -1,0 +1,27 @@
+.error{
+	padding-left:50px;
+	padding-top:10px;
+	border-radius:10px;
+	color:#b51310;
+	height: 50px;
+	border: 1px solid #b51310;
+	background-color: #FB9483;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.error button,.success button{
+	margin-right: 50px;
+}
+
+.success{
+	padding-left:50px;
+	padding-top:10px;
+	border-radius:10px;
+	color:#1A9D02;
+	height: 50px;
+	border: 1px solid #1A9D02;
+	background-color: #89F972;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

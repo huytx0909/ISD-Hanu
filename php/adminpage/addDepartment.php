@@ -1,5 +1,6 @@
 <?php 
-if (isset($_POST['register_button'])) {
+$success =  "";
+if (isset($_POST['Submit'])) {
 	
 	  $name = $_POST['name'];
       $description = $_POST['description'];
@@ -10,73 +11,57 @@ if (isset($_POST['register_button'])) {
 	$sql1 = "SELECT * FROM department WHERE name = '$name'";
 	$result1 = mysqli_query($db, $sql1); 
 	
-	if (ctype_alpha(str_replace(' ', '', $name)) === false) {
-   $_SESSION['message']  = 'Name must contain letters and spaces only';
-	}
-	else if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "department existed in database";
-	} else {
-		
-       if(!preg_match($department_pattern, $name) || strlen($name) > 100) {
-       $_SESSION['message'] = "Only alphabets and white space allowed";
-                  }
-            else { 	
-		 $sql = "INSERT INTO department(name, description) VALUES('$name', '$description')";
-			$result = mysqli_query($db, $sql);
-			
-
-			header("location: admin.php?adminpage=adminDepartment"); //redirect to home after registering successfully
-               
-			
+	if (empty($name) || empty($description)) {
+		$_SESSION['message'] =  "All fields are required.";
+	}else if (ctype_alpha(str_replace(' ', '', $name)) === false) {
+   		$_SESSION['message']  = 'Name must contain letters and spaces only';
+	} else if (mysqli_num_rows($result1) >= 1) {
+		$_SESSION['message'] = "Department existed in database";
+    }else { 	
+		$sql = "INSERT INTO department(name, description) VALUES('$name', '$description')";
+		$result = mysqli_query($db, $sql);
+		$success = "<div class='success' id='success'>
+							Success.
+				  		</div>";      		
 		} 
 	}
-	
-}
+
 ?>
 
-
-
-
-
-
-  <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Add Department </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-		unset($_SESSION['message']);
-	} 
-	?>
-	</div>
-
-
-	<form method="POST" action="admin.php?adminpage=addDepartment"  class="beta-form-checkout">
-		<table>
-			 <div class="form-group">
-			<tr>
-				<td>Department name: </td>
-				<td><input type="text" name="name" class="form-control" required></td>
-			</tr>
-		</div>
-
-			 <div class="form-group">
-		<tr>
-				<td>Department description: </td>
-				<td><div class="form-group">
- 				 <textarea class="form-control" rows="5" id="description" name="description"></textarea>
-				</div></td>
-			</tr>
-			</div>
-			 		
-			<tr>
-				<td></td>
-				<td><input type="submit" name="register_button" value="add" class="btn btn-primary"></td>
-			</tr>
-		</table>
-	</form>
+<div class = "header">
+	<button type="submit" class="btn btn-primary float-left" name="Submit">
+		<a href="admin.php?adminpage=adminDepartment">
+			<i class="fas fa-chevron-left"></i>
+			Back
+		</a>
+	</button>
+	<h2>Add Department</h2>
 </div>
+
+<div class="container">
+	<div class="main">
+			<form method="POST" action="admin.php?adminpage=addDepartment"  class="form beta-form-checkout">
+				<div class="form-group">
+					<?php 
+					echo $success;
+					if (isset($_SESSION['message'])) {
+					echo "<div class='error'>".$_SESSION['message']."</div>";
+					unset($_SESSION['message']);
+					} 
+					?>
+					<label for="name">Department Name:</label>
+					<input type="text" name="name" class="form-control">
+				</div>
+
+				<div class="form-group">
+					<label for="description">Department Description:</label>
+					<textarea class="form-control" rows="5" id="description" name="description"></textarea>
+				</div>
+
+					<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				  	<button type="submit" class="btn btn-primary float-right" name="Submit">Add</button>
+				
+				<div class="clearfix"></div>
+			</form>
+	</div>
 </div>

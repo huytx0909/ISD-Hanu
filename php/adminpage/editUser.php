@@ -1,10 +1,6 @@
 <?php
-// including the database connection file
-$nameErr = $passwordErr = $emailErr = $phoneErr = $addressErr = $salaryErr = $departmentErr = $teamErr = $roleErr = $fullnameErr = $levelErr = "";
 
-function logConsole($msg) {
-	echo "<script>console.log(" . json_encode($msg) . ")</script>";
-}
+$success = "";
 
 //getting id from url
 $id = $_GET['id'];
@@ -64,54 +60,12 @@ if (isset($_POST['update'])) {
 	// echo $password, $email, $phone, $address, $salary, $departmentName, $teamName, $roleName;
 
 	// checking empty fields
-	if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($departmentName) || empty($teamName) || empty($roleName) || empty($level) || empty($fullName)) {
-
-		if (empty($userName)) {
-			$nameErr = "Name field is empty";
-		}
-
-		if (empty($password)) {
-			$passwordErr = "Password field is empty";
-		}
-
-		if (empty($fullName)) {
-			$fullnameErr = "Full Name field is empty";
-		}
-
-		if (empty($email)) {
-			$emailErr = "Email field is empty";
-		}
-
-		if (empty($phone)) {
-			$phoneErr = "Phone field is empty";
-		}
-
-		if (empty($address)) {
-			$addressErr = "Address field is empty";
-		}
-
-		if (empty($departmentName)) {
-			$departmentErr = "Department field is empty";
-		}
-
-		if (empty($teamName)) {
-			$teamErr = "Team field is empty";
-		}
-
-		if (empty($roleName)) {
-			$roleErr = "Role field is empty";
-		}
-
-		if (empty($level)) {
-			$levelErr = "level field is empty";
-		} 
-	} 
-
-	else if(ctype_alpha(str_replace(' ', '', $fullName)) === false) {
-			$fullnameErr = "Full Name could not contain numbers";
-		}
-
-	 else {
+	if (mysqli_num_rows($result1) >= 1) {
+		$_SESSION['message'] =  "User existed in database.";
+	}else{ 
+	 	if(ctype_alpha(str_replace(' ', '', $fullName)) === false){
+			$_SESSION['message'] = "Full Name could not contain numbers."
+		}else{
 		// query id from name
 		$departmentIdRs = mysqli_fetch_array(mysqli_query($db, "SELECT id FROM department WHERE name = '$departmentName'"));
 		$teamIdRs = mysqli_fetch_array(mysqli_query($db, "SELECT id FROM team WHERE name = '$teamName'"));
@@ -130,84 +84,74 @@ if (isset($_POST['update'])) {
 
 		$result = mysqli_query($db, "UPDATE user SET username = '$userName', fullName = '$fullName', password = '$password', email = '$email', phone = '$phone',
 		address = '$address', salary = '$salary', id_department = $departmentIdRs[0], id_team=$teamIdRs[0], id_role=$roleIdRs[0], level = '$level' WHERE id=$id");
-		//redirectig to the display page. In our case, it is index.php
-		header("Location: admin.php?adminpage=adminUser");
+		$success = "<div class='success' id='success'>
+							Success.
+				  		</div>";  
 	}
+}
 }
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Edit</title>
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" href="style/edit.css">
-	<link rel="stylesheet" href="style/header.css">
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</head>
 <body>
-	
+	<div class = "header">
+		<button type="submit" class="btn btn-primary float-left" name="Submit">
+				<a href="admin.php?adminpage=adminUser">
+					<i class="fas fa-chevron-left"></i>
+					Back
+				</a>
+		</button>
+		<h2>Edit User</h2>
+	</div>
 
 	<div class="container">
-
 		<div class="main">
-			<h2 style="text-align: center;">Edit</h2>
-
 			<form action="" method="post" name="form1" class="form">
 
 				  <div class="form-group">
-				    <label for="username">User Name:</label><br>
-				    <span class="error"><?php echo $nameErr; ?></span>
+				  	<?php 
+					echo $success;
+					if (isset($_SESSION['message'])) {
+					echo "<div class='error'>".$_SESSION['message']."</div>";
+					unset($_SESSION['message']);
+					} 
+					?>
+				    <label for="username">User Name:</label>
 				    <input type="text" class="form-control" name="username" value=<?php echo $userName; ?>>
 				  </div>
 
 				   <div class="form-group">
-				    <label for="name">Full Name:</label><br>
-				    <span class="error"><?php echo $fullnameErr; ?></span>
+				    <label for="name">Full Name:</label>
 				    <input type="text" class="form-control" name="fullName" value=<?php echo $fullName; ?>>
 				  </div>
 
 				  <div class="form-group">
-				    <label for="password">Password:</label><br>
-				    <span class="error"><?php echo $passwordErr; ?></span>
+				    <label for="password">Password:</label>
 				    <input type="password" class="form-control" name="password" value=<?php echo $password; ?>>
 				  </div>
 
 				  <div class="form-group">
-				    <label for="email">Email:</label><br>
-				    <span class="error"><?php echo $emailErr; ?></span>
+				    <label for="email">Email:</label>
 				    <input type="text" class="form-control" name="email" value=<?php echo $email; ?>>
 				  </div>
 
 				   <div class="form-group">
-				    <label for="phone">Phone:</label><br>
-				    <span class="error"><?php echo $phoneErr; ?></span>
+				    <label for="phone">Phone:</label>
 				    <input type="text" class="form-control" name="phone" value=<?php echo $phone; ?>>
 				  </div>
 
 				  <div class="form-group">
-				    <label for="address">Address:</label><br>
-				    <span class="error"><?php echo $addressErr; ?></span>
+				    <label for="address">Address:</label>
 				    <input type="text" class="form-control" name="address" value=<?php echo $address; ?>>
 				  </div>
 
 				  <div class="form-group">
-				    <label for="salary">Salary:</label><br>
-				    <span class="error"><?php echo $salaryErr; ?></span>
+				    <label for="salary">Salary:</label>
 				    <input type="text" class="form-control" name="salary" value=<?php echo $salary; ?>>
 				  </div>
 				<div class="select-group">
 				  <div class="form-group select">
-				  		<label for="id_department">Department:</label><br>
-				  		<span class="error"><?php echo $departmentErr; ?></span>
-				  		<br>
-				    	<select class="custom-select" name="id_department">
+				  		<label for="id_department">Department:</label>
+				    	<select class="form-control" name="id_department">
 							<?php
 while ($res = mysqli_fetch_array($departmentResult)) {?>
 					      	<option>
@@ -220,10 +164,8 @@ while ($res = mysqli_fetch_array($departmentResult)) {?>
 				  </div>
 
 				  <div class="form-group select">
-				  		<label for="id_team">Team:</label><br>
-				  		<span class="error"><?php echo $teamErr; ?></span>
-				  		<br>
-				    	<select class="custom-select" name="id_team">
+				  		<label for="id_team">Team:</label>
+				    	<select class="form-control" name="id_team">
 							<?php
 while ($res = mysqli_fetch_array($teamResult)) {?>
 								<option>
@@ -236,10 +178,8 @@ while ($res = mysqli_fetch_array($teamResult)) {?>
 				  </div>
 
 				    <div class="form-group select">
-				    	<label for="id_role">Role:</label><br>
-				    	<span class="error"><?php echo $roleErr; ?></span>
-				    	<br>
-					   <select class="custom-select" name="id_role">
+				    	<label for="id_role">Role:</label>
+					   	<select class="form-control" name="id_role">
 							<?php
 while ($res = mysqli_fetch_array($roleResult)) {?>
 								<option>
@@ -252,21 +192,19 @@ while ($res = mysqli_fetch_array($roleResult)) {?>
 
 					</div>
    				<div class="form-group select">
-    			<label for="level">Level:</label><br>
-    			   	<span class="error"><?php echo $levelErr; ?></span>
-
-    		  	<br>
-    			<select  class="form-control" id="level" name="level">
-      			<option value="level 1" <?php if($level == "level 1") { ?> selected="selected"  <?php } ?> >level 1</option>
-      			<option value="level 2" <?php if($level == "level 2") { ?> selected="selected"  <?php } ?> >level 2</option>
-    			</select>
-  </div>
+    				<label for="level">Level:</label>
+    				<select  class="form-control" id="level" name="level">
+    					<option></option>
+      					<option value="level 1" <?php if($level == "level 1") { ?> selected="selected"  <?php } ?> >level 1</option>
+      					<option value="level 2" <?php if($level == "level 2") { ?> selected="selected"  <?php } ?> >level 2</option>
+    				</select>
+  				</div>
 
 
 				</div>
 
-			   	<button type="reset" class="btn btn-danger float-right" name="cancel">Cancel</button>
-			  	<button type="submit" class="btn btn-primary float-right" name="update">Update</button>
+			   		<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				  	<button type="submit" class="btn btn-primary float-right" name="update">Update</button>
 
 			  <div class="clearfix"></div>
 			</form>

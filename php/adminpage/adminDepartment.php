@@ -9,16 +9,12 @@
 
   
   <div class = "header">
-    <h3 align="center">Department table</h3>
-  </div> <br>
+    <h2>Department Table</h2>
+  </div>
 
-  
-  <div class="container" style="margin-top: 50px;">
+  <div class="container">
     <div class="float-left">
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addDepartment">Add new department</a></button>
-
-           
-         
+        <button type="button" class="btn btn-primary"><a href="admin.php?adminpage=addDepartment">Add new department</a></button>        
   </div>
 
  <div class="float-right">
@@ -29,60 +25,38 @@
       </div>
 
       <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
-            <table class="table">
-             
+      <table class="table">
                 <thead class="thead-dark">
                     <tr>
                        <th>list</th>                  
                         <th>Department</th>
                         <th>Description</th>
-
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                   
-                     
+                <tbody> 
                     <tr>
                          <?php do { 
                           $list = $list + 1;   ?>
                       
 
                       <td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                        </td>
+                          <?= $list; ?>                            
+                      </td>
                       
-
-
-                        <td class="" align="center"><a href="admin.php?adminpage=adminDepartmentTeam&IDdepartment=<?=$department['id'];?>" style="color: black;"><strong><?= $department['name']; ?></strong>
-                             </a></td>
-
-                       <td class="" align="center"><?= $department['description']; ?>
-                              </td>
-                           
-                         <td align="center">
-                        <a href = "admin.php?adminpage=editDepartment&ID=<?=$department['id'];?>" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        <a href = "admin.php?adminpage=deleteDepartment&ID=<?=$department['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span>Delete</a>
-                        </td>
-                  
+                      <td align="center" class="cell-breakWord"><a href="admin.php?adminpage=adminDepartmentTeam&IDdepartment=<?=$department['id'];?>"><strong><?= $department['name']; ?></strong></a></td>
+                      <td align="center" class="cell-breakWord"><?= $department['description']; ?></td>   
+                      <td align="center">
+                        <a href = "admin.php?adminpage=editDepartment&ID=<?=$department['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                        <i class="far fa-edit"></i></a>
+                        <a href = "admin.php?adminpage=deleteDepartment&ID=<?=$department['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <i class="far fa-trash-alt"></i></a>
+                      </td>
                     </tr>
                   <?php } while($department = mysqli_fetch_assoc($department_query)); ?>
 
-                                       
-                
-                    
-
-                 
-
                 </tbody>
            
-
             </table>
          
         </div>

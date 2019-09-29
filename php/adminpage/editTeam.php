@@ -1,5 +1,6 @@
-<?php 
-if (isset($_POST['register_button'])) {
+<?php
+$success = ""; 
+if (isset($_POST['update'])) {
 if(isset($_GET['ID'])) {
 $team_ID = "";
  $team_ID = $_GET['ID']; 
@@ -18,18 +19,15 @@ $team_ID = "";
 	$sql1 = "SELECT * FROM team WHERE name = '$name' and id != '$team_ID'";
 	$result1 = mysqli_query($db, $sql1); 
 	if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "team existed in database";
+		$_SESSION['message'] = "Team existed in database";
 	} else {
-		
-       
-		 $sql = " UPDATE team SET name = '$name', description = '$description', id_department = '$IDdepartment' WHERE id ='$team_ID'";
-			$result = mysqli_query($db, $sql);
+		$sql = " UPDATE team SET name = '$name', description = '$description', id_department = '$IDdepartment' WHERE id ='$team_ID'";
+		$result = mysqli_query($db, $sql);
 			
 
-			header("location: admin.php?adminpage=adminTeam"); //redirect to home after registering successfully
-               
-			
-		
+		$success = "<div class='success' id='success'>
+							Success.
+				  		</div>";  	 	
 	}
   }	
 }
@@ -53,73 +51,57 @@ $department2_sql = "SELECT * from department where id = '$departmentID'";
  }
 ?>
 
-
-
-
-
-
-  <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Edit team </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-		unset($_SESSION['message']);
-	} 
-	?>
-	</div>
-
-
-	<form method="POST" action="admin.php?adminpage=editTeam&ID=<?= $team_ID; ?>"  class="beta-form-checkout">
-		<table>
-			 <div class="form-group">
-			<tr>
-				<td>Team name: </td>
-				<td><input type="text" name="name" class="form-control" value="<?=$team['name'];?>" required></td>
-			</tr>
-		</div>
-
-
-			 <div class="form-group">
-			<tr>
-				<td>Team description: </td>
-				<td><div class="form-group">
- 				 <textarea class="form-control" rows="5" id="description"  name="description"><?=$team['description'];?>
- 				 	
- 				 </textarea>
-				</div></td>
-			</tr>
-	     	</div>
-
-
-	     	<div class="form-group">
-        <tr>
-        	<td>Department: </td>
-        	<td>
-    <select  class="form-control" id="department" name="department" required>
-      <?php
-           do {
-      ?>
-      <option value="<?= $department1['name'] ?>"  <?php if($department1['name'] == $department2['name']) { ?> selected="selected"  <?php } ?>    > <?= $department1['name'] ?> </option>
-
-      <?php
-        } while($department1 = mysqli_fetch_assoc($department1_query));
-      ?>
-    </select> </td>
-</tr>
-  </div>
-
-			 		
-			<tr>
-				<td></td>
-				<td><input type="submit" name="register_button" value="edit" class="btn btn-primary"></td>
-			</tr>
-		</table>
-	</form>
+<div class = "header">
+	<button type="submit" class="btn btn-primary float-left" name="Submit">
+		<a href="admin.php?adminpage=adminTeam">
+			<i class="fas fa-chevron-left"></i>
+			Back
+		</a>
+	</button>
+	<h2>Edit Team</h2>
 </div>
+
+<div class="container">
+	<div class="main">
+		<form method="POST" action="admin.php?adminpage=editTeam&ID=<?= $team_ID; ?>" class="form beta-form-checkout">
+			<div class="form-group">
+				<?php 
+					echo $success;
+					if (isset($_SESSION['message'])) {
+					echo "<div class='error'>".$_SESSION['message']."</div>";
+					unset($_SESSION['message']);
+					} 
+					?>
+				<label for="name">Team Name:</label>
+				<input type="text" name="name" class="form-control" value="<?=$team['name'];?>" required>
+			</div>
+
+			<div class="form-group">
+				<label for="description">Team Description:</label>
+		 		<textarea class="form-control" rows="5" id="description"  name="description"><?=$team['description'];?></textarea>
+			</div>
+
+			<div class="form-group">
+		        <label for="department">Department:</label>
+		    	<select  class="form-control" id="department" name="department" required>
+			      	<?php
+			           do {
+			      	?>
+			      	<option value="<?= $department1['name'] ?>"  <?php if($department1['name'] == $department2['name']) { ?> selected="selected"  <?php } ?>    > <?= $department1['name'] ?> </option>
+
+			      	<?php
+			        } while($department1 = mysqli_fetch_assoc($department1_query));
+			      	?>
+		    	</select>
+		  	</div>
+
+					 		
+				<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				<button type="submit" class="btn btn-primary float-right" name="update">Update</button>
+
+			  	<div class="clearfix"></div>
+			</form>
+	</div>
 </div>
 
 <?php

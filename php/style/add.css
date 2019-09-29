@@ -1,33 +1,15 @@
-*{
-	margin:0px;
-	padding: 0px;
-}
 
-
-/*.form{
-	width: 400px;
-	margin-left:33%;
+.form{
+	width: 500px;
+	margin-left:29%;
 	margin-top: 5%;
-}*/
-
-.container{
-	margin-top: 20px;
-	margin-bottom: 50px;
 }
 
-.form button{
-	margin-left:10px;
-	margin-top: 50px;
-}
 
-a,a:hover{
-	color: white;
-}
-
+/*add+edit-user*/
 .select {
-	height: 50px;
-	width: 100px;
 	flex:1;
+	padding-left: 3px;
 }
 
 .select-group{
@@ -35,11 +17,3 @@ a,a:hover{
 }
 
 
-
-.error {
-	color: red;
-}
-
-.success {
-	color: green;
-}

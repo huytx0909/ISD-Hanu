@@ -4,39 +4,32 @@
 	if(empty($search)){
 		header("Location:admin.php?adminpage=adminBook");
 	}
-
-
-
 	$search_sql = "SELECT * FROM Book WHERE `book_title` LIKE '%$search%' or `author_name` LIKE '%$search%' or `date_publication` LIKE '%$search%' or `prize` LIKE '%$search%' or `status` LIKE '%$search%'";
    
       if($search_query= mysqli_query($db,$search_sql)) {
      $searchbook = mysqli_fetch_assoc($search_query);	
         }
-
-
 if(mysqli_num_rows($search_query) == 0) {
+    echo "<script>
+    alert('no results');
+    window.location.href='admin.php?adminpage=adminBook';
+    </script>";      
 
-echo "<script>
-alert('no results');
-window.location.href='admin.php?adminpage=adminBook';
-</script>";      
  } 
-
     $list = 0;
-
 ?>
 
   <div class = "header">
-    <h3 align="center">Book table</h3>
-  </div> <br>
-
-  
-  <div class="container" style="margin-top: 50px;">
+    <h2>Book Table</h2>
+  </div>
+ 
+  <div class="container">
     <div class="float-left">
         <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBook" > Add new Book</a></button>
 
         <button type="button" class="btn btn-info"><a href = "admin.php?adminpage=adminBookCategory" > Book category</a></button>
-         
+
+        <button type="button" class="btn btn-warning"><a href = "admin.php?adminpage=adminBookOrder" > Book Order</a></button> 
   </div>
 
  <div class="float-right">
@@ -47,30 +40,22 @@ window.location.href='admin.php?adminpage=adminBook';
       </div>
 
       <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
-            
                 <thead class="thead-dark">
                     <tr>
-                       <th>list</th>                  
-                        <th>book title</th>               
-                        <th>author</th>
-                        <th>image</th>                        
-                        <th>publication date</th>
-                        <th>prize</th>
-                        <th>status</th>
-                        <th>max expired day</th>
-                        <th>category</th>
-
-
-                        <th>Actions</th>
-                
+                       <th>List</th>                  
+                        <th>Book Title</th>               
+                        <th>Author</th>
+                        <th>Image</th>                        
+                        <th>Publication Date</th>
+                        <th>Prize($)</th>
+                        <th>Status</th>
+                        <th>Max Expired Days</th>
+                        <th>Category</th>
+                        <th>Actions</th>                
                     </tr>
                 </thead>
-                <tbody>
-                   
-                     
+                <tbody>                    
                     <tr>
                          <?php 
                           do {
@@ -88,66 +73,44 @@ window.location.href='admin.php?adminpage=adminBook';
                             if($image_query = mysqli_query($db,$image_sql)) {
                             $image = mysqli_fetch_assoc($image_query);
                                                           }
-
-
-
                             ?>
                       
-
-                      <td  align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                        </td>
+                      <td align="center">
+                          <?= $list; ?>                       
+                      </td>
                       
+                      <td align="center" class="cell-breakWord"><?= $searchbook['book_title']; ?></a></td>
+                      <td align="center" class="cell-breakWord"><?= $searchbook['author_name']; ?></td>
+                      <td align="center"><image src="img/<?= $image['url'];?>" width="50" height="50"></td>
+                      <td align="center" class="cell-breakWord"><?php if(isset($searchbook['date_publication'])) { echo date("d-m-Y",strtotime($searchbook['date_publication'])); } ?></td>
+                      <td align="center" class="cell-breakWord"><?= $searchbook['status']; ?></td>                 
+                      <td align="center" class="cell-breakWord"><?= $searchbook['prize']; ?></td>   
+                      <td align="center" class="cell-breakWord"><?= $searchbook['max_expired_day']; ?></td>
+                      <td align="center" class="cell-breakWord"><?= $category['category_name']; ?></td>
 
+                      <td align="center">
+                        <a href = "admin.php?adminpage=editBook&ID=<?=$book['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                        <i class="far fa-edit"></i></a>
+                        
+                        <a href = "admin.php?adminpage=deleteBook&ID=<?=$book['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <i class="far fa-trash-alt"></i></a>
 
-                              <td class=""  align="center"><?= $searchbook['book_title']; ?></a>
-                              </td>
-
-                               <td class=""  align="center"><?= $searchbook['author_name']; ?>
-                              </td>
-
-
-
-                                
-
-                                <td class=""  align="center"><image src="img/<?= $image['url'];?>" width="50" height="50">
-                              </td>
-
-                                <td class=""  align="center"><?php if(isset($searchbook['date_publication'])) { echo date("d-m-Y",strtotime($searchbook['date_publication'])); } ?>
-                              </td>
-
-                                 <td class=""  align="center"><?= $searchbook['status']; ?>
-                              </td>                               
-
-                                 <td class=""  align="center"><?= $searchbook['prize']; ?>
-                              </td>   
-
-
-                               <td class=""  align="center"><?= $searchbook['max_expired_day']; ?>
-                              </td>
-
-                               <td class=""  align="center"><?= $category['category_name']; ?>
-                              </td>
-
-                         <td  align="center">
-                        <a href = "admin.php?adminpage=editBook&ID=<?=$searchbook['id'];?>" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        <a href = "admin.php?adminpage=deleteBook&ID=<?=$searchbook['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Delete</a>
-                        </td>
+                           <?php
+                           if($searchbook['status'] == "available") {
+                           ?>
+                            <a href = "admin.php?adminpage=addBookOrder&ID=<?=$book['id'];?>" class="btn btn-success" data-toogle="tooltip" title="Order">
+                            <i class="fas fa-shopping-cart"></i></a>
+                                 <?php
+                               }
+                                 ?>
+                      </td>
                   
                     </tr>
                   <?php 
 
                       } while($searchbook = mysqli_fetch_assoc($search_query));
-                   ?>
-
-                  
-
+                   ?>    
                 </tbody>
-
             </table>
         </div>
     </div>
@@ -158,7 +121,6 @@ window.location.href='admin.php?adminpage=adminBook';
 
 
 
-
 <?php 
    if(isset($_POST['searchCategory'])) {
   $search=$_POST['searchtextCategory'];
@@ -166,26 +128,21 @@ window.location.href='admin.php?adminpage=adminBook';
     header("Location:admin.php?adminpage=adminBookCategory");
   }
 
-
-
   $search_sql = "SELECT * FROM category WHERE `category_name` LIKE '%$search%'";
    $list = 0;
-   if(!empty($search_sql)){
-   
+   if(!empty($search_sql)){   
         if($search_query= mysqli_query($db,$search_sql)){
      $searchCategory = mysqli_fetch_assoc($search_query); 
      }
 }
 
  if(mysqli_num_rows($search_query) == 0) {
-
-echo "<script>
-alert('no results');
-window.location.href='admin.php?adminpage=adminBookCategory';
-</script>";   
+    echo "<script>
+    alert('no results');
+    window.location.href='admin.php?adminpage=adminBookCategory';
+    </script>";   
  } 
 ?>
-
 
  <div class = "header">
     <h3 align="center">Book category table</h3>
@@ -217,21 +174,13 @@ window.location.href='admin.php?adminpage=adminBookCategory';
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                   
-                     
+                <tbody>            
                     <tr>
                          <?php do {  $list = $list + 1;   ?>
-                      
-
                       <td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                        </td>
+                          <?= $list; ?>                          
+                      </td>
                       
-
-
                         <td class="" align="center"><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$searchCategory['id'];?>" style="color:black;"><?= $searchCategory['category_name']; ?>
                              </a></td>
                            
