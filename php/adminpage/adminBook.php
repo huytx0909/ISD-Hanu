@@ -110,7 +110,7 @@
                                 <td class="" align="center"><?= $book['prize']; ?>
                               </td>  
 
-                                 <td class="" align="center"><?= $book['status']; ?>
+                                 <td class="" align="center"><span <?php if($book['status'] == "unavailable") { ?> class="error" <?php } ?> ><?= $book['status']; ?></span>
                               </td>                               
  
 

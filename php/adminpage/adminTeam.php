@@ -22,7 +22,6 @@
     <div class="float-left">
         <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addTeam" >Add new team</a></button>
 
-           <a href = "admin.php?adminpage=addTeam" >Add new team</a>
   </div>
 
  <div class="float-right">
@@ -64,7 +63,7 @@
                             ?>
                       
 
-                                <td>
+                                <td align="center">
                            
                                 <?= $list; ?>
                                                  

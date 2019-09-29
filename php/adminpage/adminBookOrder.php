@@ -6,7 +6,6 @@
 
  }
 
-    $todayDate = date("Y/m/d");
 
 
 

@@ -10,11 +10,11 @@
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
         <a class="nav-link" href="admin.php?adminpage=adminUser
-">User list <span class="sr-only">(current)</span></a>
+">User  <span class="sr-only">(current)</span></a>
       </li>
        <li class="nav-item active">
         <a class="nav-link" href="admin.php?adminpage=adminBook
-">Book list <span class="sr-only"></span></a>
+">Book  <span class="sr-only"></span></a>
       </li>
 
        <li class="nav-item active">
@@ -26,13 +26,18 @@
         <a class="nav-link" href="admin.php?adminpage=adminTeam
 "> Team <span class="sr-only"></span></a>
       </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="admin.php?adminpage=adminTraining
+"> Training <span class="sr-only"></span></a>
+      </li>
     
 
         <li class="nav-item">
           <?php if(isset($_SESSION['admin'])) { ?>
         <a class="nav-link" href="#"><strong> <?=$_SESSION['admin']; ?> </strong> </a>
        <?php }  else { ?>
-              <a class="nav-link" href="index.php"><strong> log in </strong> </a>
+              <a class="nav-link" href="adminLogin.php"><strong> log in </strong> </a>
               <?php } ?>
 
       </li> 
@@ -40,7 +45,7 @@
 
 
        <li class="nav-item">
-        <a class="nav-link" href="index.php
+        <a class="nav-link" href="adminLogin.php
 "> Log out  </a>
       </li>
     </ul>

@@ -1,18 +1,19 @@
 <?php 
-  if(isset($_GET['IDrole'])) {
-    $IDrole = $_GET['IDrole'];
+  if(isset($_GET['IDtraining'])) {
+    $IDtraining = $_GET['IDtraining'];
 	
-  $user_sql = "SELECT * FROM user where id_role = '$IDrole'";
-  if($user_query = mysqli_query($db,$user_sql)) {
-  $user = mysqli_fetch_assoc($user_query);
+  $trainee_sql = "SELECT * FROM trainee where id_training = '$IDtraining'";
+  if($trainee_query = mysqli_query($db,$trainee_sql)) {
+  $trainee = mysqli_fetch_assoc($trainee_query);
 
  }
 
-  $role1_sql = "SELECT * FROM role where id = '$IDrole'";
-  if($role1_query = mysqli_query($db,$role1_sql)) {
-  $role1 = mysqli_fetch_assoc($role1_query);
+   $training_sql = "SELECT * FROM training where id ='$IDtraining'";
+  if($training_query = mysqli_query($db,$training_sql)) {
+  $training = mysqli_fetch_assoc($training_query);
 
  }
+
 
  $list = 0;
  ?>
@@ -23,25 +24,11 @@
 
   
   <div class = "header">
-    <h3 align="center">Users have <?= $role1['name']; ?> Role</h3>
+    <h3 align="center">Users take part in <?= $training['training_name']; ?> training course</h3>
   </div> <br>
 
   
   <div class="container">
-
- <div class="float-left">
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add User</button>
-  </div>
-
-  <div class="float-right">
- <form  class="form-inline" action="admin.php?adminpage=search&IDrole=<?=$IDrole;?>" method="post" enctype="multipart/form-data">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRoleUser">
-      <button class="btn btn-outline-success" type="submit" name="searchRoleUser">Search</button>
-    </form> </div>
-
-      <div class="clearfix"></div>
-
-
     <div class="row">
         <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
@@ -68,6 +55,12 @@
                     <tr>
                          <?php 
                           do {
+                            $IDuser = $trainee['id_user'];
+                            $user_sql = "SELECT * FROM user where id ='$IDuser'";
+                            $user_query = mysqli_query($db, $user_sql);
+                            $user = mysqli_fetch_assoc($user_query);
+
+
                             $list = $list + 1;  
                             $IDdepartment = $user['id_department'];
                             $IDteam = $user['id_team'];
@@ -105,11 +98,9 @@
                             ?>
                       
 
-                      <td>
-                           
-                                <?= $list; ?>
-                                                 
-                        </td>
+                              <td align="center">
+                                <?= $list; ?>                
+                             </td>
                       
 
 
@@ -150,14 +141,14 @@
                          <td align="center">
                       
 
-                        <a href = "admin.php?adminpage=deleteRoleUser&IDrole=<?=$user['id_role'];?>&ID=<?=$user['id'];?>" class="btn btn-danger">
+                        <a href = "admin.php?adminpage=deleteTrainee&ID=<?=$trainee['id'];?>" class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove"></span> Remove</a>
                         </td>
                   
                     </tr>
                   <?php 
 
-                      } while($user = mysqli_fetch_assoc($user_query));
+                      } while($trainee = mysqli_fetch_assoc($trainee_query));
                    ?>
 
                                        
@@ -177,86 +168,4 @@
 
 <?php 
  }
-?>
-
-
-<?php  
-    if(isset($_GET['IDrole'])) {
-      $IDrole1 = $_GET['IDrole'];
-    if(isset($_POST['add'])) {
-
-      if(isset($_POST['userRole'])) {
-       $userRole = $_POST['userRole'];
-       $userR = "";
-
-
-      foreach($userRole as $userR) 
- {
-
-       $userUpdate = "UPDATE user set id_role = '$IDrole1' where username = '$userR' ";
-       $userUpdate_query = mysqli_query($db, $userUpdate);
-       
-
-  }  
-
-      echo "<script>
-alert('add successfully');
-window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole1';
-</script>";
-         }  
-
-          }
-
-    $user_sql = "SELECT * FROM user where id_role != '$IDrole1'";
-    $user_query = mysqli_query($db,$user_sql);
-    $user = mysqli_fetch_assoc($user_query);
-
-  ?>
-    
-
- <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <form method="POST" action="admin.php?adminpage=adminRoleUser&IDrole=<?=$IDrole1;?>" class="beta-form-checkout">
-
-        <div class="modal-header">
-         <div class="float-left">
-          <h4 class="modal-title">List of users </h4></div>
-        </div>
-        <div class="modal-body">
-          <?php
-              if(mysqli_num_rows($user_query) > 0) {
-             do { 
-          ?>
-                
-          <div class="checkbox">
-            <label><input type="checkbox" name="userRole[]" value="<?= $user['username']; ?>"> <?= $user['username']; ?> </label>
-            </div>
-
-            <?php
-             } while($user = mysqli_fetch_assoc($user_query));
-             } else {
-              echo "There are no users in other roles!";
-             }
-            ?>
-
-        </div>
-        <div class="modal-footer">
-          <input type="submit" name="add" value="submit" class="btn btn-primary">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-        </div>
-      </form>
-      </div>
-      
-    </div>
-  </div>
-
-
-
-<?php
-}
 ?>
