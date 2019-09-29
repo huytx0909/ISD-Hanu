@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set("Asia/Ho_Chi_Minh");
+
  if(isset($_GET['ID'])) { 
    $IDbook = $_GET['ID'];
 
@@ -28,7 +30,7 @@ if (isset($_POST['Submit'])) {
          if($type == "borrow") {
          	$status = "incompleted";
 
-		 $sql = "INSERT INTO `order`(id_user, id_book, placeOrder_date, type, expired_date, status) VALUES('$IDuser', '$IDbook','$orderDate', '$type', '$expiredDate', '$status')";
+		 	$sql = "INSERT INTO `order`(id_user, id_book, placeOrder_date, type, expired_date, status) VALUES('$IDuser', '$IDbook','$orderDate', '$type', '$expiredDate', '$status')";
 
 		     } else {
 
@@ -43,9 +45,12 @@ if (isset($_POST['Submit'])) {
 			$book1_query = mysqli_query($db, $book1_sql);
 
 
-			header("location: admin.php?adminpage=adminBook"); //redirect to home after registering successfully
+			header("location: admin.php?adminpage=adminBookOrder"); //redirect to home after registering successfully
                
 	
+			} else {
+
+				$_SESSION['message'] = "there is no such user";
 			}
 
 }

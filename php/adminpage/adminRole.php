@@ -36,7 +36,8 @@
                 </thead>
                 <tbody> 
                     <tr>
-                         <?php do {  $list = $list + 1;   ?>
+                         <?php do {
+                           $list = $list + 1;   ?>
                       
 
                       <td align="center">

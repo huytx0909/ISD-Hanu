@@ -22,17 +22,21 @@
   </div>
 
   
-  <div class="container">
-      <div class="float-right">
-        <form  class="form-inline" action="admin.php?adminpage=search&IDrole=<?=$IDrole;?>" method="post" enctype="multipart/form-data">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRoleUser">
-            <button class="btn btn-outline-success" type="submit" name="searchRoleUser">Search</button>
-          </form>
-      </div>
+  <div class="container">  
+    <div class="float-left">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add User</button>
+    </div>
 
-      <div class="clearfix"></div>
+    <div class="float-right">
+      <form  class="form-inline" action="admin.php?adminpage=search&IDrole=<?=$IDrole;?>" method="post" enctype="multipart/form-data">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRoleUser">
+        <button class="btn btn-outline-success" type="submit" name="searchRoleUser">Search</button>
+      </form>
+    </div>
 
-      <table class="table">
+    <div class="clearfix"></div>
+
+    <table class="table">
           <thead class="thead-dark">
               <tr>
                 <th>list</th>                  
@@ -66,17 +70,20 @@
 
                     }
 
-                    if($teamResult = mysqli_query($db, $teamSql)) {
-                        $teamName = mysqli_fetch_assoc($teamResult);
-                    }
+                           if($teamResult = mysqli_query($db, $teamSql)) {
+                             $teamName = mysqli_fetch_assoc($teamResult);
+                           }
 
 
-                    if($roleResult = mysqli_query($db, $roleSql)){
-                        $roleName = mysqli_fetch_assoc($roleResult);
-                    }
-                    //fetch to array
-                    ?>
-                      
+                           if($roleResult = mysqli_query($db, $roleSql)){
+
+                            $roleName = mysqli_fetch_assoc($roleResult);
+
+                           }
+
+                              //fetch to array
+
+                            ?>     
 
                 <td align="center">
                   <?= $list; ?>                         
@@ -110,4 +117,86 @@
 
 <?php 
  }
+?>
+
+
+<?php  
+    if(isset($_GET['IDrole'])) {
+      $IDrole1 = $_GET['IDrole'];
+    if(isset($_POST['add'])) {
+
+      if(isset($_POST['userRole'])) {
+       $userRole = $_POST['userRole'];
+       $userR = "";
+
+
+      foreach($userRole as $userR) 
+ {
+
+       $userUpdate = "UPDATE user set id_role = '$IDrole1' where username = '$userR' ";
+       $userUpdate_query = mysqli_query($db, $userUpdate);
+       
+
+  }  
+
+      echo "<script>
+alert('add successfully');
+window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole1';
+</script>";
+         }  
+
+          }
+
+    $user_sql = "SELECT * FROM user where id_role != '$IDrole1'";
+    $user_query = mysqli_query($db,$user_sql);
+    $user = mysqli_fetch_assoc($user_query);
+
+  ?>
+    
+
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <form method="POST" action="admin.php?adminpage=adminRoleUser&IDrole=<?=$IDrole1;?>" class="beta-form-checkout">
+
+        <div class="modal-header">
+         <div class="float-left">
+          <h4 class="modal-title">List of users </h4></div>
+        </div>
+        <div class="modal-body">
+          <?php
+              if(mysqli_num_rows($user_query) > 0) {
+             do { 
+          ?>
+                
+          <div class="checkbox">
+            <label><input type="checkbox" name="userRole[]" value="<?= $user['username']; ?>"> <?= $user['username']; ?> </label>
+            </div>
+
+            <?php
+             } while($user = mysqli_fetch_assoc($user_query));
+             } else {
+              echo "There are no users in other roles!";
+             }
+            ?>
+
+        </div>
+        <div class="modal-footer">
+          <input type="submit" name="add" value="submit" class="btn btn-primary">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+<?php
+}
 ?>

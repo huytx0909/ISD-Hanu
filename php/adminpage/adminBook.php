@@ -86,8 +86,7 @@
 
                       <td align="center">
                         <a href = "admin.php?adminpage=editBook&ID=<?=$book['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
-                        <i class="far fa-edit"></i></a>
-                        
+                        <i class="far fa-edit"></i></a>                        
                         <a href = "admin.php?adminpage=deleteBook&ID=<?=$book['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
                         <i class="far fa-trash-alt"></i></a>
 

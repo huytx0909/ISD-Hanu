@@ -10,23 +10,22 @@ if (isset($_POST['Submit'])) {
     
 	$sql1 = "SELECT * FROM department WHERE name = '$name'";
 	$result1 = mysqli_query($db, $sql1); 
-	if (mysqli_num_rows($result1) >= 1) {
+	
+	if (empty($name) || empty($description)) {
+		$_SESSION['message'] =  "All fields are required.";
+	}else if (ctype_alpha(str_replace(' ', '', $name)) === false) {
+   		$_SESSION['message']  = 'Name must contain letters and spaces only';
+	} else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] = "Department existed in database";
-	} else {
-		if (empty($name) || empty($description)) {
-			$_SESSION['message'] =  "All fields are required.";
-       	}else if(!preg_match($department_pattern, $name) || strlen($name) > 100) {
-       		$_SESSION['message'] = "Only alphabets and white space allowed";
-        }else { 	
-		 	$sql = "INSERT INTO department(name, description) VALUES('$name', '$description')";
-			$result = mysqli_query($db, $sql);
-			$success = "<div class='success' id='success'>
+    }else { 	
+		$sql = "INSERT INTO department(name, description) VALUES('$name', '$description')";
+		$result = mysqli_query($db, $sql);
+		$success = "<div class='success' id='success'>
 							Success.
 				  		</div>";      		
 		} 
 	}
-	
-}
+
 ?>
 
 <div class = "header">

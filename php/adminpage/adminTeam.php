@@ -16,7 +16,6 @@
   <div class="container">
     <div class="float-left">
       <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addTeam" >Add new team</a></button>
-
     </div>
 
     <div class="float-right">
@@ -46,7 +45,7 @@
                           $department_sql = "SELECT * FROM department where id = '$IDdepartment'";
                           if($department_query = mysqli_query($db,$department_sql)) {
                            $department = mysqli_fetch_assoc($department_query);
-                                                                            }            
+                          }            
                       ?>
                     
                       <td align="center">
@@ -62,6 +61,7 @@
                         <a href = "admin.php?adminpage=deleteTeam&ID=<?=$team['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
                             <i class="far fa-trash-alt"></i></a>
                       </td>
+
                     </tr>
                   <?php 
 
