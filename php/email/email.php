@@ -1,17 +1,4 @@
 <?php
-// ini_set('SMTP', 'smtp.gmail.com');
-// ini_set('smtp_port',587);
-// ini_set('sendmail_from','hrm@infore');
-// ini_set('auth_username','huytx0909.hdc@gmail.com');
-// ini_set('smtp_password','huytx12345');
-
-// $to = "tuantran0722.inforevn@gmail.com";
-// $subject = "TEST EMAIL FROM HRM!";
-// $message = "hello, you have ordered this book, thanks!";
-// $headers = "From: hrm.infore@gmail.com";
-
-// mail($to, $subject, $message, $headers);
-
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -24,30 +11,73 @@ require '../../vendor/autoload.php';
 // Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
+define("MAIL_HOST", "smtp.gmail.com");
+define("SENDER_USER_NAME", "huytx0909.hdc@gmail.com");
+define("SENDER_PASSWORD", "huytx12345");
+define("SENDER_DISPLAY_NAME", "INFORE VIET NAM - HR DEPARTMENT");
+
 try {
     //Server settings
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;    
     $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+    $mail->Host       = MAIL_HOST;                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'huytx0909.hdc@gmail.com';                     // SMTP username
-    $mail->Password   = 'huytx12345';                               // SMTP password
+    $mail->Username   = SENDER_USER_NAME;                     // SMTP username
+    $mail->Password   = SENDER_PASSWORD;                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
     $mail->Port       = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('infore-hrm@gmail.com', 'INFORE VIET NAM - HR DEPARTMENT');
-    $mail->addAddress('tuantran0722.inforevn');     // Add a recipient
+    $mail->setFrom('infore-hrm@gmail.com', SENDER_DISPLAY_NAME);
     
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Confirmation Email';
-    $mail->Body    = 'Hello, You have ordered the book: <b>Book name!</b>';
-    // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    
+} catch (Exception $e) {
+    echo "Cannot set server settings. Mailer Error: {$mail->ErrorInfo}";
+}
+
+$recipient = $_POST["recipient"];
+$subject = $_POST['subject'];
+
+$bookName = $_POST['book-name'];
+$type = $_POST['type'];
+$price = $_POST['price'];
+
+$htmlContent = ' 
+    <html> 
+    <head> 
+        <title>' . $subject . '</title> 
+    </head> 
+    <body> 
+        <h1>Your request has been confirmed!</h1> 
+        <table cellspacing="0" style="border: 2px dashed #FB4314; width: 100%;"> 
+            <tr> 
+                <th>Book:</th><td>'.$bookName.'</td> 
+            </tr> 
+            <tr>
+                <th>Type:</th><td>'. $type .'</td>  
+            </tr>
+            <tr>
+                <th>Price</th>'. $price .'<td>
+            </tr>
+        </table> 
+    </body> 
+    </html>'; 
+
+    sendEmail($mail, $recipient, $subject, $htmlContent);
+ 
+
+function sendEmail($mail, $recipient, $subject, $body) {
+    try {
+    $mail->addAddress($recipient);     // Add a recipient
+    $mail->Subject = $subject;
+    $mail->Body = $body;
 
     $mail->send();
     echo 'Message has been sent';
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}  
 ?>
