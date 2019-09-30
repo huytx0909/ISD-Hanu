@@ -18,3 +18,7 @@
     </div>
   </div>
 </div>
+
+<button type='button' type='Submit' class='close' onclick='document.getElementById('error').style.display = 'none';'>
+          &times;
+        </button>

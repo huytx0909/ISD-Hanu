@@ -7,8 +7,6 @@
  }
 
 
-
-
  ?>
 	
 	<div class = "header">
@@ -16,7 +14,13 @@
 	</div>
 
 	<div class="container">
-
+  <?php
+  
+  if (isset($_SESSION['message'])) {
+    echo "<div class='error' id='error'>".$_SESSION['message']."</div>";
+    unset($_SESSION['message']);
+  }
+  ?>
     <div class="float-right">
         <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextOrder">
@@ -75,8 +79,8 @@
                           <?php
                            if($order['status'] == "incompleted") {
                           ?>
-                            <a href = "admin.php?adminpage=editBookOrder&ID=<?=$order['id'];?>" class="btn btn-success">
-                            <span class="glyphicon glyphicon-remove"></span> Returned</a>
+                            <a href = "admin.php?adminpage=editBookOrder&ID=<?=$order['id'];?>" class="btn btn-success" data-toogle="tooltip" title="Return">
+                            <i class="fas fa-undo-alt"></i></a>
                             <?php
                               }
                               ?>

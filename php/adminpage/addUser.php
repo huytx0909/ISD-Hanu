@@ -32,7 +32,7 @@ if (isset($_POST['Submit'])) {
 
 	if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] =  "User existed in database.";
-	} else{ 
+	}else{ 
 		if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role) || empty($fullName) || empty($level)) {
 			$_SESSION['message'] =  "All fields are required."; 
 		}else if(!ctype_alpha(str_replace(' ', '', $fullName))) {

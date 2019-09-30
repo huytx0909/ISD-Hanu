@@ -2,10 +2,6 @@
 <?php
 //including the database connection file
 
-function logConsole($msg) {
-	echo "<script>console.log(" . json_encode($msg) . ")</script>";
-}
-
 //fetching data in descending order (lastest entry first)
 $result = mysqli_query($db, "SELECT * FROM user ORDER BY id DESC");
 $success = "";
@@ -15,6 +11,13 @@ $success = "";
 		<h2>User table</h2>
 	</div>
 	<div class="container">
+	<?php
+  
+  if (isset($_SESSION['message'])) {
+    echo "<div class='error' id='error'>".$_SESSION['message']."</div>";
+    unset($_SESSION['message']);
+  }
+  ?>
 			<div class="float-left">
 				<button type="button" class="btn btn-primary"><a href="admin.php?adminpage=addUser">Add New User</a></button>
 				        <button type="button" class="btn btn-info"><a href = "admin.php?adminpage=adminRole" > User Role</a></button>

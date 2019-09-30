@@ -1,5 +1,7 @@
 <?php
-
+function logConsole($msg) {
+  echo "<script>console.log(" . json_encode($msg) . ")</script>";
+}
 $success = "";
 
 //getting id from url
@@ -59,12 +61,14 @@ if (isset($_POST['update'])) {
 
 	// echo $password, $email, $phone, $address, $salary, $departmentName, $teamName, $roleName;
 
-	// checking empty fields
+	$sql1 = "SELECT * FROM user WHERE username = '$userName'";
+	$result1 = mysqli_query($db, $sql1);
+
 	if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] =  "User existed in database.";
 	}else{ 
 	 	if(ctype_alpha(str_replace(' ', '', $fullName)) === false){
-			$_SESSION['message'] = "Full Name could not contain numbers."
+			$_SESSION['message'] = "Full Name could not contain numbers.";
 		}else{
 		// query id from name
 		$departmentIdRs = mysqli_fetch_array(mysqli_query($db, "SELECT id FROM department WHERE name = '$departmentName'"));
@@ -154,9 +158,7 @@ if (isset($_POST['update'])) {
 				    	<select class="form-control" name="id_department">
 							<?php
 while ($res = mysqli_fetch_array($departmentResult)) {?>
-					      	<option>
-					      	 <?php echo "<td>" . $res['name'] . "</td>" ?>
-					      	</option>
+					      	<option value=<? echo $departmentName; ?>></option>
 							<?php
 }
 ?>
@@ -168,9 +170,7 @@ while ($res = mysqli_fetch_array($departmentResult)) {?>
 				    	<select class="form-control" name="id_team">
 							<?php
 while ($res = mysqli_fetch_array($teamResult)) {?>
-								<option>
-								<?php echo "<td>" . $res['name'] . "</td>" ?>
-								</option>
+								<option value="<?php echo "<td>" . $res['name'] . "</td>" ?>"></option>
 								<?php
 }
 ?>
@@ -182,9 +182,7 @@ while ($res = mysqli_fetch_array($teamResult)) {?>
 					   	<select class="form-control" name="id_role">
 							<?php
 while ($res = mysqli_fetch_array($roleResult)) {?>
-								<option>
-								<?php echo "<td>" . $res['name'] . "</td>" ?>
-								</option>
+								<option value="<?php echo "<td>" . $res['name'] . "</td>" ?>"></option>
 								<?php
 }
 ?>

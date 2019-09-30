@@ -1,10 +1,10 @@
 <?php
 date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+$success = "";
  if(isset($_GET['IDtraining'])) { 
    $IDtraining = $_GET['IDtraining'];
 
-if (isset($_POST['register_button'])) {
+if (isset($_POST['Submit'])) {
 	  $username = $_POST['username'];
 
 
@@ -17,29 +17,32 @@ if (isset($_POST['register_button'])) {
 			$IDuser = $user['id'];
 	 $sql2 = "SELECT * FROM trainee where id_training = '$IDtraining' and id_user = '$IDuser'";
 	  $result2 = mysqli_query($db, $sql2);
-	    if(mysqli_num_rows($result2) == 0) {
+	  	if (empty($username)) {
+			$_SESSION['message'] =  "All fields are required."; 
+	    }else if(mysqli_num_rows($result2) == 0) {
 
-        
-		     	 $sql = "INSERT INTO trainee(id_training, id_user) VALUES('$IDtraining', '$IDuser')";
+		     	$sql = "INSERT INTO trainee(id_training, id_user) VALUES('$IDtraining', '$IDuser')";
 
-		     	 			$result = mysqli_query($db, $sql);
+		     	$result = mysqli_query($db, $sql);
 
-		     	 $training0_sql = "SELECT * from training where id = '$IDtraining'";
+		     	$training0_sql = "SELECT * from training where id = '$IDtraining'";
 				$training0_query = mysqli_query($db,$training0_sql);
 				$training0 = mysqli_fetch_assoc($training0_query);
 				$numberTrainee = $training0['number_trainees'] + 1;
 
-		     	 $training1_sql = "UPDATE training set number_trainees = '$numberTrainee' where id = '$IDtraining'";
+		     	$training1_sql = "UPDATE training set number_trainees = '$numberTrainee' where id = '$IDtraining'";
 				$training1_query = mysqli_query($db,$training1_sql);
 		     
-			header("location: admin.php?adminpage=adminTrainee&IDtraining=$IDtraining"); //redirect to home after registering successfully
+				$success = "<div class='success' id='success'>
+							Success.
+				  		</div>"; 
                } else {
                		$_SESSION['message'] = "User has already enrolled in the training";
                }           
 	
 			} else {
 
-				$_SESSION['message'] = "there is no such user";
+				$_SESSION['message'] = "There is no such user";
 			}
 
 }
@@ -49,47 +52,37 @@ if (isset($_POST['register_button'])) {
 		$training = mysqli_fetch_assoc($training_query);
 ?>
 
-
-
-
-
-
-  <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Enroll trainee in <?= $training['training_name']; ?>  </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'><span class = 'error'>".$_SESSION['message']."</span></div";
-		unset($_SESSION['message']);
-	} 
-	?>
-	</div>
-
-
-	<form method="POST" action="admin.php?adminpage=addTrainee&IDtraining=<?=$IDtraining;?>"  class="beta-form-checkout">
-		<table>
-			 <div class="form-group" align="center">
-			<tr>
-				<td><strong>Username: </strong></td>
-				<td><input type="text" name="username" class="form-control" required></td>
-			</tr>
-		</div>
-
-
-			
-
-			
-			 		
-			<tr>
-				<td></td>
-				<td><input type="submit" name="register_button" value="submit" class="btn btn-primary"></td>
-			</tr>
-		</table>
-	</form>
+<div class = "header">
+	<button type="submit" class="btn btn-primary float-left" name="Submit">
+		<a href="admin.php?adminpage=adminTrainee">
+			<i class="fas fa-chevron-left"></i>
+			Back
+		</a>
+	</button>
+	<h2>Enroll Trainee in <?= $training['training_name']; ?> </h2>
 </div>
+
+<div class="container">
+	<div class="main">
+		<form method="POST" action="admin.php?adminpage=addTrainee&IDtraining=<?=$IDtraining;?>" class="form beta-form-checkout">
+			<div class="form-group" align="center">
+				<?php 
+					echo $success;
+					if (isset($_SESSION['message'])) {
+					echo "<div class='error'>".$_SESSION['message']."</div>";
+					unset($_SESSION['message']);
+					} 
+					?>
+				<label for="name">Username:</label>
+				<input type="text" name="username" class="form-control">
+			</div>
+				 		
+				<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				<button type="submit" class="btn btn-primary float-right" name="Submit">Add</button>
+				
+				<div class="clearfix"></div>
+		</form>
+	</div>
 </div>
 
 <?php

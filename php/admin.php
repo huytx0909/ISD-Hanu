@@ -6,7 +6,7 @@
  ?>
 <!-- header -->
 
-     <div id="main">
+     <div id="container">
  <?php
 if(!isset($_GET['adminpage'])){
   include 'adminpage/adminUser.php';

@@ -4,17 +4,20 @@
 }
 
 .header{
+	margin-top: 20px;
 	text-align: center;
+	margin-left: 200px;
 }
 
 .header button{
 	position: absolute;
-	left:150px;
+	left:300px;
 }
 
 .container{
 	margin-top: 100px;
 	margin-bottom: 50px;
+	margin-left: 200px;
 }
 
 button a{

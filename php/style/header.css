@@ -1,15 +1,46 @@
 header{
 	align-items: center;
 	margin: auto;
-	height:100px;
 	color: white;
+}
+.navbar{
+	margin-left: 180px;
+}
+
+.collapse{
+	margin-left: 900px;
 }
 
 .collapse ul li{
-	padding-left: 90px;
-
+	padding-left: 30px;
 }
 
+.sidebar{
+	background: lightblue;
+	width: 180px;
+	height: 100%;
+	top:0;
+	left: 0;
+	position:fixed;
+}
+
+.sidebar a{
+	height: 55px;
+	width: 180px;
+}
+.sidebar ul li{
+	display: block;
+	height: 50px;
+}
+
+.sidebar ul li a{
+	color: black;
+}
+
+.sidebar ul li:hover{
+	background:  #e1e5eb;
+
+}
 /*.logout{
 	flex:1;
 	display: flex;

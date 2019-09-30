@@ -13,6 +13,13 @@
   </div>
 
   <div class="container">
+  <?php
+  
+  if (isset($_SESSION['message'])) {
+    echo "<div class='error' id='error'>".$_SESSION['message']."</div>";
+    unset($_SESSION['message']);
+  }
+  ?>
     <div class="float-left">
         <button type="button" class="btn btn-primary"><a href="admin.php?adminpage=addDepartment">Add new department</a></button>        
   </div>
