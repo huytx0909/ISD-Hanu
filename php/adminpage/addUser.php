@@ -98,7 +98,7 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 
 				   <div class="form-group">
 				    <label for="phone">Phone:</label>
-				    <input type="text" class="form-control" name="phone" placeholder="Enter phone">
+				    <input type="text" class="form-control" name="phone" minlength="10" placeholder="Enter phone">
 				  </div>
 
 				  <div class="form-group">
@@ -108,7 +108,7 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 
 				  <div class="form-group">
 				    <label for="salary">Salary:</label>
-				    <input type="text" class="form-control" name="salary" placeholder="Enter salary">
+				    <input type="number" class="form-control" name="salary" placeholder="Enter salary">
 				  </div>
 
 				<div class="select-group">
