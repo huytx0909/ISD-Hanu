@@ -88,7 +88,7 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 
 				  <div class="form-group">
 				    <label for="password">Password:</label>
-				    <input type="password" class="form-control" name="password" placeholder="Enter password">
+				    <input type="password" class="form-control" name="password" minlength="8" placeholder="Enter password">
 				  </div>
 
 				  <div class="form-group">
