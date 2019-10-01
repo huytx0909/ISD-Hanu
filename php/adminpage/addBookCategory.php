@@ -8,12 +8,13 @@ if (isset($_POST['Submit'])) {
     
 	$sql1 = "SELECT * FROM category WHERE category_name = '$name'";
 	$result1 = mysqli_query($db, $sql1); 
-	if (mysqli_num_rows($result1) >= 1) {
+	if (empty($name)) {
+			$_SESSION['message'] =  "All fields are required."; 
+       	}
+	else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] = "Book category existed in database";
 	} else {
-		if (empty($name)) {
-			$_SESSION['message'] =  "All fields are required."; 
-       	}else if(!preg_match($category_pattern, $name) || strlen($name) > 100) {
+		 if(!preg_match($category_pattern, $name) || strlen($name) > 100) {
        		$_SESSION['message'] = "Only alphabets and white space allowed";
         }else { 	
 		 	$sql = "INSERT INTO category(category_name) VALUES('$name')";

@@ -98,7 +98,6 @@ if (isset($_POST['Submit'])) {
 			
 		
 			<div class="clearfix"></div>
-		</table>
 	</form>
 </div>
 </div>

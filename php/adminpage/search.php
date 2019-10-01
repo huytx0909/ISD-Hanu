@@ -373,7 +373,6 @@ window.location.href='admin.php?adminpage=adminTeam';
     <div class="float-left">
         <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addTeam" >Add new team</a></button>
 
-           <a href = "admin.php?adminpage=addTeam" >Add new team</a>
   </div>
 
  <div class="float-right">
@@ -1339,5 +1338,609 @@ window.location.href='admin.php?adminpage=adminTraining';
 </div>
 
 <?php
+}
+?>
+
+
+
+
+<?php 
+
+if(isset($_POST['searchHoliday'])) {
+  $search=$_POST['searchtextHoliday'];
+  if(empty($search)){
+    header("Location:admin.php?adminpage=adminHoliday");
+  }
+  
+  $holiday_sql = "SELECT * FROM holiday WHERE `id` LIKE '%$search%' OR `event_name` LIKE '%$search%' OR `start_date` LIKE '%$search%' OR end_date LIKE '%$search%' OR description LIKE '%$search%'";
+  if($holiday_query = mysqli_query($db,$holiday_sql)) {
+  $holiday = mysqli_fetch_assoc($holiday_query);
+
+ }
+
+ if(mysqli_num_rows($holiday_query) == 0) {
+
+  echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminHoliday';
+</script>";   
+   }
+
+ $list = 0;
+ ?>
+
+
+
+
+  
+  <div class = "header">
+    <h3 align="center">Holiday List</h3>
+  </div> <br>
+
+  
+  <div class="container" style="margin-top: 50px;">
+    <div class="float-left">
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addHoliday" >Add new holiday event</a></button>
+
+  </div>
+
+ <div class="float-right">
+        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextHoliday">
+            <button class="btn btn-outline-success" type="submit" name="searchHoliday">Search</button>
+          </form>
+      </div>
+
+      <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-md-10 col-md-offset-1">
+            <table class="table">
+            
+                <thead class="thead-dark">
+                    <tr>
+                       <th>List</th>                  
+                        <th>Event name </th> 
+                        <th>Description</th>
+                        <th>Start Date</th>
+                       <th>End Date</th>                        
+                        
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                     
+                    <tr>
+                         <?php 
+                          do {
+                            $list = $list + 1;   
+
+                            ?>
+                      
+
+                                <td>
+                           
+                                <?= $list; ?>
+                                                 
+                                </td>
+                      
+
+
+                              <td class="" align="center"><?= $holiday['event_name']; ?>
+                             </td>
+
+                             
+                               <td class="" align="center"><?= $holiday['description']; ?>
+                              </td>
+
+           
+                               <td class="" align="center"><?php if(isset($holiday['start_date'])) {  echo date("d-m-Y",strtotime($holiday['start_date'])); } ?>
+                              </td>
+
+                               <td class="" align="center"><?php if(isset($holiday['end_date'])) {  echo date("d-m-Y",strtotime($holiday['end_date'])); } ?>
+                              </td>
+
+                                                                                       
+
+                         <td align="center">
+                        <a href = "admin.php?adminpage=editHoliday&ID=<?=$holiday['id'];?>" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-remove"></span> Edit</a>
+                        <a href = "admin.php?adminpage=deleteHoliday&ID=<?=$holiday['id'];?>" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>Delete</a>
+                        </td>
+                  
+                    </tr>
+                  <?php 
+
+                      } while($holiday = mysqli_fetch_assoc($holiday_query));
+                   ?>
+
+                                       
+                
+                    
+
+                 
+
+                </tbody>
+
+            </table>
+             
+        </div>
+    </div>
+</div>
+
+<?php
+}
+?>
+
+
+
+
+
+
+
+<?php 
+
+if(isset($_POST['searchLeave'])) {
+  $search=$_POST['searchtextLeave'];
+  if(empty($search)){
+    header("Location:admin.php?adminpage=adminLeaveApplication");
+  }
+
+  $user_sql = "SELECT * FROM user where `username` LIKE '%$search%' OR `fullName` LIKE '%$search%'";
+  $user_query = mysqli_query($db, $user_sql);
+  $user = mysqli_fetch_assoc($user_query);
+  $IDuser = $user['id'];
+  
+  $leave_sql = "SELECT * FROM leave_application where id_user = '$IDuser' OR `application_date` LIKE '%$search%' OR `leave_type` LIKE '%$search%' OR personal_reason LIKE '%$search%' OR start_date LIKE '%$search%' OR end_date LIKE '%$search%' OR status LIKE '%$search%' ORDER BY application_date ASC";
+  if($leave_query = mysqli_query($db,$leave_sql)) {
+  $leave = mysqli_fetch_assoc($leave_query);
+
+ }
+
+ if(mysqli_num_rows($leave_query) == 0) {
+
+  echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminLeaveApplication';
+</script>";   
+   }
+
+ $list = 0;
+ ?>
+
+
+
+
+  
+  <div class = "header">
+    <h2>Leave Application</h2>
+  </div> 
+
+  
+  <div class="container">
+    <div class="float-left">
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addLeaveApplication" >Add new application leave</a></button>
+
+  </div>
+
+ <div class="float-right">
+        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextLeave">
+            <button class="btn btn-outline-success" type="submit" name="searchLeave">Search</button>
+          </form>
+      </div>
+
+      <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-md-10 col-md-offset-1">
+            <table class="table">
+            
+                <thead class="thead-dark">
+                    <tr>
+                       <th>list</th>                  
+                        <th>Username</th>
+                        <th>Fullname</th>                   
+                        <th>Application date</th>
+                        <th>Leave type</th>
+                       <th>Personal reason</th>
+                        <th>Start date</th>  
+                       <th>End date</th>
+                       <th>Status</th>                        
+                      
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                     
+                    <tr>
+                         <?php 
+                          do {
+                            $list = $list + 1;
+                            $IDuser = $leave['id_user']; 
+                            $user_sql = "SELECT * FROM user where id = '$IDuser'";
+                            $user_query = mysqli_query($db, $user_sql);
+                            $user = mysqli_fetch_assoc($user_query);
+
+
+                            ?>
+                      
+
+                                <td align="center">
+                           
+                                <?= $list; ?>
+                                                 
+                                </td>
+                      
+
+
+                              <td class="" align="center" class="cell-breakWord"><?= $user['username']; ?>
+                             </td>
+
+                               <td class="" align="center" class="cell-breakWord"><?= $user['fullName']; ?>
+                              </td>
+
+                              <td class="" align="center" class="cell-breakWord"> <?php if(isset($leave['application_date'])) {  echo date("d-m-Y",strtotime($leave['application_date'])); } ?>
+                              </td>
+
+                              <td class="" align="center" class="cell-breakWord"><?= $leave['leave_type']; ?>
+                              </td>
+
+                              <td class="" align="center" class="cell-breakWord"><?= $leave['personal_reason']; ?>
+                              </td>
+
+                            
+                                 <td class="" align="center" class="cell-breakWord"> <?php if(isset($leave['start_date'])) {  echo date("d-m-Y",strtotime($leave['start_date'])); } ?>
+                              </td>    
+                               <td class="" align="center" class="cell-breakWord"> <?php if(isset($leave['end_date'])) {  echo date("d-m-Y",strtotime($leave['end_date'])); } ?>
+                              </td>
+
+                              <td align="center" class="cell-breakWord"><span <?php if($leave['status'] == "accepted") { ?> class="badge badge-success" <?php } else if($leave['status'] == "pending") { ?>  class="badge badge-warning" <?php } else { ?> class="badge badge-danger" <?php } ?>  ><?= $leave['status']; ?></span></td>                              
+
+                         <td align="center">
+                        <a href = "admin.php?adminpage=editLeaveApplication&ID=<?=$leave['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                            <i class="far fa-edit"></i></a>
+                        <a href = "admin.php?adminpage=deleteLeaveApplication&ID=<?=$leave['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                            <i class="far fa-trash-alt"></i></a>
+                        </td>
+                  
+                    </tr>
+                  <?php 
+
+                      } while($leave = mysqli_fetch_assoc($leave_query));
+                   ?>
+
+                                       
+                
+                    
+
+                 
+
+                </tbody>
+
+            </table>
+             
+        </div>
+    </div>
+</div>
+
+<?php
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php 
+
+if(isset($_POST['searchTask'])) {
+  $search=$_POST['searchtextTask'];
+  if(empty($search)){
+    header("Location:admin.php?adminpage=adminTask");
+  }
+
+  $team_sql = "SELECT * FROM team where `name` LIKE '%$search%'";
+  $team_query = mysqli_query($db, $team_sql);
+  $team = mysqli_fetch_assoc($team_query);
+  $IDteam = $team['id'];
+  
+  $task_sql = "SELECT * FROM task where id_team = '$IDteam' OR `task_name` LIKE '%$search%' OR `description` LIKE '%$search%' OR `deadline` LIKE '%$search%' OR `status` LIKE '%$search%' ORDER BY deadline DESC";
+  if($task_query = mysqli_query($db,$task_sql)) {
+  $task = mysqli_fetch_assoc($task_query);
+
+ }
+
+if(mysqli_num_rows($task_query) == 0) {
+
+  echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminTask';
+</script>";   
+   }
+
+
+  $todayDate = date("Y-m-d");
+
+ $list = 0;
+ ?>
+
+
+
+
+  
+  <div class = "header">
+    <h2>Task Management</h2>
+  </div> 
+
+  
+  <div class="container">
+    <div class="float-left">
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addTask" >Add new task!</a></button>
+
+  </div>
+
+ <div class="float-right">
+        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextTask">
+            <button class="btn btn-outline-success" type="submit" name="searchTask">Search</button>
+          </form>
+      </div>
+
+      <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-md-10 col-md-offset-1">
+            <table class="table">
+            
+                <thead class="thead-dark">
+                    <tr>
+                       <th>list</th>                  
+                        <th>Task name</th>                   
+                        <th>Team</th>                   
+                        <th>Description</th>
+                        <th>deadline</th>
+                       <th>status</th>
+                      
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                     
+                    <tr>
+                         <?php 
+                          do {
+                            $list = $list + 1;
+                            $IDteam = $task['id_team']; 
+                            $team_sql = "SELECT * FROM team where id = '$IDteam'";
+                            $team_query = mysqli_query($db, $team_sql);
+                            $team = mysqli_fetch_assoc($team_query);
+
+
+                            ?>
+                      
+
+                                <td align="center">
+                           
+                                <?= $list; ?>
+                                                 
+                                </td>
+                      
+
+
+                              <td class="" align="center" class="cell-breakWord"><?= $task['task_name']; ?>
+                             </td>
+
+                               <td class="" align="center" class="cell-breakWord"><?= $team['name']; ?>
+                              </td>
+
+                              <td class="" align="center" class="cell-breakWord"><?= $task['description']; ?>
+                              </td>
+
+                              <td class="" align="center" class="cell-breakWord" <?php if($task['deadline'] < $todayDate) { ?> style="color: red;"  <?php } ?> > <?php if(isset($task['deadline'])) {  echo date("d-m-Y",strtotime($task['deadline'])); } ?>
+                              </td>
+
+                    
+                              <td align="center" class="cell-breakWord"><span <?php if($task['status'] == "completed") { ?> class="badge badge-success" <?php } else if($task['status'] == "incompleted") { ?>  class="badge badge-danger" <?php } ?>  ><?= $task['status']; ?></span></td>                              
+
+                         <td align="center">
+                        <a href = "admin.php?adminpage=editTask&ID=<?=$task['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                            <i class="far fa-edit"></i></a>
+                        <a href = "admin.php?adminpage=deleteTask&ID=<?=$task['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                            <i class="far fa-trash-alt"></i></a>
+                        </td>
+                  
+                    </tr>
+                  <?php 
+
+                      } while($task = mysqli_fetch_assoc($task_query));
+                   ?>
+
+                                       
+                
+                    
+
+                 
+
+                </tbody>
+
+            </table>
+             
+        </div>
+    </div>
+</div>
+
+<?php 
+
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+<?php 
+
+if(isset($_POST['searchAward'])) {
+  $search=$_POST['searchtextAward'];
+  if(empty($search)){
+    header("Location:admin.php?adminpage=adminEmployeeAward");
+  }
+
+
+$user_sql = "SELECT * FROM user where `username` LIKE '%$search%' OR `fullName` LIKE '%$search%'";
+  $user_query = mysqli_query($db, $user_sql);
+  $user = mysqli_fetch_assoc($user_query);
+  $IDuser = $user['id'];
+
+  
+  $award_sql = "SELECT * FROM employee_award WHERE id_user = '$IDuser' OR `award_title` LIKE '%$search%' OR `gift_item` LIKE '%$search%' OR `award_amount` LIKE '%$search%' OR `award_date` LIKE '%$search%'  ORDER BY award_date DESC";
+  if($award_query = mysqli_query($db,$award_sql)) {
+  $award = mysqli_fetch_assoc($award_query);
+
+ }
+
+ if(mysqli_num_rows($award_query) == 0) {
+
+  echo "<script>
+alert('no results');
+window.location.href='admin.php?adminpage=adminEmployeeAward';
+</script>";   
+   }
+
+ $list = 0;
+ ?>
+
+
+
+
+  
+  <div class = "header">
+    <h2>Employee Award </h2>
+  </div> 
+
+  
+  <div class="container">
+    <div class="float-left">
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addEmployeeAward" >Add new award to employee!</a></button>
+
+  </div>
+
+ <div class="float-right">
+        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextAward">
+            <button class="btn btn-outline-success" type="submit" name="searchAward">Search</button>
+          </form>
+      </div>
+
+      <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-md-10 col-md-offset-1">
+            <table class="table">
+            
+                <thead class="thead-dark">
+                    <tr>
+                       <th>List</th>                  
+                        <th>Username</th>
+                        <th>Fullname</th>                   
+                        <th>Award title</th>
+                        <th>Gift item</th>
+                       <th>Award amount(VND)</th>  
+                       <th>Awarded date</th>
+                      
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                     
+                    <tr>
+                         <?php 
+                          do {
+                            $list = $list + 1;
+                            $IDuser = $award['id_user']; 
+                            $user_sql = "SELECT * FROM user where id = '$IDuser'";
+                            $user_query = mysqli_query($db, $user_sql);
+                            $user = mysqli_fetch_assoc($user_query);
+
+
+                            ?>
+                      
+
+                                <td align="center">
+                           
+                                <?= $list; ?>
+                                                 
+                                </td>
+                      
+
+
+                              <td class="" align="center" class="cell-breakWord"><?= $user['username']; ?>
+                             </td>
+
+                               <td class="" align="center" class="cell-breakWord"><?= $user['fullName']; ?>
+                              </td>
+
+                             
+
+                              <td class="" align="center" class="cell-breakWord"><?= $award['award_title']; ?>
+                              </td>
+
+                              <td class="" align="center" class="cell-breakWord"><?= $award['gift_item']; ?>
+                              </td>
+
+                              <td class="" align="center" class="cell-breakWord"><?= $award['award_amount']; ?>
+                              </td>
+                           
+                                  
+                               <td class="" align="center" class="cell-breakWord"> <?php if(isset($award['award_date'])) {  echo date("d-m-Y",strtotime($award['award_date'])); } ?>
+                              </td>
+
+                                                           
+
+                         <td align="center">
+                        <a href = "admin.php?adminpage=editEmployeeAward&ID=<?=$award['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                            <i class="far fa-edit"></i></a>
+                        <a href = "admin.php?adminpage=deleteEmployeeAward&ID=<?=$award['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                            <i class="far fa-trash-alt"></i></a>
+                        </td>
+                  
+                    </tr>
+                  <?php 
+
+                      } while($award = mysqli_fetch_assoc($award_query));
+                   ?>
+
+                                       
+                
+                    
+
+                 
+
+                </tbody>
+
+            </table>
+             
+        </div>
+    </div>
+</div>
+
+<?php 
+
 }
 ?>

@@ -1,5 +1,5 @@
 <?php 
-	$category_sql = "SELECT * FROM category";
+	$category_sql = "SELECT * FROM category ORDER BY category_name ASC";
 	if($category_query = mysqli_query($db,$category_sql)) {
   $category = mysqli_fetch_assoc($category_query);
  }

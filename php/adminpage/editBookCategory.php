@@ -11,7 +11,10 @@ $category_ID = "";
    
 	$sql1 = "SELECT * FROM category WHERE category_name = '$name' and id != '$category_ID'";
 	$result1 = mysqli_query($db, $sql1); 
-	if (mysqli_num_rows($result1) >= 1) {
+	if (empty($name)) {
+			$_SESSION['message'] =  "All fields are required."; 
+       	}
+	else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] = "Category existed in database";
 	} else {
 		

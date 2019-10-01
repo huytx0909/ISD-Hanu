@@ -18,13 +18,17 @@ if (isset($_POST['update'])) {
     
 	$sql1 = "SELECT * FROM training WHERE training_name = '$name' and id != '$IDtraining'";
 	$result1 = mysqli_query($db, $sql1); 
-	if (mysqli_num_rows($result1) >= 1) {
+	if (empty($name) || empty($trainer) || empty($description) || empty($startDate)
+			|| empty($endDate) || empty($maxTrainee)) {
+			$_SESSION['message'] =  "All fields are required."; 
+	}
+	else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] = "Training course existed in database";
 	}else if (mysqli_num_rows($trainer_query) == 1) {
 		$trainer = mysqli_fetch_assoc($trainer_query); 
 		$IDuser = $trainer['id'];
 
-        if($startDate < $endDate && $startDate > $todayDate) {
+      
 
 			$training_sql = " UPDATE training SET training_name = '$name', description = '$description', id_trainer = '$IDuser', start_date = '$startDate', end_date = '$endDate', max_trainees = '$maxTrainee' WHERE id ='$IDtraining'";
 
@@ -33,9 +37,7 @@ if (isset($_POST['update'])) {
 			$success = "<div class='success' id='success'>
 							Success.
 				  		</div>";     
-        }else {
-            $_SESSION['message'] = "start date can not be later than end date and earlier than the date of today";
-        }
+      
 
 	
 	}else{
@@ -86,7 +88,7 @@ if (isset($_POST['update'])) {
 
 		<div class="form-group">
 			<label for="description">Description:</label>
-			<textarea class="form-control" rows="5" type="text" name="description" value="<?= $training0['description']; ?>"></textarea>
+			<textarea class="form-control" rows="5" type="text" name="description"><?= $training0['description']; ?></textarea>
 		</div>
 
 		<div class="form-group">
