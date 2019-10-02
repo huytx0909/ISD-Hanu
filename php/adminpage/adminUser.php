@@ -37,7 +37,7 @@ $success = "";
 			      <th>Email</th>
 			      <th>Phone</th>
 			      <th>Address</th>
-			      <th>Salary</th>
+			      <th>Salary(VND)</th>
 			      <th>Department</th>
 			      <th>Team</th>
 			      <th>Role</th>

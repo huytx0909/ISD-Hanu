@@ -36,10 +36,11 @@
                 <thead class="thead-dark">
                     <tr>
                        <th>list</th>                  
-                        <th>Username</th>               
+                        <th>Username</th>
+                       <th>Fullname</th>               
+               
                         <th>Email</th>
                         <th>Phone</th>                        
-                       <th>Salary</th>
                       <th>Address</th>
 
                         <th>Department</th>
@@ -107,6 +108,9 @@
                               <td class="" align="center"><?= $user['username']; ?></a>
                               </td>
 
+                              <td class="" align="center"><?= $user['fullName']; ?></a>
+                              </td>
+
                                <td class="" align="center"><?= $user['email']; ?>
                               </td>
 
@@ -114,8 +118,7 @@
                               <td class="" align="center"><?= $user['phone']; ?>
                               </td>
 
-                              <td class="" align="center"><?= $user['salary']; ?>
-                              </td>
+                              
 
                               <td class="" align="center"><?= $user['address']; ?>
                               </td>
@@ -141,8 +144,8 @@
                          <td align="center">
                       
 
-                        <a href = "admin.php?adminpage=deleteTrainee&ID=<?=$trainee['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Remove</a>
+                            <a href = "admin.php?adminpage=deleteTrainee&ID=<?=$trainee['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                            <i class="far fa-trash-alt"></i></a>
                         </td>
                   
                     </tr>

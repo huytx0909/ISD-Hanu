@@ -1,6 +1,6 @@
 <?php 
 
-	$book_sql = "SELECT * FROM book";
+	$book_sql = "SELECT * FROM book ORDER BY book_title ASC";
 	if($book_query = mysqli_query($db,$book_sql)) {
   $book = mysqli_fetch_assoc($book_query);
 
@@ -41,7 +41,7 @@
                         <th>Author</th>
                         <th>Image</th>                        
                         <th>Publication Date</th>
-                        <th>Prize($)</th>
+                        <th>Prize(VND)</th>
                         <th>Status</th>
                         <th>Max Expired Days</th>
                         <th>Category</th>
@@ -80,7 +80,7 @@
                       <td align="center"><image src="img/<?= $image['url'];?>" width="50" height="50" alt="book"></td>
                       <td align="center" class="cell-breakWord"><?php if(isset($book['date_publication'])) { echo date("d-m-Y",strtotime($book['date_publication'])); } ?></td>
                       <td align="center" class="cell-breakWord"><?= $book['prize']; ?></td>  
-                      <td align="center" class="cell-breakWord"><?= $book['status']; ?></td>             
+                      <td align="center" <?php if($book['status'] == "unavailable") { ?> style="color: red;"  <?php } ?> > <?= $book['status']; ?> </td>             
                       <td align="center" class="cell-breakWord"><?= $book['max_expired_day']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $category['category_name']; ?></td>
 

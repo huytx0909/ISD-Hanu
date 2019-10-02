@@ -1,6 +1,6 @@
 <?php 
 	
-  $training_sql = "SELECT * FROM training";
+  $training_sql = "SELECT * FROM training ORDER BY training_name ASC";
   if($training_query = mysqli_query($db,$training_sql)) {
   $training = mysqli_fetch_assoc($training_query);
 

@@ -37,7 +37,11 @@ if (isset($_POST['Submit'])) {
 			$_SESSION['message'] =  "All fields are required."; 
 		}else if(!ctype_alpha(str_replace(' ', '', $fullName))) {
 			$_SESSION['message'] = "Full Name could not contain numbers.";
-		} else {
+		} else if(!is_numeric($salary) || $salary < 0) {
+	       $_SESSION['message'] = "salary has to be numberic and greater than 0";
+		}
+
+		 else {
 		// if all the fields are filled (not empty)
 
 		//insert data to database
@@ -107,7 +111,7 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 				  </div>
 
 				  <div class="form-group">
-				    <label for="salary">Salary:</label>
+				    <label for="salary">Salary(VND):</label>
 				    <input type="number" class="form-control" name="salary" placeholder="Enter salary">
 				  </div>
 

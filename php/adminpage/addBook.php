@@ -96,7 +96,7 @@ if (isset($_POST['Submit'])) {
 			</div>
 
 			<div class="form-group">
-				<label for="prize">Prize (USD):</label>
+				<label for="prize">Prize (VND):</label>
 				<input type="text" name="prize" class="form-control">
 			</div>
 	  
@@ -113,7 +113,7 @@ if (isset($_POST['Submit'])) {
 		     		<?php
 		           		do {
 		      		?>
-		      		<option value="<?= $category1['category_name'] ?>"><?= $category1['category_name'] ?></option>
+		      		<option value="<?= $category1['category_name']; ?>" <?php if(isset($_GET['ID'])) { if($_GET['ID'] == $category1['id']) { ?> selected <?php }  } ?> ><?= $category1['category_name'] ?></option>
 		      		<?php
 		        		} while($category1 = mysqli_fetch_assoc($category1_query));
 		      		?>

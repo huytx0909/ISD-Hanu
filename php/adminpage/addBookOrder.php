@@ -45,8 +45,10 @@ if (isset($_POST['Submit'])) {
 			$book1_query = mysqli_query($db, $book1_sql);
 
 
-			header("location: admin.php?adminpage=adminBookOrder"); //redirect to home after registering successfully
-               
+		echo "<script>
+    		alert('added order successfully');
+   			window.location.href='admin.php?adminpage=adminBookOrder';
+    			</script>";               
 	
 			} else {
 

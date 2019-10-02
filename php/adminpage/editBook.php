@@ -18,7 +18,12 @@ if (isset($_POST['update'])) {
     $category = $_POST['category'];
 	$image = $_POST['image'];
 
-    if(!is_numeric($prize) || $prize < 0) {
+	if (empty($title) || empty($authorName) || empty($datePublication) || empty($prize)
+			|| empty($status) || empty($max_expired_day) || empty($category)) {
+			$_SESSION['message'] =  "All fields are required."; 
+		}
+
+   else if(!is_numeric($prize) || $prize < 0) {
        $_SESSION['message'] = "Prize has to be numberic and greater than 0";
 	}
       else {
@@ -134,7 +139,7 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 			</div>
 
 			<div class="form-group">
-				<label for="prize">Prize (USD):</label>
+				<label for="prize">Prize (VND):</label>
 				<input type="text" name="prize" class="form-control" value="<?= $book['prize']; ?>">	
 			</div>
 	  
