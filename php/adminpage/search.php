@@ -2,6 +2,7 @@
    if(isset($_POST['search'])) {
 	$search=$_POST['searchtext'];
 	if(empty($search)){
+    $_SESSION['message'] = "Please enter search keyword.";       
 		header("Location:admin.php?adminpage=adminBook");
 	}
 	$search_sql = "SELECT * FROM Book WHERE `book_title` LIKE '%$search%' or `author_name` LIKE '%$search%' or `date_publication` LIKE '%$search%' or `prize` LIKE '%$search%' or `status` LIKE '%$search%'";
@@ -10,10 +11,8 @@
      $searchbook = mysqli_fetch_assoc($search_query);	
         }
 if(mysqli_num_rows($search_query) == 0) {
-    echo "<script>
-    alert('no results');
-    window.location.href='admin.php?adminpage=adminBook';
-    </script>";      
+    $_SESSION['message'] = "No results.";       
+    header("Location:admin.php?adminpage=adminBook");  
 
  } 
     $list = 0;
@@ -125,6 +124,7 @@ if(mysqli_num_rows($search_query) == 0) {
    if(isset($_POST['searchCategory'])) {
   $search=$_POST['searchtextCategory'];
   if(empty($search)){
+    $_SESSION['message'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminBookCategory");
   }
 
@@ -137,19 +137,17 @@ if(mysqli_num_rows($search_query) == 0) {
 }
 
  if(mysqli_num_rows($search_query) == 0) {
-    echo "<script>
-    alert('no results');
-    window.location.href='admin.php?adminpage=adminBookCategory';
-    </script>";   
+    $_SESSION['message'] = "No result.";
+    header("Location:admin.php?adminpage=adminBookCategory");
  } 
 ?>
 
  <div class = "header">
-    <h3 align="center">Book category table</h3>
-  </div> <br>
+    <h2>Book Category Table</h2>
+  </div>
 
   
-  <div class="container" style="margin-top: 50px;">
+  <div class="container">
     <div class="float-left">
         <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBookCategory" > Add new Category</a></button>
 
@@ -163,13 +161,10 @@ if(mysqli_num_rows($search_query) == 0) {
       </div>
 
       <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
-             
                 <thead class="thead-dark">
                     <tr>
-                       <th>list</th>                  
+                       <th>List</th>                  
                         <th>Book Category</th>
                         <th>Actions</th>
                     </tr>
@@ -181,31 +176,21 @@ if(mysqli_num_rows($search_query) == 0) {
                           <?= $list; ?>                          
                       </td>
                       
-                        <td class="" align="center"><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$searchCategory['id'];?>" style="color:black;"><?= $searchCategory['category_name']; ?>
-                             </a></td>
+                        <td align="center" class="cell-breakWord"><a href="admin.php?adminpage=adminBookinCate&IDcategory=<?=$searchCategory['id'];?>"><strong><?= $searchCategory['category_name']; ?></strong></a></td>
                            
                          <td align="center">
-                        <a href = "admin.php?adminpage=editBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span>Delete</a>
+                        <a href = "admin.php?adminpage=editBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                            <i class="far fa-edit"></i></a>
+                        <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                             <i class="far fa-trash-alt"></i></a>
                         </td>
                   
                     </tr>
-                  <?php } while($searchCategory = mysqli_fetch_assoc($search_query)); ?>
-
-                                       
-                
-                    
-
-                 
+                  <?php } while($searchCategory = mysqli_fetch_assoc($search_query)); ?>     
 
                 </tbody>
            
-
             </table>
-        </div>
-    </div>
 </div>
 <?php
 }
@@ -217,6 +202,7 @@ if(mysqli_num_rows($search_query) == 0) {
    if(isset($_POST['searchDepartment'])) {
   $search=$_POST['searchtextDepartment'];
   if(empty($search)){
+    $_SESSION['message'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminDepartment");
   }
 
@@ -235,27 +221,19 @@ if(mysqli_num_rows($search_query) == 0) {
 
 if(mysqli_num_rows($department_query) == 0) {
 
-echo "<script>
-alert('no results');
-window.location.href='admin.php?adminpage=adminDepartment';
-</script>";    
+$_SESSION['message'] = "No results.";
+    header("Location:admin.php?adminpage=adminDepartment"); 
  }
  ?>
 
-
-  
   <div class = "header">
-    <h3 align="center">Department table</h3>
-  </div> <br>
-
-  
-  <div class="container" style="margin-top: 50px;">
-    <div class="float-left">
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addDepartment">Add new department</a></button>
-
-           
-         
+    <h2>Department Table</h2>
   </div>
+  
+  <div class="container">
+    <div class="float-left">
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addDepartment">Add new department</a></button>                   
+    </div>
 
  <div class="float-right">
         <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
@@ -265,16 +243,12 @@ window.location.href='admin.php?adminpage=adminDepartment';
       </div>
 
       <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
-             
                 <thead class="thead-dark">
                     <tr>
-                       <th>list</th>                  
+                       <th>List</th>                  
                         <th>Department</th>
                         <th>Description</th>
-
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -286,42 +260,24 @@ window.location.href='admin.php?adminpage=adminDepartment';
                       
 
                       <td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                        </td>
+                          <?= $list; ?>                         
+                      </td>
                       
+                      <td align="center" class="cell-breakWord"><a href="admin.php?adminpage=adminDepartmentTeam&IDdepartment=<?=$department['id'];?>"><strong><?= $department['name']; ?></strong></a></td>
 
-
-                        <td class="" align="center"><a href="admin.php?adminpage=adminDepartmentTeam&IDdepartment=<?=$department['id'];?>" style="color: black;"><strong><?= $department['name']; ?></strong>
-                             </a></td>
-
-                       <td class="" align="center"><?= $department['description']; ?>
-                              </td>
+                       <td align="center" class="cell-breakWord"><?= $department['description']; ?></td>
                            
-                         <td align="center">
-                        <a href = "admin.php?adminpage=editDepartment&ID=<?=$department['id'];?>" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        <a href = "admin.php?adminpage=deleteDepartment&ID=<?=$department['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span>Delete</a>
+                        <td align="center">
+                        <a href = "admin.php?adminpage=editDepartment&ID=<?=$department['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                            <i class="far fa-edit"></i></a>
+                        <a href = "admin.php?adminpage=deleteDepartment&ID=<?=$department['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                            <i class="far fa-trash-alt"></i></a>
                         </td>
                   
                     </tr>
                   <?php } while($department = mysqli_fetch_assoc($department_query)); ?>
-
-                                       
-                
-                    
-
-                 
-
-                </tbody>
-           
-
+           </tbody>
             </table>
-         
-        </div>
-    </div>
 </div>
 
 <?php
@@ -337,6 +293,7 @@ window.location.href='admin.php?adminpage=adminDepartment';
 if(isset($_POST['searchTeam'])) {
   $search=$_POST['searchtextTeam'];
   if(empty($search)){
+    $_SESSION['message'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminTeam");
   }
   
@@ -353,26 +310,21 @@ if(isset($_POST['searchTeam'])) {
 
 if(mysqli_num_rows($team_query) == 0) {
 
-echo "<script>
-alert('no results');
-window.location.href='admin.php?adminpage=adminTeam';
-</script>";      
+$_SESSION['message'] = "No results.";
+    header("Location:admin.php?adminpage=adminTeam");     
  }
  ?>
 
 
-
-
   
   <div class = "header">
-    <h3 align="center">Team table</h3>
-  </div> <br>
+    <h2>Team Table</h2>
+  </div>
 
   
-  <div class="container" style="margin-top: 50px;">
+  <div class="container">
     <div class="float-left">
         <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addTeam" >Add new team</a></button>
-
   </div>
 
  <div class="float-right">
@@ -383,11 +335,8 @@ window.location.href='admin.php?adminpage=adminTeam';
       </div>
 
       <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
-            
-                <thead class="thead-dark">
+               <thead class="thead-dark">
                     <tr>
                        <th>list</th>                  
                         <th>Team name</th>               
@@ -408,36 +357,32 @@ window.location.href='admin.php?adminpage=adminTeam';
                             $department_sql = "SELECT * FROM department where id = '$IDdepartment'";
                           if($department_query = mysqli_query($db,$department_sql)) {
                            $department = mysqli_fetch_assoc($department_query);
-                                                                            }            
-
-
+                                                        }            
                             ?>
                       
 
                                 <td>
-                           
-                                <?= $list; ?>
-                                                 
+                                <?= $list; ?>                
                                 </td>
                       
 
 
-                              <td class="" align="center"><a href="admin.php?adminpage=adminTeamUser&IDteam=<?=$team['id'];?>" style="color: black;"><strong><?= $team['name']; ?></strong>
+                              <td align="center" class="cell-breakWord"><a href="admin.php?adminpage=adminTeamUser&IDteam=<?=$team['id'];?>"><strong><?= $team['name']; ?></strong>
                              </td>
 
-                               <td class="" align="center"><?= $team['description']; ?>
+                               <td align="center" class="cell-breakWord"><?= $team['description']; ?>
                               </td>
 
                             
 
-                                 <td class="" align="center"><?= $department['name']; ?>
+                                 <td align="center" class="cell-breakWord"><?= $department['name']; ?>
                               </td>                               
 
                          <td align="center">
-                        <a href = "admin.php?adminpage=editTeam&ID=<?=$team['id'];?>" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        <a href = "admin.php?adminpage=deleteTeam&ID=<?=$team['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span>Delete</a>
+                        <a href = "admin.php?adminpage=editTeam&ID=<?=$team['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                            <i class="far fa-edit"></i></a>
+                        <a href = "admin.php?adminpage=deleteTeam&ID=<?=$team['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                            <i class="far fa-trash-alt"></i></a>
                         </td>
                   
                     </tr>
@@ -445,19 +390,10 @@ window.location.href='admin.php?adminpage=adminTeam';
 
                       } while($team = mysqli_fetch_assoc($team_query));
                    ?>
-
-                                       
-                
-                    
-
-                 
-
+                                    
                 </tbody>
 
             </table>
-             
-        </div>
-    </div>
 </div>
 
 <?php
@@ -468,22 +404,13 @@ window.location.href='admin.php?adminpage=adminTeam';
 
 
 
-
-
-
-
-
 <?php
 if(isset($_POST['searchUser'])) {
   $search=$_POST['searchtextUser'];
   if(empty($search)){
+    $_SESSION['message'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminUser");
   }
-
-
-function logConsole($msg) {
-  echo "<script>console.log(" . json_encode($msg) . ")</script>";
-}
 
 //fetching data in descending order (lastest entry first)
  $user_sql ="SELECT * FROM user WHERE `id` LIKE '%$search%' or `username` LIKE '%$search%' or `fullName` LIKE '%$search%' or `email` LIKE '%$search%' or `phone` LIKE '%$search%' or `address` LIKE '%$search%' or `salary` LIKE '%$search%' or `level` LIKE '%$search%' ORDER BY id DESC";
@@ -495,44 +422,24 @@ $result = mysqli_query($db, $user_sql);
 
 if(mysqli_num_rows($result) == 0) {
 
-echo "<script>
-alert('no results');
-window.location.href='admin.php?adminpage=adminUser';
-</script>";    
+    $_SESSION['message'] = "No results.";
+    header("Location:admin.php?adminpage=adminUser"); 
  }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Homepage</title>
-
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="style/index.css">
-  <link rel="stylesheet" href="style/header.css">
-
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</head>
 <body>
-  
-
   <div class = "header">
-    <h3 align="center">User table</h3>
-  </div> <br>
-  <div class="container" style="margin-top: 50px;">
+    <h2>User Table</h2>
+  </div>
+  <div class="container">
       <div class="float-left">
         <button type="button" class="btn btn-primary"><a href="admin.php?adminpage=addUser">Add New User</a></button>
       </div>
 
       <div class="float-right">
-
         <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextUser">
             <button class="btn btn-outline-success" type="submit" name="searchUser">Search</button>
           </form>
-
       </div>
 
       <div class="clearfix"></div>
@@ -594,21 +501,22 @@ while ($res = mysqli_fetch_array($result)) {
   echo "<td class=\"cell-breakWord\" align=\"center\">" . $depart . "</td>";
   echo "<td class=\"cell-breakWord\" align=\"center\">" . $team . "</td>";
   echo "<td class=\"cell-breakWord\" align=\"center\">" . $role . "</td>";
-    echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['level'] . "</td>";
-  echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['date_created'] . "</td>";
-  echo "<td align=\"center\"><button type=\"button\" class=\"btn btn-primary edit\"><a href=\"admin.php?adminpage=editUser&id=$res[id]\">Edit</a></button> | <button type=\"button\" class=\"btn btn-danger delete\"><a href=\"admin.php?adminpage=deleteUser&id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></button></td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['level'] . "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" . date("d-m-Y",strtotime($res['date_created'])) . "</td>";
+  echo "<td align=\"center\">
+      <button type=\"button\" class=\"btn btn-primary edit\"><a href=\"admin.php?adminpage=editUser&id=$res[id]\" data-toogle=\"tooltip\" title=\"Edit\"><i class=\"far fa-edit\"></i></a></button>  
+      <button type=\"button\" class=\"btn btn-danger delete\"><a href=\"admin.php?adminpage=deleteUser&id=$res[id]\" data-toogle=\"tooltip\" title=\"Delete\"><i class=\"far fa-trash-alt\"></i></a></button>
+      </td>";
+  echo "</tr>";
 }
 ?>
         </tbody>
       </table>
   </div>
 </body>
-</html>
 <?php
 }
-
 ?>
-
 
 
 
@@ -617,10 +525,9 @@ while ($res = mysqli_fetch_array($result)) {
    if(isset($_POST['searchRole'])) {
   $search=$_POST['searchtextRole'];
   if(empty($search)){
+    $_SESSION['message'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminRole");
   }
-
-
 
   $role_sql = "SELECT * FROM role WHERE `name` LIKE '%$search%' or `description` LIKE '%$search%'";
 
@@ -632,101 +539,73 @@ while ($res = mysqli_fetch_array($result)) {
   $list = 0;
 }
 
-
 if(mysqli_num_rows($role_query) == 0) {
 
-echo "<script>
-alert('no results');
-window.location.href='admin.php?adminpage=adminRole';
-</script>";    
+    $_SESSION['message'] = "No results.";
+    header("Location:admin.php?adminpage=adminRole");
  }
 
 
 
  ?>
-
-
   
   <div class = "header">
-    <h3 align="center">Role table</h3>
-  </div> <br>
+    <h2>Role table</h2>
+  </div> 
 
-  
-  <div class="container" style="margin-top: 50px;">
+  <div class="container">
     <div class="float-left">
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addRole">Add new role</a></button>
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addRole">Add new role</a></button>     
+    </div>
 
-           
-         
-  </div>
+    <div class="float-right">
+      <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRole">
+          <button class="btn btn-outline-success" type="submit" name="searchRole">Search</button>
+      </form>
+    </div>
 
- <div class="float-right">
-        <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRole">
-            <button class="btn btn-outline-success" type="submit" name="searchRole">Search</button>
-          </form>
-      </div>
-
-      <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
-            <table class="table">
-             
-                <thead class="thead-dark">
+    <div class="clearfix"></div>
+    <table class="table">
+        <thead class="thead-dark">
                     <tr>
-                       <th>list</th>                  
+                        <th>List</th>                  
                         <th>Role</th>
                         <th>Description</th>
-
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                   
-                     
+                <tbody> 
                     <tr>
-                         <?php do {  $list = $list + 1;   ?>
+                         <?php do {
+                           $list = $list + 1;   ?>
                       
 
                       <td align="center">
-                           
-                                <?= $list; ?>
+                        <?= $list; ?>
                                                  
-                        </td>
-                      
+                      </td>
+                
 
-
-                        <td class="" align="center"><a href="admin.php?adminpage=adminRoleUser&IDrole=<?=$role['id'];?>" style="color: black;"><strong><?= $role['name']; ?></strong>
+                      <td align="center" class="cell-breakWord"><a href="admin.php?adminpage=adminRoleUser&IDrole=<?=$role['id'];?>"><strong><?= $role['name']; ?></strong>
                              </a></td>
 
-                       <td class="" align="center"><?= $role['description']; ?>
-                              </td>
+                       <td align="center" class="cell-breakWord"><?= $role['description']; ?></td>
                            
-                         <td align="center">
-                        <a href = "admin.php?adminpage=editRole&ID=<?=$role['id'];?>" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        <a href = "admin.php?adminpage=deleteRole&ID=<?=$role['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span>Delete</a>
+                        <td align="center">
+                          <a href = "admin.php?adminpage=editRole&ID=<?=$role['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                              <i class="far fa-edit"></i></a>
+                          <a href = "admin.php?adminpage=deleteRole&ID=<?=$role['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                              <i class="far fa-trash-alt"></i></a>
                         </td>
                   
                     </tr>
                   <?php } while($role = mysqli_fetch_assoc($role_query)); ?>
-
-                                       
-                
-                    
-
-                 
-
                 </tbody>
-           
-
             </table>
-         
         </div>
     </div>
 </div>
-
 <?php
 }
 ?>
@@ -741,13 +620,9 @@ if(isset($_POST['searchRoleUser'])) {
     $IDrole = $_GET['IDrole'];
   $search=$_POST['searchtextRoleUser'];
   if(empty($search)){
+    $_SESSION['message'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminRoleUser&IDrole=$IDrole");
   }
-
-
-function logConsole($msg) {
-  echo "<script>console.log(" . json_encode($msg) . ")</script>";
-}
 
 //fetching data in descending order (lastest entry first)
  $user_sql ="SELECT * FROM user WHERE id_role = $IDrole AND `id` LIKE '%$search%' or `username` LIKE '%$search%' or `email` LIKE '%$search%' or `phone` LIKE '%$search%' or `address` LIKE '%$search%' or `salary` LIKE '%$search%' ORDER BY id DESC";
@@ -759,10 +634,8 @@ $user = mysqli_fetch_assoc($user_query);
   
   if(mysqli_num_rows($user_query) == 0) {
 
-echo "<script>
-alert('no results');
-window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole';
-</script>";   
+    $_SESSION['message'] = "No results.";
+    header("Location:admin.php?adminpage=adminRoleUser&IDrole=$IDrole");
  }
 
   $role1_sql = "SELECT * FROM role where id = '$IDrole'";
@@ -770,75 +643,61 @@ window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole';
   $role1 = mysqli_fetch_assoc($role1_query);
 
  }
-
-
 ?>
 
-
 <div class = "header">
-    <h3 align="center">Users have <?= $role1['name']; ?> Role</h3>
-  </div> <br>
-
-  
-  <div class="container">
-
- <div class="float-left">
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add User</button>
+    <h2>Users have <?= $role1['name']; ?> Role</h2>
   </div>
 
-  <div class="float-right">
- <form  class="form-inline" action="admin.php?adminpage=search&IDrole=<?=$IDrole;?>" method="post" enctype="multipart/form-data">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRoleUser">
-      <button class="btn btn-outline-success" type="submit" name="searchRoleUser">Search</button>
-    </form> </div>
+  
+  <div class="container">  
+    <div class="float-left">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add User</button>
+    </div>
 
-      <div class="clearfix"></div>
+    <div class="float-right">
+      <form  class="form-inline" action="admin.php?adminpage=search&IDrole=<?=$IDrole;?>" method="post" enctype="multipart/form-data">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRoleUser">
+        <button class="btn btn-outline-success" type="submit" name="searchRoleUser">Search</button>
+      </form>
+    </div>
 
+    <div class="clearfix"></div>
 
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
-            <table class="table">
-            
-                <thead class="thead-dark">
-                    <tr>
-                       <th>list</th>                  
-                        <th>Username</th>               
-                        <th>Email</th>
-                        <th>Phone</th>                        
-                       <th>Salary</th>
-                      <th>Address</th>
+    <table class="table">
+          <thead class="thead-dark">
+              <tr>
+                <th>list</th>                  
+                <th>Username</th>               
+                <th>Email</th>
+                <th>Phone</th>                        
+                <th>Salary</th>
+                <th>Address</th>
+                <th>Department</th>
+                <th>Team</th>
+                <th>Role</th>
+                <th>Date Created</th>
+                <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>    
+              <tr>
+                <?php 
+                $list = 0;
+                  do {
+                    $list = $list + 1;  
+                    $IDdepartment = $user['id_department'];
+                    $IDteam = $user['id_team'];
+                    $IDrole = $user['id_role']; 
+                    $departmentSql = "SELECT * FROM department WHERE id = '$IDdepartment'";
+                    $teamSql = "SELECT * FROM team WHERE id = '$IDteam' ";
+                    $roleSql = "SELECT * FROM role WHERE id = '$IDrole' ";
+                    // get result
+                  
+                    if($departmentResult = mysqli_query($db, $departmentSql)){
+                        $departmentName = mysqli_fetch_assoc($departmentResult);
 
-                        <th>Department</th>
-                        <th>Team</th>
-                        <th>Role</th>
-                        <th>Date Created</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   
-                     
-                    <tr>
-                         <?php 
-                         $list = 0;
-                          do {
-                            $list = $list + 1;  
-                            $IDdepartment = $user['id_department'];
-                            $IDteam = $user['id_team'];
-                            $IDrole = $user['id_role']; 
-
-
-                           $departmentSql = "SELECT * FROM department WHERE id = '$IDdepartment'";
-                          $teamSql = "SELECT * FROM team WHERE id = '$IDteam' ";
-                           $roleSql = "SELECT * FROM role WHERE id = '$IDrole' ";
-
-                                // get result
-                           
-
-                          if($departmentResult = mysqli_query($db, $departmentSql)){
-                          $departmentName = mysqli_fetch_assoc($departmentResult);
-
-                          }
+                    }
 
                            if($teamResult = mysqli_query($db, $teamSql)) {
                              $teamName = mysqli_fetch_assoc($teamResult);
@@ -852,87 +711,40 @@ window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole';
                            }
 
                               //fetch to array
-                           
 
+                            ?>     
 
+                <td align="center">
+                  <?= $list; ?>                         
+                </td>
 
-                            ?>
-                      
+                <td align="center" class="cell-breakWord"><?= $user['username']; ?></td>
+                <td align="center" class="cell-breakWord"><?= $user['email']; ?></td>
+                <td align="center" class="cell-breakWord"><?= $user['phone']; ?></td>
+                <td align="center" class="cell-breakWord"><?= $user['salary']; ?></td>
+                <td align="center" class="cell-breakWord"><?= $user['address']; ?></td>
+                <td align="center" class="cell-breakWord"><?= $departmentName['name']; ?></td>
+                <td align="center" class="cell-breakWord"><?= $teamName['name']; ?></td>   
+                <td align="center" class="cell-breakWord"><?= $roleName['name']; ?></td>
+                <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?></td>
 
-                      <td>
-                           
-                                <?= $list; ?>
-                                                 
-                        </td>
-                      
-
-
-                              <td class="" align="center"><?= $user['username']; ?></a>
-                              </td>
-
-                               <td class="" align="center"><?= $user['email']; ?>
-                              </td>
-
-
-                              <td class="" align="center"><?= $user['phone']; ?>
-                              </td>
-
-                              <td class="" align="center"><?= $user['salary']; ?>
-                              </td>
-
-                              <td class="" align="center"><?= $user['address']; ?>
-                              </td>
-
-
-                                
-
-                                 <td class="" align="center"><?= $departmentName['name']; ?>
-                              </td>                               
-
-                                 <td class="" align="center"><?= $teamName['name']; ?>
-                              </td>   
-
-
-                               <td class="" align="center"><?= $roleName['name']; ?>
-                              </td>
-
-                            
-
-                              <td class="" align="center"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?>
-                              </td>
-
-                         <td align="center">
-                      
-
-                        <a href = "admin.php?adminpage=deleteRoleUser&IDrole=<?=$user['id_role'];?>&ID=<?=$user['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Remove</a>
-                        </td>
+                <td align="center">
+                    <a href = "admin.php?adminpage=deleteRoleUser&IDrole=<?=$user['id_role'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                    <i class="far fa-trash-alt"></i></a>
+                </td>
                   
-                    </tr>
-                  <?php 
-
-                      } while($user = mysqli_fetch_assoc($user_query));
-                   ?>
-
-                                       
-                
-                    
-
-                 
-
+              </tr>
+              <?php 
+                } while($user = mysqli_fetch_assoc($user_query));
+              ?>
                 </tbody>
-
-            </table>
-            
+          </table>  
         </div>
     </div>
 </div>
-
-
 <?php 
  }
 ?>
-
 
 <?php  
     if(isset($_GET['IDrole'])) {
@@ -943,14 +755,11 @@ window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole';
        $userRole = $_POST['userRole'];
        $userR = "";
 
-
       foreach($userRole as $userR) 
  {
 
        $userUpdate = "UPDATE user set id_role = '$IDrole1' where username = '$userR' ";
-       $userUpdate_query = mysqli_query($db, $userUpdate);
-       
-
+       $userUpdate_query = mysqli_query($db, $userUpdate);       
   }  
 
       echo "<script>
@@ -967,7 +776,6 @@ window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole1';
 
   ?>
     
-
  <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -1005,21 +813,13 @@ window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole1';
         </div>
       </form>
       </div>
-      
     </div>
   </div>
 
-
-
 <?php
 }
-
 }
 ?>
-
-
-
-
 
 
 
@@ -1030,6 +830,7 @@ window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole1';
 if(isset($_POST['searchOrder'])) {
   $search=$_POST['searchtextOrder'];
   if(empty($search)){
+    $_SESSION['message'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminBookOrder");
   }
 
@@ -1041,36 +842,27 @@ if(isset($_POST['searchOrder'])) {
 
  if(mysqli_num_rows($order_query) == 0) {
 
-echo "<script>
-alert('no results');
-window.location.href='admin.php?adminpage=adminBookOrder';
-</script>";        
+    $_SESSION['message'] = "No results.";
+    header("Location:admin.php?adminpage=adminBookOrder"); 
  }
 
  ?>
   
   <div class = "header">
-    <h3 align="center">Order Book</h3>
-  </div> <br>
+    <h2>Order Book</h2>
+  </div>
 
-  
-  <div class="container" style="margin-top: 50px;">
+  <div class="container">
 
-  
-
- <div class="float-right">
+    <div class="float-right">
         <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextOrder">
             <button class="btn btn-outline-success" type="submit" name="searchOrder">Search</button>
           </form>
-      </div>
+    </div>
 
-      <div class="clearfix"></div>
-      
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
+    <div class="clearfix"></div>
             <table class="table">
-            
                 <thead class="thead-dark">
                     <tr>
                         <th>order ID</th>               
@@ -1081,18 +873,12 @@ window.location.href='admin.php?adminpage=adminBookOrder';
                         <th>Prize</th>
                         <th>type of order</th>
                         <th>order date</th>
-                         <th>expired date</th>
-                         <th>status</th>
-
-
-
-
+                        <th>expired date</th>
+                        <th>status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                   
-                     
+                <tbody> 
                     <tr>
                          <?php 
                           do {
@@ -1108,78 +894,38 @@ window.location.href='admin.php?adminpage=adminBookOrder';
                             $book_sql = "SELECT * FROM book where id = '$IDbook'";
                             if($book_query = mysqli_query($db,$book_sql)) {
                             $book = mysqli_fetch_assoc($book_query);
-                                                          }
-
-
-
+                             }
                             ?>
-                      
 
-                      
-                      
-
-
-                              <td class="" align="center"><?= $order['id']; ?></a>
-                              </td>
-
-                               <td class="" align="center"><?= $user['username']; ?>
-                              </td>
-
-                              
-
-                                <td class="" align="center"><?= $user['fullName']; ?>
-                              </td>  
-
-                                 <td class="" align="center"><?= $book['book_title']; ?>
-                              </td>                               
- 
-
-                               <td class="" align="center"><?= $book['author_name']; ?>
-                              </td>
-
-                               <td class="" align="center"><?= $book['prize']; ?>
-                              </td>
-
-                               
-
-                                <td class="" align="center"><?= $order['type']; ?>
-                              </td>
-
-                               <td class="" align="center"><?php if(isset($order['placeOrder_date'])) { echo date("d-m-Y",strtotime($order['placeOrder_date'])); } ?>
-                              </td>
-
-                                 <td class="" align="center"><?php if(isset($order['expired_date'])) {  echo date("d-m-Y",strtotime($order['expired_date'])); } ?>
-                              </td>
-
-                               <td class="" align="center"><span <?php if($order['status'] == "completed") { ?> class="badge badge-success" <?php } else { ?>  class="badge badge-danger" <?php } ?> ><?= $order['status']; ?>
-                              </span></td>
+                            <td align="center" class="cell-breakWord"><?= $order['id']; ?></a></td>
+                            <td align="center" class="cell-breakWord"><?= $user['username']; ?></td>
+                            <td align="center" class="cell-breakWord"><?= $user['fullName']; ?></td>  
+                            <td align="center" class="cell-breakWord"><?= $book['book_title']; ?></td>
+                            <td align="center" class="cell-breakWord"><?= $book['author_name']; ?></td>
+                            <td align="center" class="cell-breakWord"><?= $book['prize']; ?></td>
+                            <td align="center" class="cell-breakWord"><?= $order['type']; ?></td>
+                            <td align="center" class="cell-breakWord"><?php if(isset($order['placeOrder_date'])) { echo date("d-m-Y",strtotime($order['placeOrder_date'])); } ?></td>
+                            <td align="center" class="cell-breakWord"><?php if(isset($order['expired_date'])) {  echo date("d-m-Y",strtotime($order['expired_date'])); } ?></td>
+                            <td align="center" class="cell-breakWord"><span <?php if($order['status'] == "completed") { ?> class="badge badge-success" <?php } else { ?>  class="badge badge-danger" <?php } ?> ><?= $order['status']; ?></span></td>
 
                          <td align="center">
-
                           <?php
                            if($order['status'] == "incompleted") {
-
                           ?>
-                            <a href = "admin.php?adminpage=editBookOrder&ID=<?=$order['id'];?>" class="btn btn-success">
-                            <span class="glyphicon glyphicon-remove"></span> Returned</a>
+                            <a href = "admin.php?adminpage=editBookOrder&ID=<?=$order['id'];?>" class="btn btn-success" data-toogle="tooltip" title="Return">
+                            <i class="fas fa-undo-alt"></i></a>
                             <?php
                               }
                               ?>
                         
-                        <a href = "admin.php?adminpage=deleteBookOrder&ID=<?=$order['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Delete</a>
+                        <a href = "admin.php?adminpage=deleteBookOrder&ID=<?=$order['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                            <i class="far fa-trash-alt"></i></a>
                         </td>
                     </tr>
                   <?php 
 
                       } while($order = mysqli_fetch_assoc($order_query));
                    ?>
-
-                                       
-                
-                    
-
-                 
 
                 </tbody>
 
@@ -1200,6 +946,7 @@ window.location.href='admin.php?adminpage=adminBookOrder';
 if(isset($_POST['searchTraining'])) {
   $search=$_POST['searchtextTraining'];
   if(empty($search)){
+    $_SESSION['message'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminTraining");
   }
   
@@ -1211,27 +958,21 @@ if(isset($_POST['searchTraining'])) {
 
  if(mysqli_num_rows($training_query) == 0) {
 
-  echo "<script>
-alert('no results');
-window.location.href='admin.php?adminpage=adminTraining';
-</script>";   
+    $_SESSION['message'] = "No results.";
+    header("Location:admin.php?adminpage=adminTraining");
    }
 
  $list = 0;
  ?>
 
-
-
-
   
   <div class = "header">
-    <h3 align="center">Training course</h3>
-  </div> <br>
-
+    <h2>Training course</h2>
+  </div>
   
-  <div class="container" style="margin-top: 50px;">
+  <div class="container">
     <div class="float-left">
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addTraining" >Add new training course</a></button>
+        <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addTraining">Add new training course</a></button>
 
   </div>
 
@@ -1240,32 +981,27 @@ window.location.href='admin.php?adminpage=adminTraining';
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextTraining">
             <button class="btn btn-outline-success" type="submit" name="searchTraining">Search</button>
           </form>
-      </div>
+  </div>
 
       <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
-            
                 <thead class="thead-dark">
                     <tr>
-                       <th>List</th>                  
-                        <th>Training Course Name</th> 
-                        <th>Trainer</th>                                                                               
-                        <th>Description</th>
-                        <th> Max number of trainees</th> 
-                      <th>  number of trainees</th> 
-                        <th>Start Date</th>
-                       <th>End Date</th>                        
+                      <th>List</th>                  
+                      <th>Training Course Name</th> 
+                      <th>Trainer</th>                                                                              
+                      <th>Description</th>
+                      <th>Max Number of Trainees</th> 
+                      <th>Number of Trainees</th> 
+                      <th>Start Date</th>
+                      <th>End Date</th>                        
                         
-                        <th>Actions</th>
+                      <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                   
-                     
+                <tbody> 
                     <tr>
-                         <?php 
+                      <?php 
                           do {
                             $list = $list + 1;   
 
@@ -1273,48 +1009,32 @@ window.location.href='admin.php?adminpage=adminTraining';
                             $trainer_sql = "SELECT * FROM user where id = '$IDtrainer'";
                           if($trainer_query = mysqli_query($db,$trainer_sql)) {
                            $trainer = mysqli_fetch_assoc($trainer_query);
-                                                                            }            
+                      }?>
+                    
+                      <td align="center"> 
+                        <?= $list; ?>                  
+                      </td>
+                      <td align="center" class="cell-breakWord"><a href="admin.php?adminpage=adminTrainee&IDtraining=<?=$training['id'];?>"><strong><?= $training['training_name']; ?></strong></a></td>
+                      <td align="center" class="cell-breakWord"><?= $trainer['username']; ?></td>
+                      <td align="center" class="cell-breakWord"><?= $training['description']; ?></td>
+                      <td align="center" class="cell-breakWord"><?= $training['max_trainees']; ?></td>
+                      <td align="center" class="cell-breakWord"><?= $training['number_trainees']; ?></td>
+                      <td align="center" class="cell-breakWord"><?php if(isset($training['start_date'])) {  echo date("d-m-Y",strtotime($training['start_date'])); } ?></td>
+                      <td align="center" class="cell-breakWord"><?php if(isset($training['end_date'])) {  echo date("d-m-Y",strtotime($training['end_date'])); } ?></td>                                                               
+                      <td align="center">
+                          <?php
+                          if($training['number_trainees'] < $training['max_trainees'] && $todayDate < $training['start_date'] ) {
+                          ?>
+                          <a href = "admin.php?adminpage=addTrainee&IDtraining=<?=$training['id'];?>" class="btn btn-success" data-toogle="tooltip" title="Enroll">
+                            <i class="fas fa-user-plus"></i></a>
 
-
-                            ?>
-                      
-
-                                <td>
-                           
-                                <?= $list; ?>
-                                                 
-                                </td>
-                      
-
-
-                              <td class="" align="center"><a href="admin.php?adminpage=adminTrainee&IDtraining=<?=$training['id'];?>" style="color: black;"><strong><?= $training['training_name']; ?></strong>
-                             </td>
-
-                              <td class="" align="center"><?= $trainer['username']; ?>
-                              </td>
-
-                               <td class="" align="center"><?= $training['description']; ?>
-                              </td>
-
-                               <td class="" align="center"><?= $training['max_trainees']; ?>
-                              </td>
-
-                               <td class="" align="center"><?= $training['number_trainees']; ?>
-                              </td>
-
-                               <td class="" align="center"><?php if(isset($training['start_date'])) {  echo date("d-m-Y",strtotime($training['start_date'])); } ?>
-                              </td>
-
-                               <td class="" align="center"><?php if(isset($training['end_date'])) {  echo date("d-m-Y",strtotime($training['end_date'])); } ?>
-                              </td>
-
-                                                                                       
-
-                         <td align="center">
-                        <a href = "admin.php?adminpage=editTraining&ID=<?=$training['id'];?>" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-remove"></span> Edit</a>
-                        <a href = "admin.php?adminpage=deleteTraining&ID=<?=$training['id'];?>" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span>Delete</a>
+                        <?php
+                          }
+                          ?>
+                        <a href = "admin.php?adminpage=editTraining&ID=<?=$training['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                          <i class="far fa-edit"></i></a>
+                        <a href = "admin.php?adminpage=deleteTraining&ID=<?=$training['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                          <i class="far fa-trash-alt"></i></a>
                         </td>
                   
                     </tr>
@@ -1322,19 +1042,11 @@ window.location.href='admin.php?adminpage=adminTraining';
 
                       } while($training = mysqli_fetch_assoc($training_query));
                    ?>
-
-                                       
-                
-                    
-
                  
-
                 </tbody>
 
             </table>
-             
-        </div>
-    </div>
+
 </div>
 
 <?php

@@ -1,4 +1,5 @@
 <?php 
+
 $success = "";
   if(isset($_GET['ID'])) {
 
@@ -6,8 +7,6 @@ $success = "";
    	
 
 if (isset($_POST['update'])) {
-
-
 
 	$title = $_POST['title'];
 	$authorName = $_POST['authorName'];
@@ -66,9 +65,6 @@ if (isset($_POST['update'])) {
 			$success = "<div class='success' id='success'>
 							Success.
 				  		</div>";           
-               
-
-
            }
 
 	}
@@ -150,7 +146,7 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 
 	        <div class="form-group">
 	        	<label for="category">Category</label>
-	    		<select  class="form-control" id="category" name="category" required>
+	    		<select  class="form-control" id="category" name="category">
 			      	<?php
 			        	do {
 			      	?>
@@ -163,7 +159,7 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 
 	   		<div class="form-group">
 	     		<label for="status">Status</label>
-	    		<select class="form-control" id="status" name="status" required>
+	    		<select class="form-control" id="status" name="status">
 	    			<option></option>
 			    	<option value="available" <?php if($book['status'] == "available") { ?> selected="selected"  <?php } ?> >available</option>
 			      	<option value="unavailable" <?php if($book['status'] == "unavailable") { ?> selected="selected"  <?php } ?> >unavailable</option>

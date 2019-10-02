@@ -14,7 +14,14 @@
 	</div> 
 
 	<div class="container">
-
+  
+  <?php
+  
+  if (isset($_SESSION['message'])) {
+    echo "<div class='error' id='error'>".$_SESSION['message']."</div>";
+    unset($_SESSION['message']);
+  }
+  ?>
   <div class="float-left">
         <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBook" > Add New Book</a></button>
 
@@ -87,7 +94,7 @@
                       <td align="center">
                         <a href = "admin.php?adminpage=editBook&ID=<?=$book['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                         <i class="far fa-edit"></i></a>                        
-                        <a href = "admin.php?adminpage=deleteBook&ID=<?=$book['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteBook&ID=<?=$book['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="confirm('Are you sure you want to delete this');">
                         <i class="far fa-trash-alt"></i></a>
 
                            <?php
@@ -108,6 +115,10 @@
                 </tbody>
 
             </table>
+
+            
   </div>
+
+  
   
 

@@ -6,7 +6,7 @@
  ?>
 <!-- header -->
 
-     <div id="main">
+
  <?php
 if(!isset($_GET['adminpage'])){
   include 'adminpage/adminUser.php';
@@ -18,7 +18,3 @@ if(!isset($_GET['adminpage'])){
 
  ?>
 
-</div>
-<?php
-include 'include/footer.php';
-?>

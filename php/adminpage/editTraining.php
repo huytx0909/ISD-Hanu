@@ -37,11 +37,9 @@ if (isset($_POST['update'])) {
 			$success = "<div class='success' id='success'>
 							Success.
 				  		</div>";     
-      
-
 	
 	}else{
-		$_SESSION['message'] = "there is no such trainer";
+		$_SESSION['message'] = "There is no such trainer";
 	}
 
 }
@@ -68,7 +66,7 @@ if (isset($_POST['update'])) {
 
 <div class="container">
 	<div class="main">
-	<form method="POST" action="admin.php?adminpage=editTraining&ID=<?= $IDtraining; ?>"  class="beta-form-checkout">
+	<form method="POST" action="admin.php?adminpage=editTraining&ID=<?= $IDtraining; ?>" class="form beta-form-checkout">
 		<div class="form-group">
 			<?php 
 				echo $success;
@@ -78,12 +76,12 @@ if (isset($_POST['update'])) {
 				} 
 			?>
 			<label for="name">Training Course Name:</label>
-			<input type="text" name="name" class="form-control" value="<?= $training0['training_name']; ?>" required>
+			<input type="text" name="name" class="form-control" value="<?= $training0['training_name'];?>">
 		</div>
 
 		<div class="form-group">
 			<label for="name">Trainer Username:</label>
-			<input type="text" name="trainer" class="form-control" value="<?= $trainer0['username']; ?>" required>
+			<input type="text" name="trainer" class="form-control" value="<?= $trainer0['username']; ?>">
 		</div>
 
 		<div class="form-group">

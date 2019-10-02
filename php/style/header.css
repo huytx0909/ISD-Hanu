@@ -1,15 +1,49 @@
 header{
 	align-items: center;
 	margin: auto;
-	height:100px;
 	color: white;
 }
 
-.collapse ul li{
-	padding-left: 90px;
-
+.navbar{
+	position: fixed;
+	top:0;
+	width: 100%;
+	z-index: 1;
+	box-shadow: 0px 1px 2px grey;
 }
 
+.collapse{
+	margin-left: 900px;
+}
+
+.collapse ul li{
+	padding-left: 30px;
+}
+
+.sidebar{
+	background: lightblue;
+	width: 180px;
+	height: 100%;
+	left: 0;
+	top:56px;
+	position:fixed;
+	box-shadow: 1px 0px 2px grey;
+}
+.sidebar ul li{
+	display: block;
+	height: 50px;
+}
+
+.sidebar ul li a{
+	color: black;
+	height: 100%;
+}
+
+
+.sidebar ul li a:hover{
+	background:  #373f4a;
+	color: white;
+}
 /*.logout{
 	flex:1;
 	display: flex;

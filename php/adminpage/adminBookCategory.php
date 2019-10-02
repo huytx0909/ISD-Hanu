@@ -12,6 +12,13 @@
 	</div>
 
 	<div class="container">
+  <?php
+  
+  if (isset($_SESSION['message'])) {
+    echo "<div class='error' id='error'>".$_SESSION['message']."</div>";
+    unset($_SESSION['message']);
+  }
+  ?>
     
   <div class="float-left">
       <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBookCategory" > Add new Category</a></button>
@@ -55,7 +62,7 @@
                         <a href = "admin.php?adminpage=editBookCategory&ID=<?=$category['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
                         <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$category['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
-                            <i class="far fa-trash-alt"></i></a>
+                            <i class="far fa-trash-alt" onclick="confirm('Are you sure you want to delete this');"></i></a>
                         </td>
                   
                     </tr>
@@ -67,6 +74,4 @@
 
             </table>
              
-        </div>
-    </div>
 </div>

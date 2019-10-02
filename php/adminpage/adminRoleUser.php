@@ -22,7 +22,14 @@
   </div>
 
   
-  <div class="container">  
+  <div class="container">
+  <?php
+  
+  if (isset($_SESSION['message'])) {
+    echo "<div class='error' id='error'>".$_SESSION['message']."</div>";
+    unset($_SESSION['message']);
+  }
+  ?>  
     <div class="float-left">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add User</button>
     </div>
@@ -100,7 +107,7 @@
                 <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?></td>
 
                 <td align="center">
-                    <a href = "admin.php?adminpage=deleteRoleUser&IDrole=<?=$user['id_role'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                    <a href = "admin.php?adminpage=deleteRoleUser&IDrole=<?=$user['id_role'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="confirm('Are you sure you want to delete this');">
                     <i class="far fa-trash-alt"></i></a>
                 </td>
                   

@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+$success = "";
  if(isset($_GET['ID'])) { 
    $IDbook = $_GET['ID'];
 
@@ -21,8 +21,9 @@ if (isset($_POST['Submit'])) {
     
 	$sql1 = "SELECT * FROM user WHERE username = '$username'";
 	$result1 = mysqli_query($db, $sql1);
-
-	if (mysqli_num_rows($result1) == 1) {
+	if (empty($username) || empty($type)) {
+		$_SESSION['message'] =  "All fields are required."; 
+	}else if (mysqli_num_rows($result1) == 1) {
 	
 			$user = mysqli_fetch_assoc($result1); 
 			$IDuser = $user['id'];
@@ -45,41 +46,47 @@ if (isset($_POST['Submit'])) {
 			$book1_query = mysqli_query($db, $book1_sql);
 
 
-		echo "<script>
-    		alert('added order successfully');
-   			window.location.href='admin.php?adminpage=adminBookOrder';
-    			</script>";               
+			$success = "<div class='success' id='success'>
+							Success.
+				  		</div>";  
 	
 			} else {
 
-				$_SESSION['message'] = "there is no such user";
+				$_SESSION['message'] = "There is no such user";
 			}
 
 }
 ?>
 
 <div class = "header">
+	<button type="submit" class="btn btn-primary float-left" name="Submit">
+		<a href="admin.php?adminpage=adminBookOrder">
+			<i class="fas fa-chevron-left"></i>
+			Back
+		</a>
+	</button>
 	<h2>Add Order</h2>
 </div>
 
 <div class="container">
 	<div class="main">
-		<?php 
-			if (isset($_SESSION['message'])) {
-				echo "<div id = 'error_msg'>".$_SESSION['message']."</div";
-				unset($_SESSION['message']);
-			} 
-		?>
-
 		<form method="POST" action="admin.php?adminpage=addBookOrder&ID=<?=$IDbook;?>" class="form beta-form-checkout">
 			<div class="form-group">
+				<?php
+				echo $success; 
+				if (isset($_SESSION['message'])) {
+				echo "<div class = 'error'>".$_SESSION['message']."</div";
+				unset($_SESSION['message']);
+				} 
+				?>
 				<label for="name">User Name:</label>
-				<input type="text" name="username" class="form-control" required>
+				<input type="text" name="username" class="form-control">
 			</div>
 
 			<div class="form-group">
 		   		<label for="type">Type of Order:</label>
-		   		<select  class="form-control" id="type" name="type" required>
+		   		<select  class="form-control" id="type" name="type">
+		   			<option></option>
 		    		<option value="borrow">Borrow</option>
 		     		<option value="purchase">Purchase</option>
 		   		</select>

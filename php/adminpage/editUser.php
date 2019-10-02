@@ -1,5 +1,7 @@
 <?php
-
+function logConsole($msg) {
+  echo "<script>console.log(" . json_encode($msg) . ")</script>";
+}
 $success = "";
 
 //getting id from url
@@ -163,9 +165,7 @@ if (empty($userName) || empty($password) || empty($email) || empty($phone) || em
 				    	<select class="form-control" name="id_department">
 							<?php
 while ($res = mysqli_fetch_array($departmentResult)) {?>
-					      	<option>
-					      	 <?php echo "<td>" . $res['name'] . "</td>" ?>
-					      	</option>
+					      	<option value=<? echo $departmentName; ?>></option>
 							<?php
 }
 ?>
@@ -177,9 +177,7 @@ while ($res = mysqli_fetch_array($departmentResult)) {?>
 				    	<select class="form-control" name="id_team">
 							<?php
 while ($res = mysqli_fetch_array($teamResult)) {?>
-								<option>
-								<?php echo "<td>" . $res['name'] . "</td>" ?>
-								</option>
+								<option value="<?php echo "<td>" . $res['name'] . "</td>" ?>"></option>
 								<?php
 }
 ?>
@@ -191,9 +189,7 @@ while ($res = mysqli_fetch_array($teamResult)) {?>
 					   	<select class="form-control" name="id_role">
 							<?php
 while ($res = mysqli_fetch_array($roleResult)) {?>
-								<option>
-								<?php echo "<td>" . $res['name'] . "</td>" ?>
-								</option>
+								<option value="<?php echo "<td>" . $res['name'] . "</td>" ?>"></option>
 								<?php
 }
 ?>
