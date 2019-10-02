@@ -44,7 +44,6 @@ while ($res = mysqli_fetch_array($result)) {
 }
 
 if (isset($_POST['update'])) {
-	logConsole($id);
 	$userName = mysqli_real_escape_string($db, $_POST['username']);
 	$fullName = mysqli_real_escape_string($db, $_POST['fullName']);
 
@@ -61,15 +60,24 @@ if (isset($_POST['update'])) {
 
 	// echo $password, $email, $phone, $address, $salary, $departmentName, $teamName, $roleName;
 
-	$sql1 = "SELECT * FROM user WHERE username = '$userName'";
-	$result1 = mysqli_query($db, $sql1);
+	// checking empty fields
+	   $sql1 = "SELECT * FROM user WHERE username = '$userName' and id != '$id'";
+		$result1 = mysqli_query($db, $sql1); 
 
-	if (mysqli_num_rows($result1) >= 1) {
+if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role) || empty($fullName) || empty($level)) {
+			$_SESSION['message'] =  "All fields are required."; 
+		}
+
+	else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] =  "User existed in database.";
-	}else{ 
-	 	if(ctype_alpha(str_replace(' ', '', $fullName)) === false){
+	} else { 
+	 	if(ctype_alpha(str_replace(' ', '', $fullName)) === false) {
 			$_SESSION['message'] = "Full Name could not contain numbers.";
-		}else{
+		}  else if(!is_numeric($salary) || $salary < 0) {
+	       $_SESSION['message'] = "salary has to be numberic and greater than 0";
+		}
+
+		 else {
 		// query id from name
 		$departmentIdRs = mysqli_fetch_array(mysqli_query($db, "SELECT id FROM department WHERE name = '$departmentName'"));
 		$teamIdRs = mysqli_fetch_array(mysqli_query($db, "SELECT id FROM team WHERE name = '$teamName'"));
@@ -84,7 +92,6 @@ if (isset($_POST['update'])) {
 		// logConsole($teamIdRs[0]);
 		// logConsole($roleIdRs[0]);
 		// logConsole($departmentIdRs[0]);
-		logConsole($id);
 
 		$result = mysqli_query($db, "UPDATE user SET username = '$userName', fullName = '$fullName', password = '$password', email = '$email', phone = '$phone',
 		address = '$address', salary = '$salary', id_department = $departmentIdRs[0], id_team=$teamIdRs[0], id_role=$roleIdRs[0], level = '$level' WHERE id=$id");

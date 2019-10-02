@@ -49,7 +49,6 @@ if (isset($_POST['Submit'])) {
 			$success = "<div class='success' id='success'>
 							Success.
 				  		</div>";  
-               
 	
 			} else {
 

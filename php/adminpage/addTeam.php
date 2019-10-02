@@ -14,19 +14,20 @@ if (isset($_POST['Submit'])) {
 
 	$sql1 = "SELECT * FROM team WHERE name = '$name'";
 	$result1 = mysqli_query($db, $sql1); 
-	if (mysqli_num_rows($result1) >= 1) {
+	if (empty($name) || empty($description) || empty($department)) {
+			$_SESSION['message'] =  "All fields are required."; 
+		}
+	else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] = "Team existed in database";
 	} else {
-		if (empty($name) || empty($description) || empty($department)) {
-			$_SESSION['message'] =  "All fields are required."; 
-		}else{
+		
 		 	$sql = "INSERT INTO team(name, description, id_department) VALUES('$name', '$description', '$IDdepartment')";
 			$result = mysqli_query($db, $sql);
 			
 			$success = "<div class='success' id='success'>
 							Success.
 				  		</div>";  	 
-		}	
+			
 	}
 }
  		$department_sql = "SELECT * FROM department";
@@ -71,7 +72,6 @@ if (isset($_POST['Submit'])) {
 			      		<?php
 			           		do {
 			      		?>
-			      		<option></option>
 			      		<option value="<?= $department['name']; ?>"><?= $department['name']; ?></option>
 			      		<?php
 			        		} while($department = mysqli_fetch_assoc($department_query));

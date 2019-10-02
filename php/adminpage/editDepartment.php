@@ -11,7 +11,10 @@ $department_ID = "";
    
 	$sql1 = "SELECT * FROM department WHERE name = '$name' and id != '$department_ID'";
 	$result1 = mysqli_query($db, $sql1); 
-	if (mysqli_num_rows($result1) >= 1) {
+	 if (empty($name) || empty($description)) {
+		$_SESSION['message'] =  "All fields are required.";
+	} 
+	else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] = "Department existed in database";
 	} else {	
        	if(!preg_match($department_pattern, $name) || strlen($name) > 255) {

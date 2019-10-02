@@ -1,5 +1,5 @@
 <?php 
-  $department_sql = "SELECT * FROM department";
+  $department_sql = "SELECT * FROM department ORDER BY name ASC";
   if($department_query = mysqli_query($db,$department_sql)) {
   $department = mysqli_fetch_assoc($department_query);
  }

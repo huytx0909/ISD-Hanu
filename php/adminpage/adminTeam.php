@@ -1,6 +1,6 @@
 <?php 
 	
-  $team_sql = "SELECT * FROM team";
+  $team_sql = "SELECT * FROM team ORDER BY name ASC";
   if($team_query = mysqli_query($db,$team_sql)) {
   $team = mysqli_fetch_assoc($team_query);
 

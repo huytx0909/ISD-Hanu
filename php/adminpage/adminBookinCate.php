@@ -2,7 +2,7 @@
   if(isset($_GET['IDcategory'])) {
     $IDcategory = $_GET['IDcategory'];
 	
-  $book_sql = "SELECT * FROM book where id_category = '$IDcategory'";
+  $book_sql = "SELECT * FROM book where id_category = '$IDcategory' ORDER BY book_title ASC";
   if($book_query = mysqli_query($db,$book_sql)) {
   $book = mysqli_fetch_assoc($book_query);
 
@@ -23,7 +23,7 @@
   <div class="container">
 
   <div class="float-left">
-        <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBook" > Add new Book</a></button>
+        <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBook&ID=<?= $category0['id']; ?>" > Add new Book</a></button>
 
         <button type="button" class="btn btn-info"><a href = "admin.php?adminpage=adminBookCategory" > Book category</a></button>
          

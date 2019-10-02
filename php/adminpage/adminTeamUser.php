@@ -38,10 +38,10 @@
                 <thead class="thead-dark">
                     <tr>
                       <th>list</th>                  
-                      <th>Username</th>               
+                      <th>Username</th>
+                      <th>Fullname</th>               
                       <th>Email</th>
                       <th>Phone</th>                        
-                      <th>Salary</th>
                       <th>Address</th>
                       <th>Department</th>
                       <th>Team</th>
@@ -93,9 +93,9 @@
                         </td>
 
                         <td align="center" class="cell-breakWord"><?= $user['username']; ?></a></td>
+                        <td align="center" class="cell-breakWord"><?= $user['fullName']; ?></a></td>
                         <td align="center" class="cell-breakWord"><?= $user['email']; ?></td>
                         <td align="center" class="cell-breakWord"><?= $user['phone']; ?></td>
-                        <td align="center" class="cell-breakWord"><?= $user['salary']; ?></td>
                         <td align="center" class="cell-breakWord"><?= $user['address']; ?></td>
                         <td align="center" class="cell-breakWord"><?= $departmentName['name']; ?></td>  
                         <td align="center" class="cell-breakWord"><?= $teamName['name']; ?></td>   

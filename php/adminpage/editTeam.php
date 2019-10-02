@@ -18,9 +18,12 @@ $team_ID = "";
 
 	$sql1 = "SELECT * FROM team WHERE name = '$name' and id != '$team_ID'";
 	$result1 = mysqli_query($db, $sql1); 
-	if (mysqli_num_rows($result1) >= 1) {
+	 if (empty($name) || empty($description) || empty($department)) {
+			$_SESSION['message'] =  "All fields are required."; 
+		}
+	else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] = "Team existed in database";
-	} else {
+	}  else {
 		$sql = " UPDATE team SET name = '$name', description = '$description', id_department = '$IDdepartment' WHERE id ='$team_ID'";
 		$result = mysqli_query($db, $sql);
 			

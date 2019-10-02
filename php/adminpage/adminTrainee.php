@@ -31,7 +31,7 @@
                       <th>Username</th>               
                       <th>Email</th>
                       <th>Phone</th>                        
-                      <th>Salary</th>
+                      <th>Salary</th>                  
                       <th>Address</th>
                       <th>Department</th>
                       <th>Team</th>
@@ -77,7 +77,6 @@
                               //fetch to array
                             ?>
                       
-
                           <td align="center">
                             <?= $list; ?>                
                           </td>

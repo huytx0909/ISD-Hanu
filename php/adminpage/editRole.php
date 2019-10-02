@@ -10,11 +10,15 @@ if (isset($_POST['update'])) {
     	$role_pattern = '/^[a-zA-Z ]*$/';
    
 		$sql1 = "SELECT * FROM role WHERE name = '$name' and id != '$role_ID'";
-		$result1 = mysqli_query($db, $sql1); 
+		$result1 = mysqli_query($db, $sql1);
 
-		if (mysqli_num_rows($result1) >= 1) {
+		 if (empty($name) || empty($description)) {
+			$_SESSION['message'] =  "All fields are required."; 
+		}
+
+		else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['message'] =  "Role existed in database."; 
-		}else {
+		}  else {
 			if(!preg_match($role_pattern, $name) || strlen($name) > 255){
        			$_SESSION['message'] = "Only alphabets and white space allowed."; 
         	}else { 	
