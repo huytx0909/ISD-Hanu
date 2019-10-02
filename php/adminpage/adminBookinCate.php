@@ -118,7 +118,7 @@
                         <a href = "admin.php?adminpage=editBook&ID=<?=$book['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
                         
-                        <a href = "admin.php?adminpage=deleteBook&IDbook=<?=$book['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteBook&IDbook=<?=$book['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="confirm('Are you sure you want to delete this');">
                             <i class="far fa-trash-alt"></i></a>
                         </td>
                     </tr>

@@ -62,7 +62,7 @@
                         <a href = "admin.php?adminpage=editBookCategory&ID=<?=$category['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
                         <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$category['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
-                            <i class="far fa-trash-alt"></i></a>
+                            <i class="far fa-trash-alt" onclick="confirm('Are you sure you want to delete this');"></i></a>
                         </td>
                   
                     </tr>

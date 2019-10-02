@@ -63,7 +63,7 @@
                         <td align="center">
                           <a href = "admin.php?adminpage=editRole&ID=<?=$role['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                               <i class="far fa-edit"></i></a>
-                          <a href = "admin.php?adminpage=deleteRole&ID=<?=$role['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                          <a href = "admin.php?adminpage=deleteRole&ID=<?=$role['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="confirm('Are you sure you want to delete this');">
                               <i class="far fa-trash-alt"></i></a>
                         </td>
                   

@@ -14,6 +14,7 @@ $success = "";
 	<?php
   
   if (isset($_SESSION['message'])) {
+  	echo "<div class='success' id='success'></div>";
     echo "<div class='error' id='error'>".$_SESSION['message']."</div>";
     unset($_SESSION['message']);
   }
@@ -94,7 +95,7 @@ while ($res = mysqli_fetch_array($result)) {
 	echo "<td class=\"cell-breakWord\" align=\"center\">" . date("d-m-Y",strtotime($res['date_created'])) . "</td>";
 	echo "<td align=\"center\">
 			<button type=\"button\" class=\"btn btn-primary edit\"><a href=\"admin.php?adminpage=editUser&id=$res[id]\" data-toogle=\"tooltip\" title=\"Edit\"><i class=\"far fa-edit\"></i></a></button>  
-			<button type=\"button\" class=\"btn btn-danger delete\"><a href=\"admin.php?adminpage=deleteUser&id=$res[id]\" data-toogle=\"tooltip\" title=\"Delete\"><i class=\"far fa-trash-alt\"></i></a></button>
+			<button type=\"button\" class=\"btn btn-danger delete\"><a href=\"admin.php?adminpage=deleteUser&id=$res[id]\" onclick=\"confirm('Are you sure you want to delete this');\"><i class=\"far fa-trash-alt\"></i></a></button>
 		  </td>";
 	echo "</tr>";
 }

@@ -93,7 +93,7 @@
                           <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?></td>
 
                          <td align="center">
-                          <a href = "admin.php?adminpage=deleteTrainee&ID=<?=$trainee['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                          <a href = "admin.php?adminpage=deleteTrainee&ID=<?=$trainee['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="confirm('Are you sure you want to delete this');">
                               <i class="far fa-trash-alt"></i></a>
                         </td>
                     </tr>
