@@ -14,7 +14,6 @@ $success = "";
 	<?php
   
   if (isset($_SESSION['message'])) {
-  	echo "<div class='success' id='success'></div>";
     echo "<div class='error' id='error'>".$_SESSION['message']."</div>";
     unset($_SESSION['message']);
   }
