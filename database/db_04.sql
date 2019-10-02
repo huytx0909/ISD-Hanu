@@ -56,7 +56,7 @@ CREATE TABLE `holiday` (
 ) ENGINE=InnoDB;
 
 
-DROP TABLE IF EXISTS `leave_application`
+DROP TABLE IF EXISTS `leave_application`;
 CREATE TABLE `leave_application`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
    `id_user` int(11) NOT NULL,
