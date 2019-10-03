@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -12,9 +13,10 @@ require '../../vendor/autoload.php';
 $mail = new PHPMailer(true);
 
 define("MAIL_HOST", "smtp.gmail.com");
-define("SENDER_USER_NAME", "huytx0909.hdc@gmail.com");
-define("SENDER_PASSWORD", "huytx12345");
+define("SENDER_USER_NAME", "inforevnhrm@gmail.com");
+define("SENDER_PASSWORD", "inforevnhrm2019");
 define("SENDER_DISPLAY_NAME", "INFORE VIET NAM - HR DEPARTMENT");
+define("EMAIL_FIELDS_OFFSET", 2);
 
 try {
     //Server settings
@@ -37,35 +39,31 @@ try {
     echo "Cannot set server settings. Mailer Error: {$mail->ErrorInfo}";
 }
 
-$recipient = $_POST["recipient"];
-$subject = $_POST['subject'];
-
-$bookName = $_POST['book-name'];
-$type = $_POST['type'];
-$price = $_POST['price'];
+$fieldContents = '';
+$emailInfoArray = $_SESSION["infoEmailArr"];
+foreach(array_slice($emailInfoArray, EMAIL_FIELDS_OFFSET) as $field=>$field_value) {
+    $extractedFields = '<tr> 
+    <th>'.$field. ':</th><td>'.$field_value.'</td> 
+    </tr>';
+    $fieldContents = $fieldContents . $extractedFields;
+}
 
 $htmlContent = ' 
     <html> 
     <head> 
-        <title>' . $subject . '</title> 
+        <title>' . $emailInfoArray["subject"] . '</title> 
     </head> 
     <body> 
         <h1>Your request has been confirmed!</h1> 
         <table cellspacing="0" style="border: 2px dashed #FB4314; width: 100%;"> 
-            <tr> 
-                <th>Book:</th><td>'.$bookName.'</td> 
-            </tr> 
-            <tr>
-                <th>Type:</th><td>'. $type .'</td>  
-            </tr>
-            <tr>
-                <th>Price</th>'. $price .'<td>
-            </tr>
+            '
+                .$fieldContents.
+            '
         </table> 
     </body> 
     </html>'; 
 
-    sendEmail($mail, $recipient, $subject, $htmlContent);
+    sendEmail($mail, $emailInfoArray["recipient"], $emailInfoArray["subject"], $htmlContent);
  
 
 function sendEmail($mail, $recipient, $subject, $body) {
@@ -79,5 +77,6 @@ function sendEmail($mail, $recipient, $subject, $body) {
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
-}  
+}
+
 ?>
