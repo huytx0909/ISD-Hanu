@@ -1,5 +1,4 @@
 <?php 
-$success = "";
 if (isset($_POST['Submit'])) {
 	
 	$title = $_POST['title'];
@@ -15,13 +14,13 @@ if (isset($_POST['Submit'])) {
 	$result1 = mysqli_query($db, $sql1);
 
 	if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "Book existed in database";
+		$_SESSION['error'] = "Book existed in database.";
 	} else {
 		if (empty($title) || empty($authorName) || empty($datePublication) || empty($prize)
 			|| empty($status) || empty($max_expired_day) || empty($category)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 		}else if(!is_numeric($prize) || $prize < 0) {
-	       $_SESSION['message'] = "Prize has to be numberic and greater than 0";
+	       $_SESSION['error'] = "Prize has to be numberic and greater than 0.";
 		}else {
 	    $category_sql = "SELECT * from category where category_name = '$category'";
 	    $category_query = mysqli_query($db, $category_sql);
@@ -40,11 +39,8 @@ if (isset($_POST['Submit'])) {
 
  	$sql = "INSERT INTO book(book_title, author_name, date_publication, prize, status, max_expired_day, id_category, id_image) VALUES('$title', '$authorName', '$datePublication', '$prize', '$status', '$max_expired_day','$IDcategory' ,'$IDimage')";
 			$result = mysqli_query($db, $sql);
-			
-			
-	$success = "<div class='success' id='success'>
-							Success.
-				  		</div>";               
+	$_SESSION['success'] = "Success.";
+	header("Location:admin.php?adminpage=adminBook");             
 	}
 }
 }
@@ -61,7 +57,7 @@ if (isset($_POST['Submit'])) {
 	?>
 
 <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
 		<a href="admin.php?adminpage=adminBook">
 			<i class="fas fa-chevron-left"></i>
 			Back
@@ -75,12 +71,11 @@ if (isset($_POST['Submit'])) {
 		<form method="POST" action="admin.php?adminpage=addBook" class="form beta-form-checkout">
 			<div class="form-group">
 				<?php 
-					echo $success;
-					if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+					if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='error'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 					} 
-					?>
+				?>
 				<label for="title">Book Title:</label>
 				<input type="text" name="title" class="form-control">
 			</div>

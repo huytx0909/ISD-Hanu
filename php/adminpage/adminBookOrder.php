@@ -15,11 +15,14 @@
 
 	<div class="container">
   <?php
-  
-  if (isset($_SESSION['message'])) {
-    echo "<div class='error' id='error'>".$_SESSION['message']."</div>";
-    unset($_SESSION['message']);
-  }
+  if (isset($_SESSION['success'])) {
+    echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
+    unset($_SESSION['success']);
+  } 
+  if (isset($_SESSION['error'])) {
+    echo "<div class = 'error' id='msg'>".$_SESSION['error']."</div";
+    unset($_SESSION['error']);
+    } 
   ?>
     <div class="float-right">
         <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">

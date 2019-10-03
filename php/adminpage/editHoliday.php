@@ -3,7 +3,7 @@
 if(isset($_GET['ID'])) {
   $IDholiday = $_GET['ID'];
  
-if (isset($_POST['register_button'])) {
+if (isset($_POST['update'])) {
 	  $name = $_POST['name'];
 	  $description = $_POST['description'];
 	  $startDate = $_POST['start_date'];
@@ -15,10 +15,10 @@ if (isset($_POST['register_button'])) {
 	$sql1 = "SELECT * FROM holiday WHERE event_name = '$name' and id != '$IDholiday'";
 	$result1 = mysqli_query($db, $sql1); 
 	if (empty($name) || empty($description) || empty($startDate) || empty($endDate)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 	} 
 	 else if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "Holiday existed in database";
+		$_SESSION['error'] = "Holiday existed in database.";
 	}
 	else  {
 
@@ -28,11 +28,12 @@ if (isset($_POST['register_button'])) {
 
 		 $holiday_query = mysqli_query($db,$holiday_sql); 
 			
-			header("location: admin.php?adminpage=adminHoliday"); //redirect to home after registering successfully
+			$_SESSION['success'] = "Success."; 
+			header("Location:admin.php?adminpage=adminHoliday");
                
            } else {
                
-               	$_SESSION['message'] = "start date can not be later than end date";
+               	$_SESSION['error'] = "Start date can not be later than end date.";
 
 
            }
@@ -49,64 +50,51 @@ if (isset($_POST['register_button'])) {
    
 ?>
 
+<div class = "header">
+	<button type="submit" class="btn btn-primary float-left" name="Submit">
+		<a href="admin.php?adminpage=adminHoliday">
+			<i class="fas fa-chevron-left"></i>
+			Back
+		</a>
+	</button>
+    <h2>Edit Holiday</h2>
+</div>
+<div class="container">
+	<div class="main">
+		<form method="POST" action="admin.php?adminpage=editHoliday&ID=<?= $IDholiday; ?>"  class="form beta-form-checkout">
+			<div class="form-group">
+				 <?php 
+					if (isset($_SESSION['error'])) {
+						echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+						unset($_SESSION['error']);
+					} 
+					?>
+				<label for="name">Holiday Event name:</label>
+				<input type="text" name="name" class="form-control" value="<?= $holiday0['event_name']; ?>">	
+			</div>
 
+			<div class="form-group">
+				<label for="description">Description:</label>
+				<input type="text" name="description" class="form-control" value="<?= $holiday0['description']; ?>">
+			</div>
 
+			<div class="form-group">
+				<label for="date">Start Date:</label>
+				<input type="date" name="start_date" class="form-control" value="<?= $holiday0['start_date']; ?>">
+			</div>
 
-
-
-  <div class="row">
-   	<div class="col-md-4"></div>
-   	<div class="col-md-4">
-
-	<div class="header" align="center"> 
-		<h1> Edit holiday event </h1>
- <?php 
-	if (isset($_SESSION['message'])) {
-		echo "<div id = 'error_msg'><span class = 'error'>".$_SESSION['message']."</span></div";
-		unset($_SESSION['message']);
-	} 
-	?>
-	</div>
-
-
-	<form method="POST" action="admin.php?adminpage=editHoliday&ID=<?= $IDholiday; ?>"  class="beta-form-checkout">
-		<table>
-			 <div class="form-group" align="center">
-			<tr>
-				<td><strong>Holiday event name: </strong></td>
-				<td><input type="text" name="name" class="form-control" value="<?= $holiday0['event_name']; ?>" required></td>
-			</tr>
-		</div>
-
-		
-
-		<div class="form-group" align="center">
-			<tr>
-				<td><strong>Description: </strong></td>
-				<td><input type="text" name="description" class="form-control" value="<?= $holiday0['description']; ?>" required></td>
-			</tr>
-		</div>
-
-		<div class="form-group" align="center">
-			<tr>
-				<td><strong>Start Date: </strong></td>
-				<td><input type="date" name="start_date" class="form-control" value="<?= $holiday0['start_date']; ?>" required></td>
-			</tr>
-		</div>
-
-		<div class="form-group" align="center">
-			<tr>
-				<td><strong>End Date: </strong></td>
-				<td><input type="date" name="end_date" class="form-control" value="<?= $holiday0['end_date']; ?>" required></td>
-			</tr>
-		</div>
+			<div class="form-group">
+				<label for="date">End Date:</label>
+				<input type="date" name="end_date" class="form-control" value="<?= $holiday0['end_date']; ?>" required>
+			</div>
 
 		
 	 		
-			<tr>
-				<td></td>
-				<td><input type="submit" name="register_button" value="submit" class="btn btn-primary"></td>
-			</tr>
+				<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+				<button type="submit" class="btn btn-primary float-right" name="update">Update</button>
+			
+		
+			<div class="clearfix"></div>
 		</table>
 	</form>
 </div>

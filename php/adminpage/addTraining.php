@@ -1,5 +1,4 @@
 <?php
-$success = "";
 if (isset($_POST['Submit'])) {
 	$name = $_POST['name'];
 	$trainer = $_POST['trainer'];
@@ -17,9 +16,9 @@ if (isset($_POST['Submit'])) {
 	$result1 = mysqli_query($db, $sql1); 
 	if (empty($name) || empty($trainer) || empty($description) || empty($startDate)
 			|| empty($endDate) || empty($maxTrainee)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 	}else if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "training course existed in database";
+		$_SESSION['error'] = "Training course existed in database.";
 	}else if (mysqli_num_rows($trainer_query) == 1) {
 		$trainer = mysqli_fetch_assoc($trainer_query); 
 		$IDuser = $trainer['id'];
@@ -30,21 +29,20 @@ if (isset($_POST['Submit'])) {
 
 		 	$training_query = mysqli_query($db,$training_sql); 
 			
-			$success = "<div class='success' id='success'>
-							Success.
-				  		</div>"; 
+			$_SESSION['success'] = "Success."; 
+			header("Location:admin.php?adminpage=adminTraining"); 	
                
         }else {
-            $_SESSION['message'] = "Start date can not be later than end date and earlier than the date of today";
+            $_SESSION['error'] = "Start date can not be later than end date and earlier than the date of today.";
         }	
 	} else {
-		$_SESSION['message'] = "There is no such trainer";
+		$_SESSION['error'] = "There is no such trainer.";
 	}
 }
 ?>
 
   <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
 		<a href="admin.php?adminpage=adminTraining">
 			<i class="fas fa-chevron-left"></i>
 			Back
@@ -58,10 +56,9 @@ if (isset($_POST['Submit'])) {
 	<form method="POST" action="admin.php?adminpage=addTraining"  class="form beta-form-checkout">
 		<div class="form-group">
 			<?php 
-				echo $success;
-				if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+				if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 				} 
 				?>
 			<label for="name">Training Course Name:</label>

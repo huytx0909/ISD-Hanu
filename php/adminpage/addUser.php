@@ -1,7 +1,6 @@
 	<?php
 //including the database connection file
 date_default_timezone_set("Asia/Ho_Chi_Minh");
-$success = "";
 if (isset($_POST['Submit'])) {
 
 	$userName = mysqli_real_escape_string($db, $_POST['username']);
@@ -31,14 +30,14 @@ if (isset($_POST['Submit'])) {
 	$result1 = mysqli_query($db, $sql1);
 
 	if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] =  "User existed in database.";
+		$_SESSION['error'] =  "User existed in database.";
 	}else{ 
 		if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role) || empty($fullName) || empty($level)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 		}else if(!ctype_alpha(str_replace(' ', '', $fullName))) {
-			$_SESSION['message'] = "Full Name could not contain numbers.";
+			$_SESSION['error'] = "Full Name could not contain numbers.";
 		} else if(!is_numeric($salary) || $salary < 0) {
-	       $_SESSION['message'] = "salary has to be numberic and greater than 0";
+	       $_SESSION['error'] = "Salary has to be numberic and greater than 0";
 		}
 
 		 else {
@@ -49,9 +48,8 @@ if (isset($_POST['Submit'])) {
 
 		$insertResult = mysqli_query($db, "INSERT INTO user(username, fullName, password, email, phone, address, salary, id_department, id_team, id_role, date_created, level)
 			VALUES('$userName', '$fullName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]', '$date', '$level')");
-		$success = "<div class='success' id='success'>
-							Success.
-				  		</div>";  
+		$_SESSION['success'] = "Success."; 
+		header("Location:admin.php?adminpage=adminUser"); 
 		}
 	}
 }
@@ -61,7 +59,7 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 ?>
 	<body>
 		<div class = "header">
-			<button type="submit" class="btn btn-primary float-left" name="Submit">
+			<button type="submit" class="btn btn-dark float-left" name="Submit">
 				<a href="admin.php?adminpage=adminUser">
 					<i class="fas fa-chevron-left"></i>
 					Back
@@ -75,10 +73,9 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 				<form action="admin.php?adminpage=addUser" method="post" name="form1" class="form">
 				  <div class="form-group">
 				  	<?php 
-					echo $success;
-					if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+					if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='error'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 					} 
 					?>
 				    <label for="name">User Name:</label>

@@ -20,8 +20,18 @@
 
   
   <div class="container">
+    <?php
+    if (isset($_SESSION['success'])) {
+      echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
+      unset($_SESSION['success']);
+    } 
+    if (isset($_SESSION['error'])) {
+      echo "<div class = 'error' id='msg'>".$_SESSION['error']."</div";
+      unset($_SESSION['error']);
+      } 
+  ?>
     <div class="float-left">
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addTask" >Add new task!</a></button>
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addTask" >Add new task</a></button>
 
   </div>
 
@@ -33,19 +43,15 @@
       </div>
 
       <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
-            
                 <thead class="thead-dark">
                     <tr>
-                       <th>list</th>                  
-                        <th>Task name</th>                   
+                       <th>List</th>                  
+                        <th>Task Name</th>                   
                         <th>Team</th>                   
                         <th>Description</th>
-                        <th>deadline</th>
-                       <th>status</th>
-                      
+                        <th>Deadline</th>
+                       <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -73,16 +79,16 @@
                       
 
 
-                              <td class="" align="center" class="cell-breakWord"><?= $task['task_name']; ?>
+                              <td align="center" class="cell-breakWord"><?= $task['task_name']; ?>
                              </td>
 
-                               <td class="" align="center" class="cell-breakWord"><?= $team['name']; ?>
+                               <td align="center" class="cell-breakWord"><?= $team['name']; ?>
                               </td>
 
-                              <td class="" align="center" class="cell-breakWord"><?= $task['description']; ?>
+                              <td align="center" class="cell-breakWord"><?= $task['description']; ?>
                               </td>
 
-                              <td class="" align="center" class="cell-breakWord" <?php if($task['deadline'] < $todayDate) { ?> style="color: red;"  <?php } ?> > <?php if(isset($task['deadline'])) {  echo date("d-m-Y",strtotime($task['deadline'])); } ?>
+                              <td align="center" class="cell-breakWord" <?php if($task['deadline'] < $todayDate) { ?> style="color: red;"  <?php } ?> > <?php if(isset($task['deadline'])) {  echo date("d-m-Y",strtotime($task['deadline'])); } ?>
                               </td>
 
                     
@@ -99,19 +105,12 @@
                   <?php 
 
                       } while($task = mysqli_fetch_assoc($task_query));
-                   ?>
-
-                                       
-                
-                    
-
-                 
+                   ?> 
 
                 </tbody>
 
             </table>
              
         </div>
-    </div>
 </div>
 

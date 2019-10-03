@@ -1,6 +1,5 @@
 <?php
 date_default_timezone_set("Asia/Ho_Chi_Minh");
-$success = "";
  if(isset($_GET['IDtraining'])) { 
    $IDtraining = $_GET['IDtraining'];
 
@@ -18,7 +17,7 @@ if (isset($_POST['Submit'])) {
 	 $sql2 = "SELECT * FROM trainee where id_training = '$IDtraining' and id_user = '$IDuser'";
 	  $result2 = mysqli_query($db, $sql2);
 	  	if (empty($username)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 	    }else if(mysqli_num_rows($result2) == 0) {
 
 		     	$sql = "INSERT INTO trainee(id_training, id_user) VALUES('$IDtraining', '$IDuser')";
@@ -33,16 +32,15 @@ if (isset($_POST['Submit'])) {
 		     	$training1_sql = "UPDATE training set number_trainees = '$numberTrainee' where id = '$IDtraining'";
 				$training1_query = mysqli_query($db,$training1_sql);
 		     
-				$success = "<div class='success' id='success'>
-							Success.
-				  		</div>"; 
+				$_SESSION['success'] = "Success."; 
+				header("Location:admin.php?adminpage=adminTrainee&IDtraining=<?=$IDtraining;?>"); 	 
                } else {
-               		$_SESSION['message'] = "User has already enrolled in the training";
+               		$_SESSION['error'] = "User has already enrolled in the training.";
                }           
 	
 			} else {
 
-				$_SESSION['message'] = "There is no such user";
+				$_SESSION['error'] = "There is no such user.";
 			}
 
 }
@@ -53,8 +51,8 @@ if (isset($_POST['Submit'])) {
 ?>
 
 <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
-		<a href="admin.php?adminpage=adminTrainee">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
+		<a href="admin.php?adminpage=adminTraining">
 			<i class="fas fa-chevron-left"></i>
 			Back
 		</a>
@@ -65,12 +63,11 @@ if (isset($_POST['Submit'])) {
 <div class="container">
 	<div class="main">
 		<form method="POST" action="admin.php?adminpage=addTrainee&IDtraining=<?=$IDtraining;?>" class="form beta-form-checkout">
-			<div class="form-group" align="center">
+			<div class="form-group">
 				<?php 
-					echo $success;
-					if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+					if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 					} 
 					?>
 				<label for="name">Username:</label>

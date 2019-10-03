@@ -1,5 +1,4 @@
 <?php 
-$success =  "";
 if (isset($_POST['Submit'])) {
 	
 	  $name = $_POST['name'];
@@ -12,24 +11,23 @@ if (isset($_POST['Submit'])) {
 	$result1 = mysqli_query($db, $sql1); 
 	
 	if (empty($name) || empty($description)) {
-		$_SESSION['message'] =  "All fields are required.";
+		$_SESSION['error'] =  "All fields are required.";
 	}else if (ctype_alpha(str_replace(' ', '', $name)) === false) {
-   		$_SESSION['message']  = 'Name must contain letters and spaces only';
+   		$_SESSION['error']  = 'Name must contain letters and spaces only.';
 	} else if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "Department existed in database";
+		$_SESSION['error'] = "Department existed in database.";
     }else { 	
 		$sql = "INSERT INTO department(name, description) VALUES('$name', '$description')";
 		$result = mysqli_query($db, $sql);
-		$success = "<div class='success' id='success'>
-							Success.
-				  		</div>";      		
+		$_SESSION['success'] = "Success."; 
+		header("Location:admin.php?adminpage=adminDepartment"); 	      		
 		} 
 	}
 
 ?>
 
 <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
 		<a href="admin.php?adminpage=adminDepartment">
 			<i class="fas fa-chevron-left"></i>
 			Back
@@ -43,10 +41,9 @@ if (isset($_POST['Submit'])) {
 			<form method="POST" action="admin.php?adminpage=addDepartment"  class="form beta-form-checkout">
 				<div class="form-group">
 					<?php 
-					echo $success;
-					if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+					if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 					} 
 					?>
 					<label for="name">Department Name:</label>

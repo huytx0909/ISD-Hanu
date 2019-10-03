@@ -2,7 +2,7 @@
    if(isset($_POST['search'])) {
 	$search=$_POST['searchtext'];
 	if(empty($search)){
-    $_SESSION['message'] = "Please enter search keyword.";       
+    $_SESSION['error'] = "Please enter search keyword.";       
 		header("Location:admin.php?adminpage=adminBook");
 	}
 	$search_sql = "SELECT * FROM Book WHERE `book_title` LIKE '%$search%' or `author_name` LIKE '%$search%' or `date_publication` LIKE '%$search%' or `prize` LIKE '%$search%' or `status` LIKE '%$search%'";
@@ -11,7 +11,7 @@
      $searchbook = mysqli_fetch_assoc($search_query);	
         }
 if(mysqli_num_rows($search_query) == 0) {
-    $_SESSION['message'] = "No results.";       
+    $_SESSION['error'] = "No results.";       
     header("Location:admin.php?adminpage=adminBook");  
 
  } 
@@ -124,7 +124,7 @@ if(mysqli_num_rows($search_query) == 0) {
    if(isset($_POST['searchCategory'])) {
   $search=$_POST['searchtextCategory'];
   if(empty($search)){
-    $_SESSION['message'] = "Please enter search keyword.";
+    $_SESSION['error'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminBookCategory");
   }
 
@@ -137,7 +137,7 @@ if(mysqli_num_rows($search_query) == 0) {
 }
 
  if(mysqli_num_rows($search_query) == 0) {
-    $_SESSION['message'] = "No result.";
+    $_SESSION['error'] = "No result.";
     header("Location:admin.php?adminpage=adminBookCategory");
  } 
 ?>
@@ -202,7 +202,7 @@ if(mysqli_num_rows($search_query) == 0) {
    if(isset($_POST['searchDepartment'])) {
   $search=$_POST['searchtextDepartment'];
   if(empty($search)){
-    $_SESSION['message'] = "Please enter search keyword.";
+    $_SESSION['error'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminDepartment");
   }
 
@@ -221,7 +221,7 @@ if(mysqli_num_rows($search_query) == 0) {
 
 if(mysqli_num_rows($department_query) == 0) {
 
-$_SESSION['message'] = "No results.";
+$_SESSION['error'] = "No results.";
     header("Location:admin.php?adminpage=adminDepartment"); 
  }
  ?>
@@ -293,7 +293,7 @@ $_SESSION['message'] = "No results.";
 if(isset($_POST['searchTeam'])) {
   $search=$_POST['searchtextTeam'];
   if(empty($search)){
-    $_SESSION['message'] = "Please enter search keyword.";
+    $_SESSION['error'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminTeam");
   }
   
@@ -310,7 +310,7 @@ if(isset($_POST['searchTeam'])) {
 
 if(mysqli_num_rows($team_query) == 0) {
 
-$_SESSION['message'] = "No results.";
+$_SESSION['error'] = "No results.";
     header("Location:admin.php?adminpage=adminTeam");     
  }
  ?>
@@ -408,7 +408,7 @@ $_SESSION['message'] = "No results.";
 if(isset($_POST['searchUser'])) {
   $search=$_POST['searchtextUser'];
   if(empty($search)){
-    $_SESSION['message'] = "Please enter search keyword.";
+    $_SESSION['error'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminUser");
   }
 
@@ -422,7 +422,7 @@ $result = mysqli_query($db, $user_sql);
 
 if(mysqli_num_rows($result) == 0) {
 
-    $_SESSION['message'] = "No results.";
+    $_SESSION['error'] = "No results.";
     header("Location:admin.php?adminpage=adminUser"); 
  }
 ?>
@@ -525,7 +525,7 @@ while ($res = mysqli_fetch_array($result)) {
    if(isset($_POST['searchRole'])) {
   $search=$_POST['searchtextRole'];
   if(empty($search)){
-    $_SESSION['message'] = "Please enter search keyword.";
+    $_SESSION['error'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminRole");
   }
 
@@ -541,7 +541,7 @@ while ($res = mysqli_fetch_array($result)) {
 
 if(mysqli_num_rows($role_query) == 0) {
 
-    $_SESSION['message'] = "No results.";
+    $_SESSION['error'] = "No results.";
     header("Location:admin.php?adminpage=adminRole");
  }
 
@@ -620,7 +620,7 @@ if(isset($_POST['searchRoleUser'])) {
     $IDrole = $_GET['IDrole'];
   $search=$_POST['searchtextRoleUser'];
   if(empty($search)){
-    $_SESSION['message'] = "Please enter search keyword.";
+    $_SESSION['error'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminRoleUser&IDrole=$IDrole");
   }
 
@@ -634,7 +634,7 @@ $user = mysqli_fetch_assoc($user_query);
   
   if(mysqli_num_rows($user_query) == 0) {
 
-    $_SESSION['message'] = "No results.";
+    $_SESSION['error'] = "No results.";
     header("Location:admin.php?adminpage=adminRoleUser&IDrole=$IDrole");
  }
 
@@ -830,7 +830,7 @@ window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole1';
 if(isset($_POST['searchOrder'])) {
   $search=$_POST['searchtextOrder'];
   if(empty($search)){
-    $_SESSION['message'] = "Please enter search keyword.";
+    $_SESSION['error'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminBookOrder");
   }
 
@@ -842,7 +842,7 @@ if(isset($_POST['searchOrder'])) {
 
  if(mysqli_num_rows($order_query) == 0) {
 
-    $_SESSION['message'] = "No results.";
+    $_SESSION['error'] = "No results.";
     header("Location:admin.php?adminpage=adminBookOrder"); 
  }
 
@@ -946,7 +946,7 @@ if(isset($_POST['searchOrder'])) {
 if(isset($_POST['searchTraining'])) {
   $search=$_POST['searchtextTraining'];
   if(empty($search)){
-    $_SESSION['message'] = "Please enter search keyword.";
+    $_SESSION['error'] = "Please enter search keyword.";
     header("Location:admin.php?adminpage=adminTraining");
   }
   
@@ -958,7 +958,7 @@ if(isset($_POST['searchTraining'])) {
 
  if(mysqli_num_rows($training_query) == 0) {
 
-    $_SESSION['message'] = "No results.";
+    $_SESSION['error'] = "No results.";
     header("Location:admin.php?adminpage=adminTraining");
    }
 
