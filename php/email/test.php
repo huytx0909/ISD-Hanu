@@ -1,3 +1,9 @@
+<?php
+session_start();
+$_SESSION["infoEmailArr"] = array("recipient" => "tuantran0722.inforevn@gmail.com","subject" => "Book order",
+ "Type" => "Borrow",
+ "Price" => "100$");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +14,6 @@
 </head>
 <body>
 <form action="email.php" method="post">
-  recipient: <input type="text" name="recipient"><br>
-  subject: <input type="text" name="subject"><br>
-  book-name: <input type="text" name="book-name"><br>
-  type: <input type="text" name="type"><br>
-  price: <input type="text" name="price"><br>
   <input type="submit" value="Submit">
 </form>
     
