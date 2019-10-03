@@ -16,6 +16,7 @@ define("MAIL_HOST", "smtp.gmail.com");
 define("SENDER_USER_NAME", "inforevnhrm@gmail.com");
 define("SENDER_PASSWORD", "inforevnhrm2019");
 define("SENDER_DISPLAY_NAME", "INFORE VIET NAM - HR DEPARTMENT");
+define("EMAIL_FIELDS_OFFSET", 2);
 
 try {
     //Server settings
@@ -40,16 +41,12 @@ try {
 
 $fieldContents = '';
 $emailInfoArray = $_SESSION["infoEmailArr"];
-foreach(array_slice($emailInfoArray, 2) as $field=>$field_value) {
-    // echo "key: " .$field. "&& value: " .$field_value;
+foreach(array_slice($emailInfoArray, EMAIL_FIELDS_OFFSET) as $field=>$field_value) {
     $extractedFields = '<tr> 
     <th>'.$field. ':</th><td>'.$field_value.'</td> 
     </tr>';
     $fieldContents = $fieldContents . $extractedFields;
 }
-
-echo $fieldContents;
-
 
 $htmlContent = ' 
     <html> 
