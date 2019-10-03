@@ -1,6 +1,5 @@
 <?php
 date_default_timezone_set("Asia/Ho_Chi_Minh");
-$success = "";
  if(isset($_GET['ID'])) { 
    $IDbook = $_GET['ID'];
 
@@ -22,7 +21,7 @@ if (isset($_POST['Submit'])) {
 	$sql1 = "SELECT * FROM user WHERE username = '$username'";
 	$result1 = mysqli_query($db, $sql1);
 	if (empty($username) || empty($type)) {
-		$_SESSION['message'] =  "All fields are required."; 
+		$_SESSION['error'] =  "All fields are required."; 
 	}else if (mysqli_num_rows($result1) == 1) {
 	
 			$user = mysqli_fetch_assoc($result1); 
@@ -46,20 +45,19 @@ if (isset($_POST['Submit'])) {
 			$book1_query = mysqli_query($db, $book1_sql);
 
 
-			$success = "<div class='success' id='success'>
-							Success.
-				  		</div>";  
+			$_SESSION['success'] = "Success."; 
+			header("Location:admin.php?adminpage=adminBookOrder"); 	
 	
 			} else {
 
-				$_SESSION['message'] = "There is no such user";
+				$_SESSION['error'] = "There is no such user";
 			}
 
 }
 ?>
 
 <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
 		<a href="admin.php?adminpage=adminBookOrder">
 			<i class="fas fa-chevron-left"></i>
 			Back
@@ -72,11 +70,10 @@ if (isset($_POST['Submit'])) {
 	<div class="main">
 		<form method="POST" action="admin.php?adminpage=addBookOrder&ID=<?=$IDbook;?>" class="form beta-form-checkout">
 			<div class="form-group">
-				<?php
-				echo $success; 
-				if (isset($_SESSION['message'])) {
-				echo "<div class = 'error'>".$_SESSION['message']."</div";
-				unset($_SESSION['message']);
+				<?php 
+				if (isset($_SESSION['error'])) {
+				echo "<div class = 'error' id='msg'>".$_SESSION['error']."</div";
+				unset($_SESSION['error']);
 				} 
 				?>
 				<label for="name">User Name:</label>

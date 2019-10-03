@@ -2,7 +2,6 @@
 function logConsole($msg) {
   echo "<script>console.log(" . json_encode($msg) . ")</script>";
 }
-$success = "";
 
 //getting id from url
 $id = $_GET['id'];
@@ -65,16 +64,16 @@ if (isset($_POST['update'])) {
 		$result1 = mysqli_query($db, $sql1); 
 
 if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role) || empty($fullName) || empty($level)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 		}
 
 	else if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] =  "User existed in database.";
+		$_SESSION['error'] =  "User existed in database.";
 	} else { 
 	 	if(ctype_alpha(str_replace(' ', '', $fullName)) === false) {
-			$_SESSION['message'] = "Full Name could not contain numbers.";
+			$_SESSION['error'] = "Full Name could not contain numbers.";
 		}  else if(!is_numeric($salary) || $salary < 0) {
-	       $_SESSION['message'] = "salary has to be numberic and greater than 0";
+	       $_SESSION['error'] = "Salary has to be numberic and greater than 0.";
 		}
 
 		 else {
@@ -95,9 +94,8 @@ if (empty($userName) || empty($password) || empty($email) || empty($phone) || em
 
 		$result = mysqli_query($db, "UPDATE user SET username = '$userName', fullName = '$fullName', password = '$password', email = '$email', phone = '$phone',
 		address = '$address', salary = '$salary', id_department = $departmentIdRs[0], id_team=$teamIdRs[0], id_role=$roleIdRs[0], level = '$level' WHERE id=$id");
-		$success = "<div class='success' id='success'>
-							Success.
-				  		</div>";  
+		$_SESSION['success'] = "Success."; 
+		header("Location:admin.php?adminpage=adminUser"); 
 	}
 }
 }
@@ -105,7 +103,7 @@ if (empty($userName) || empty($password) || empty($email) || empty($phone) || em
 
 <body>
 	<div class = "header">
-		<button type="submit" class="btn btn-primary float-left" name="Submit">
+		<button type="submit" class="btn btn-dark float-left" name="Submit">
 				<a href="admin.php?adminpage=adminUser">
 					<i class="fas fa-chevron-left"></i>
 					Back
@@ -120,10 +118,9 @@ if (empty($userName) || empty($password) || empty($email) || empty($phone) || em
 
 				  <div class="form-group">
 				  	<?php 
-					echo $success;
-					if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+					if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 					} 
 					?>
 				    <label for="username">User Name:</label>

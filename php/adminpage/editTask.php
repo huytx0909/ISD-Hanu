@@ -1,5 +1,4 @@
 <?php
-$success = "";
 if(isset($_GET['ID'])) {
 	$IDtask = $_GET['ID'];
 
@@ -17,7 +16,7 @@ if (isset($_POST['Submit'])) {
     
     
 	if (empty($name) || empty($team_name) || empty($description) || empty($deadline) || empty($status)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 	}
 	
 	else {
@@ -32,12 +31,11 @@ if (isset($_POST['Submit'])) {
 
 		 	$task_query = mysqli_query($db,$task_sql); 
 			
-			$success = "<div class='success' id='success'>
-							Success.
-				  		</div>"; 
+			$_SESSION['success'] = "Success."; 
+			header("Location:admin.php?adminpage=adminTask");  
                
         }else {
-            $_SESSION['message'] = "deadline could not be earlier than today!";
+            $_SESSION['error'] = "deadline could not be earlier than today!";
         }	
 	} 
 }
@@ -53,7 +51,7 @@ $task1 = mysqli_fetch_assoc($task1_query);
 ?>
 
   <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
 		<a href="admin.php?adminpage=adminTask">
 			<i class="fas fa-chevron-left"></i>
 			Back
@@ -67,10 +65,9 @@ $task1 = mysqli_fetch_assoc($task1_query);
 	<form method="POST" action="admin.php?adminpage=editTask&ID=<?=$IDtask;?>"  class="form beta-form-checkout">
 		<div class="form-group">
 			<?php 
-				echo $success;
-				if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+				if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 				} 
 				?>
 			<label for="name">Task name:</label>
@@ -79,7 +76,7 @@ $task1 = mysqli_fetch_assoc($task1_query);
 
 		<div class="form-group select">
 				    	<label for="team">Team:</label>
-					   	<select class="form-control" name="team" required>
+					   	<select class="form-control" name="team">
 					   		<?php 
 					   			do { ?>
 					   		<option value="<?=$team['name'];?>" <?php if($task1['id_team'] == $team['id']) { ?> selected <?php } ?>  ><?=$team['name'];?></option>

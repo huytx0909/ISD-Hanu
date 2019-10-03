@@ -9,9 +9,6 @@
  $list = 0;
  ?>
 
-
-
-
   
   <div class = "header">
     <h2>Holiday table</h2>
@@ -19,8 +16,19 @@
 
   
   <div class="container">
+    <?php
+  
+    if (isset($_SESSION['success'])) {
+      echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
+      unset($_SESSION['success']);
+    }
+    if (isset($_SESSION['error'])) {
+      echo "<div class='error'>".$_SESSION['msg']."</div>";
+      unset($_SESSION['error']);
+    } 
+  ?>
     <div class="float-left">
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addHoliday" >Add new holiday event!</a></button>
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addHoliday" >Add new holiday event</a></button>
 
   </div>
 
@@ -32,24 +40,19 @@
       </div>
 
       <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
             
                 <thead class="thead-dark">
                     <tr>
-                       <th>list</th>                  
-                        <th>Event name</th>               
-                        <th>Description</th>
-                        <th>start date</th>  
-                       <th>end date</th>                        
-                      
-                        <th>Actions</th>
+                      <th>list</th>                  
+                      <th>Event name</th>               
+                      <th>Description</th>
+                      <th>Start Date</th>  
+                      <th>End Date</th>                        
+                      <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                   
-                     
+                <tbody>       
                     <tr>
                          <?php 
                           do {
@@ -65,17 +68,17 @@
                       
 
 
-                              <td class="" align="center" class="cell-breakWord"><?= $holiday['event_name']; ?>
+                              <td align="center" class="cell-breakWord"><?= $holiday['event_name']; ?>
                              </td>
 
-                               <td class="" align="center" class="cell-breakWord"><?= $holiday['description']; ?>
+                               <td align="center" class="cell-breakWord"><?= $holiday['description']; ?>
                               </td>
 
                             
 
-                                 <td class="" align="center" class="cell-breakWord"> <?php if(isset($holiday['start_date'])) {  echo date("d-m-Y",strtotime($holiday['start_date'])); } ?>
+                                 <td align="center" class="cell-breakWord"> <?php if(isset($holiday['start_date'])) {  echo date("d-m-Y",strtotime($holiday['start_date'])); } ?>
                               </td>    
-                               <td class="" align="center" class="cell-breakWord"> <?php if(isset($holiday['end_date'])) {  echo date("d-m-Y",strtotime($holiday['end_date'])); } ?>
+                               <td align="center" class="cell-breakWord"> <?php if(isset($holiday['end_date'])) {  echo date("d-m-Y",strtotime($holiday['end_date'])); } ?>
                               </td>                              
 
                          <td align="center">

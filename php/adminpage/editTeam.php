@@ -1,5 +1,4 @@
 <?php
-$success = ""; 
 if (isset($_POST['update'])) {
 if(isset($_GET['ID'])) {
 $team_ID = "";
@@ -19,18 +18,17 @@ $team_ID = "";
 	$sql1 = "SELECT * FROM team WHERE name = '$name' and id != '$team_ID'";
 	$result1 = mysqli_query($db, $sql1); 
 	 if (empty($name) || empty($description) || empty($department)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 		}
 	else if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "Team existed in database";
+		$_SESSION['error'] = "Team existed in database.";
 	}  else {
 		$sql = " UPDATE team SET name = '$name', description = '$description', id_department = '$IDdepartment' WHERE id ='$team_ID'";
 		$result = mysqli_query($db, $sql);
 			
 
-		$success = "<div class='success' id='success'>
-							Success.
-				  		</div>";  	 	
+		$_SESSION['success'] = "Success."; 
+		header("Location:admin.php?adminpage=adminTeam");   	 	
 	}
   }	
 }
@@ -55,7 +53,7 @@ $department2_sql = "SELECT * from department where id = '$departmentID'";
 ?>
 
 <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
 		<a href="admin.php?adminpage=adminTeam">
 			<i class="fas fa-chevron-left"></i>
 			Back
@@ -70,13 +68,13 @@ $department2_sql = "SELECT * from department where id = '$departmentID'";
 			<div class="form-group">
 				<?php 
 					echo $success;
-					if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+					if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 					} 
 					?>
 				<label for="name">Team Name:</label>
-				<input type="text" name="name" class="form-control" value="<?=$team['name'];?>" required>
+				<input type="text" name="name" class="form-control" value="<?=$team['name'];?>">
 			</div>
 
 			<div class="form-group">
@@ -86,7 +84,7 @@ $department2_sql = "SELECT * from department where id = '$departmentID'";
 
 			<div class="form-group">
 		        <label for="department">Department:</label>
-		    	<select  class="form-control" id="department" name="department" required>
+		    	<select  class="form-control" id="department" name="department">
 			      	<?php
 			           do {
 			      	?>

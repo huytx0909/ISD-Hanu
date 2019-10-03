@@ -1,6 +1,4 @@
 <?php 
-
-$success = "";
   if(isset($_GET['ID'])) {
 
        $book_ID = $_GET['ID']; 
@@ -19,11 +17,11 @@ if (isset($_POST['update'])) {
 
 	if (empty($title) || empty($authorName) || empty($datePublication) || empty($prize)
 			|| empty($status) || empty($max_expired_day) || empty($category)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 		}
 
    else if(!is_numeric($prize) || $prize < 0) {
-       $_SESSION['message'] = "Prize has to be numberic and greater than 0";
+       $_SESSION['error'] = "Prize has to be numberic and greater than 0.";
 	}
       else {
 
@@ -62,9 +60,8 @@ if (isset($_POST['update'])) {
             $sql = "UPDATE book set book_title = '$title', author_name = '$authorName', date_publication = '$datePublication', prize = '$prize', max_expired_day = '$max_expired_day', id_category = '$IDcategory', status = '$status' WHERE id = '$book_ID'";
 			$result = mysqli_query($db, $sql);
 			
-			$success = "<div class='success' id='success'>
-							Success.
-				  		</div>";           
+			$_SESSION['success'] = "Success."; 
+			header("Location:admin.php?adminpage=adminBook");           
            }
 
 	}
@@ -100,7 +97,7 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 
 
 <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
 		<a href="admin.php?adminpage=adminBook">
 			<i class="fas fa-chevron-left"></i>
 			Back
@@ -114,10 +111,9 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 		<form method="POST" action="admin.php?adminpage=editBook&ID=<?= $book['id'];?>" class="form beta-form-checkout">
 			<div class="form-group">
 				<?php 
-					echo $success;
-					if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+					if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 					} 
 					?>
 				<label for="title">Book title:</label>

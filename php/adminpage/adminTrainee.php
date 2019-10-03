@@ -22,8 +22,17 @@
     <h2>Users Take Part in <?= $training['training_name']; ?> Training Course</h2>
   </div> 
 
-  
   <div class="container">
+    <?php
+    if (isset($_SESSION['success'])) {
+      echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
+      unset($_SESSION['success']);
+    } 
+    if (isset($_SESSION['error'])) {
+      echo "<div class = 'error' id='msg'>".$_SESSION['error']."</div>";
+      unset($_SESSION['error']);
+      } 
+  ?> 
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -107,4 +116,5 @@
 
 <?php 
  }
+ 
 ?>

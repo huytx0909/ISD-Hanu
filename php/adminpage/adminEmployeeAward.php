@@ -8,10 +8,6 @@
 
  $list = 0;
  ?>
-
-
-
-
   
   <div class = "header">
     <h2>Employee Award </h2>
@@ -19,8 +15,18 @@
 
   
   <div class="container">
+    <?php
+    if (isset($_SESSION['success'])) {
+    echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
+    unset($_SESSION['success']);
+    } 
+    if (isset($_SESSION['error'])) {
+    echo "<div class = 'error' id='msg'>".$_SESSION['error']."</div";
+    unset($_SESSION['error']);
+    } 
+  ?>
     <div class="float-left">
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addEmployeeAward" >Add new award to employee!</a></button>
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addEmployeeAward" >Add new award to employee</a></button>
 
   </div>
 
@@ -32,10 +38,7 @@
       </div>
 
       <div class="clearfix"></div>
-    <div class="row">
-        <div class="col-md-12 col-md-10 col-md-offset-1">
             <table class="table">
-            
                 <thead class="thead-dark">
                     <tr>
                        <th>List</th>                  
@@ -45,7 +48,6 @@
                         <th>Gift item</th>
                        <th>Award amount(VND)</th>  
                        <th>Awarded date</th>
-                      
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -63,8 +65,6 @@
 
 
                             ?>
-                      
-
                                 <td align="center">
                            
                                 <?= $list; ?>
@@ -73,28 +73,27 @@
                       
 
 
-                              <td class="" align="center" class="cell-breakWord"><?= $user['username']; ?>
+                              <td align="center" class="cell-breakWord"><?= $user['username']; ?>
                              </td>
 
-                               <td class="" align="center" class="cell-breakWord"><?= $user['fullName']; ?>
+                               <td align="center" class="cell-breakWord"><?= $user['fullName']; ?>
                               </td>
 
                              
 
-                              <td class="" align="center" class="cell-breakWord"><?= $award['award_title']; ?>
+                              <td align="center" class="cell-breakWord"><?= $award['award_title']; ?>
                               </td>
 
-                              <td class="" align="center" class="cell-breakWord"><?= $award['gift_item']; ?>
+                              <td align="center" class="cell-breakWord"><?= $award['gift_item']; ?>
                               </td>
 
-                              <td class="" align="center" class="cell-breakWord"><?= $award['award_amount']; ?>
+                              <td align="center" class="cell-breakWord"><?= $award['award_amount']; ?>
                               </td>
                            
                                   
-                               <td class="" align="center" class="cell-breakWord"> <?php if(isset($award['award_date'])) {  echo date("d-m-Y",strtotime($award['award_date'])); } ?>
+                               <td align="center" class="cell-breakWord"> <?php if(isset($award['award_date'])) {  echo date("d-m-Y",strtotime($award['award_date'])); } ?>
                               </td>
-
-                                                           
+                                       
 
                          <td align="center">
                         <a href = "admin.php?adminpage=editEmployeeAward&ID=<?=$award['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
@@ -108,11 +107,6 @@
 
                       } while($award = mysqli_fetch_assoc($award_query));
                    ?>
-
-                                       
-                
-                    
-
                  
 
                 </tbody>
@@ -120,6 +114,5 @@
             </table>
              
         </div>
-    </div>
 </div>
 

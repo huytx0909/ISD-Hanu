@@ -6,7 +6,7 @@
  ?>
 <!-- header -->
 
-
+<body>
  <?php
 if(!isset($_GET['adminpage'])){
   include 'adminpage/adminUser.php';
@@ -15,6 +15,11 @@ if(!isset($_GET['adminpage'])){
   include 'adminpage/'.$adminpage.'.php';
 }
 
-
  ?>
-
+ <script type="text/javascript">
+setTimeout(function() {
+   $("#msg").hide(1000); 
+},2000); 
+</script>
+ 
+</body>

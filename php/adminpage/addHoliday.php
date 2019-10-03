@@ -15,10 +15,10 @@ if (isset($_POST['Submit'])) {
     $sql1 = "SELECT * FROM holiday WHERE event_name = '$name'";
 	$result1 = mysqli_query($db, $sql1); 
 	if (empty($name) || empty($description) || empty($startDate) || empty($endDate)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 	} 
 	else if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "holiday event existed in database";
+		$_SESSION['error'] = "Holiday event existed in database.";
 	}   
 	  else {
 	
@@ -28,13 +28,11 @@ if (isset($_POST['Submit'])) {
 		 $holiday_sql = "INSERT INTO `holiday`(event_name, description, start_date, end_date) VALUES('$name', '$description', '$startDate', '$endDate')";
 
 		 $holiday_query = mysqli_query($db, $holiday_sql); 
-			
-				$success = "<div class='success' id='success'>
-							Success.
-				  		</div>";            
+				$_SESSION['success'] = "Success.";   
+				header("Location:admin.php?adminpage=adminHoliday");     
            } else {
                
-               				$_SESSION['message'] = "start date can not be later than end date";
+              	$_SESSION['error'] = "Start date can not be later than end date.";
 
 
            }
@@ -59,13 +57,12 @@ if (isset($_POST['Submit'])) {
 	<form method="POST" action="admin.php?adminpage=addHoliday"  class="form beta-form-checkout">
 			 <div class="form-group">
 			<?php 
-				echo $success;
-				if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+				if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 				} 
 				?>
-			<label for="name">Event name:</label>
+			<label for="name">Holiday Event name:</label>
 			<input type="text" name="name" class="form-control">
 		</div>
 

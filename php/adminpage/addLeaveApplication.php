@@ -1,5 +1,4 @@
 <?php
-$success = "";
 if (isset($_POST['Submit'])) {
 	$name = $_POST['username'];
 	$leaveType = $_POST['leave_type'];
@@ -16,10 +15,10 @@ if (isset($_POST['Submit'])) {
 
     
 	if (empty($name) || empty($startDate) || empty($endDate)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 	}
 	 else if($leaveType == "Personal" && empty($personalReason)) {
-			$_SESSION['message'] =  "Specific personal reason is required."; 
+			$_SESSION['error'] =  "Specific personal reason is required."; 
 
 	}
 	else if (mysqli_num_rows($user_query) == 1) {
@@ -30,7 +29,7 @@ if (isset($_POST['Submit'])) {
 		$leave0_query = mysqli_query($db, $leave0_sql);
 
 		if(mysqli_num_rows($leave0_query) > 0) {
-			$_SESSION['message'] =  "Leave Application existed in the database"; 
+			$_SESSION['error'] =  "Leave Application existed in the database."; 
 
 		}
 
@@ -40,21 +39,20 @@ if (isset($_POST['Submit'])) {
 
 		 	$leave_query = mysqli_query($db,$leave_sql); 
 			
-			$success = "<div class='success' id='success'>
-							Success.
-				  		</div>"; 
+			$_SESSION['success'] = "Success."; 
+			header("Location:admin.php?adminpage=adminLeaveApplication"); 	
                
         }else {
-            $_SESSION['message'] = "Start date can not be later than end date and earlier than the date of today";
+            $_SESSION['error'] = "Start date can't be later than end date and earlier than the date of today.";
         }	
 	} else {
-		$_SESSION['message'] = "There is no such user";
+		$_SESSION['error'] = "There is no such user.";
 	}
 }
 ?>
 
   <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
 		<a href="admin.php?adminpage=adminLeaveApplication">
 			<i class="fas fa-chevron-left"></i>
 			Back
@@ -68,19 +66,19 @@ if (isset($_POST['Submit'])) {
 	<form method="POST" action="admin.php?adminpage=addLeaveApplication"  class="form beta-form-checkout">
 		<div class="form-group">
 			<?php 
-				echo $success;
-				if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+				if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 				} 
 				?>
-			<label for="name">username:</label>
+			<label for="name">Username:</label>
 			<input type="text" name="username" class="form-control">
 		</div>
 					
 					<div class="form-group select">
-				    	<label for="leave_type">Leave reason:</label>
+				    	<label for="leave_type">Leave Reason:</label>
 					   	<select class="form-control" name="leave_type">
+					   		<option></option>
 					   		<option value="Vacation">Vacation</option>
 					   		<option value="Personal">Personal</option>
 					      	<option value="Sick Leave">Sick Leave</option>
@@ -89,7 +87,7 @@ if (isset($_POST['Submit'])) {
 					</div>
 
 					<div class="form-group">
-					<label for="personalReason">For detail personal reason:</label>
+					<label for="personalReason">For Detail Personal Reason:</label>
 					<textarea class="form-control" rows="5" id="reason" name="personalReason"></textarea>
 				</div>
 		
@@ -107,9 +105,10 @@ if (isset($_POST['Submit'])) {
 		<div class="form-group select">
 				    	<label for="leave_type">Status:</label>
 					   	<select class="form-control" name="status">
-					   		<option value="accepted">accepted</option>
-					   		<option value="pending">pending</option>
-					      	<option value="rejected">rejected</option>
+					   		<option></option>
+					   		<option value="accepted">Accepted</option>
+					   		<option value="pending">Pending</option>
+					      	<option value="rejected">Rejected</option>
 						</select>
 
 					</div>

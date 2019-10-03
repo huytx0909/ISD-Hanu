@@ -1,5 +1,4 @@
 <?php 
-$success =  "";
 if (isset($_POST['update'])) {
 	if(isset($_GET['ID'])) {
 		$role_ID = "";
@@ -13,20 +12,19 @@ if (isset($_POST['update'])) {
 		$result1 = mysqli_query($db, $sql1);
 
 		 if (empty($name) || empty($description)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 		}
 
 		else if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] =  "Role existed in database."; 
+		$_SESSION['error'] =  "Role existed in database."; 
 		}  else {
 			if(!preg_match($role_pattern, $name) || strlen($name) > 255){
-       			$_SESSION['message'] = "Only alphabets and white space allowed."; 
+       			$_SESSION['error'] = "Only alphabets and white space allowed."; 
         	}else { 	
 				$sql = "UPDATE role SET name = '$name', description = '$description' WHERE id ='$role_ID'";
 				$result = mysqli_query($db, $sql);
-				$success = "<div class='success' id='success'>
-								Success.
-				  			</div>";              	
+				$_SESSION['success'] = "Success."; 
+				header("Location:admin.php?adminpage=adminRole");               	
 			} 
 		}
  	}	
@@ -41,7 +39,7 @@ if(isset($_GET['ID'])) {
 ?>
 
 <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
 		<a href="admin.php?adminpage=adminRole">
 			<i class="fas fa-chevron-left"></i>
 			Back
@@ -55,13 +53,12 @@ if(isset($_GET['ID'])) {
 		<form method="POST" action="admin.php?adminpage=editRole&ID=<?= $role_ID; ?>"  class="form beta-form-checkout">
 				<div class="form-group">
 					<?php 
-						echo $success;
-						if (isset($_SESSION['message'])) {
-						echo "<div class = 'error'>".$_SESSION['message']."</div>";
-						unset($_SESSION['message']);
+						if (isset($_SESSION['error'])) {
+						echo "<div class = 'error' id='msg'>".$_SESSION['error']."</div>";
+						unset($_SESSION['error']);
 					}?>
 					<label for="name">Role Name:</label>
-					<input type="text" name="name" class="form-control" value="<?=$role['name'];?>" required>
+					<input type="text" name="name" class="form-control" value="<?=$role['name'];?>">
 				</div>
 
 				<div class="form-group">

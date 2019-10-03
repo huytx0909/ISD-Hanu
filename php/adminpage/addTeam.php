@@ -1,5 +1,4 @@
 <?php 
-$success = "";
 if (isset($_POST['Submit'])) {
 	
 	  $name = $_POST['name'];
@@ -15,18 +14,17 @@ if (isset($_POST['Submit'])) {
 	$sql1 = "SELECT * FROM team WHERE name = '$name'";
 	$result1 = mysqli_query($db, $sql1); 
 	if (empty($name) || empty($description) || empty($department)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
 		}
 	else if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "Team existed in database";
+		$_SESSION['error'] = "Team existed in database";
 	} else {
 		
 		 	$sql = "INSERT INTO team(name, description, id_department) VALUES('$name', '$description', '$IDdepartment')";
 			$result = mysqli_query($db, $sql);
 			
-			$success = "<div class='success' id='success'>
-							Success.
-				  		</div>";  	 
+			$_SESSION['success'] = "Success."; 
+			header("Location:admin.php?adminpage=adminTeam"); 	 
 			
 	}
 }
@@ -37,7 +35,7 @@ if (isset($_POST['Submit'])) {
 ?>
 
 <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
 		<a href="admin.php?adminpage=adminTeam">
 			<i class="fas fa-chevron-left"></i>
 			Back
@@ -51,10 +49,9 @@ if (isset($_POST['Submit'])) {
 			<form method="POST" action="admin.php?adminpage=addTeam"  class="form beta-form-checkout">
 				<div class="form-group">
 					<?php 
-					echo $success;
-					if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+					if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 					} 
 					?>
 					<label for="name">Team Name:</label>

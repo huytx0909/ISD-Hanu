@@ -1,5 +1,4 @@
 <?php 
-$success = "";
 if (isset($_POST['update'])) {
 if(isset($_GET['ID'])) {
 $category_ID = "";
@@ -12,23 +11,21 @@ $category_ID = "";
 	$sql1 = "SELECT * FROM category WHERE category_name = '$name' and id != '$category_ID'";
 	$result1 = mysqli_query($db, $sql1); 
 	if (empty($name)) {
-			$_SESSION['message'] =  "All fields are required."; 
+			$_SESSION['error'] =  "All fields are required."; 
        	}
 	else if (mysqli_num_rows($result1) >= 1) {
-		$_SESSION['message'] = "Category existed in database";
+		$_SESSION['error'] = "Category existed in database.";
 	} else {
 		
        if(!preg_match($category_pattern, $name)) {
-       		$_SESSION['message'] = "Only alphabets and white space allowed";
+       		$_SESSION['error'] = "Only alphabets and white space allowed";
         }else { 	
 		 	$sql = " UPDATE category SET  category_name = '$name' WHERE id ='$category_ID'";
 			$result = mysqli_query($db, $sql);
 			
 			
-			$success = "<div class='success' id='success'>
-							Success.
-				  		</div>"; 
-               
+			$_SESSION['success'] = "Success."; 
+			header("Location:admin.php?adminpage=adminBookCategory");
 			
 		} 
 	}
@@ -44,7 +41,7 @@ if(isset($_GET['ID'])) {
 ?>
 
 <div class = "header">
-	<button type="submit" class="btn btn-primary float-left" name="Submit">
+	<button type="submit" class="btn btn-dark float-left" name="Submit">
 		<a href="admin.php?adminpage=adminBookCategory">
 			<i class="fas fa-chevron-left"></i>
 			Back
@@ -58,14 +55,13 @@ if(isset($_GET['ID'])) {
 		<form method="POST" action="admin.php?adminpage=editBookCategory&ID=<?= $category_ID; ?>"  class="form beta-form-checkout">
 			<div class="form-group">
 				<?php 
-					echo $success;
-					if (isset($_SESSION['message'])) {
-					echo "<div class='error'>".$_SESSION['message']."</div>";
-					unset($_SESSION['message']);
+					if (isset($_SESSION['error'])) {
+					echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+					unset($_SESSION['error']);
 					} 
 					?>
 				<label for="name">Category Name: </label>
-				<input type="text" name="name" class="form-control" value="<?=$category['category_name'];?>" required>
+				<input type="text" name="name" class="form-control" value="<?=$category['category_name'];?>">
 			</div>
 
 			<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
