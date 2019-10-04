@@ -4,7 +4,6 @@
 
 //fetching data in descending order (lastest entry first)
 $result = mysqli_query($db, "SELECT * FROM user ORDER BY id DESC");
-$success = "";
 ?>
 <body>
 	<div class = "header">
@@ -83,25 +82,26 @@ while ($res = mysqli_fetch_array($result)) {
         } else {
         	$role = "none";
         }
-
-	echo "<tr>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['username'] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['password'] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['fullName'] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['email'] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['phone'] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['address'] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['salary'] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $depart . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $team . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $role . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . $res['level'] . "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" . date("d-m-Y",strtotime($res['date_created'])) . "</td>";
-	echo "<td align=\"center\">
-			<button type=\"button\" class=\"btn btn-primary edit\"><a href=\"admin.php?adminpage=editUser&id=$res[id]\" data-toogle=\"tooltip\" title=\"Edit\"><i class=\"far fa-edit\"></i></a></button>  
-			<button type=\"button\" class=\"btn btn-danger delete\"><a href=\"admin.php?adminpage=deleteUser&id=$res[id]\" onclick=\"confirm('Are you sure you want to delete this');\"><i class=\"far fa-trash-alt\"></i></a></button>
-		  </td>";
-	echo "</tr>";
+       ?>
+	<tr>
+		<td class="cell-breakWord" align="center"><?=$res['username']; ?></td>
+		<td class="cell-breakWord" align="center"><?=$res['password']; ?></td>
+		<td class="cell-breakWord" align="center"><?=$res['fullName']; ?></td>
+		<td class="cell-breakWord" align="center"><?=$res['email']; ?></td>
+		<td class="cell-breakWord" align="center"><?=$res['phone']; ?></td>
+		<td class="cell-breakWord" align="center"><?=$res['address']; ?></td>
+		<td class="cell-breakWord" align="center"><?=$res['salary']; ?></td>
+		<td class="cell-breakWord" align="center"><?=$depart; ?></td>
+		<td class="cell-breakWord" align="center"><?=$team; ?></td>
+		<td class="cell-breakWord" align="center"><?=$role; ?></td>
+		<td class="cell-breakWord" align="center"><?=$res['level']; ?></td>
+		<td class="cell-breakWord" align="center"><?=date("d-m-Y",strtotime($res['date_created'])); ?></td>
+		<td align="center">
+			<button type="button" class="btn btn-primary edit"><a href="admin.php?adminpage=editUser&id=$res[id]" data-toogle="tooltip" title="Edit"><i class="far fa-edit"></i></a></button>  
+			<button type="button" class="btn btn-danger" id="delete" data-toogle="tooltip" title="Delete" data-toggle="modal" data-target="#deleteModal" data-id="<?=$res['id'];?>"><a><i class="far fa-trash-alt"></i></a></button>
+		</td>
+	</tr>
+<?php
 }
 ?>
 			  </tbody>
@@ -109,4 +109,5 @@ while ($res = mysqli_fetch_array($result)) {
 	</div>
 </body>
 </html>
+<?php include 'deleteUser.php';?>
  

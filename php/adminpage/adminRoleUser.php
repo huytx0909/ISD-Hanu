@@ -25,11 +25,15 @@
   <div class="container">
   <?php
   
-  if (isset($_SESSION['message'])) {
-    echo "<div class='error' id='error'>".$_SESSION['message']."</div>";
-    unset($_SESSION['message']);
-  }
-  ?>  
+    if (isset($_SESSION['success'])) {
+      echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
+      unset($_SESSION['success']);
+    }
+    if (isset($_SESSION['error'])) {
+      echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+      unset($_SESSION['error']);
+    } 
+  ?>
     <div class="float-left">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add User</button>
     </div>
@@ -145,11 +149,8 @@
        
 
   }  
-
-      echo "<script>
-alert('add successfully');
-window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole1';
-</script>";
+      $_SESSION['success'] = "Success."; 
+      header("Location:admin.php?adminpage=adminRoleUser&IDrole=$IDrole1"); 
          }  
 
           }
