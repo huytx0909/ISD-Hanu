@@ -22,17 +22,25 @@
     <h2>Users Take Part in <?= $training['training_name']; ?> Training Course</h2>
   </div> 
 
-  <div class="container">
-    <?php
-    if (isset($_SESSION['success'])) {
-      echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
-      unset($_SESSION['success']);
-    } 
-    if (isset($_SESSION['error'])) {
-      echo "<div class = 'error' id='msg'>".$_SESSION['error']."</div>";
-      unset($_SESSION['error']);
-      } 
-  ?> 
+  <div class="main">
+    <div class="row">
+      <div class="col-sm-11 col-xl-12">
+      <?php 
+        if (isset($_SESSION['success'])) {
+        echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
+        unset($_SESSION['success']);
+        } 
+      ?>
+      <?php 
+        if (isset($_SESSION['error'])) {
+        echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+        unset($_SESSION['error']);
+        } 
+      ?>
+      </div>
+    </div>  
+    <div class="row">
+      <div class="col-11 col-md-11 col-xl-12 table-responsive">
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -112,7 +120,8 @@
               </tbody>
             </table>      
 </div>
-
+</div>
+</div>
 
 <?php 
  }

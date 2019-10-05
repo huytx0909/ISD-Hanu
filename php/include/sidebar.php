@@ -1,17 +1,5 @@
-<header>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-  <a class="navbar-brand" href="admin.php?" style="width: 300px">Infore</a>
-  <div>
-    <ul class="navbar-nav">
-       <li class="nav-item">
-        <a class="nav-link" href="adminLogin.php"> Log out 
-          <i class="fas fa-sign-out-alt"></i></a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
+<div class="row">
+  <div class=" col-12">
 <div class="sidebar navbar-light bg-light">
   <ul>
       <li class="img">
@@ -64,11 +52,5 @@
       </li>
     </ul>
 </div>
-</header>
-
-<script>
-  window.addEventListener("beforeunload",function(e){
-
-    document.body.className = "page-loading";
-},false);
-</script>
+</div>
+</div>

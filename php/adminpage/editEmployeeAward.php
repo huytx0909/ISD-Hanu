@@ -67,8 +67,10 @@ $award1_sql = "SELECT * FROM employee_award WHERE id = '$IDaward'";
     <h2>Edit Award to a Employee</h2>
 </div>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="main">
+		<div class="row">
+			<div class="col-2 col-sm-4 col-md-8 col-xl-12">
 	<form method="POST" action="admin.php?adminpage=editEmployeeAward&ID=<?=$IDaward;?>"  class="form beta-form-checkout">
 		<div class="form-group">
 			<?php 
@@ -113,7 +115,8 @@ $award1_sql = "SELECT * FROM employee_award WHERE id = '$IDaward'";
 	</form>
 </div>
 </div>
-
+</div>
+</div>
 <?php
 }
 ?>

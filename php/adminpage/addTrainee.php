@@ -60,8 +60,10 @@ if (isset($_POST['Submit'])) {
 	<h2>Enroll Trainee in <?= $training['training_name']; ?> </h2>
 </div>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="main">
+		<div class="row">
+			<div class="col-2 col-sm-4 col-md-8 col-xl-12">
 		<form method="POST" action="admin.php?adminpage=addTrainee&IDtraining=<?=$IDtraining;?>" class="form beta-form-checkout">
 			<div class="form-group">
 				<?php 
@@ -81,7 +83,8 @@ if (isset($_POST['Submit'])) {
 		</form>
 	</div>
 </div>
-
+</div>
+</div>
 <?php
 }
 ?>

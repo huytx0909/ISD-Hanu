@@ -20,25 +20,45 @@
     <h2> <?= $category0['category_name']; ?> Book Table</h2>
   </div>
 
-  <div class="container">
-
-  <div class="float-left">
+  <div class="main">
+    <div class="row">
+      <div class="col-sm-11 col-xl-12">
+      <?php 
+        if (isset($_SESSION['success'])) {
+        echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
+        unset($_SESSION['success']);
+        } 
+      ?>
+      <?php 
+        if (isset($_SESSION['error'])) {
+        echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+        unset($_SESSION['error']);
+        } 
+      ?>
+      </div>
+    </div>  
+    <div class="row">
+      <div class="col-6 col-xl-8">
         <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBook&ID=<?= $category0['id']; ?>" > Add new Book</a></button>
 
         <button type="button" class="btn btn-info"><a href = "admin.php?adminpage=adminBookCategory" > Book category</a></button>
          
-  </div>
+      </div>
 
- <div class="float-right">
+      <div class="col-6 col-xl-4">
+        <div class="float-right">
         <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtext">
             <button class="btn btn-outline-success" type="submit" name="search">Search</button>
           </form>
+        </div>
       </div>
-
       <div class="clearfix"></div>
+    </div>
+
+      <div class="row">
+        <div class="col-11 col-md-11 col-xl-12 table-responsive" >
             <table class="table">
-            
                 <thead class="thead-dark">
                     <tr>
                        <th>list</th>                  
@@ -56,8 +76,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                   
-                     
                     <tr>
                          <?php 
                           do {
@@ -95,7 +113,7 @@
 
                                 
 
-                                <td align="center"><image src="img/<?= $image['url'];?>" width="50" height="50" alt="book">
+                                <td align="center"><img src="img/<?= $image['url'];?>" width="50" height="50" alt="book">
                                 </td>
 
                                 <td align="center" class="cell-breakWord"><?php if(isset($book['date_publication'])) { echo date("d-m-Y",strtotime($book['date_publication'])); } ?>
@@ -126,17 +144,11 @@
 
                       } while($book = mysqli_fetch_assoc($book_query));
                    ?>
-                 
                 </tbody>
-
             </table>
         </div>
     </div>
 </div>
-
-
-
-
 <?php 
  }
 ?>

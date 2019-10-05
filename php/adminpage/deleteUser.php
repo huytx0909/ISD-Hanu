@@ -2,7 +2,7 @@
   if(isset($_GET['id'])){
 //getting id of the data from url
   	$id="";
-$id = $_GET['id'];
+    $id = $_GET['id'];
 
 //deleting the row from table
  $delete_sql = "DELETE FROM user WHERE id='$id'";

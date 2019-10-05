@@ -13,7 +13,10 @@
 		<h2>Book Table</h2>
 	</div> 
 
-	<div class="container">
+<div class="container-fluid">
+  <div class="main">
+    <div class="row">
+      <div class="col-sm-11 col-xl-12">
   
   <?php
   if (isset($_SESSION['success'])) {
@@ -25,25 +28,31 @@
     unset($_SESSION['error']);
   }
   ?>
-  <div class="float-left">
+    </div>
+</div>
+  <div class="row">
+      <div class="col-6 col-xl-8">
         <button type="button" class="btn btn-primary"><a href = "admin.php?adminpage=addBook" > Add New Book</a></button>
 
         <button type="button" class="btn btn-info"><a href = "admin.php?adminpage=adminBookCategory" > Book Category</a></button>
     
        <button type="button" class="btn btn-warning"><a href = "admin.php?adminpage=adminBookOrder" > Book Order</a></button>
+      </div>
 
-  </div>
-
- <div class="float-right">
+      <div class="col-6 col-xl-4">
+        <div class="float-right">
         <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtext">
             <button class="btn btn-outline-success" type="submit" name="search">Search</button>
           </form>
+        </div>
       </div>
-
       <div class="clearfix"></div>
-            <table class="table">
-            
+    </div>
+
+      <div class="row">
+        <div class="col-11 col-md-11 col-xl-12 table-responsive" >
+            <table class="table">            
                 <thead class="thead-dark">
                     <tr>
                        <th>List</th>                  
@@ -87,7 +96,7 @@
                       
                       <td align="center" class="cell-breakWord"><?= $book['book_title']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $book['author_name']; ?> </td>
-                      <td align="center"><image src="img/<?= $image['url'];?>" width="50" height="50" alt="book"></td>
+                      <td align="center"><img src="img/<?= $image['url'];?>" width="50" height="50" alt="book"></td>
                       <td align="center" class="cell-breakWord"><?php if(isset($book['date_publication'])) { echo date("d-m-Y",strtotime($book['date_publication'])); } ?></td>
                       <td align="center" class="cell-breakWord"><?= $book['prize']; ?></td>  
                       <td align="center" <?php if($book['status'] == "unavailable") { ?> style="color: red;"  <?php } ?> > <?= $book['status']; ?> </td>             
@@ -118,10 +127,8 @@
                 </tbody>
 
             </table>
+          </div>
+    </div>
+</div> 
 
-            
-  </div>
-
-  
-  
-
+</div>

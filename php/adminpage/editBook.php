@@ -106,8 +106,10 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 	<h2>Edit Book</h2>
 </div>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="main">
+		<div class="row">
+			<div class="col-2 col-sm-4 col-md-8 col-xl-12">
 		<form method="POST" action="admin.php?adminpage=editBook&ID=<?= $book['id'];?>" class="form beta-form-checkout">
 			<div class="form-group">
 				<?php 
@@ -175,7 +177,8 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 		</form>
 	</div>
 </div>
-
+</div>
+</div>
 <?php
 }
 

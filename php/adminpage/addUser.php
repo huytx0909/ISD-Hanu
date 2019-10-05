@@ -56,8 +56,7 @@ if (isset($_POST['Submit'])) {
 $roleResult = mysqli_query($db, "SELECT * FROM role ORDER BY id DESC");
 $departmentResult = mysqli_query($db, "SELECT * FROM department ORDER BY id DESC");
 $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
-?>
-	<body>
+?>	
 		<div class = "header">
 			<button type="submit" class="btn btn-dark float-left" name="Submit">
 				<a href="admin.php?adminpage=adminUser">
@@ -68,8 +67,10 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 			<h2>Add User</h2>
 		</div>
 
-		<div class="container">
-			<div class="main">
+		<div class="container-fluid">
+	<div class="main">
+		<div class="row">
+			<div class="col-2 col-sm-4 col-md-8 col-xl-12">
 				<form action="admin.php?adminpage=addUser" method="post" name="form1" class="form">
 				  <div class="form-group">
 				  	<?php 
@@ -178,6 +179,8 @@ while ($res = mysqli_fetch_array($roleResult)) {?>
 				</form>
 			</div>
 		</div>
-	</body>
+	</div>
+</div>
+
 
 
