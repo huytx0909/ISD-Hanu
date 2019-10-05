@@ -16,13 +16,12 @@
   <div class="container">
   <?php
   if (isset($_SESSION['success'])) {
-    echo "<div class='success' id='success'>".$_SESSION['success']."</div>";   
+    echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";   
     unset($_SESSION['success']);
   }
   if (isset($_SESSION['error'])) {
-    echo "<div class='error' id='error'>".$_SESSION['error']."</div>";
+    echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
     unset($_SESSION['error']);
-  }
   ?>
     <div class="float-left">
       <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addTeam" >Add new team</a></button>

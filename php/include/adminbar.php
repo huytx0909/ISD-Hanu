@@ -1,23 +1,13 @@
 <header>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
   <a class="navbar-brand" href="admin.php?">Infore</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item">
-          <?php if(isset($_SESSION['admin'])) { ?>
-        <a class="nav-link" href="#"><strong> <?=$_SESSION['admin']; ?> </strong> </a>
-       <?php }  else { ?>
-              <a class="nav-link" href="adminLogin.php"> Log in </a>
-              <?php } ?>
-      </li> 
-      
        <li class="nav-item">
-        <a class="nav-link" href="adminLogin.php"> Log out  </a>
+        <a class="nav-link" href="adminLogin.php"> Log out 
+          <i class="fas fa-sign-out-alt"></i></a>
       </li>
     </ul>
   </div>
@@ -26,6 +16,12 @@
 <div class="sidebar navbar-light bg-light">
  
   <ul>
+      <li class="img">
+        <a href="admin.php?adminpage=adminProfile
+  "><img src="img/tải xuống.png" alt="admin" height="70" width="70"></a>
+        <a href="admin.php?adminpage=adminProfile
+  " style="color: black;"><h4>Admin</h4></a>
+      </li>
       <li class="nav-item active">
           <a class="nav-link" href="admin.php?adminpage=adminUser
   ">User  <span class="sr-only">(current)</span></a>
@@ -71,3 +67,10 @@
     </ul>
 </div>
 </header>
+
+<script>
+  window.addEventListener("beforeunload",function(e){
+
+    document.body.className = "page-loading";
+},false);
+</script>
