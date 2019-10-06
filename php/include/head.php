@@ -14,9 +14,9 @@
 	<link rel="stylesheet" href="style/add.css">
 	<link rel="stylesheet" href="style/msg.css">
 	<link rel="stylesheet" href="style/adminProfile.css">
-
+	<link rel="stylesheet" href="style/nprogress.css">
 	<script src="https://kit.fontawesome.com/b7e0631a93.js"></script>
-	
+	<script src="style/nprogress.js"></script>
 
 
 	<meta name = "viewport" content="width=device-width, initial-scale=1,user-scalable=no">

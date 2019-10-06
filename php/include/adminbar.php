@@ -68,7 +68,8 @@
 
 <script>
   window.addEventListener("beforeunload",function(e){
-
-    document.body.className = "page-loading";
+    NProgress.start();
+    NProgress.done();
+    NProgress.configure({ showSpinner: true });
 },false);
 </script>
