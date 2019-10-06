@@ -620,7 +620,6 @@ if(mysqli_num_rows($role_query) == 0) {
 
 
 
-
 <?php
 if(isset($_POST['searchRoleUser'])) {
   if(isset($_GET['IDrole'])) {

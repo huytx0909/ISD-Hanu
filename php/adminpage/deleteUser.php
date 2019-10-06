@@ -1,12 +1,11 @@
 	<?php
   if(isset($_GET['id'])){
 //getting id of the data from url
-  	$id="";
     $id = $_GET['id'];
-
+  if(isset($_POST['deleteID'])){
 //deleting the row from table
  $delete_sql = "DELETE FROM user WHERE id='$id'";
-if($delete_query = mysqli_query($db, $delete_sql)) {
+
 //redirecting to the display page (index.php in our case)
 $_SESSION['success'] = "Success.";
 header("Location: admin.php?adminpage=adminUser");
@@ -34,7 +33,7 @@ header("Location: admin.php?adminpage=adminUser");
         </div>
         <div class="modal-footer">
           <button  name="deleteID" id="delete-btn" value="Delete" class="btn btn-danger">Delete</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
         </div>
       </form>
@@ -42,6 +41,7 @@ header("Location: admin.php?adminpage=adminUser");
       
     </div>
   </div>
+
 <script>
   $(document).on("click", "#delete", function () {
      var dataId = $(this).data('id');
