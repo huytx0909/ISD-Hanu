@@ -13,19 +13,35 @@
 			</div>
 			<div class="col-md-4">
 				<div class="info">
-					<p><strong>Full Name:</strong></p>
-					<p class="item"><strong>Gender:</strong></p>
-					<p class="item"><strong>Date of Birth:</strong></p>
-					<p class="item"><strong>Address:</strong></p>
-					<p class="item"><strong>Phone Number:</strong></p>
+					<div>
+						<strong>Full Name:</strong>
+					</div>
+					<div class="item">
+						<strong>Gender:</strong>
+					</div>
+					<div class="item">
+						<strong>Date of Birth:</strong>
+					</div>
+					<div class="item">
+						<strong>Address:</strong>
+					</div>
+					<div class="item">
+						<strong>Phone Number:</strong>
+					</div>
 
 				</div>
 			</div>
 			<div class="col-md-5">
 				<div class="info">
-					<p><strong>Username:</strong></p>
-					<p class="item"><strong>Password:</strong></p>
-					<p class="item"><strong>Email:</strong></p>
+					<div>
+						<strong>Username:</strong>
+					</div>
+					<div class="item">
+						<strong>Password:</strong>
+					</div>
+					<div class="item">
+						<strong>Email:</strong>
+					</div>
 				</div>
 			</div>
 		</div>
