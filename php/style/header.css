@@ -8,12 +8,12 @@ header{
 	position: fixed;
 	top:0;
 	width: 100%;
-	z-index: 1;
+	z-index: -1;
 	border-bottom: 1px solid #2b2e38;
 	display: flex;
 }
 
-@keyframes page-load {
+/*@keyframes page-load {
     from {
         background-color: #ffc422;
     }
@@ -38,8 +38,8 @@ header{
     width:100%;
     top:0;
     left:0;
-    animation: page-load infinite ease-out 2s;
-    -webkit-animation: page-load infinite ease-out 2s;
+    animation: page-load infinite ease-out 1s;
+    -webkit-animation: page-load infinite ease-out 1s;
     box-shadow:0 2px 2px rgba(0,0,0,.2);
 }
 
@@ -48,54 +48,11 @@ header{
 	/*flex:1;
 	display: flex;
 	justify-content: flex-end;
-	margin-right: 50px;*/
+	margin-right: 50px;
 }
 
-/*.collapse ul li{
+.collapse ul li{
 	padding-left: 30px;
-}*/
-
-.sidebar{
-	background: lightblue;
-	width: 180px;
-	height: 100%;
-	left: 0;
-	top:56px;
-	position:fixed;
-	box-shadow: 1px 0px 2px grey;
-	
-}
-.sidebar ul li.nav-item{
-	display: block;
-	height: 40px;
-	border-bottom: 1px solid #bac4d4;
-}
-
-.sidebar ul li a{
-	color: black;
-	height: 100%;
-}
-
-
-.sidebar ul li a.nav-link:hover{
-	background:  #373f4a;
-	color: white;
-}
-
-.img {
-	height: 150px;
-	text-align: center;
-	padding-top:20px;
-	border-bottom: 1px solid #bac4d4;
-}
-
-.img img {
-	border-radius: 50%;
-	border: 1px solid black;
-}
-
-.img a:hover{
-	text-decoration: none;
 }
 
 

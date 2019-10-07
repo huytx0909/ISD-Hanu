@@ -112,8 +112,10 @@ if (empty($userName) || empty($password) || empty($email) || empty($phone) || em
 		<h2>Edit User</h2>
 	</div>
 
-	<div class="container">
-		<div class="main">
+	<div class="container-fluid">
+	<div class="main">
+		<div class="row">
+			<div class="col-2 col-sm-4 col-md-8 col-xl-12">
 			<form action="" method="post" name="form1" class="form">
 
 				  <div class="form-group">
@@ -212,7 +214,7 @@ while ($res = mysqli_fetch_array($roleResult)) {?>
 			</form>
 		</div>
 	</div>
-</body>
-</html>
+</div>
+</div>
 
 

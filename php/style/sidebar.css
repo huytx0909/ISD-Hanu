@@ -1,0 +1,45 @@
+.sidebar{
+	background: lightblue;
+	
+	height: 100%;
+	left: 0;
+	top:56px;
+	position:fixed;
+	box-shadow: 1px 0px 2px grey;
+	z-index: 1;
+}
+.sidebar ul{
+	overflow: auto;
+}
+.sidebar ul li.nav-item{
+	display: block;
+	height: 40px;
+	border-bottom: 1px solid #bac4d4;
+}
+
+.sidebar ul li a{
+	color: black;
+	height: 100%;
+}
+
+
+.sidebar ul li a.nav-link:hover{
+	background:  #373f4a;
+	color: white;
+}
+
+.img {
+	height: 150px;
+	text-align: center;
+	padding-top:20px;
+	border-bottom: 1px solid #bac4d4;
+}
+
+.img img {
+	border-radius: 50%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.img a:hover{
+	text-decoration: none;
+}

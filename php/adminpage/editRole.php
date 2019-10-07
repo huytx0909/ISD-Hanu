@@ -48,8 +48,10 @@ if(isset($_GET['ID'])) {
 	<h2>Edit Role</h2>
 </div>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="main">
+		<div class="row">
+			<div class="col-2 col-sm-4 col-md-8 col-xl-12">
 		<form method="POST" action="admin.php?adminpage=editRole&ID=<?= $role_ID; ?>"  class="form beta-form-checkout">
 				<div class="form-group">
 					<?php 
@@ -73,7 +75,8 @@ if(isset($_GET['ID'])) {
 		</form>
 	</div>
 </div>
-
+</div>
+</div>
 <?php
 }
 ?>

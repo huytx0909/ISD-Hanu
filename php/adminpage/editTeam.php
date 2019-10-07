@@ -62,8 +62,10 @@ $department2_sql = "SELECT * from department where id = '$departmentID'";
 	<h2>Edit Team</h2>
 </div>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="main">
+		<div class="row">
+			<div class="col-2 col-sm-4 col-md-8 col-xl-12">
 		<form method="POST" action="admin.php?adminpage=editTeam&ID=<?= $team_ID; ?>" class="form beta-form-checkout">
 			<div class="form-group">
 				<?php 
@@ -104,7 +106,8 @@ $department2_sql = "SELECT * from department where id = '$departmentID'";
 			</form>
 	</div>
 </div>
-
+</div>
+</div>
 <?php
 }
 ?>

@@ -1,0 +1,23 @@
+.profile-pic{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.profile-pic img{
+	width: 100%;
+}
+.edit-profile, .file{
+	margin-top: 20px;
+	width: 100%;
+}
+
+.info {
+	margin-top: 10px;
+}
+
+.info .item{
+	margin-top: 100px;
+	
+}
+
+.info .item1{
+	margin-top: 50px;
+}

@@ -21,33 +21,42 @@
     <h2>Users have <?= $role1['name']; ?> Role</h2>
   </div>
 
-  
-  <div class="container">
-  <?php
-  
-    if (isset($_SESSION['success'])) {
-      echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
-      unset($_SESSION['success']);
-    }
-    if (isset($_SESSION['error'])) {
-      echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
-      unset($_SESSION['error']);
-    } 
-  ?>
-    <div class="float-left">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add User</button>
-    </div>
-
-    <div class="float-right">
-      <form  class="form-inline" action="admin.php?adminpage=search&IDrole=<?=$IDrole;?>" method="post" enctype="multipart/form-data">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRoleUser">
-        <button class="btn btn-outline-success" type="submit" name="searchRoleUser">Search</button>
-      </form>
-    </div>
-
+  <div class="container-fluid"> 
+  <div class="main">
+    <div class="row">
+      <div class="col-sm-11 col-xl-12">
+      <?php 
+        if (isset($_SESSION['success'])) {
+        echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
+        unset($_SESSION['success']);
+        } 
+      ?>
+      <?php 
+        if (isset($_SESSION['error'])) {
+        echo "<div class='error' id='msg'>".$_SESSION['error']."</div>";
+        unset($_SESSION['error']);
+        } 
+      ?>
+      </div>
+    </div>  
+    <div class="row">
+      <div class="col-6 col-xl-8">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add User</button>
+      </div>
+      <div class="col-6 col-xl-4">
+        <div class="float-right">
+          <form  class="form-inline" action="admin.php?adminpage=search&IDrole=<?=$IDrole;?>" method="post" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRoleUser">
+            <button class="btn btn-outline-success" type="submit" name="searchRoleUser">Search</button>
+          </form>
+        </div>
+      </div>
     <div class="clearfix"></div>
+    </div>
 
-    <table class="table">
+    <div class="row">
+      <div class="col-11 col-md-11 col-xl-12 table-responsive">
+        <table class="table">
           <thead class="thead-dark">
               <tr>
                 <th>list</th>                  
@@ -124,7 +133,7 @@
         </div>
     </div>
 </div>
-
+</div> 
 
 <?php 
  }

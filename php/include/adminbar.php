@@ -1,10 +1,9 @@
 <header>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-  <a class="navbar-brand" href="admin.php?">Infore</a>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+  <a class="navbar-brand" href="admin.php?" style="width: 300px">Infore</a>
+  <div>
+    <ul class="navbar-nav">
        <li class="nav-item">
         <a class="nav-link" href="adminLogin.php"> Log out 
           <i class="fas fa-sign-out-alt"></i></a>
@@ -14,7 +13,6 @@
 </nav>
 
 <div class="sidebar navbar-light bg-light">
- 
   <ul>
       <li class="img">
         <a href="admin.php?adminpage=adminProfile
@@ -70,7 +68,8 @@
 
 <script>
   window.addEventListener("beforeunload",function(e){
-
-    document.body.className = "page-loading";
+    NProgress.start();
+    NProgress.done();
+    NProgress.configure({ showSpinner: true });
 },false);
 </script>

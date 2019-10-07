@@ -60,8 +60,10 @@ $task1 = mysqli_fetch_assoc($task1_query);
     <h2>Edit Task</h2>
 </div>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="main">
+		<div class="row">
+			<div class="col-2 col-sm-4 col-md-8 col-xl-12">
 	<form method="POST" action="admin.php?adminpage=editTask&ID=<?=$IDtask;?>"  class="form beta-form-checkout">
 		<div class="form-group">
 			<?php 
@@ -119,7 +121,8 @@ $task1 = mysqli_fetch_assoc($task1_query);
 	</form>
 </div>
 </div>
-
+</div>
+</div>
 <?php
 } 
 ?>

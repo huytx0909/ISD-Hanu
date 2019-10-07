@@ -62,8 +62,10 @@ if (isset($_POST['update'])) {
     <h2>Edit Training Course</h2>
 </div>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="main">
+		<div class="row">
+			<div class="col-2 col-sm-4 col-md-8 col-xl-12">
 	<form method="POST" action="admin.php?adminpage=editTraining&ID=<?= $IDtraining; ?>" class="form beta-form-checkout">
 		<div class="form-group">
 			<?php 
@@ -93,7 +95,7 @@ if (isset($_POST['update'])) {
 
 		<div class="form-group">
 			<label for="date">End Date:</label>
-				<td><input type="date" name="end_date" class="form-control" value="<?= $training0['end_date']; ?>">
+				<input type="date" name="end_date" class="form-control" value="<?= $training0['end_date']; ?>">
 		</div>
 
 		<div class="form-group">
@@ -108,6 +110,9 @@ if (isset($_POST['update'])) {
 			<div class="clearfix"></div>
 	</form>
 </div>
+</div>
+</div>
+
 </div>
 <?php
 }
