@@ -95,7 +95,9 @@ if (empty($userName) || empty($password) || empty($email) || empty($phone) || em
 		$result = mysqli_query($db, "UPDATE user SET username = '$userName', fullName = '$fullName', password = '$password', email = '$email', phone = '$phone',
 		address = '$address', salary = '$salary', id_department = $departmentIdRs[0], id_team=$teamIdRs[0], id_role=$roleIdRs[0], level = '$level' WHERE id=$id");
 		$_SESSION['success'] = "Success."; 
-		header("Location:admin.php?adminpage=adminUser"); 
+		echo "<script>
+    window.location.href='admin.php?adminpage=adminUser';
+    </script>"; 	 
 	}
 }
 }

@@ -22,7 +22,9 @@ $department_ID = "";
 		 	$sql = " UPDATE department SET name = '$name', description = '$description' WHERE id ='$department_ID'";
 			$result = mysqli_query($db, $sql);
 			$_SESSION['success'] = "Success."; 
-			header("Location:admin.php?adminpage=adminDepartment");
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminDepartment';
+    </script>"; 	
                
 			
 		} 

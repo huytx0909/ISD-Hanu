@@ -15,7 +15,9 @@
 $book_sql = "UPDATE `book` SET status = 'available' WHERE id = '$bookID'";
  $book_query = mysqli_query($db, $book_sql); 
 
- 	header("Location: admin.php?adminpage=adminBookOrder");
+ 	echo "<script>
+    window.location.href='admin.php?adminpage=adminBookOrder';
+    </script>"; 	
  
 
 

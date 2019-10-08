@@ -40,7 +40,9 @@ if (isset($_POST['Submit'])) {
  	$sql = "INSERT INTO book(book_title, author_name, date_publication, prize, status, max_expired_day, id_category, id_image) VALUES('$title', '$authorName', '$datePublication', '$prize', '$status', '$max_expired_day','$IDcategory' ,'$IDimage')";
 			$result = mysqli_query($db, $sql);
 	$_SESSION['success'] = "Success.";
-	header("Location:admin.php?adminpage=adminBook");             
+	echo "<script>
+    window.location.href='admin.php?adminpage=adminBook';
+    </script>";            
 	}
 }
 }

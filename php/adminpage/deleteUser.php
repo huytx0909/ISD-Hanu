@@ -8,7 +8,9 @@
 
 //redirecting to the display page (index.php in our case)
 $_SESSION['success'] = "Success.";
-header("Location: admin.php?adminpage=adminUser");
+echo "<script>
+    window.location.href='admin.php?adminpage=adminUser';
+    </script>";   
 }
 }
 ?>

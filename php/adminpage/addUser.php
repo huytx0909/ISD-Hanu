@@ -49,7 +49,9 @@ if (isset($_POST['Submit'])) {
 		$insertResult = mysqli_query($db, "INSERT INTO user(username, fullName, password, email, phone, address, salary, id_department, id_team, id_role, date_created, level)
 			VALUES('$userName', '$fullName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]', '$date', '$level')");
 		$_SESSION['success'] = "Success."; 
-		header("Location:admin.php?adminpage=adminUser"); 
+		echo "<script>
+    window.location.href='admin.php?adminpage=adminUser';
+    </script>"; 	 
 		}
 	}
 }

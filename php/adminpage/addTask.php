@@ -37,7 +37,9 @@ if (isset($_POST['Submit'])) {
 		 	$task_query = mysqli_query($db,$task_sql); 
 			
 			$_SESSION['success'] = "Success."; 
-			header("Location:admin.php?adminpage=adminTask"); 	
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminTask';
+    </script>"; 	
                
         }else {
             $_SESSION['error'] = "Deadline could not be earlier than today.";

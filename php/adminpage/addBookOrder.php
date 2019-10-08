@@ -46,7 +46,9 @@ if (isset($_POST['Submit'])) {
 
 
 			$_SESSION['success'] = "Success."; 
-			header("Location:admin.php?adminpage=adminBookOrder"); 	
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminBookOrder';
+    </script>"; 	
 	
 			} else {
 

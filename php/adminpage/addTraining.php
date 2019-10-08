@@ -30,7 +30,9 @@ if (isset($_POST['Submit'])) {
 		 	$training_query = mysqli_query($db,$training_sql); 
 			
 			$_SESSION['success'] = "Success."; 
-			header("Location:admin.php?adminpage=adminTraining"); 	
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminTraining';
+    </script>"; 	
                
         }else {
             $_SESSION['error'] = "Start date can not be later than end date and earlier than the date of today.";
