@@ -20,7 +20,9 @@ if (isset($_POST['Submit'])) {
 		$sql = "INSERT INTO department(name, description) VALUES('$name', '$description')";
 		$result = mysqli_query($db, $sql);
 		$_SESSION['success'] = "Success."; 
-		header("Location:admin.php?adminpage=adminDepartment"); 	      		
+		echo "<script>
+    window.location.href='admin.php?adminpage=adminDepartment';
+    </script>"; 	      		
 		} 
 	}
 

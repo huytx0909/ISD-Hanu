@@ -24,7 +24,9 @@ if (isset($_POST['update'])) {
 				$sql = "UPDATE role SET name = '$name', description = '$description' WHERE id ='$role_ID'";
 				$result = mysqli_query($db, $sql);
 				$_SESSION['success'] = "Success."; 
-				header("Location:admin.php?adminpage=adminRole");               	
+				echo "<script>
+    window.location.href='admin.php?adminpage=adminRole';
+    </script>"; 	               	
 			} 
 		}
  	}	

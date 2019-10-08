@@ -38,7 +38,9 @@ if (isset($_POST['Submit'])) {
 		 	$award_query = mysqli_query($db,$award_sql); 
 			
 			$_SESSION['success'] = "Success."; 
-			header("Location:admin.php?adminpage=adminEmployeeAward");
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminEmployeeAward';
+    </script>"; 	
                
        
 	} else {

@@ -28,7 +28,9 @@ $team_ID = "";
 			
 
 		$_SESSION['success'] = "Success."; 
-		header("Location:admin.php?adminpage=adminTeam");   	 	
+		echo "<script>
+    window.location.href='admin.php?adminpage=adminTeam';
+    </script>"; 	   	 	
 	}
   }	
 }

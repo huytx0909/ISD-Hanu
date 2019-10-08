@@ -24,7 +24,9 @@ if (isset($_POST['Submit'])) {
 			$result = mysqli_query($db, $sql);
 			
 			$_SESSION['success'] = "Success."; 
-			header("Location:admin.php?adminpage=adminTeam"); 	 
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminTeam';
+    </script>";	 
 			
 	}
 }

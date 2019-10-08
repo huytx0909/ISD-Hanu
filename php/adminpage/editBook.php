@@ -61,7 +61,9 @@ if (isset($_POST['update'])) {
 			$result = mysqli_query($db, $sql);
 			
 			$_SESSION['success'] = "Success."; 
-			header("Location:admin.php?adminpage=adminBook");           
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminBook';
+    </script>"; 	           
            }
 
 	}

@@ -159,7 +159,9 @@
 
   }  
       $_SESSION['success'] = "Success."; 
-      header("Location:admin.php?adminpage=adminRoleUser&IDrole=$IDrole1"); 
+       echo "<script>
+    window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole';
+    </script>"; 
          }  
 
           }

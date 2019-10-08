@@ -33,7 +33,9 @@ if (isset($_POST['Submit'])) {
 				$training1_query = mysqli_query($db,$training1_sql);
 		     
 				$_SESSION['success'] = "Success."; 
-				header("Location:admin.php?adminpage=adminTrainee&IDtraining=<?=$IDtraining;?>"); 	 
+				echo "<script>
+    window.location.href='Location:admin.php?adminpage=adminTrainee&IDtraining=<?=$IDtraining;?>';
+    </script>";
                } else {
                		$_SESSION['error'] = "User has already enrolled in the training.";
                }           

@@ -41,7 +41,9 @@ if (isset($_POST['Submit'])) {
 		 	$leave_query = mysqli_query($db,$leave_sql); 
 			
 			$_SESSION['success'] = "Success."; 
-			header("Location:admin.php?adminpage=adminLeaveApplication"); 
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminLeaveApplication';
+    </script>"; 	 
                
         }else {
             $_SESSION['error'] = "Start date can't be later than end date and earlier than the date of today.";

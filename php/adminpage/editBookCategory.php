@@ -25,7 +25,9 @@ $category_ID = "";
 			
 			
 			$_SESSION['success'] = "Success."; 
-			header("Location:admin.php?adminpage=adminBookCategory");
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminBookCategory';
+    </script>"; 	
 			
 		} 
 	}

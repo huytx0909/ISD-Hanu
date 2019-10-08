@@ -29,7 +29,9 @@ if (isset($_POST['Submit'])) {
 
 		 $holiday_query = mysqli_query($db, $holiday_sql); 
 				$_SESSION['success'] = "Success.";   
-				header("Location:admin.php?adminpage=adminHoliday");     
+				echo "<script>
+    window.location.href='admin.php?adminpage=adminHoliday';
+    </script>";     
            } else {
                
               	$_SESSION['error'] = "Start date can not be later than end date.";
