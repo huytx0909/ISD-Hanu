@@ -8,7 +8,7 @@
 	box-shadow: 1px 0px 2px grey;
 	z-index: 1;
 }
-.sidebar ul{
+.sidebar{
 	overflow: auto;
 }
 .sidebar ul li.nav-item{
