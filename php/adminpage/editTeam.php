@@ -1,4 +1,5 @@
 <?php
+$success = "";
 if (isset($_POST['update'])) {
 if(isset($_GET['ID'])) {
 $team_ID = "";
