@@ -41,7 +41,7 @@ if (isset($_SESSION['message'])) {
 			</div>
 			<h1>Sign In</h1>
 			
-			<form action="index.php" method="POST" role="form" class="beta-form-checkout">
+			<form action="admin.php" method="POST" role="form" class="beta-form-checkout">
 				<div class="form-group">
 					<input type="text" name="admin" class="form-control" id="" placeholder="Username" required="">
 				</div>
