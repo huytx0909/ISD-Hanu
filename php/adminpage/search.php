@@ -5,7 +5,7 @@
     $_SESSION['error'] = "Please enter search keyword.";       
     echo "<script>
     window.location.href='admin.php?adminpage=adminBook';
-    </script>";   
+    </script>"; 
   }
   $search_sql = "SELECT * FROM Book WHERE `book_title` LIKE '%$search%' or `author_name` LIKE '%$search%' or `date_publication` LIKE '%$search%' or `prize` LIKE '%$search%' or `status` LIKE '%$search%'";
    
@@ -1618,5 +1618,6 @@ $user_sql = "SELECT * FROM user where `username` LIKE '%$search%' OR `fullName` 
 </div>
 </div>
 <?php 
+}
 }
 ?>

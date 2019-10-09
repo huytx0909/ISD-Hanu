@@ -4,7 +4,9 @@
   	$delete_ID = $_GET['ID'];
  $delete_sql = "DELETE FROM task WHERE id='$delete_ID'";
  if($delete_query = mysqli_query($db, $delete_sql)) {
- 	header("Location: admin.php?adminpage=adminTask");
+ 	echo "<script>
+    window.location.href='admin.php?adminpage=adminTask';
+    </script>";
  }
 
 

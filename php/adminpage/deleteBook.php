@@ -4,7 +4,9 @@
   	$delete_ID = $_GET['ID'];
  $delete_sql = "DELETE FROM book WHERE id='$delete_ID'";
  if($delete_query = mysqli_query($db, $delete_sql)) {
- 	header("Location: admin.php?adminpage=adminBook");
+ 	echo "<script>
+    window.location.href='admin.php?adminpage=adminBook';
+    </script>";
  }
 
 
@@ -23,7 +25,9 @@
  $IDcategory = $book['id_category'];
 
  if($delete_query = mysqli_query($db, $delete_sql)) {
- 	header("Location: admin.php?adminpage=adminBookinCate&IDcategory=$IDcategory");
+ 	echo "<script>
+    window.location.href='admin.php?adminpage=adminBookinCate&IDcategory=$IDcategory';
+    </script>";
  }
 
 

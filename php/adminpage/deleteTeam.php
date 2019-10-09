@@ -4,7 +4,9 @@
   	$delete_ID = $_GET['ID'];
  $delete_sql = "DELETE FROM team WHERE id='$delete_ID'";
  if($delete_query = mysqli_query($db, $delete_sql)) {
- 	header("Location: admin.php?adminpage=adminTeam");
+ 	echo "<script>
+    window.location.href='admin.php?adminpage=adminTeam';
+    </script>";
  }
 
 
@@ -19,7 +21,9 @@
  }
  $IDdepartment = $team['id_department'];
  if($delete_query = mysqli_query($db, $delete_sql)) {
- 	header("Location: admin.php?adminpage=adminDepartmentTeam&IDdepartment=$IDdepartment");
+ 	echo "<script>
+    window.location.href='admin.php?adminpage=adminDepartmentTeam&IDdepartment=$IDdepartment';
+    </script>";
  }
 
 
