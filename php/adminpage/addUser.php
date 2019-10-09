@@ -5,6 +5,7 @@ if (isset($_POST['Submit'])) {
 
 	$userName = mysqli_real_escape_string($db, $_POST['username']);
 	$fullName = mysqli_real_escape_string($db, $_POST['fullName']);
+	$password0 = (mysqli_real_escape_string($db, $_POST['password']));
 	$password = md5(mysqli_real_escape_string($db, $_POST['password']));
 	$email = mysqli_real_escape_string($db, $_POST['email']);
 	$phone = mysqli_real_escape_string($db, $_POST['phone']);
@@ -49,9 +50,23 @@ if (isset($_POST['Submit'])) {
 		$insertResult = mysqli_query($db, "INSERT INTO user(username, fullName, password, email, phone, address, salary, id_department, id_team, id_role, date_created, level)
 			VALUES('$userName', '$fullName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]', '$date', '$level')");
 		$_SESSION['success'] = "Success."; 
-		echo "<script>
-    window.location.href='admin.php?adminpage=adminUser';
-    </script>"; 	 
+	
+		session_start();
+			$_SESSION["infoEmailArr"] = array("recipient" => $email,"subject" => "New Account!",
+			"Username" => $userName,
+			"Fullname" => $fullName,	
+ 			"Password" => $password0,
+ 			"Salary" => $salary,
+ 		    "Department" => $department,
+ 			"Team" => $team,
+ 			"Role" => $role,
+ 			"Level" => $level);
+
+ 			echo "<script>
+    window.location.href='email/email.php';
+    </script>";
+
+
 		}
 	}
 }

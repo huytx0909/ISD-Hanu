@@ -12,7 +12,6 @@ if (isset($_POST['update'])) {
 	$userName = mysqli_real_escape_string($db, $_POST['username']);
 	$fullName = mysqli_real_escape_string($db, $_POST['fullName']);
 
-	$password = mysqli_real_escape_string($db, $_POST['password']);
 	$email = mysqli_real_escape_string($db, $_POST['email']);
 	$phone = mysqli_real_escape_string($db, $_POST['phone']);
 	$address = mysqli_real_escape_string($db, $_POST['address']);
@@ -29,7 +28,7 @@ if (isset($_POST['update'])) {
 	   $sql1 = "SELECT * FROM user WHERE username = '$userName' and id != '$id'";
 		$result1 = mysqli_query($db, $sql1); 
 
-if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($departmentName) || empty($teamName) || empty($roleName) || empty($fullName) || empty($level)) {
+if (empty($userName) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($departmentName) || empty($teamName) || empty($roleName) || empty($fullName) || empty($level)) {
 			$_SESSION['error'] =  "All fields are required."; 
 		}
 
@@ -61,7 +60,7 @@ if (empty($userName) || empty($password) || empty($email) || empty($phone) || em
 		$IDteam = $teamIdRs[0];
 		$IDrole = $roleIdRs[0];
 
-		$updateUser_sql = "UPDATE user SET username = '$userName', fullName = '$fullName', password = '$password', email = '$email', phone = '$phone', address = '$address', salary = '$salary', id_department = '$IDdepartment', id_team = '$IDteam', id_role = '$IDrole', level = '$level' WHERE id = '$id' ";
+		$updateUser_sql = "UPDATE user SET username = '$userName', fullName = '$fullName', email = '$email', phone = '$phone', address = '$address', salary = '$salary', id_department = '$IDdepartment', id_team = '$IDteam', id_role = '$IDrole', level = '$level' WHERE id = '$id' ";
 		$update_query = mysqli_query($db, $updateUser_sql);
 
 		$_SESSION['success'] = "Success."; 
@@ -77,7 +76,6 @@ $result = mysqli_query($db, $user_sql);
 	$res = mysqli_fetch_assoc($result);
 	$userName = $res['username'];
 	$fullName = $res['fullName'];
-	$password = $res['password'];
 	$email = $res['email'];
 	$phone = $res['phone'];
 	$address = $res['address'];
@@ -147,10 +145,6 @@ $result = mysqli_query($db, $user_sql);
 				    <input type="text" class="form-control" name="fullName" value="<?= $fullName; ?>" >
 				  </div>
 
-				  <div class="form-group">
-				    <label for="password">Password:</label>
-				    <input type="password" class="form-control" name="password" value="<?= $password; ?>" >
-				  </div>
 
 				  <div class="form-group">
 				    <label for="email">Email:</label>
@@ -175,9 +169,10 @@ $result = mysqli_query($db, $user_sql);
 				  <div class="form-group select">
 				  		<label for="id_department">Department:</label>
 				    	<select class="form-control" name="id_department">
+    					<option></option>				    		
 							<?php
 while ($res = mysqli_fetch_array($departmentResult)) {?>
-					      	<option value="<?= $res['name']; ?>"> <?= $res['name']; ?> </option>
+					      	<option value="<?= $res['name']; ?>" <?php if($departmentId == $res['id']) { ?> selected="selected"  <?php } ?> > <?= $res['name']; ?> </option>
 							<?php
 }
 ?>
@@ -187,9 +182,10 @@ while ($res = mysqli_fetch_array($departmentResult)) {?>
 				  <div class="form-group select">
 				  		<label for="id_team">Team:</label>
 				    	<select class="form-control" name="id_team">
+				    	<option></option>
 							<?php
 while ($res = mysqli_fetch_array($teamResult)) {?>
-								<option value="<?= $res['name']; ?>"> <?= $res['name']; ?> </option>
+								<option value="<?= $res['name']; ?>" <?php if($teamId == $res['id']) { ?> selected="selected"  <?php } ?> > <?= $res['name']; ?> </option>
 								<?php
 }
 ?>
@@ -199,9 +195,10 @@ while ($res = mysqli_fetch_array($teamResult)) {?>
 				    <div class="form-group select">
 				    	<label for="id_role">Role:</label>
 					   	<select class="form-control" name="id_role">
+						<option></option>
 							<?php
 while ($res = mysqli_fetch_array($roleResult)) {?>
-								<option value="<?= $res['name']; ?>"> <?= $res['name']; ?> </option>
+								<option value="<?= $res['name']; ?>" <?php if($roleId == $res['id']) { ?> selected="selected"  <?php } ?> > <?= $res['name']; ?> </option>
 								<?php
 }
 ?>

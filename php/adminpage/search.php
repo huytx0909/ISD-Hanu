@@ -862,6 +862,8 @@ if(isset($_POST['searchOrder'])) {
     window.location.href='admin.php?adminpage=adminBookOrder';
     </script>"; 
  }
+
+ $list = 0;
  ?>
   
   <div class = "header">
@@ -886,7 +888,7 @@ if(isset($_POST['searchOrder'])) {
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th>order ID</th>               
+                        <th>List</th>               
                         <th>Username</th>
                         <th>Full Name</th>                        
                         <th>Book Name</th>
@@ -903,6 +905,9 @@ if(isset($_POST['searchOrder'])) {
                     <tr>
                          <?php 
                           do {
+
+                            $list = $list + 1;
+
                             $IDuser = $order['id_user'];
                             $IDbook = $order['id_book'];
                             $user_sql = "SELECT * FROM user where id = '$IDuser'";
@@ -915,7 +920,7 @@ if(isset($_POST['searchOrder'])) {
                              }
                             ?>
 
-                            <td align="center" class="cell-breakWord"><?= $order['id']; ?></a></td>
+                            <td align="center" class="cell-breakWord"><?= $list; ?></a></td>
                             <td align="center" class="cell-breakWord"><?= $user['username']; ?></td>
                             <td align="center" class="cell-breakWord"><?= $user['fullName']; ?></td>  
                             <td align="center" class="cell-breakWord"><?= $book['book_title']; ?></td>

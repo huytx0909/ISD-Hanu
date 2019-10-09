@@ -20,7 +20,7 @@ $training_sql = "SELECT * from trainee where id ='$delete_ID'";
  if($delete_query = mysqli_query($db, $delete_sql)) {
 
  	echo "<script>
-    window.location.href='admin.php?adminpage=adminTrainee&IDtraining=$IDtraining"';
+    window.location.href='admin.php?adminpage=adminTrainee&IDtraining=$IDtraining';
     </script>";
  }
 
