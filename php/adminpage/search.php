@@ -471,19 +471,19 @@ if(mysqli_num_rows($result) == 0) {
       <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">Username</th>
-            <th scope="col">Password</th>
-            <th scope="col">Full Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Address</th>
-            <th scope="col">Salary</th>
-            <th scope="col">Department</th>
-            <th scope="col">Team</th>
-            <th scope="col">Role</th>
-            <th scope="col">Level</th>
-            <th scope="col">Date Created</th>
-            <th scope="col">Actions</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Salary</th>
+            <th>Department</th>
+            <th>Team</th>
+            <th>Role</th>
+            <th>Level</th>
+            <th>Date Created</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -512,27 +512,25 @@ while ($res = mysqli_fetch_array($result)) {
         } else {
           $role = "none";
         }
-  ?>
-  <tr>
-    <td class="cell-breakWord" align="center"><?=$res['username']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['password']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['fullName']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['email']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['phone']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['address']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['salary']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$depart; ?></td>
-    <td class="cell-breakWord" align="center"><?=$team; ?></td>
-    <td class="cell-breakWord" align="center"><?=$role; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['level']; ?></td>
-    <td class="cell-breakWord" align="center"><?=date("d-m-Y",strtotime($res['date_created'])); ?></td>
-    <td align="center">
-      <button type="button" class="btn btn-primary edit"><a href="admin.php?adminpage=editUser&id=$res[id]" data-toogle="tooltip" title="Edit"><i class="far fa-edit"></i></a></button>  
-      <button type="button" class="btn btn-danger" id="delete" data-toogle="tooltip" title="Delete" data-toggle="modal" data-target="#deleteModal" data-id="<?=$res['id'];?>"><a><i class="far fa-trash-alt"></i></a></button>
-    </td>
-  </tr>
 
-<?php
+  echo "<tr>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['username']. "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['password']. "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['fullName']. "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['email']. "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['phone']. "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['address']. "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['salary']. "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .$depart. "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .$team. "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .$role. "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['level']. "</td>";
+  echo "<td class=\"cell-breakWord\" align=\"center\">" .date("d-m-Y",strtotime($res['date_created'])). "</td>";
+  echo "<td align=\"center\">
+      <button type=\"button\" class=\"btn btn-primary\"><a href=\"admin.php?adminpage=editUser&ID=" .$res['id']. "\" data-toogle=\"tooltip\" title=\"Edit\"><i class=\"far fa-edit\"></i></a></button>
+      <button type=\"button\" class=\"btn btn-danger\" data-toogle=\"tooltip\" title=\"Delete\"><a href=\"admin.php?adminpage=deleteUser&ID=".$res['id']."\"><i class=\"far fa-trash-alt\"></i></a></button>
+    </td>";
+  echo "</tr>";
 }
 ?>
         </tbody>
@@ -543,7 +541,6 @@ while ($res = mysqli_fetch_array($result)) {
 </div>
  
 <?php
-include 'deleteUser.php';
 }
 ?>
 
@@ -1618,6 +1615,5 @@ $user_sql = "SELECT * FROM user where `username` LIKE '%$search%' OR `fullName` 
 </div>
 </div>
 <?php 
-}
 }
 ?>

@@ -6,13 +6,14 @@
      $IDteam = $_GET['IDteam'];
 
  $delete_sql = "UPDATE user SET id_team = NULL WHERE id = '$delete_ID'";
- $delete_query = mysqli_query($db, $delete_sql);
+ if($delete_query = mysqli_query($db, $delete_sql)){
+ 	$_SESSION['success'] = "Success.";
  	echo "<script>
     window.location.href='admin.php?adminpage=adminTeamUser&IDteam=$IDteam';
     </script>";
  
 
-
+}
 }
 
 ?>

@@ -21,6 +21,7 @@
     <h2>User in <?= $team1['name']; ?> Team</h2>
   </div>
   
+  <div class="container-fluid">
   <div class="main">
     <div class="row">
       <div class="col-sm-11 col-xl-12">
@@ -140,7 +141,7 @@
     </div>
 
 </div>
-
+</div>
 
 
 

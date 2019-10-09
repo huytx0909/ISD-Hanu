@@ -18,9 +18,9 @@ $training_sql = "SELECT * from trainee where id ='$delete_ID'";
 
  $delete_sql = "DELETE FROM trainee WHERE id='$delete_ID'";
  if($delete_query = mysqli_query($db, $delete_sql)) {
-
+ 	$_SESSION['success'] = "Success.";
  	echo "<script>
-    window.location.href='admin.php?adminpage=adminTrainee&IDtraining=$IDtraining"';
+    window.location.href='admin.php?adminpage=adminTrainee&IDtraining=$IDtraining';
     </script>";
  }
 
