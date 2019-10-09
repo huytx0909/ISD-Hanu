@@ -46,9 +46,22 @@ if (isset($_POST['Submit'])) {
 
 
 			$_SESSION['success'] = "Success."; 
-			echo "<script>
+
+
+			$book2_sql = "SELECT * from book where id = '$IDbook'";
+			$book2_query = mysqli_query($db, $book2_sql);
+			$book2 = mysqli_fetch_assoc($book2_query);
+
+			session_start();
+			$_SESSION["infoEmailArr"] = array("recipient" => $user['email'],"subject" => "Book order",
+ 			"Type" => $type,
+ 			"Price" => $book2['prize']);
+
+ 			echo "<script>
     window.location.href='admin.php?adminpage=adminBookOrder';
-    </script>"; 	
+    </script>";
+
+	
 	
 			} else {
 
