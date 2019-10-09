@@ -22,6 +22,7 @@
     <h2>Users Take Part in <?= $training['training_name']; ?> Training Course</h2>
   </div> 
 
+  <div class="container-fluid">
   <div class="main">
     <div class="row">
       <div class="col-sm-11 col-xl-12">
@@ -122,7 +123,7 @@
 </div>
 </div>
 </div>
-
+</div>
 <?php 
  }
  
