@@ -48,7 +48,6 @@ $result = mysqli_query($db, "SELECT * FROM user ORDER BY id DESC");
 			  <thead class="thead-dark">
 			    <tr>
 			      <th>Username</th>
-			      <th>Password</th>
 			      <th>Full Name</th>
 			      <th>Email</th>
 			      <th>Phone</th>
@@ -94,7 +93,6 @@ while ($res = mysqli_fetch_array($result)) {
        ?>
 	<tr>
 		<td class="cell-breakWord" align="center"><?=$res['username']; ?></td>
-		<td class="cell-breakWord" align="center"><?=$res['password']; ?></td>
 		<td class="cell-breakWord" align="center"><?=$res['fullName']; ?></td>
 		<td class="cell-breakWord" align="center"><?=$res['email']; ?></td>
 		<td class="cell-breakWord" align="center"><?=$res['phone']; ?></td>

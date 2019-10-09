@@ -52,13 +52,18 @@ if (isset($_POST['Submit'])) {
 			$book2_query = mysqli_query($db, $book2_sql);
 			$book2 = mysqli_fetch_assoc($book2_query);
 
+			$returnDate =  date("d-m-Y",strtotime($expiredDate));
+
 			session_start();
 			$_SESSION["infoEmailArr"] = array("recipient" => $user['email'],"subject" => "Book order",
+			"Book name" => $book2['book_title'],
+			"Author" => $book2['author_name'],	
  			"Type" => $type,
- 			"Price" => $book2['prize']);
+ 			"Price" => $book2['prize'],
+ 		    "return date" => $returnDate);
 
  			echo "<script>
-    window.location.href='admin.php?adminpage=adminBookOrder';
+    window.location.href='email/email.php';
     </script>";
 
 	

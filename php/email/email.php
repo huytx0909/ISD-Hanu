@@ -47,6 +47,7 @@ try {
 } catch (Exception $e) {
     echo "Cannot set server settings. Mailer Error: {$mail->ErrorInfo}";
 }
+ 
 
 $fieldContents = '';
 $emailInfoArray = $_SESSION["infoEmailArr"];
@@ -89,8 +90,11 @@ function sendEmail($mail, $recipient, $subject, $body) {
 }
 
     echo "<script>
-    window.location.href='../admin.php?adminpage=adminBookOrder';
+    history.go(-2);
     </script>";
+
+
+
 
 
 ?>

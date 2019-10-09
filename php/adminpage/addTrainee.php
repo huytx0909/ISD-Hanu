@@ -3,6 +3,12 @@ date_default_timezone_set("Asia/Ho_Chi_Minh");
  if(isset($_GET['IDtraining'])) { 
    $IDtraining = $_GET['IDtraining'];
 
+				$training0_sql = "SELECT * from training where id = '$IDtraining'";
+		$training0_query = mysqli_query($db,$training0_sql);
+		$training0 = mysqli_fetch_assoc($training0_query);
+
+
+
 if (isset($_POST['Submit'])) {
 	  $username = $_POST['username'];
 
@@ -33,8 +39,23 @@ if (isset($_POST['Submit'])) {
 				$training1_query = mysqli_query($db,$training1_sql);
 		     
 				$_SESSION['success'] = "Success."; 
+
+				
+
+			$startDate =  date("d-m-Y",strtotime($training0['start_date']));
+			$endDate =  date("d-m-Y",strtotime($training0['end_date']));
+
+					session_start();
+			$_SESSION["infoEmailArr"] = array("recipient" => $user['email'],"subject" => "Enroll training course",
+			"Training course name" => $training0['training_name'],
+			"Description" => $training0['description'],
+			"Start date" => $startDate,
+		     "End date" => $endDate);
+
+
+
 				echo "<script>
-    window.location.href='Location:admin.php?adminpage=adminTrainee&IDtraining=<?=$IDtraining;?>';
+    window.location.href='email/email.php';
     </script>";
                } else {
                		$_SESSION['error'] = "User has already enrolled in the training.";
@@ -47,9 +68,7 @@ if (isset($_POST['Submit'])) {
 
 }
 
-		$training_sql = "SELECT * from training where id = '$IDtraining'";
-		$training_query = mysqli_query($db,$training_sql);
-		$training = mysqli_fetch_assoc($training_query);
+		
 ?>
 
 <div class = "header">
@@ -59,7 +78,7 @@ if (isset($_POST['Submit'])) {
 			Back
 		</a>
 	</button>
-	<h2>Enroll Trainee in <?= $training['training_name']; ?> </h2>
+	<h2>Enroll Trainee in <?= $training0['training_name']; ?> </h2>
 </div>
 
 <div class="container-fluid">
