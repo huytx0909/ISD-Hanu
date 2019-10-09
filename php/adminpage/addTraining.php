@@ -35,7 +35,7 @@ if (isset($_POST['Submit'])) {
     </script>"; 	
                
         }else {
-            $_SESSION['error'] = "Start date can not be later than end date and earlier than the date of today.";
+            $_SESSION['error'] = "Start date can't be later than end date and earlier than the date of today.";
         }	
 	} else {
 		$_SESSION['error'] = "There is no such trainer.";

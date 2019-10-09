@@ -13,7 +13,7 @@
     <h2>Leave Application</h2>
   </div> 
 
-  <div class="container-fluid">x
+  <div class="container-fluid">
   <div class="main">
     <div class="row">
       <div class="col-sm-11 col-xl-12">

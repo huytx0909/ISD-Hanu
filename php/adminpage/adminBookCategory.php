@@ -35,11 +35,14 @@
       </div>
 
   <div class="col-6 col-xl-4">
+    <div class="float-right">
       <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextCategory">
           <button class="btn btn-outline-success" type="submit" name="searchCategory">Search</button>
       </form>
+    </div>
   </div>
+  <div class="clearfix"></div>
   </div>
   
   <div class="row">
