@@ -21,6 +21,7 @@
     <h2>User in <?= $team1['name']; ?> Team</h2>
   </div>
   
+  <div class="container-fluid">
   <div class="main">
     <div class="row">
       <div class="col-sm-11 col-xl-12">
@@ -124,7 +125,7 @@
                         <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?></td>
 
                         <td align="center">
-                          <a href = "admin.php?adminpage=deleteTeamUser&IDteam=<?=$user['id_team'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="confirm('Are you sure you want to delete this');">
+                          <a href = "admin.php?adminpage=deleteTeamUser&IDteam=<?=$user['id_team'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                             <i class="far fa-trash-alt"></i></a>
                         </td>
                   
@@ -140,7 +141,7 @@
     </div>
 
 </div>
-
+</div>
 
 
 

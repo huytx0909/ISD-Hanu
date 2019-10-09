@@ -13,7 +13,7 @@
     <h2>Leave Application</h2>
   </div> 
 
-  <div class="container-fluid">x
+  <div class="container-fluid">
   <div class="main">
     <div class="row">
       <div class="col-sm-11 col-xl-12">
@@ -113,7 +113,7 @@
                          <td align="center">
                         <a href = "admin.php?adminpage=editLeaveApplication&ID=<?=$leave['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
-                        <a href = "admin.php?adminpage=deleteLeaveApplication&ID=<?=$leave['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteLeaveApplication&ID=<?=$leave['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                             <i class="far fa-trash-alt"></i></a>
                         </td>
                   

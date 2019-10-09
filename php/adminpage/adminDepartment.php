@@ -71,7 +71,7 @@
                         <a href = "admin.php?adminpage=editDepartment&ID=<?=$department['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                         <i class="far fa-edit"></i></a>
                         <a href = "admin.php?adminpage=deleteDepartment&ID=<?=$department['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
-                        <i class="far fa-trash-alt" onclick="confirm('Are you sure you want to delete this');"></i></a>
+                        <i class="far fa-trash-alt" onclick="return ConfirmDelete();"></i></a>
                       </td>
                     </tr>
                   <?php } while($department = mysqli_fetch_assoc($department_query)); ?>

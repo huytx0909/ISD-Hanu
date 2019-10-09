@@ -35,11 +35,14 @@
       </div>
 
   <div class="col-6 col-xl-4">
+    <div class="float-right">
       <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextCategory">
           <button class="btn btn-outline-success" type="submit" name="searchCategory">Search</button>
       </form>
+    </div>
   </div>
+  <div class="clearfix"></div>
   </div>
   
   <div class="row">
@@ -74,7 +77,7 @@
                         <a href = "admin.php?adminpage=editBookCategory&ID=<?=$category['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
                         <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$category['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
-                            <i class="far fa-trash-alt" onclick="confirm('Are you sure you want to delete this');"></i></a>
+                            <i class="far fa-trash-alt" onclick="return ConfirmDelete();"></i></a>
                         </td>
                   
                     </tr>

@@ -9,6 +9,7 @@
 
  $delete_sql = "UPDATE user SET id_role = null WHERE id= '$delete_ID'";
  if($delete_query = mysqli_query($db, $delete_sql)) {
+ 	$_SESSION['success'] = "Success.";
  	echo "<script>
     window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole';
     </script>";

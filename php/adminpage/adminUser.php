@@ -90,6 +90,7 @@ while ($res = mysqli_fetch_array($result)) {
         } else {
         	$role = "none";
         }
+
        ?>
 	<tr>
 		<td class="cell-breakWord" align="center"><?=$res['username']; ?></td>
@@ -105,7 +106,7 @@ while ($res = mysqli_fetch_array($result)) {
 		<td class="cell-breakWord" align="center"><?=date("d-m-Y",strtotime($res['date_created'])); ?></td>
 		<td align="center">
 			<button type="button" class="btn btn-primary edit"><a href="admin.php?adminpage=editUser&ID=<?=$res['id'];?>" data-toogle="tooltip" title="Edit"><i class="far fa-edit"></i></a></button>  
-			<button type="button" class="btn btn-danger" id="delete" data-toogle="tooltip" title="Delete" data-toggle="modal" data-target="#deleteModal" data-id="<?=$res['id'];?>"><a><i class="far fa-trash-alt"></i></a></button>
+			<button type="button" class="btn btn-danger" data-toogle="tooltip" title="Delete"><a href="admin.php?adminpage=deleteUser&ID=<?=$res['id'];?>" onclick="return ConfirmDelete();"><i class="far fa-trash-alt"></i></a></button>
 		</td>
 	</tr>
 
@@ -118,5 +119,5 @@ while ($res = mysqli_fetch_array($result)) {
 	</div>
 </div>
 </div>
-<?php include 'deleteUser.php';?>
+
  

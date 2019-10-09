@@ -35,7 +35,7 @@ if (isset($_POST['update'])) {
                
            } else {
                
-               	$_SESSION['error'] = "Start date can not be later than end date.";
+               	$_SESSION['error'] = "Start date can't be later than end date.";
 
 
            }

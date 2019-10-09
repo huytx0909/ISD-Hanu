@@ -97,14 +97,14 @@ if(mysqli_num_rows($search_query) == 0) {
                         <a href = "admin.php?adminpage=editBook&ID=<?=$book['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                         <i class="far fa-edit"></i></a>
                         
-                        <a href = "admin.php?adminpage=deleteBook&ID=<?=$book['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteBook&ID=<?=$book['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                         <i class="far fa-trash-alt"></i></a>
 
                            <?php
                            if($searchbook['status'] == "available") {
                            ?>
                             <a href = "admin.php?adminpage=addBookOrder&ID=<?=$book['id'];?>" class="btn btn-success" data-toogle="tooltip" title="Order">
-                            <i class="fas fa-shopping-cart"></i></a>
+                            <i class="fas fa-shopping-cart" ></i></a>
                                  <?php
                                }
                                  ?>
@@ -193,7 +193,7 @@ if(mysqli_num_rows($search_query) == 0) {
                          <td align="center">
                         <a href = "admin.php?adminpage=editBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
-                        <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteBookCategory&ID=<?=$searchCategory['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                              <i class="far fa-trash-alt"></i></a>
                         </td>
                   
@@ -286,7 +286,7 @@ $_SESSION['error'] = "No results.";
                         <td align="center">
                         <a href = "admin.php?adminpage=editDepartment&ID=<?=$department['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
-                        <a href = "admin.php?adminpage=deleteDepartment&ID=<?=$department['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteDepartment&ID=<?=$department['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                             <i class="far fa-trash-alt"></i></a>
                         </td>
                   
@@ -402,7 +402,7 @@ $_SESSION['error'] = "No results.";
                          <td align="center">
                         <a href = "admin.php?adminpage=editTeam&ID=<?=$team['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
-                        <a href = "admin.php?adminpage=deleteTeam&ID=<?=$team['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteTeam&ID=<?=$team['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                             <i class="far fa-trash-alt"></i></a>
                         </td>
                   
@@ -471,19 +471,18 @@ if(mysqli_num_rows($result) == 0) {
       <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">Username</th>
-            <th scope="col">Password</th>
-            <th scope="col">Full Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Address</th>
-            <th scope="col">Salary</th>
-            <th scope="col">Department</th>
-            <th scope="col">Team</th>
-            <th scope="col">Role</th>
-            <th scope="col">Level</th>
-            <th scope="col">Date Created</th>
-            <th scope="col">Actions</th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Salary</th>
+            <th>Department</th>
+            <th>Team</th>
+            <th>Role</th>
+            <th>Level</th>
+            <th>Date Created</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -512,10 +511,10 @@ while ($res = mysqli_fetch_array($result)) {
         } else {
           $role = "none";
         }
-  ?>
+
+    ?>
   <tr>
     <td class="cell-breakWord" align="center"><?=$res['username']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['password']; ?></td>
     <td class="cell-breakWord" align="center"><?=$res['fullName']; ?></td>
     <td class="cell-breakWord" align="center"><?=$res['email']; ?></td>
     <td class="cell-breakWord" align="center"><?=$res['phone']; ?></td>
@@ -527,8 +526,8 @@ while ($res = mysqli_fetch_array($result)) {
     <td class="cell-breakWord" align="center"><?=$res['level']; ?></td>
     <td class="cell-breakWord" align="center"><?=date("d-m-Y",strtotime($res['date_created'])); ?></td>
     <td align="center">
-      <button type="button" class="btn btn-primary edit"><a href="admin.php?adminpage=editUser&id=$res[id]" data-toogle="tooltip" title="Edit"><i class="far fa-edit"></i></a></button>  
-      <button type="button" class="btn btn-danger" id="delete" data-toogle="tooltip" title="Delete" data-toggle="modal" data-target="#deleteModal" data-id="<?=$res['id'];?>"><a><i class="far fa-trash-alt"></i></a></button>
+      <button type="button" class="btn btn-primary edit"><a href="admin.php?adminpage=editUser&ID=<?=$res['id'];?>" data-toogle="tooltip" title="Edit"><i class="far fa-edit"></i></a></button>  
+      <button type="button" class="btn btn-danger" data-toogle="tooltip" title="Delete"><a href="admin.php?adminpage=deleteUser&ID=<?=$res['id'];?>" onclick="return ConfirmDelete();"><i class="far fa-trash-alt"></i></a></button>
     </td>
   </tr>
 
@@ -543,7 +542,6 @@ while ($res = mysqli_fetch_array($result)) {
 </div>
  
 <?php
-include 'deleteUser.php';
 }
 ?>
 
@@ -625,7 +623,7 @@ if(mysqli_num_rows($role_query) == 0) {
                         <td align="center">
                           <a href = "admin.php?adminpage=editRole&ID=<?=$role['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                               <i class="far fa-edit"></i></a>
-                          <a href = "admin.php?adminpage=deleteRole&ID=<?=$role['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                          <a href = "admin.php?adminpage=deleteRole&ID=<?=$role['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                               <i class="far fa-trash-alt"></i></a>
                         </td>
                   
@@ -667,6 +665,7 @@ $user = mysqli_fetch_assoc($user_query);
      echo "<script>
     window.location.href='admin.php?adminpage=adminRoleUser&IDrole=$IDrole';
     </script>";
+  }
   $role1_sql = "SELECT * FROM role where id = '$IDrole'";
   if($role1_query = mysqli_query($db,$role1_sql)) {
   $role1 = mysqli_fetch_assoc($role1_query);
@@ -753,7 +752,7 @@ $user = mysqli_fetch_assoc($user_query);
                 <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?></td>
 
                 <td align="center">
-                    <a href = "admin.php?adminpage=deleteRoleUser&IDrole=<?=$user['id_role'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                    <a href = "admin.php?adminpage=deleteRoleUser&IDrole=<?=$user['id_role'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                     <i class="far fa-trash-alt"></i></a>
                 </td>
                   
@@ -941,7 +940,7 @@ if(isset($_POST['searchOrder'])) {
                               }
                               ?>
                         
-                        <a href = "admin.php?adminpage=deleteBookOrder&ID=<?=$order['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteBookOrder&ID=<?=$order['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                             <i class="far fa-trash-alt"></i></a>
                         </td>
                     </tr>
@@ -1059,7 +1058,7 @@ if(isset($_POST['searchTraining'])) {
                           ?>
                         <a href = "admin.php?adminpage=editTraining&ID=<?=$training['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                           <i class="far fa-edit"></i></a>
-                        <a href = "admin.php?adminpage=deleteTraining&ID=<?=$training['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteTraining&ID=<?=$training['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                           <i class="far fa-trash-alt"></i></a>
                         </td>
                   
@@ -1174,7 +1173,7 @@ if(isset($_POST['searchHoliday'])) {
                          <td align="center">
                         <a href = "admin.php?adminpage=editHoliday&ID=<?=$holiday['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                            <i class="far fa-edit"></i></a>
-                        <a href = "admin.php?adminpage=deleteHoliday&ID=<?=$holiday['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteHoliday&ID=<?=$holiday['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                            <i class="far fa-trash-alt"></i></a>
                         </td>
                   
@@ -1319,7 +1318,7 @@ if(isset($_POST['searchLeave'])) {
                          <td align="center">
                         <a href = "admin.php?adminpage=editLeaveApplication&ID=<?=$leave['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
-                        <a href = "admin.php?adminpage=deleteLeaveApplication&ID=<?=$leave['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteLeaveApplication&ID=<?=$leave['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                             <i class="far fa-trash-alt"></i></a>
                         </td>
                   
@@ -1461,7 +1460,7 @@ if(mysqli_num_rows($task_query) == 0) {
                          <td align="center">
                         <a href = "admin.php?adminpage=editTask&ID=<?=$task['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
-                        <a href = "admin.php?adminpage=deleteTask&ID=<?=$task['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteTask&ID=<?=$task['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                             <i class="far fa-trash-alt"></i></a>
                         </td>
                   
@@ -1532,7 +1531,7 @@ $user_sql = "SELECT * FROM user where `username` LIKE '%$search%' OR `fullName` 
  <div class="main">
     <div class="row">
       <div class="col-6 col-xl-8">
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addEmployeeAward" >Add new award to employee!</a></button>
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addEmployeeAward" >Add new award to employee</a></button>
       </div>
       <div class="col-6 col-xl-4">
         <div class="float-right">
@@ -1605,7 +1604,7 @@ $user_sql = "SELECT * FROM user where `username` LIKE '%$search%' OR `fullName` 
                          <td align="center">
                         <a href = "admin.php?adminpage=editEmployeeAward&ID=<?=$award['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
-                        <a href = "admin.php?adminpage=deleteEmployeeAward&ID=<?=$award['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete">
+                        <a href = "admin.php?adminpage=deleteEmployeeAward&ID=<?=$award['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                             <i class="far fa-trash-alt"></i></a>
                         </td>
                   
@@ -1624,5 +1623,5 @@ $user_sql = "SELECT * FROM user where `username` LIKE '%$search%' OR `fullName` 
 </div>
 <?php 
 }
-}
+
 ?>
