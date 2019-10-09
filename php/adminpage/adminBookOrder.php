@@ -6,7 +6,7 @@
 
  }
 
-
+$list = 0;
  ?>
 	
 	<div class = "header">
@@ -48,7 +48,7 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th>order ID</th>               
+                        <th>List</th>               
                         <th>Username</th>
                         <th>Full Name</th>                        
                         <th>Book Name</th>
@@ -66,6 +66,8 @@
                          <?php 
                           do {
 
+                            $list = $list + 1;
+
                             $IDuser = $order['id_user'];
                             $IDbook = $order['id_book'];
 
@@ -80,7 +82,7 @@
                              }
                             ?>
 
-                            <td align="center" class="cell-breakWord"><?= $order['id']; ?></a></td>
+                            <td align="center" class="cell-breakWord"><?= $list; ?></a></td>
                             <td align="center" class="cell-breakWord"><?= $user['username']; ?></td>
                             <td align="center" class="cell-breakWord"><?= $user['fullName']; ?></td>  
                             <td align="center" class="cell-breakWord"><?= $book['book_title']; ?></td>

@@ -48,7 +48,6 @@ $result = mysqli_query($db, "SELECT * FROM user ORDER BY id DESC");
 			  <thead class="thead-dark">
 			    <tr>
 			      <th>Username</th>
-			      <th>Password</th>
 			      <th>Full Name</th>
 			      <th>Email</th>
 			      <th>Phone</th>
@@ -91,10 +90,10 @@ while ($res = mysqli_fetch_array($result)) {
         } else {
         	$role = "none";
         }
+
       
 	echo "<tr>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['username']. "</td>";
-	echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['password']. "</td>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['fullName']. "</td>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['email']. "</td>";
 	echo "<td class=\"cell-breakWord\" align=\"center\">" .$res['phone']. "</td>";
