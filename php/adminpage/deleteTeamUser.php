@@ -7,7 +7,9 @@
 
  $delete_sql = "UPDATE user SET id_team = NULL WHERE id = '$delete_ID'";
  $delete_query = mysqli_query($db, $delete_sql);
- 	header("Location: admin.php?adminpage=adminTeamUser&IDteam=$IDteam");
+ 	echo "<script>
+    window.location.href='admin.php?adminpage=adminTeamUser&IDteam=$IDteam';
+    </script>";
  
 
 

@@ -4,7 +4,7 @@
   if(empty($search)){
     $_SESSION['error'] = "Please enter search keyword.";       
     echo "<script>
-    window.href='admin.php?adminpage=adminBook';
+    window.location.href='admin.php?adminpage=adminBook';
     </script>"; 
   }
   $search_sql = "SELECT * FROM Book WHERE `book_title` LIKE '%$search%' or `author_name` LIKE '%$search%' or `date_publication` LIKE '%$search%' or `prize` LIKE '%$search%' or `status` LIKE '%$search%'";
