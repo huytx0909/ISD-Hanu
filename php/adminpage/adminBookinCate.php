@@ -19,7 +19,8 @@
   <div class = "header">
     <h2> <?= $category0['category_name']; ?> Book Table</h2>
   </div>
-
+  
+  <div class="container-fluid">
   <div class="main">
     <div class="row">
       <div class="col-sm-11 col-xl-12">
@@ -103,7 +104,7 @@
                       
 
 
-                              <td align="center" class="cell-breakWord"><?= $book['book_title']; ?></a>
+                              <td align="center" class="cell-breakWord"><?= $book['book_title']; ?>
                               </td>
 
                                <td align="center" class="cell-breakWord"><?= $book['author_name']; ?>
@@ -148,6 +149,7 @@
             </table>
         </div>
     </div>
+</div>
 </div>
 <?php 
  }

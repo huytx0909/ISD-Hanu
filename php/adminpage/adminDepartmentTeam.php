@@ -22,6 +22,7 @@
     <h2>Teams of <?= $department0['name']; ?> Department </h2>
   </div>
   
+  <div class="container-fluid">
   <div class="main">
     <div class="row">
       <div class="col-sm-11 col-xl-12">
@@ -102,7 +103,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <?php
 
 }
