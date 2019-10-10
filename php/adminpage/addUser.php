@@ -39,7 +39,7 @@ if (isset($_POST['Submit'])) {
 			$_SESSION['error'] = "Full Name could not contain numbers.";
 		} else if(!is_numeric($salary) || $salary < 0) {
 	       $_SESSION['error'] = "Salary has to be numberic and greater than 0";
-		}
+		} 
 
 		 else {
 		// if all the fields are filled (not empty)

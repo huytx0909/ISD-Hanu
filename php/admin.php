@@ -9,11 +9,16 @@
 
 		
  <?php
+  if(isset($_SESSION['admin'])) {
+
 if(!isset($_GET['adminpage'])){
   include 'adminpage/adminUser.php';
 } else {
   $adminpage=$_GET['adminpage'];
   include 'adminpage/'.$adminpage.'.php';
+} } else {
+    header("Location: adminLogin.php");
+
 }
 
  ?>

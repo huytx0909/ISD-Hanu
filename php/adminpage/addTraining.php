@@ -19,7 +19,12 @@ if (isset($_POST['Submit'])) {
 			$_SESSION['error'] =  "All fields are required."; 
 	}else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['error'] = "Training course existed in database.";
-	}else if (mysqli_num_rows($trainer_query) == 1) {
+	}  else if($maxTrainee <= 0) {
+				$_SESSION['error'] = "max number of trainees must be greater than 0";
+
+	}
+
+	else if (mysqli_num_rows($trainer_query) == 1) {
 		$trainer = mysqli_fetch_assoc($trainer_query); 
 		$IDuser = $trainer['id'];
 

@@ -162,8 +162,8 @@ $result = mysqli_query($db, $user_sql);
 				  </div>
 
 				  <div class="form-group">
-				    <label for="salary">Salary:</label>
-				    <input type="text" class="form-control" name="salary" value="<?= $salary; ?>">
+				    <label for="salary">Salary(VND):</label>
+				    <input type="number" class="form-control" name="salary" value="<?= $salary; ?>">
 				  </div>
 				<div class="select-group">
 				  <div class="form-group select">
