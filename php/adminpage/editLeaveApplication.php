@@ -1,4 +1,5 @@
 <?php
+ $success = "";
 if(isset($_GET['ID'])) {
  $IDleave = $_GET['ID'];	
 if (isset($_POST['Submit'])) {

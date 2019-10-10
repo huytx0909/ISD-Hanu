@@ -33,7 +33,7 @@
     </div>  
     <div class="row">
       <div class="col-6 col-xl-8">
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addLeaveApplication" >Add new application leave</a></button>
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addLeaveApplication" >Add new leave application </a></button>
       </div>
       <div class="col-6 col-xl-4">
         <div class="float-right">

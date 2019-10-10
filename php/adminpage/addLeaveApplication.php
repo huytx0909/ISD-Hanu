@@ -14,7 +14,7 @@ if (isset($_POST['Submit'])) {
     
 
     
-	if (empty($name) || empty($startDate) || empty($endDate)) {
+	if (empty($name) || empty($startDate) || empty($endDate) || empty($status) || empty($leaveType)) {
 			$_SESSION['error'] =  "All fields are required."; 
 	}
 	 else if($leaveType == "Personal" && empty($personalReason)) {
