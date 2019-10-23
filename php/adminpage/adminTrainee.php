@@ -106,7 +106,7 @@
                           <td align="center" class="cell-breakWord"><?= $departmentName['name']; ?></td>   
                           <td align="center" class="cell-breakWord"><?= $teamName['name']; ?></td>   
                           <td align="center" class="cell-breakWord"><?= $roleName['name']; ?></td>
-                          <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?></td>
+                          <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d/m/Y",strtotime($user['date_created'])); } ?></td>
 
                          <td align="center">
                           <a href = "admin.php?adminpage=deleteTrainee&ID=<?=$trainee['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">

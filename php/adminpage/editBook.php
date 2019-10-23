@@ -53,6 +53,14 @@ if (isset($_POST['update'])) {
     if($image1 = mysqli_fetch_assoc($image1_query)) {
     $IDimage = $image1['id'];
      }
+
+      $sql = "UPDATE book set book_title = '$title', author_name = '$authorName', date_publication = '$datePublication', prize = '$prize', max_expired_day = '$max_expired_day', id_category = '$IDcategory', status = '$status', id_image = '$IDimage' WHERE id = '$book_ID'";
+			$result = mysqli_query($db, $sql);
+			
+			$_SESSION['success'] = "Success."; 
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminBook';
+    </script>"; 	   
                
           }  else {
 
@@ -136,7 +144,7 @@ $category2_sql = "SELECT * from category where id = '$categoryID'";
 
 			<div class="form-group">
 				<label for="prize">Prize (VND):</label>
-				<input type="text" name="prize" class="form-control" value="<?= $book['prize']; ?>">	
+				<input type="number" name="prize" class="form-control" value="<?= $book['prize']; ?>">	
 			</div>
 	  
 			<div class="form-group">

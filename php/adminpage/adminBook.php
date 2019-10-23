@@ -97,8 +97,8 @@
                       <td align="center" class="cell-breakWord"><?= $book['book_title']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $book['author_name']; ?> </td>
                       <td align="center"><img src="img/<?= $image['url'];?>" width="50" height="50" alt="book"></td>
-                      <td align="center" class="cell-breakWord"><?php if(isset($book['date_publication'])) { echo date("d-m-Y",strtotime($book['date_publication'])); } ?></td>
-                      <td align="center" class="cell-breakWord"><?= $book['prize']; ?></td>  
+                      <td align="center" class="cell-breakWord"><?php if(isset($book['date_publication'])) { echo date("d/m/Y",strtotime($book['date_publication'])); } ?></td>
+                      <td align="center" class="cell-breakWord"><?php $prize = number_format($book['prize']); echo $prize; ?></td>  
                       <td align="center" <?php if($book['status'] == "unavailable") { ?> style="color: red;"  <?php } ?> > <?= $book['status']; ?> </td>             
                       <td align="center" class="cell-breakWord"><?= $book['max_expired_day']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $category['category_name']; ?></td>

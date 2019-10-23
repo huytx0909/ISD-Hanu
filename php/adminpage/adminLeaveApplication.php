@@ -93,7 +93,7 @@
                                <td align="center" class="cell-breakWord"><?= $user['fullName']; ?>
                               </td>
 
-                              <td align="center" class="cell-breakWord"> <?php if(isset($leave['application_date'])) {  echo date("d-m-Y",strtotime($leave['application_date'])); } ?>
+                              <td align="center" class="cell-breakWord"> <?php if(isset($leave['application_date'])) {  echo date("d/m/Y",strtotime($leave['application_date'])); } ?>
                               </td>
 
                               <td align="center" class="cell-breakWord"><?= $leave['leave_type']; ?>
@@ -103,9 +103,9 @@
                               </td>
 
                             
-                                 <td align="center" class="cell-breakWord"> <?php if(isset($leave['start_date'])) {  echo date("d-m-Y",strtotime($leave['start_date'])); } ?>
+                                 <td align="center" class="cell-breakWord"> <?php if(isset($leave['start_date'])) {  echo date("d/m/Y",strtotime($leave['start_date'])); } ?>
                               </td>    
-                               <td align="center" class="cell-breakWord"> <?php if(isset($leave['end_date'])) {  echo date("d-m-Y",strtotime($leave['end_date'])); } ?>
+                               <td align="center" class="cell-breakWord"> <?php if(isset($leave['end_date'])) {  echo date("d/m/Y",strtotime($leave['end_date'])); } ?>
                               </td>
 
                               <td align="center" class="cell-breakWord"><span <?php if($leave['status'] == "accepted") { ?> class="badge badge-success" <?php } else if($leave['status'] == "pending") { ?>  class="badge badge-warning" <?php } else { ?> class="badge badge-danger" <?php } ?>  ><?= $leave['status']; ?></span></td>                              

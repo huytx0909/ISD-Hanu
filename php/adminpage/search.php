@@ -87,9 +87,9 @@ if(mysqli_num_rows($search_query) == 0) {
                       <td align="center" class="cell-breakWord"><?= $searchbook['book_title']; ?></a></td>
                       <td align="center" class="cell-breakWord"><?= $searchbook['author_name']; ?></td>
                       <td align="center"><img src="img/<?= $image['url'];?>" width="50" height="50"></td>
-                      <td align="center" class="cell-breakWord"><?php if(isset($searchbook['date_publication'])) { echo date("d-m-Y",strtotime($searchbook['date_publication'])); } ?></td>
+                      <td align="center" class="cell-breakWord"><?php if(isset($searchbook['date_publication'])) { echo date("d/m/Y",strtotime($searchbook['date_publication'])); } ?></td>
                       <td align="center" class="cell-breakWord"><?= $searchbook['status']; ?></td>                 
-                      <td align="center" class="cell-breakWord"><?= $searchbook['prize']; ?></td>   
+                      <td align="center" class="cell-breakWord"><?php $sbook = number_format($searchbook['prize']); echo $sbook; ?></td>   
                       <td align="center" class="cell-breakWord"><?= $searchbook['max_expired_day']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $category['category_name']; ?></td>
 
@@ -435,7 +435,7 @@ if(isset($_POST['searchUser'])) {
     </script>";   
   }
 //fetching data in descending order (lastest entry first)
- $user_sql ="SELECT * FROM user WHERE `id` LIKE '%$search%' or `username` LIKE '%$search%' or `fullName` LIKE '%$search%' or `email` LIKE '%$search%' or `phone` LIKE '%$search%' or `address` LIKE '%$search%' or `salary` LIKE '%$search%' or `level` LIKE '%$search%' ORDER BY id DESC";
+ $user_sql ="SELECT * FROM user WHERE `id` LIKE '%$search%' or `username` LIKE '%$search%' or `fullName` LIKE '%$search%' or `email` LIKE '%$search%' or `phone` LIKE '%$search%' or `address` LIKE '%$search%' or `gender` LIKE '%$search%' or `DOB` LIKE '%$search%' or `gross_salary` LIKE '%$search%' or `net_salary` LIKE '%$search%' or `level` LIKE '%$search%' ORDER BY id DESC";
 if(!empty($user_sql)){
 $result = mysqli_query($db, $user_sql);
 }
@@ -455,6 +455,8 @@ if(mysqli_num_rows($result) == 0) {
     <div class="row">
       <div class="col-6 col-xl-8">
         <button type="button" class="btn btn-primary"><a href="admin.php?adminpage=addUser">Add New User</a></button>
+          <button type="button" class="btn btn-info"><a href = "admin.php?adminpage=adminRole" > User Role</a></button>
+
       </div>
       <div class="col-6 col-xl-4">
         <div class="float-right">
@@ -514,17 +516,14 @@ while ($res = mysqli_fetch_array($result)) {
 
     ?>
   <tr>
-    <td class="cell-breakWord" align="center"><?=$res['username']; ?></td>
+   <td class="cell-breakWord" align="center"><a href="admin.php?adminpage=adminUserProfile&ID=<?=$res['id'];?>"><strong><?=$res['username']; ?></strong></a></td>
     <td class="cell-breakWord" align="center"><?=$res['fullName']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['email']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['phone']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['address']; ?></td>
-    <td class="cell-breakWord" align="center"><?=$res['salary']; ?></td>
+   
     <td class="cell-breakWord" align="center"><?=$depart; ?></td>
     <td class="cell-breakWord" align="center"><?=$team; ?></td>
     <td class="cell-breakWord" align="center"><?=$role; ?></td>
     <td class="cell-breakWord" align="center"><?=$res['level']; ?></td>
-    <td class="cell-breakWord" align="center"><?=date("d-m-Y",strtotime($res['date_created'])); ?></td>
+    <td class="cell-breakWord" align="center"><?=date("d/m/Y",strtotime($res['date_created'])); ?></td>
     <td align="center">
       <button type="button" class="btn btn-primary edit"><a href="admin.php?adminpage=editUser&ID=<?=$res['id'];?>" data-toogle="tooltip" title="Edit"><i class="far fa-edit"></i></a></button>  
       <button type="button" class="btn btn-danger" data-toogle="tooltip" title="Delete"><a href="admin.php?adminpage=deleteUser&ID=<?=$res['id'];?>" onclick="return ConfirmDelete();"><i class="far fa-trash-alt"></i></a></button>
@@ -654,7 +653,7 @@ if(isset($_POST['searchRoleUser'])) {
     </script>";   
   }
 //fetching data in descending order (lastest entry first)
- $user_sql ="SELECT * FROM user WHERE id_role = $IDrole AND `id` LIKE '%$search%' or `username` LIKE '%$search%' or `email` LIKE '%$search%' or `phone` LIKE '%$search%' or `address` LIKE '%$search%' or `salary` LIKE '%$search%' ORDER BY id DESC";
+ $user_sql ="SELECT * FROM user WHERE id_role = $IDrole AND `id` LIKE '%$search%' or `username` LIKE '%$search%' or `email` LIKE '%$search%' or `phone` LIKE '%$search%' or `address` LIKE '%$search%' or `gross_salary` LIKE '%$search%' or `net_salary` LIKE '%$search%' or `gender` LIKE '%$search%' or `DOB` LIKE '%$search%'  ORDER BY id DESC";
 if(!empty($user_sql)){
 $user_query = mysqli_query($db, $user_sql); 
 $user = mysqli_fetch_assoc($user_query);   
@@ -679,11 +678,12 @@ $user = mysqli_fetch_assoc($user_query);
   
    <div class="container-fluid"> 
   <div class="main">
-    <div class="row">
+    
+     <div class="row">
       <div class="col-6 col-xl-8">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add User</button>
       </div>
-      <div class="col-6 col-xl-8">
+      <div class="col-6 col-xl-4">
         <div class="float-right">
           <form  class="form-inline" action="admin.php?adminpage=search&IDrole=<?=$IDrole;?>" method="post" enctype="multipart/form-data">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextRoleUser">
@@ -699,14 +699,15 @@ $user = mysqli_fetch_assoc($user_query);
           <thead class="thead-dark">
               <tr>
                 <th>list</th>                  
-                <th>Username</th>               
+                <th>Username</th>
+                 <th>Fullname</th>                          
                 <th>Email</th>
                 <th>Phone</th>                        
-                <th>Salary</th>
+                <th>Gross Salary</th>
                 <th>Address</th>
                 <th>Department</th>
                 <th>Team</th>
-                <th>Role</th>
+               
                 <th>Date Created</th>
                 <th>Actions</th>
               </tr>
@@ -742,14 +743,15 @@ $user = mysqli_fetch_assoc($user_query);
                 </td>
 
                 <td align="center" class="cell-breakWord"><?= $user['username']; ?></td>
+                 <td align="center" class="cell-breakWord"><?= $user['fullName']; ?></td>
                 <td align="center" class="cell-breakWord"><?= $user['email']; ?></td>
                 <td align="center" class="cell-breakWord"><?= $user['phone']; ?></td>
-                <td align="center" class="cell-breakWord"><?= $user['salary']; ?></td>
+                <td align="center" class="cell-breakWord"><?php $gross1 = number_format($user['gross_salary']); echo $gross1; ?></td>
                 <td align="center" class="cell-breakWord"><?= $user['address']; ?></td>
                 <td align="center" class="cell-breakWord"><?= $departmentName['name']; ?></td>
                 <td align="center" class="cell-breakWord"><?= $teamName['name']; ?></td>   
-                <td align="center" class="cell-breakWord"><?= $roleName['name']; ?></td>
-                <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?></td>
+              
+                <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d/m/Y",strtotime($user['date_created'])); } ?></td>
 
                 <td align="center">
                     <a href = "admin.php?adminpage=deleteRoleUser&IDrole=<?=$user['id_role'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
@@ -788,7 +790,7 @@ $user = mysqli_fetch_assoc($user_query);
     </script>"; 
          }  
           }
-    $user_sql = "SELECT * FROM user where id_role != '$IDrole1'";
+    $user_sql = "SELECT * FROM user where id_role != '$IDrole1' OR id_role IS NULL";
     $user_query = mysqli_query($db,$user_sql);
     $user = mysqli_fetch_assoc($user_query);
   ?>
@@ -799,7 +801,7 @@ $user = mysqli_fetch_assoc($user_query);
     
       <!-- Modal content-->
       <div class="modal-content">
-        <form method="POST" action="admin.php?adminpage=adminRoleUser&IDrole=<?=$IDrole1;?>" class="beta-form-checkout">
+        <form method="POST" action="admin.php?adminpage=search&IDrole=<?=$IDrole1;?>" class="beta-form-checkout">
 
         <div class="modal-header">
          <div class="float-left">
@@ -924,10 +926,10 @@ if(isset($_POST['searchOrder'])) {
                             <td align="center" class="cell-breakWord"><?= $user['fullName']; ?></td>  
                             <td align="center" class="cell-breakWord"><?= $book['book_title']; ?></td>
                             <td align="center" class="cell-breakWord"><?= $book['author_name']; ?></td>
-                            <td align="center" class="cell-breakWord"><?= $book['prize']; ?></td>
+                            <td align="center" class="cell-breakWord"><?php $sbook1 = number_format($book['prize']); echo $sbook1; ?></td>
                             <td align="center" class="cell-breakWord"><?= $order['type']; ?></td>
-                            <td align="center" class="cell-breakWord"><?php if(isset($order['placeOrder_date'])) { echo date("d-m-Y",strtotime($order['placeOrder_date'])); } ?></td>
-                            <td align="center" class="cell-breakWord"><?php if(isset($order['expired_date'])) {  echo date("d-m-Y",strtotime($order['expired_date'])); } ?></td>
+                            <td align="center" class="cell-breakWord"><?php if(isset($order['placeOrder_date'])) { echo date("d/m/Y",strtotime($order['placeOrder_date'])); } ?></td>
+                            <td align="center" class="cell-breakWord"><?php if(isset($order['expired_date'])) {  echo date("d/m/Y",strtotime($order['expired_date'])); } ?></td>
                             <td align="center" class="cell-breakWord"><span <?php if($order['status'] == "completed") { ?> class="badge badge-success" <?php } else { ?>  class="badge badge-danger" <?php } ?> ><?= $order['status']; ?></span></td>
 
                          <td align="center">
@@ -1044,8 +1046,8 @@ if(isset($_POST['searchTraining'])) {
                       <td align="center" class="cell-breakWord"><?= $training['description']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $training['max_trainees']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $training['number_trainees']; ?></td>
-                      <td align="center" class="cell-breakWord"><?php if(isset($training['start_date'])) {  echo date("d-m-Y",strtotime($training['start_date'])); } ?></td>
-                      <td align="center" class="cell-breakWord"><?php if(isset($training['end_date'])) {  echo date("d-m-Y",strtotime($training['end_date'])); } ?></td>                                                               
+                      <td align="center" class="cell-breakWord"><?php if(isset($training['start_date'])) {  echo date("d/m/Y",strtotime($training['start_date'])); } ?></td>
+                      <td align="center" class="cell-breakWord"><?php if(isset($training['end_date'])) {  echo date("d/m/Y",strtotime($training['end_date'])); } ?></td>                                                               
                       <td align="center">
                           <?php
                           if($training['number_trainees']<$training['max_trainees'] && $todayDate < $training['start_date'] ) {
@@ -1165,9 +1167,9 @@ if(isset($_POST['searchHoliday'])) {
 
                             
 
-                                 <td align="center" class="cell-breakWord"> <?php if(isset($holiday['start_date'])) {  echo date("d-m-Y",strtotime($holiday['start_date'])); } ?>
+                                 <td align="center" class="cell-breakWord"> <?php if(isset($holiday['start_date'])) {  echo date("d/m/Y",strtotime($holiday['start_date'])); } ?>
                               </td>    
-                               <td align="center" class="cell-breakWord"> <?php if(isset($holiday['end_date'])) {  echo date("d-m-Y",strtotime($holiday['end_date'])); } ?>
+                               <td align="center" class="cell-breakWord"> <?php if(isset($holiday['end_date'])) {  echo date("d/m/Y",strtotime($holiday['end_date'])); } ?>
                               </td>                              
 
                          <td align="center">
@@ -1308,9 +1310,9 @@ if(isset($_POST['searchLeave'])) {
                               </td>
 
                             
-                                 <td align="center" class="cell-breakWord"> <?php if(isset($leave['start_date'])) {  echo date("d-m-Y",strtotime($leave['start_date'])); } ?>
+                                 <td align="center" class="cell-breakWord"> <?php if(isset($leave['start_date'])) {  echo date("d/m/Y",strtotime($leave['start_date'])); } ?>
                               </td>    
-                               <td align="center" class="cell-breakWord"> <?php if(isset($leave['end_date'])) {  echo date("d-m-Y",strtotime($leave['end_date'])); } ?>
+                               <td align="center" class="cell-breakWord"> <?php if(isset($leave['end_date'])) {  echo date("d/m/Y",strtotime($leave['end_date'])); } ?>
                               </td>
 
                               <td align="center" class="cell-breakWord"><span <?php if($leave['status'] == "accepted") { ?> class="badge badge-success" <?php } else if($leave['status'] == "pending") { ?>  class="badge badge-warning" <?php } else { ?> class="badge badge-danger" <?php } ?>  ><?= $leave['status']; ?></span></td>                              
@@ -1451,7 +1453,7 @@ if(mysqli_num_rows($task_query) == 0) {
                               <td align="center" class="cell-breakWord"><?= $task['description']; ?>
                               </td>
 
-                              <td align="center" class="cell-breakWord" <?php if($task['deadline'] < $todayDate) { ?> style="color: red;"  <?php } ?> > <?php if(isset($task['deadline'])) {  echo date("d-m-Y",strtotime($task['deadline'])); } ?>
+                              <td align="center" class="cell-breakWord" <?php if($task['deadline'] < $todayDate) { ?> style="color: red;"  <?php } ?> > <?php if(isset($task['deadline'])) {  echo date("d/m/Y",strtotime($task['deadline'])); } ?>
                               </td>
 
                     
@@ -1597,7 +1599,7 @@ $user_sql = "SELECT * FROM user where `username` LIKE '%$search%' OR `fullName` 
                               </td>
                            
                                   
-                               <td align="center" class="cell-breakWord"> <?php if(isset($award['award_date'])) {  echo date("d-m-Y",strtotime($award['award_date'])); } ?>
+                               <td align="center" class="cell-breakWord"> <?php if(isset($award['award_date'])) {  echo date("d/m/Y",strtotime($award['award_date'])); } ?>
                               </td>
                                        
 
@@ -1624,4 +1626,556 @@ $user_sql = "SELECT * FROM user where `username` LIKE '%$search%' OR `fullName` 
 <?php 
 }
 
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+ if(isset($_POST['searchSalary'])) {
+  $search=$_POST['searchtextSalary'];
+  if(empty($search)){
+    $_SESSION['error'] = "Please enter search keyword.";
+    echo "<script>
+    window.location.href='admin.php?adminpage=adminEmployeeSalary';
+    </script>";   
+  }
+//fetching data in descending order (lastest entry first)
+ $user_sql ="SELECT * FROM user WHERE `id` LIKE '%$search%' or `username` LIKE '%$search%' or `fullName` LIKE '%$search%' or `email` LIKE '%$search%' or `phone` LIKE '%$search%' or `address` LIKE '%$search%' or `gender` LIKE '%$search%' or `DOB` LIKE '%$search%' or `gross_salary` LIKE '%$search%' or `net_salary` LIKE '%$search%' or `level` LIKE '%$search%' ORDER BY username ASC";
+if(!empty($user_sql)){
+$user_query = mysqli_query($db, $user_sql);
+$user = mysqli_fetch_assoc($user_query);
+} else if(mysqli_num_rows($user_query) == 0) {
+    $_SESSION['error'] = "No results.";
+    echo "<script>
+    window.location.href='admin.php?adminpage=adminEmployeeSalary';
+    </script>";    
+ }
+
+ $list = 0;
+
+
+
+if(isset($_POST['update'])) {
+
+
+        if(isset($_POST['socialInsurance']) && isset($_POST['healthInsurance']) && isset($_POST['providentFund'])) {
+
+        $_SESSION['socialInsurance'] = $_POST['socialInsurance'];
+         $_SESSION['healthInsurance'] = $_POST['healthInsurance'];
+         $_SESSION['providentFund'] = $_POST['providentFund'];
+       $_SESSION['success'] = "Success."; 
+       echo "<script>
+       alert('update successfully');
+    window.location.href='admin.php?adminpage=adminEmployeeSalary';
+    </script>"; 
+
+            } 
+
+
+           }
+
+
+
+
+ ?>
+  
+  <div class = "header">
+    <h2>Employee Salary </h2>
+  </div> 
+
+  <div class="container-fluid">
+ <div class="main">
+    
+    <div class="row">
+      <div class="col-6 col-xl-8">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#demoModal">Update Deduction</button>
+            
+
+      </div>
+      <div class="col-6 col-xl-4">
+       <div class="float-right">
+          <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextSalary">
+              <button class="btn btn-outline-success" type="submit" name="searchSalary">Search</button>
+          </form>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-11 col-md-11 col-xl-12 table-responsive">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                       <th>List</th>                  
+                        <th>Username</th>
+                        <th>Fullname</th>
+                        <th>Date of Birth</th>                   
+                        <th>Gross Salary(VND)</th>
+                        <th>Social Insurance(<?php if(isset($_SESSION['socialInsurance'])) { echo $_SESSION['socialInsurance']; } else {echo 8;} ?>%)</th>
+                       <th>Provident Fund(<?php if(isset($_SESSION['providentFund'])) { echo $_SESSION['providentFund']; } else {echo 5;} ?>%)</th>
+                       <th>Health Insurance(VND)</th>
+                       <th>Total Penalties(VND)</th> 
+                      <th>Net Salary(VND)</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                     
+                    <tr>
+                         <?php 
+                          do {
+
+                  
+                              $list = $list + 1;
+                            ?>
+                                <td align="center">
+                           
+                                <?= $list; ?>
+                                                 
+                                </td>
+                      
+
+
+                              <td align="center" class="cell-breakWord"><?= $user['username']; ?>
+                             </td>
+
+                               <td align="center" class="cell-breakWord"><?= $user['fullName']; ?>
+                              </td>
+                           
+                              <td class="cell-breakWord" align="center"><?=date("d/m/Y",strtotime($user['DOB'])); ?></td>
+
+
+                              <td align="center" class="cell-breakWord"><?php $grossSalary = number_format($user['gross_salary']); echo $grossSalary; ?>
+                              </td>
+
+                              <?php
+                                if(isset($_SESSION['socialInsurance']) && isset($_SESSION['healthInsurance']) && isset($_SESSION['providentFund'])) {
+
+
+                                       $IDuser = $user['id'];
+                                  $penalty0_sql = "SELECT * FROM salary_deduction WHERE id_user = '$IDuser'";
+                                  $penalty0_query = mysqli_query($db, $penalty0_sql);
+                                  $totalPenalty = 0;
+                                  while($penalty0 = mysqli_fetch_assoc($penalty0_query)){
+                                    $totalPenalty = $totalPenalty + $penalty0['deduction_amount'];
+                                  }
+                                   $netSalary0 = $user['gross_salary'] - $totalPenalty;
+
+
+
+                               $socialInsurance = $user['gross_salary'] / 100 *  $_SESSION['socialInsurance'];
+                               $provi = $user['gross_salary'] / 100 *  $_SESSION['providentFund'];
+                               $healthInsurance = $_SESSION['healthInsurance'];
+                               $netSalary = $netSalary0 - $socialInsurance -  $provi - $healthInsurance;
+                               $IDuser = $user['id'];
+                               $user1_sql = "UPDATE user SET net_salary = '$netSalary' WHERE id = '$IDuser'";
+                               $user1_query = mysqli_query($db, $user1_sql);
+                                    } else {
+
+                                       $IDuser = $user['id'];
+                                  $penalty0_sql = "SELECT * FROM salary_deduction WHERE id_user = '$IDuser'";
+                                  $penalty0_query = mysqli_query($db, $penalty0_sql);
+                                  $totalPenalty = 0;
+                                  while($penalty0 = mysqli_fetch_assoc($penalty0_query)){
+                                    $totalPenalty = $totalPenalty + $penalty0['deduction_amount'];
+                                  }
+                                   $netSalary0 = $user['gross_salary'] - $totalPenalty;
+
+                                       $socialInsurance = $user['gross_salary'] / 100 *  8;
+                               $provi = $user['gross_salary'] / 100 *  5;
+                               $healthInsurance = 0;
+                               $netSalary = $netSalary0 - $socialInsurance -  $provi - $healthInsurance;
+                               $IDuser = $user['id'];
+                               $user1_sql = "UPDATE user SET net_salary = '$netSalary' WHERE id = '$IDuser'";
+                               $user1_query = mysqli_query($db, $user1_sql);
+
+                                    }
+
+                              ?>
+
+                               <td align="center" class="cell-breakWord"><?php $socialInsurance1 = number_format($socialInsurance); echo $socialInsurance1; ?>
+                              </td>
+                           
+                            <td align="center" class="cell-breakWord"><?php $provi1 = number_format($provi); echo $provi1; ?>
+                              </td>
+                           
+                            <td align="center" class="cell-breakWord"><?php $health = number_format($healthInsurance); echo $health; ?>
+                              </td>
+
+
+                          
+
+
+                              <td align="center" class="cell-breakWord"><?php $totalPenalty1 = number_format($totalPenalty); echo $totalPenalty1; ?>
+                              </td>
+                           
+
+
+                              <td align="center" class="cell-breakWord"><?php $netSalary2 = number_format($netSalary); echo $netSalary2; ?>
+                              </td>
+
+                             
+                                  
+                             
+                                       
+                  
+                    </tr>
+                  <?php 
+
+                      } while($user = mysqli_fetch_assoc($user_query));
+                   ?>
+                 
+
+                </tbody>
+
+            </table>
+             
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+    
+
+
+ <!-- Modal -->
+  <div class="modal fade" id="demoModal" role="dialog">
+
+
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <form method="POST" action="admin.php?adminpage=adminEmployeeSalary" class="beta-form-checkout">
+
+        <div class="modal-header">
+         <div class="float-left">
+          <h4 class="modal-title"> Update Deduction </h4></div>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+        <label for="name">Social Insurance(%): </label>
+        <input type="number" min="0" max="100"  name="socialInsurance" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Provident Fund(%): </label>
+        <input type="number" min = "0" max="100"  name="providentFund" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Health Insurance(VND): </label>
+        <input type="number" min = "0"  name="healthInsurance" class="form-control" required>
+      </div>
+         
+
+        </div>
+        <div class="modal-footer">
+          <input type="submit" name="update" value="submit" class="btn btn-primary">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div>
+<?php
+}
+?>
+  
+
+
+
+
+  <?php 
+ if(isset($_POST['searchDeduction'])) {
+  $search=$_POST['searchtextDeduction'];
+  if(empty($search)){
+    $_SESSION['error'] = "Please enter search keyword.";
+     echo "<script>
+    window.location.href='admin.php?adminpage=adminEmployeeDeduction';
+    </script>"; 
+  }
+$user_sql = "SELECT * FROM user where `username` LIKE '%$search%' OR `fullName` LIKE '%$search%' OR `DOB` LIKE '%$search%'";
+  $user_query = mysqli_query($db, $user_sql);
+  $user = mysqli_fetch_assoc($user_query);
+  $IDuser = $user['id'];
+  
+  $deduction_sql = "SELECT * FROM salary_deduction WHERE id_user = '$IDuser' OR `deduction_amount` LIKE '%$search%' OR `deduction_reason` LIKE '%$search%' OR `deduction_date` LIKE '%$search%' ORDER BY deduction_date DESC";
+  if($deduction_query = mysqli_query($db,$deduction_sql)) {
+  $deduction = mysqli_fetch_assoc($deduction_query);
+ }
+ if(mysqli_num_rows($deduction_query) == 0) {
+    $_SESSION['error'] = "No results.";
+     echo "<script>
+    window.location.href='admin.php?adminpage=adminEmployeeDeduction';
+    </script>";  
+   }
+
+ $list = 0;
+ ?>
+  
+  <div class = "header">
+    <h2>Salary Deduction </h2>
+  </div> 
+
+  <div class="container-fluid">
+ <div class="main">
+  
+    <div class="row">
+      <div class="col-6 col-xl-8">
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addEmployeeDeduction" >Add new penalty to employee</a></button>
+      </div>
+      <div class="col-6 col-xl-4">
+       <div class="float-right">
+          <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextDeduction">
+              <button class="btn btn-outline-success" type="submit" name="searchDeduction">Search</button>
+          </form>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-11 col-md-11 col-xl-12 table-responsive">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                       <th>List</th>                  
+                        <th>Username</th>
+                         <th>Fullname</th>
+                        <th>Date of Birth</th>
+                        <th>Deduction Amount(VND)</th>                   
+                        <th>Deduction Reason</th>
+                        <th>Deduction Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                     
+                    <tr>
+                         <?php 
+                          do {
+                            $list = $list + 1;
+                            $IDuser = $deduction['id_user']; 
+                            $user_sql = "SELECT * FROM user where id = '$IDuser'";
+                            $user_query = mysqli_query($db, $user_sql);
+                            $user = mysqli_fetch_assoc($user_query);
+
+
+                            ?>
+                                <td align="center">
+                           
+                                <?= $list; ?>
+                                                 
+                                </td>
+                      
+
+
+                              <td align="center" class="cell-breakWord"><?= $user['username']; ?>
+                             </td>
+
+                               <td align="center" class="cell-breakWord"><?= $user['fullName']; ?>
+                              </td>
+
+                             
+
+                              <td align="center" class="cell-breakWord"> <?php if(isset($user['DOB'])) {  echo date("d/m/Y",strtotime($user['DOB'])); } ?>
+                              </td>
+
+
+                              <td align="center" class="cell-breakWord"><?php $deductAmount = number_format($deduction['deduction_amount']); echo $deductAmount; ?>
+                              </td>
+
+                               <td align="center" class="cell-breakWord"><?= $deduction['deduction_reason']; ?>
+                              </td>
+                           
+                                  
+                               <td align="center" class="cell-breakWord"> <?php if(isset($deduction['deduction_date'])) {  echo date("d/m/Y",strtotime($deduction['deduction_date'])); } ?>
+                              </td>
+                                       
+
+                         <td align="center">
+                        <a href = "admin.php?adminpage=editEmployeeDeduction&ID=<?=$deduction['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                            <i class="far fa-edit"></i></a>
+                        <a href = "admin.php?adminpage=deleteEmployeeDeduction&ID=<?=$deduction['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
+                            <i class="far fa-trash-alt"></i></a>
+                        </td>
+                  
+                    </tr>
+                  <?php 
+
+                      } while($deduction = mysqli_fetch_assoc($deduction_query));
+                   ?>
+                 
+
+                </tbody>
+
+            </table>
+             
+        </div>
+    </div>
+  </div>
+</div>
+
+<?php
+}
+?>
+
+
+
+
+
+
+
+
+
+<?php 
+if(isset($_POST['searchAnnouncement'])) {
+  $search=$_POST['searchtextAnnouncement'];
+  if(empty($search)){
+    $_SESSION['error'] = "Please enter search keyword.";
+     echo "<script>
+    window.location.href='admin.php?adminpage=adminAnnouncement';
+    </script>"; 
+  }
+  
+  $announce_sql = "SELECT * FROM announcement WHERE  `title` LIKE '%$search%' OR `content` LIKE '%$search%' OR date_created LIKE '%$search%' OR `announcer` LIKE '%$search%'";
+  if($announce_query = mysqli_query($db,$announce_sql)) {
+  $announce = mysqli_fetch_assoc($announce_query);
+ }
+ if(mysqli_num_rows($announce_query) == 0) {
+    $_SESSION['error'] = "No results.";
+     echo "<script>
+    window.location.href='admin.php?adminpage=adminAnnouncement';
+    </script>";  
+   }
+  
+
+ $list = 0;
+ ?>
+
+  
+  <div class = "header">
+    <h2>Announcement table</h2>
+  </div> 
+
+  <div class="container-fluid">
+  <div class="main">
+   
+    <div class="row">
+      <div class="col-6 col-xl-8">  
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addAnnouncement" >Add new announcement</a></button>
+      </div>
+      <div class="col-6 col-xl-4">
+        <div class="float-right">
+          <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextAnnouncement">
+            <button class="btn btn-outline-success" type="submit" name="searchAnnouncement">Search</button>
+          </form>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+          
+        <div class="row">
+          <div class="col-11 col-md-11 col-xl-12 table-responsive">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                      <th>list</th>                  
+                      <th>title</th>               
+                      <th>Posted by</th>
+                      <th>Announcement Content</th>  
+                      <th>Post date</th>                        
+                      <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>       
+                    <tr>
+                         <?php 
+                          do {
+                            $list = $list + 1;   
+
+                            $content1 = "";
+                            if (strlen($announce['content']) < 100) {
+                              $content1 = $announce['content'];
+                            } else {
+
+                           $content1 = substr($announce['content'], 100);
+                                }                            
+
+                            ?>
+                      
+
+                                <td align="center">
+                           
+                                <?= $list; ?>
+                                                 
+                                </td>
+                      
+
+
+                              <td align="center" class="cell-breakWord"><a href="admin.php?adminpage=adminAnnouncementContent"><strong> <?= $announce['title']; ?></strong></a>
+                             </td>
+
+                               <td align="center" class="cell-breakWord"><?= $announce['announcer']; ?>
+                              </td>
+
+                             <td align="center" class="cell-breakWord"><?= $content1; ?><a href="admin.php?adminpage=adminAnnouncementContent">Read more...</a>
+                              </td>
+
+                                 
+                               <td align="center" class="cell-breakWord"> <?php if(isset($announce['date_created'])) {  echo date("d/m/Y",strtotime($announce['date_created'])); } ?>
+                              </td>                              
+
+                         <td align="center">
+                        <a href = "admin.php?adminpage=editAnnouncement&ID=<?=$announce['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                           <i class="far fa-edit"></i></a>
+                        <a href = "admin.php?adminpage=deleteAnnouncement&ID=<?=$announce['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
+                           <i class="far fa-trash-alt"></i></a>
+                        </td>
+                  
+                    </tr>
+                  <?php 
+
+                      } while($announce = mysqli_fetch_assoc($announce_query));
+                   ?>
+
+                                       
+                
+                    
+
+                 
+
+                </tbody>
+
+            </table>
+             
+        </div>
+    </div>
+</div>
+
+</div>
+
+<?php
+}
 ?>

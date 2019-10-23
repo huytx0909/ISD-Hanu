@@ -15,6 +15,18 @@ if (isset($_POST['login_button'])) {
 	if (mysqli_num_rows($result) == 1) { 
 		$_SESSION['message'] = "Logged in!";	
 		$_SESSION['admin'] = $admin;
+
+
+		if(!empty($_POST["remember"])) {
+				setcookie ("member_login",$_POST["admin"],time()+ (10 * 365 * 24 * 60 * 60));
+			} else {
+				if(isset($_COOKIE["member_login"])) {
+					setcookie ("member_login","");
+				}
+				}
+
+
+
 		if(isset($_SESSION['admin'])) {
 			header("location: admin.php");
 		} else {
@@ -25,6 +37,7 @@ if (isset($_POST['login_button'])) {
 	}
 }
 
+ 
  ?>
 
 
@@ -47,7 +60,7 @@ if (isset($_POST['login_button'])) {
 				?>
 				<div class="form-group">
 					
-					<input type="text" name="admin" class="form-control" id="" placeholder="Username" required="">
+					<input type="text" name="admin" class="form-control" id="" placeholder="Username" required="" value="<?php if(isset($_COOKIE["member_login"])) { echo $_COOKIE["member_login"]; } ?>">
 				</div>
 				<div class="form-group">
 					
@@ -56,11 +69,11 @@ if (isset($_POST['login_button'])) {
 				<button  type="submit" name="login_button" class="btn btn-primary">Login</button>
 
 				<div class="float-right">
-					<a href="#">Forgot Password?</a>
+					<a href="resetPassword.php">Forgot Password?</a>
 				</div>
 
 				<div class="float-left">
-			      <input type="checkbox" value="" class="checkbox">
+			      <input type="checkbox" name="remember" id="remember" value="" class="checkbox" <?php if(isset($_COOKIE["member_login"])) { ?> checked <?php } ?>>
 			  	  <a style="text-decoration: none;position: absolute;bottom:2px;left:30px;">Remember me</a>
 			    </div>
 			</form>

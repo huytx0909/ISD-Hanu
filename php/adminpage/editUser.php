@@ -21,6 +21,9 @@ if (isset($_POST['update'])) {
 	$teamName = mysqli_real_escape_string($db, $_POST['id_team']);
 	$roleName = mysqli_real_escape_string($db, $_POST['id_role']);
 	$level = mysqli_real_escape_string($db, $_POST['level']);
+	$dob = mysqli_real_escape_string($db, $_POST['DOB']);
+	$gender = mysqli_real_escape_string($db, $_POST['gender']);
+	$image = mysqli_real_escape_string($db, $_POST['image']);
 
 	// echo $password, $email, $phone, $address, $salary, $departmentName, $teamName, $roleName;
 
@@ -28,7 +31,7 @@ if (isset($_POST['update'])) {
 	   $sql1 = "SELECT * FROM user WHERE username = '$userName' and id != '$id'";
 		$result1 = mysqli_query($db, $sql1); 
 
-if (empty($userName) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($departmentName) || empty($teamName) || empty($roleName) || empty($fullName) || empty($level)) {
+if (empty($userName) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($departmentName) || empty($teamName) || empty($roleName) || empty($fullName) || empty($level) || empty($dob) || empty($gender)) {
 			$_SESSION['error'] =  "All fields are required."; 
 		}
 
@@ -60,13 +63,64 @@ if (empty($userName) || empty($email) || empty($phone) || empty($address) || emp
 		$IDteam = $teamIdRs[0];
 		$IDrole = $roleIdRs[0];
 
-		$updateUser_sql = "UPDATE user SET username = '$userName', fullName = '$fullName', email = '$email', phone = '$phone', address = '$address', salary = '$salary', id_department = '$IDdepartment', id_team = '$IDteam', id_role = '$IDrole', level = '$level' WHERE id = '$id' ";
+
+
+ if(!empty($image)) {
+
+
+    $image0_sql= "SELECT * from image where url = '$image'";
+    $image0_query = mysqli_query($db, $image0_sql);
+    $countRow = mysqli_num_rows($image0_query);
+
+		if($countRow == 0) {
+
+    $image_sql = "INSERT INTO image(url) VALUES ('$image')";
+    $image_query = mysqli_query($db, $image_sql);
+      }
+    
+   
+    $image1_sql = "SELECT * from image where url = '$image'";
+    $image1_query = mysqli_query($db, $image1_sql);
+    if($image1 = mysqli_fetch_assoc($image1_query)) {
+    $IDimage = $image1['id'];
+     }
+
+     	$updateUser_sql = "UPDATE user SET username = '$userName', fullName = '$fullName', email = '$email', phone = '$phone', address = '$address', gross_salary = '$salary', id_department = '$IDdepartment', id_team = '$IDteam', id_role = '$IDrole', level = '$level', gender = '$gender', DOB = '$dob', id_image = '$IDimage' WHERE id = '$id' ";
 		$update_query = mysqli_query($db, $updateUser_sql);
 
 		$_SESSION['success'] = "Success."; 
+		if($userName == $_SESSION['admin']) {
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminProfile';
+    </script>"; 
+		} else {
 		echo "<script>
     window.location.href='admin.php?adminpage=adminUser';
-    </script>"; 	 
+    </script>"; 
+    }   
+               
+          }  else {
+
+
+           	$updateUser_sql = "UPDATE user SET username = '$userName', fullName = '$fullName', email = '$email', phone = '$phone', address = '$address', gross_salary = '$salary', id_department = '$IDdepartment', id_team = '$IDteam', id_role = '$IDrole', level = '$level', gender = '$gender', DOB = '$dob' WHERE id = '$id' ";
+		$update_query = mysqli_query($db, $updateUser_sql);
+
+		$_SESSION['success'] = "Success."; 
+		if($userName == $_SESSION['admin']) {
+			echo "<script>
+    window.location.href='admin.php?adminpage=adminProfile';
+    </script>"; 
+		} else {
+		echo "<script>
+    window.location.href='admin.php?adminpage=adminUser';
+    </script>"; 
+    }         
+           }
+
+
+
+
+	 
 	}
 }
 }
@@ -79,8 +133,10 @@ $result = mysqli_query($db, $user_sql);
 	$email = $res['email'];
 	$phone = $res['phone'];
 	$address = $res['address'];
-	$salary = $res['salary'];
+	$salary = $res['gross_salary'];
 	$level = $res['level'];
+	$dob = $res['DOB'];
+	$gender = $res['gender'];
 
 
 	$departmentId = $res['id_department'];
@@ -145,6 +201,32 @@ $result = mysqli_query($db, $user_sql);
 				    <input type="text" class="form-control" name="fullName" value="<?= $fullName; ?>" >
 				  </div>
 
+				  <div class="form-group">
+	    		<label for="image">Image</label>
+	    		<input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
+	  		</div>
+
+			<div class="form-group">
+			<label for="date">Date of birth:</label>
+			<input type="date" name="DOB" class="form-control" value="<?= $dob; ?>">
+					</div>
+
+					<div class="form-group">
+					<label for="date">Gender:</label>
+					<div class="form-check">
+  					<input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="male" <?php if($gender == "male") { ?> checked <?php } ?>  >
+ 					 <label class="form-check-label" for="gender">
+  								  Male
+ 					 </label>
+ 					
+ 					</div>
+ 					<div class="form-check">
+ 					 <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="female" <?php if($gender == "female") { ?> checked <?php } ?>>
+ 					 <label class="form-check-label" for="gender">
+  								  female
+ 					 </label>
+ 					</div>
+					</div>
 
 				  <div class="form-group">
 				    <label for="email">Email:</label>

@@ -42,8 +42,8 @@ if (isset($_POST['Submit'])) {
 
 				
 
-			$startDate =  date("d-m-Y",strtotime($training0['start_date']));
-			$endDate =  date("d-m-Y",strtotime($training0['end_date']));
+			$startDate =  date("d/m/Y",strtotime($training0['start_date']));
+			$endDate =  date("d/m/Y",strtotime($training0['end_date']));
 
 					session_start();
 			$_SESSION["infoEmailArr"] = array("recipient" => $user['email'],"subject" => "Enroll training course",

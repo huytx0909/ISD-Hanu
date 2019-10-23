@@ -84,7 +84,7 @@ if (isset($_POST['Submit'])) {
 
 		<div class="form-group">		
 			<label for="amount">Award Amount:</label>
-			<input type="text" name="award_amount" class="form-control">
+			<input type="number" name="award_amount" class="form-control">
 		</div>
 					
 					

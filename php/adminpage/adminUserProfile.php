@@ -1,6 +1,7 @@
 <?php
-$admin = $_SESSION['admin'];
-$user_sql = "SELECT * from user WHERE username = '$admin'";
+ if(isset($_GET['ID'])) {
+$IDuser = $_GET['ID'];
+$user_sql = "SELECT * from user WHERE id = '$IDuser'";
 $result = mysqli_query($db, $user_sql);
 	$res = mysqli_fetch_assoc($result);
 	$userName = $res['username'];
@@ -12,8 +13,7 @@ $result = mysqli_query($db, $user_sql);
 	$level = $res['level'];
 	$dob = $res['DOB'];
 	$gender = $res['gender'];
-		$netSalary = $res['net_salary'];
-
+$netSalary = $res['net_salary'];
 
 
 	$departmentId = $res['id_department'];
@@ -43,7 +43,7 @@ $result = mysqli_query($db, $user_sql);
 ?>
 
 <div class="header">
-	<h2>Admin Profile</h2>
+	<h2> <?= $userName; ?> Profile</h2>
 </div>
 
 <div class="container-fluid">
@@ -122,3 +122,7 @@ $result = mysqli_query($db, $user_sql);
 		</div>
 	</div>
 </div>
+
+<?php
+}
+?>

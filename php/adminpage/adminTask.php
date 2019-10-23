@@ -98,7 +98,7 @@
                               <td align="center" class="cell-breakWord"><?= $task['description']; ?>
                               </td>
 
-                              <td align="center" class="cell-breakWord" <?php if($task['deadline'] < $todayDate) { ?> style="color: red;"  <?php } ?> > <?php if(isset($task['deadline'])) {  echo date("d-m-Y",strtotime($task['deadline'])); } ?>
+                              <td align="center" class="cell-breakWord" <?php if($task['deadline'] < $todayDate) { ?> style="color: red;"  <?php } ?> > <?php if(isset($task['deadline'])) {  echo date("d/m/Y",strtotime($task['deadline'])); } ?>
                               </td>
 
                     

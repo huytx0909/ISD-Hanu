@@ -1,8 +1,8 @@
 <?php 
 	
-  $holiday_sql = "SELECT * FROM holiday ORDER BY start_date ASC";
-  if($holiday_query = mysqli_query($db,$holiday_sql)) {
-  $holiday = mysqli_fetch_assoc($holiday_query);
+  $announce_sql = "SELECT * FROM announcement ORDER BY date_created DESC";
+  if($announce_query = mysqli_query($db,$announce_sql)) {
+  $announce = mysqli_fetch_assoc($announce_query);
 
  }
 
@@ -11,7 +11,7 @@
 
   
   <div class = "header">
-    <h2>Holiday table</h2>
+    <h2>Announcement table</h2>
   </div> 
 
   <div class="container-fluid">
@@ -34,13 +34,13 @@
     </div>  
     <div class="row">
       <div class="col-6 col-xl-8">  
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addHoliday" >Add new holiday event</a></button>
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addAnnouncement" >Add new announcement</a></button>
       </div>
       <div class="col-6 col-xl-4">
         <div class="float-right">
           <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextHoliday">
-            <button class="btn btn-outline-success" type="submit" name="searchHoliday">Search</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextAnnouncement">
+            <button class="btn btn-outline-success" type="submit" name="searchAnnouncement">Search</button>
           </form>
         </div>
       </div>
@@ -53,10 +53,10 @@
                 <thead class="thead-dark">
                     <tr>
                       <th>list</th>                  
-                      <th>Event name</th>               
-                      <th>Description</th>
-                      <th>Start Date</th>  
-                      <th>End Date</th>                        
+                      <th>title</th>               
+                      <th>Posted by</th>
+                      <th>Announcement Content</th>  
+                      <th>Post date</th>                        
                       <th>Actions</th>
                     </tr>
                 </thead>
@@ -65,6 +65,15 @@
                          <?php 
                           do {
                             $list = $list + 1;   
+
+                            $content1 = "";
+                            if (strlen($announce['content']) < 100) {
+                              $content1 = $announce['content'];
+                            } else {
+
+                           $content1 = substr($announce['content'], 100);
+                                }                            
+
                             ?>
                       
 
@@ -76,30 +85,30 @@
                       
 
 
-                              <td align="center" class="cell-breakWord"><?= $holiday['event_name']; ?>
+                              <td align="center" class="cell-breakWord"><a href="admin.php?adminpage=adminAnnouncementContent&&ID=<?=$announce['id'];?>"><strong> <?= $announce['title']; ?></strong></a>
                              </td>
 
-                               <td align="center" class="cell-breakWord"><?= $holiday['description']; ?>
+                               <td align="center" class="cell-breakWord"><?= $announce['announcer']; ?>
                               </td>
 
-                            
+                             <td align="center" class="cell-breakWord"><?= $content1; ?><a href="admin.php?adminpage=adminAnnouncementContent&&ID=<?=$announce['id'];?>">Read more...</a>
+                              </td>
 
-                                 <td align="center" class="cell-breakWord"> <?php if(isset($holiday['start_date'])) {  echo date("d/m/Y",strtotime($holiday['start_date'])); } ?>
-                              </td>    
-                               <td align="center" class="cell-breakWord"> <?php if(isset($holiday['end_date'])) {  echo date("d/m/Y",strtotime($holiday['end_date'])); } ?>
+                                 
+                               <td align="center" class="cell-breakWord"> <?php if(isset($announce['date_created'])) {  echo date("d/m/Y",strtotime($announce['date_created'])); } ?>
                               </td>                              
 
                          <td align="center">
-                        <a href = "admin.php?adminpage=editHoliday&ID=<?=$holiday['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                        <a href = "admin.php?adminpage=editAnnouncement&ID=<?=$announce['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                            <i class="far fa-edit"></i></a>
-                        <a href = "admin.php?adminpage=deleteHoliday&ID=<?=$holiday['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
+                        <a href = "admin.php?adminpage=deleteAnnouncement&ID=<?=$announce['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                            <i class="far fa-trash-alt"></i></a>
                         </td>
                   
                     </tr>
                   <?php 
 
-                      } while($holiday = mysqli_fetch_assoc($holiday_query));
+                      } while($announce = mysqli_fetch_assoc($announce_query));
                    ?>
 
                                        

@@ -86,8 +86,8 @@
                       <td align="center" class="cell-breakWord"><?= $training['description']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $training['max_trainees']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $training['number_trainees']; ?></td>
-                      <td align="center" class="cell-breakWord"><?php if(isset($training['start_date'])) {  echo date("d-m-Y",strtotime($training['start_date'])); } ?></td>
-                      <td align="center" class="cell-breakWord"><?php if(isset($training['end_date'])) {  echo date("d-m-Y",strtotime($training['end_date'])); } ?></td>                                                               
+                      <td align="center" class="cell-breakWord"><?php if(isset($training['start_date'])) {  echo date("d/m/Y",strtotime($training['start_date'])); } ?></td>
+                      <td align="center" class="cell-breakWord"><?php if(isset($training['end_date'])) {  echo date("d/m/Y",strtotime($training['end_date'])); } ?></td>                                                               
                       <td align="center">
                           <?php
                           if($training['number_trainees'] < $training['max_trainees'] && $todayDate < $training['start_date'] ) {
