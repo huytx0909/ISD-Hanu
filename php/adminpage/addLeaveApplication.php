@@ -1,4 +1,7 @@
 <?php
+
+
+
 if (isset($_POST['Submit'])) {
 	$name = $_POST['username'];
 	$leaveType = $_POST['leave_type'];
@@ -76,7 +79,8 @@ if (isset($_POST['Submit'])) {
 				} 
 				?>
 			<label for="name">Username:</label>
-			<input type="text" name="username" class="form-control">
+			<input type="text" name="username" id="username" class="form-control">
+			<div id="usernameList"> </div>
 		</div>
 					
 					<div class="form-group select">
@@ -128,3 +132,24 @@ if (isset($_POST['Submit'])) {
 </div>
 </div>
 </div>
+
+<script>
+	$(document).ready(function() {
+		$('#username').keyup(function() {
+			var query = $(this).val();
+			if(query != '')
+			{
+				$.ajax({
+					url: "hr/searchSuggestion.php",
+					method:"POST",
+					data:{query:query},
+					success:function(data)
+					{
+						$('usernameList').fadeIn();
+						$('#usernameList').html(data);
+					}
+				});
+			}
+		});
+	});
+</script>

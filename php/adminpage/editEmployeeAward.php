@@ -97,7 +97,7 @@ $award1_sql = "SELECT * FROM employee_award WHERE id = '$IDaward'";
 
 		<div class="form-group">		
 			<label for="amount">Award amount:</label>
-			<input type="text" name="award_amount" class="form-control" value="<?=$award1['award_amount'];?>">
+			<input type="number" name="award_amount" class="form-control" value="<?=$award1['award_amount'];?>">
 		</div>
 					
 					

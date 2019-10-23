@@ -12,6 +12,9 @@ if (isset($_POST['Submit'])) {
 	$address = mysqli_real_escape_string($db, $_POST['address']);
 	$salary = mysqli_real_escape_string($db, $_POST['salary']);
 	$level = mysqli_real_escape_string($db, $_POST['level']);
+	$dob = mysqli_real_escape_string($db, $_POST['DOB']);
+	$gender = mysqli_real_escape_string($db, $_POST['gender']);
+	$image = mysqli_real_escape_string($db, $_POST['image']);
 
 	$date = date("Y/m/d");
 
@@ -33,7 +36,7 @@ if (isset($_POST['Submit'])) {
 	if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['error'] =  "User existed in database.";
 	}else{ 
-		if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role) || empty($fullName) || empty($level)) {
+		if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role) || empty($fullName) || empty($level) || empty($dob) || empty($gender)) {
 			$_SESSION['error'] =  "All fields are required."; 
 		}else if(!ctype_alpha(str_replace(' ', '', $fullName))) {
 			$_SESSION['error'] = "Full Name could not contain numbers.";
@@ -47,8 +50,17 @@ if (isset($_POST['Submit'])) {
 		//insert data to database
 		// echo $userName, $password, $email, $phone, $address, $salary, $departmentId[0], $teamId[0], $roleId[0];
 
-		$insertResult = mysqli_query($db, "INSERT INTO user(username, fullName, password, email, phone, address, salary, id_department, id_team, id_role, date_created, level)
-			VALUES('$userName', '$fullName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]', '$date', '$level')");
+		 	  $image_sql = "INSERT INTO image(url) VALUES ('$image')";
+	    $image_query = mysqli_query($db, $image_sql);
+	   
+	    $image1_sql = "SELECT * from image where url = '$image'";
+	    $image1_query = mysqli_query($db, $image1_sql);
+	    if($image1 = mysqli_fetch_assoc($image1_query)) {
+	    $IDimage = $image1['id'];
+    	 }
+
+		$insertResult = mysqli_query($db, "INSERT INTO user(username, fullName, password, email, phone, address, gross_salary, id_department, id_team, id_role, date_created, level, DOB, gender, image)
+			VALUES('$userName', '$fullName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]', '$date', '$level','$dob','$gender', '$image')");
 		$_SESSION['success'] = "Success."; 
 	
 		session_start();
@@ -109,6 +121,33 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 				    <label for="password">Password:</label>
 				    <input type="password" class="form-control" name="password" minlength="8" placeholder="Enter password">
 				  </div>
+
+				  <div class="form-group">
+	    		<label for="image">Image</label>
+	    		<input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
+	  		</div>	
+
+				  <div class="form-group">
+			<label for="date">Date of birth:</label>
+			<input type="date" name="DOB" class="form-control">
+					</div>
+
+					<div class="form-group">
+					<label for="date">Gender:</label>
+					<div class="form-check">
+  					<input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="male" checked>
+ 					 <label class="form-check-label" for="gender">
+  								  Male
+ 					 </label>
+ 					
+ 					</div>
+ 					<div class="form-check">
+ 					 <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="female">
+ 					 <label class="form-check-label" for="gender">
+  								  female
+ 					 </label>
+ 					</div>
+					</div>
 
 				  <div class="form-group">
 				    <label for="email">Email:</label>

@@ -28,7 +28,7 @@ if (isset($_POST['Submit'])) {
 		$trainer = mysqli_fetch_assoc($trainer_query); 
 		$IDuser = $trainer['id'];
 
-        if($startDate < $endDate && $startDate > $todayDate) {
+        if($startDate < $endDate) {
 
 			$training_sql = "INSERT INTO `training`(training_name, id_trainer, description, start_date, end_date, max_trainees, number_trainees) VALUES('$name', '$IDuser','$description', '$startDate', '$endDate', '$maxTrainee', '0')";
 
@@ -40,7 +40,7 @@ if (isset($_POST['Submit'])) {
     </script>"; 	
                
         }else {
-            $_SESSION['error'] = "Start date can't be later than end date and earlier than the date of today.";
+            $_SESSION['error'] = "Start date can't be later than end date";
         }	
 	} else {
 		$_SESSION['error'] = "There is no such trainer.";

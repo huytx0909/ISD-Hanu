@@ -66,9 +66,8 @@
                       <th>Phone</th>                        
                       <th>Address</th>
                       <th>Department</th>
-                      <th>Team</th>
+                   
                       <th>Role</th>
-                      <th>Date Created</th>
                       <th>Actions</th>
                     </tr>
                 </thead>
@@ -120,10 +119,9 @@
                         <td align="center" class="cell-breakWord"><?= $user['phone']; ?></td>
                         <td align="center" class="cell-breakWord"><?= $user['address']; ?></td>
                         <td align="center" class="cell-breakWord"><?= $departmentName['name']; ?></td>  
-                        <td align="center" class="cell-breakWord"><?= $teamName['name']; ?></td>   
+                     
                         <td align="center" class="cell-breakWord"><?= $roleName['name']; ?></td>
-                        <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?></td>
-
+                     
                         <td align="center">
                           <a href = "admin.php?adminpage=deleteTeamUser&IDteam=<?=$user['id_team'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                             <i class="far fa-trash-alt"></i></a>
@@ -172,16 +170,15 @@
        
 
   }  
-
+       $_SESSION['success'] = "Success."; 
       echo "<script>
-alert('add successfully');
 window.location.href='admin.php?adminpage=adminTeamUser&IDteam=$IDteam1';
 </script>";
          }  
 
           }
 
-    $user_sql = "SELECT * FROM user where id_team != '$IDteam1'";
+    $user_sql = "SELECT * FROM user where id_team != '$IDteam1' OR id_team IS NULL";
     $user_query = mysqli_query($db,$user_sql);
     $user = mysqli_fetch_assoc($user_query);
 

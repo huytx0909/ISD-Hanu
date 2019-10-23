@@ -1,8 +1,8 @@
 <?php 
 	
-  $award_sql = "SELECT * FROM employee_award ORDER BY award_date DESC";
-  if($award_query = mysqli_query($db,$award_sql)) {
-  $award = mysqli_fetch_assoc($award_query);
+  $deduction_sql = "SELECT * FROM salary_deduction ORDER BY deduction_date DESC";
+  if($deduction_query = mysqli_query($db,$deduction_sql)) {
+  $deduction = mysqli_fetch_assoc($deduction_query);
 
  }
 
@@ -10,7 +10,7 @@
  ?>
   
   <div class = "header">
-    <h2>Employee Award </h2>
+    <h2>Salary Deduction </h2>
   </div> 
 
   <div class="container-fluid">
@@ -33,13 +33,13 @@
     </div>  
     <div class="row">
       <div class="col-6 col-xl-8">
-        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addEmployeeAward" >Add new award to employee</a></button>
+        <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addEmployeeDeduction" >Add new penalty to employee</a></button>
       </div>
       <div class="col-6 col-xl-4">
        <div class="float-right">
           <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextAward">
-              <button class="btn btn-outline-success" type="submit" name="searchAward">Search</button>
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchtextDeduction">
+              <button class="btn btn-outline-success" type="submit" name="searchDeduction">Search</button>
           </form>
         </div>
       </div>
@@ -53,11 +53,11 @@
                     <tr>
                        <th>List</th>                  
                         <th>Username</th>
-                        <th>Fullname</th>                   
-                        <th>Award title</th>
-                        <th>Gift item</th>
-                       <th>Award amount(VND)</th>  
-                       <th>Awarded date</th>
+                         <th>Fullname</th>
+                        <th>Date of Birth</th>
+                        <th>Deduction Amount(VND)</th>                   
+                        <th>Deduction Reason</th>
+                       	<th>Deduction Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -68,7 +68,7 @@
                          <?php 
                           do {
                             $list = $list + 1;
-                            $IDuser = $award['id_user']; 
+                            $IDuser = $deduction['id_user']; 
                             $user_sql = "SELECT * FROM user where id = '$IDuser'";
                             $user_query = mysqli_query($db, $user_sql);
                             $user = mysqli_fetch_assoc($user_query);
@@ -91,31 +91,32 @@
 
                              
 
-                              <td align="center" class="cell-breakWord"><?= $award['award_title']; ?>
+                              <td align="center" class="cell-breakWord"> <?php if(isset($user['DOB'])) {  echo date("d/m/Y",strtotime($user['DOB'])); } ?>
                               </td>
 
-                              <td align="center" class="cell-breakWord"><?= $award['gift_item']; ?>
+
+                              <td align="center" class="cell-breakWord"><?php $deductAmount = number_format($deduction['deduction_amount']); echo $deductAmount; ?>
                               </td>
 
-                              <td align="center" class="cell-breakWord"><?php $awardAmount = number_format($award['award_amount']); echo $awardAmount; ?>
+                               <td align="center" class="cell-breakWord"><?= $deduction['deduction_reason']; ?>
                               </td>
                            
                                   
-                               <td align="center" class="cell-breakWord"> <?php if(isset($award['award_date'])) {  echo date("d/m/Y",strtotime($award['award_date'])); } ?>
+                               <td align="center" class="cell-breakWord"> <?php if(isset($deduction['deduction_date'])) {  echo date("d/m/Y",strtotime($deduction['deduction_date'])); } ?>
                               </td>
                                        
 
                          <td align="center">
-                        <a href = "admin.php?adminpage=editEmployeeAward&ID=<?=$award['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
+                        <a href = "admin.php?adminpage=editEmployeeDeduction&ID=<?=$deduction['id'];?>" class="btn btn-primary" data-toogle="tooltip" title="Edit">
                             <i class="far fa-edit"></i></a>
-                        <a href = "admin.php?adminpage=deleteEmployeeAward&ID=<?=$award['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
+                        <a href = "admin.php?adminpage=deleteEmployeeDeduction&ID=<?=$deduction['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
                             <i class="far fa-trash-alt"></i></a>
                         </td>
                   
                     </tr>
                   <?php 
 
-                      } while($award = mysqli_fetch_assoc($award_query));
+                      } while($deduction = mysqli_fetch_assoc($deduction_query));
                    ?>
                  
 

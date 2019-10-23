@@ -60,15 +60,14 @@
           <thead class="thead-dark">
               <tr>
                 <th>list</th>                  
-                <th>Username</th>               
+                <th>Username</th> 
+                <th>Fullname</th>                                 
                 <th>Email</th>
                 <th>Phone</th>                        
-                <th>Salary</th>
+                <th>Gross Salary</th>
                 <th>Address</th>
                 <th>Department</th>
                 <th>Team</th>
-                <th>Role</th>
-                <th>Date Created</th>
                 <th>Actions</th>
               </tr>
           </thead>
@@ -110,14 +109,15 @@
                 </td>
 
                 <td align="center" class="cell-breakWord"><?= $user['username']; ?></td>
+                <td align="center" class="cell-breakWord"><?= $user['fullName']; ?></td>                
                 <td align="center" class="cell-breakWord"><?= $user['email']; ?></td>
                 <td align="center" class="cell-breakWord"><?= $user['phone']; ?></td>
-                <td align="center" class="cell-breakWord"><?= $user['salary']; ?></td>
+                <td align="center" class="cell-breakWord"><?php $gross_salary = number_format($user['gross_salary']); echo $gross_salary; ?></td>
                 <td align="center" class="cell-breakWord"><?= $user['address']; ?></td>
                 <td align="center" class="cell-breakWord"><?= $departmentName['name']; ?></td>
                 <td align="center" class="cell-breakWord"><?= $teamName['name']; ?></td>   
-                <td align="center" class="cell-breakWord"><?= $roleName['name']; ?></td>
-                <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d-m-Y",strtotime($user['date_created'])); } ?></td>
+               
+              
 
                 <td align="center">
                     <a href = "admin.php?adminpage=deleteRoleUser&IDrole=<?=$user['id_role'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
@@ -166,7 +166,7 @@
 
           }
 
-    $user_sql = "SELECT * FROM user where id_role != '$IDrole1'";
+    $user_sql = "SELECT * FROM user where id_role != '$IDrole1' OR id_role IS null ";
     $user_query = mysqli_query($db,$user_sql);
     $user = mysqli_fetch_assoc($user_query);
 

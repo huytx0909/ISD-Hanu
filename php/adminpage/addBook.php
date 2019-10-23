@@ -96,7 +96,7 @@ if (isset($_POST['Submit'])) {
 
 			<div class="form-group">
 				<label for="prize">Prize (VND):</label>
-				<input type="text" name="prize" class="form-control">
+				<input type="number" name="prize" class="form-control">
 			</div>
 	  
 			<div class="form-group">

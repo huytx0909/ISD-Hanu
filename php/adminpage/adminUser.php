@@ -3,7 +3,7 @@
 //including the database connection file
 
 //fetching data in descending order (lastest entry first)
-$result = mysqli_query($db, "SELECT * FROM user ORDER BY id DESC");
+$result = mysqli_query($db, "SELECT * FROM user ORDER BY username ASC");
 ?>
 	<div class = "header">
 		<h2>User table</h2>
@@ -48,11 +48,7 @@ $result = mysqli_query($db, "SELECT * FROM user ORDER BY id DESC");
 			  <thead class="thead-dark">
 			    <tr>
 			      <th>Username</th>
-			      <th>Full Name</th>
-			      <th>Email</th>
-			      <th>Phone</th>
-			      <th>Address</th>
-			      <th>Salary(VND)</th>
+			      <th>Full Name</th>		      
 			      <th>Department</th>
 			      <th>Team</th>
 			      <th>Role</th>
@@ -93,17 +89,14 @@ while ($res = mysqli_fetch_array($result)) {
 
        ?>
 	<tr>
-		<td class="cell-breakWord" align="center"><?=$res['username']; ?></td>
+		<td class="cell-breakWord" align="center"><a href="admin.php?adminpage=adminUserProfile&ID=<?=$res['id'];?>"><strong><?=$res['username']; ?></strong></a></td>
 		<td class="cell-breakWord" align="center"><?=$res['fullName']; ?></td>
-		<td class="cell-breakWord" align="center"><?=$res['email']; ?></td>
-		<td class="cell-breakWord" align="center"><?=$res['phone']; ?></td>
-		<td class="cell-breakWord" align="center"><?=$res['address']; ?></td>
-		<td class="cell-breakWord" align="center"><?=$res['salary']; ?></td>
+	
 		<td class="cell-breakWord" align="center"><?=$depart; ?></td>
 		<td class="cell-breakWord" align="center"><?=$team; ?></td>
 		<td class="cell-breakWord" align="center"><?=$role; ?></td>
 		<td class="cell-breakWord" align="center"><?=$res['level']; ?></td>
-		<td class="cell-breakWord" align="center"><?=date("d-m-Y",strtotime($res['date_created'])); ?></td>
+		<td class="cell-breakWord" align="center"><?=date("d/m/Y",strtotime($res['date_created'])); ?></td>
 		<td align="center">
 			<button type="button" class="btn btn-primary edit"><a href="admin.php?adminpage=editUser&ID=<?=$res['id'];?>" data-toogle="tooltip" title="Edit"><i class="far fa-edit"></i></a></button>  
 			<button type="button" class="btn btn-danger" data-toogle="tooltip" title="Delete"><a href="admin.php?adminpage=deleteUser&ID=<?=$res['id'];?>" onclick="return ConfirmDelete();"><i class="far fa-trash-alt"></i></a></button>

@@ -87,10 +87,10 @@ $list = 0;
                             <td align="center" class="cell-breakWord"><?= $user['fullName']; ?></td>  
                             <td align="center" class="cell-breakWord"><?= $book['book_title']; ?></td>
                             <td align="center" class="cell-breakWord"><?= $book['author_name']; ?></td>
-                            <td align="center" class="cell-breakWord"><?= $book['prize']; ?></td>
+                            <td align="center" class="cell-breakWord"><?php $book1 = number_format($book['prize']); echo $book1; ?></td>
                             <td align="center" class="cell-breakWord"><?= $order['type']; ?></td>
-                            <td align="center" class="cell-breakWord"><?php if(isset($order['placeOrder_date'])) { echo date("d-m-Y",strtotime($order['placeOrder_date'])); } ?></td>
-                            <td align="center" class="cell-breakWord"><?php if(isset($order['expired_date'])) {  echo date("d-m-Y",strtotime($order['expired_date'])); } ?></td>
+                            <td align="center" class="cell-breakWord"><?php if(isset($order['placeOrder_date'])) { echo date("d/m/Y",strtotime($order['placeOrder_date'])); } ?></td>
+                            <td align="center" class="cell-breakWord"><?php if(isset($order['expired_date'])) {  echo date("d/m/Y",strtotime($order['expired_date'])); } ?></td>
                             <td align="center" class="cell-breakWord"><span <?php if($order['status'] == "completed") { ?> class="badge badge-success" <?php } else { ?>  class="badge badge-danger" <?php } ?> ><?= $order['status']; ?></span></td>
 
                          <td align="center">
