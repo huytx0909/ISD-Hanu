@@ -53,7 +53,7 @@ $list = 0;
                         <th>Full Name</th>                        
                         <th>Book Name</th>
                         <th>Author</th>
-                        <th>Prize</th>
+                        <th>Prize(VND)</th>
                         <th>type of order</th>
                         <th>order date</th>
                         <th>expired date</th>

@@ -475,10 +475,7 @@ if(mysqli_num_rows($result) == 0) {
           <tr>
             <th>Username</th>
             <th>Full Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Salary</th>
+      
             <th>Department</th>
             <th>Team</th>
             <th>Role</th>

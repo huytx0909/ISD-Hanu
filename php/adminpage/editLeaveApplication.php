@@ -42,9 +42,21 @@ if (isset($_POST['Submit'])) {
 		 	$leave_query = mysqli_query($db,$leave_sql); 
 			
 			$_SESSION['success'] = "Success."; 
-			echo "<script>
-    window.location.href='admin.php?adminpage=adminLeaveApplication';
-    </script>"; 	 
+
+
+			$_SESSION["infoEmailArr"] = array("recipient" => $user['email'],"subject" => "Leave Application response!",
+			"username" => $user['username'],
+			"leave Type" => $leaveType,
+			"Start date" => $startDate,
+		     "End date" => $endDate,
+		 	 "the leave application has been" => $status);
+
+
+
+				echo "<script>
+    window.location.href='email/email.php';
+    </script>";
+
                
         }else {
             $_SESSION['error'] = "Start date can't be later than end date and earlier than the date of today.";

@@ -1,0 +1,43 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	font-family: 'Poppins', sans-serif;
+}
+
+body{
+  background-image: url("../img/Parallax-Background-Dark-11.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+
+.slideshow{
+	position: absolute;
+	top: 0;
+	z-index: -1;
+}
+
+.container{
+	margin-top: 950px;
+	height: 100%;
+}
+
+.about-us{
+	background-color: white;
+	border: 1px black;
+	height: 213px;
+	box-shadow: 4px 8px 10px 8px rgba(0, 0, 0, 0.2);  
+}
+
+.mt-400{
+	margin-top: 400px;
+}
+
+
+@media only screen and (max-width: 1000px){
+	.container{
+		margin-top: 500px;
+	  	height: 100%;
+}
+}
