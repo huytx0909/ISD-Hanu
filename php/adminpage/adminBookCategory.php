@@ -1,8 +1,7 @@
 <?php 
 	$category_sql = "SELECT * FROM category ORDER BY category_name ASC";
-	if($category_query = mysqli_query($db,$category_sql)) {
-  $category = mysqli_fetch_assoc($category_query);
- }
+	$category_query = mysqli_query($db,$category_sql);
+ 
  $list = 0;
  ?>
 
@@ -59,7 +58,8 @@
                    
                      
                     <tr>
-                         <?php do {  $list = $list + 1;   ?>
+                         <?php while($category = mysqli_fetch_assoc($category_query)) {  
+                          $list = $list + 1;   ?>
                       
 
                     	<td align="center">
@@ -81,7 +81,7 @@
                         </td>
                   
                     </tr>
-                  <?php } while($category = mysqli_fetch_assoc($category_query)); ?>
+                  <?php } ?>
 
 
                 </tbody>

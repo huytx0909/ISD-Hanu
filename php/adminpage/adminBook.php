@@ -1,10 +1,9 @@
 <?php 
 
 	$book_sql = "SELECT * FROM book ORDER BY book_title ASC";
-	if($book_query = mysqli_query($db,$book_sql)) {
-  $book = mysqli_fetch_assoc($book_query);
+	$book_query = mysqli_query($db,$book_sql);
 
- }
+ 
 
  $list = 0;
  ?>
@@ -72,7 +71,7 @@
                      
                     <tr>
                          <?php 
-                          do {
+                         while($book = mysqli_fetch_assoc($book_query)) {
                             $list = $list + 1;   
 
                             $IDcategory = $book['id_category'];
@@ -121,7 +120,7 @@
                     </tr>
                   <?php 
 
-                      } while($book = mysqli_fetch_assoc($book_query));
+                      } 
                    ?>
 
                 </tbody>

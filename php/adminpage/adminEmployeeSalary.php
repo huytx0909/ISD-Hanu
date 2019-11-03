@@ -1,9 +1,8 @@
 <?php
  
   $user_sql = "SELECT * FROM user ORDER BY username ASC";
-  if($user_query = mysqli_query($db,$user_sql)) {
-  $user = mysqli_fetch_assoc($user_query);
-}
+  $user_query = mysqli_query($db,$user_sql);
+
    
 
 
@@ -97,7 +96,7 @@ if(isset($_POST['update'])) {
                      
                     <tr>
                          <?php 
-                          do {
+                          while($user = mysqli_fetch_assoc($user_query)) {
 
                   
                               $list = $list + 1;
@@ -196,7 +195,7 @@ if(isset($_POST['update'])) {
                     </tr>
                   <?php 
 
-                      } while($user = mysqli_fetch_assoc($user_query));
+                      } 
                    ?>
                  
 

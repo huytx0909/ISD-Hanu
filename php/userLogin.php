@@ -59,7 +59,7 @@ if (isset($_POST['login_button'])) {
 				<button  type="submit" name="login_button" class="btn btn-primary">Login</button>
 
 				<div class="float-right">
-					<a href="resetPassword.php">Forgot Password?</a>
+					<a href="resetPassword1.php">Forgot Password?</a>
 				</div>
 
 				<div class="float-left">

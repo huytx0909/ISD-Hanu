@@ -58,7 +58,7 @@ $username = $_SESSION['user'];
 					
 					?>
 					<div class="item">
-						<h2><a href="user.php?userpage=userTeamsDetail&teamID<?=$team['id'];?>" class="team-name"><?=$team['name']; ?></a></h2>
+						<h2><a href="user.php?userpage=userTeamsDetail&teamID=<?=$team['id'];?>" class="team-name"><?=$team['name']; ?></a></h2>
 					</div>
 					<?php
 						} }

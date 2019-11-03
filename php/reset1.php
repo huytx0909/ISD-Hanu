@@ -1,4 +1,5 @@
 <?php
+//reset password for end user
 
  require_once 'dbase/dbase.php';
 	 include 'include/head.php';
@@ -19,7 +20,7 @@ if(isset($_GET['key']) && isset($_GET['email']) && $_GET['username']) {
 <p>The link is invalid/expired. Either you did not copy the correct link
 from the email, or you have already used the key in which case it is 
 deactivated.</p>
-<p><a href="hhttp://localhost/ISD-Hanu/php/resetPassword.php">
+<p><a href="hhttp://localhost/ISD-Hanu/php/resetPassword1.php">
 Click here</a> to reset password.</p>';
   } else{
   $row1 = mysqli_fetch_assoc($query);
@@ -37,7 +38,7 @@ Click here</a> to reset password.</p>';
 
 <div class = "header">
 	<button type="submit" class="btn btn-dark float-left" name="Submit">
-		<a href="adminLogin.php">
+		<a href="userLogin.php">
 			<i class="fas fa-chevron-left"></i>
 			Back
 		</a>
@@ -49,7 +50,7 @@ Click here</a> to reset password.</p>';
 	<div class="main">
 		<div class="row">
 			<div class="col-2 col-sm-4 col-md-8 col-xl-12">
-			<form method="POST" action="reset.php?username=<?=$username;?>&&email=<?=$email;?>"  class="form beta-form-checkout">
+			<form method="POST" action="reset1.php?username=<?=$username;?>&&email=<?=$email;?>"  class="form beta-form-checkout">
 
 				<div class="form-group">
 						<?php 
@@ -118,7 +119,7 @@ mysqli_query($db,"DELETE FROM `password_reset_temp` WHERE `email`='$email';");
 			
 		echo "<script>
 		alert('Reset password successfully. Please login with your new password.');
-    window.location.href='adminLogin.php';
+    window.location.href='userLogin.php';
     </script>";
 
   }

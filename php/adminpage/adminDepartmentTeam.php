@@ -3,10 +3,9 @@
     $IDdepartment = $_GET['IDdepartment'];
 	
   $team_sql = "SELECT * FROM team where id_department = '$IDdepartment'";
-  if($team_query = mysqli_query($db,$team_sql)) {
-  $team = mysqli_fetch_assoc($team_query);
+  $team_query = mysqli_query($db,$team_sql);
 
- }
+ 
 
 
   $department0_sql = "SELECT * FROM department where id = '$IDdepartment'";
@@ -69,7 +68,7 @@
                 <tbody>       
                     <tr>
                       <?php 
-                        do {
+                        while($team = mysqli_fetch_assoc($team_query)) {
                           $list = $list + 1;   
                           $department_sql = "SELECT * FROM department where id = '$IDdepartment'";
                         if($department_query = mysqli_query($db,$department_sql)) {
@@ -95,7 +94,7 @@
                     </tr>
                   <?php 
 
-                      } while($team = mysqli_fetch_assoc($team_query));
+                      } 
                    ?>
                 </tbody>
             </table>          

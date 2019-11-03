@@ -1,10 +1,9 @@
 <?php 
 	
   $training_sql = "SELECT * FROM training ORDER BY training_name ASC";
-  if($training_query = mysqli_query($db,$training_sql)) {
-  $training = mysqli_fetch_assoc($training_query);
+  $training_query = mysqli_query($db,$training_sql);
 
- }
+ 
 
     $todayDate = date("Y-m-d");
 
@@ -69,7 +68,7 @@
                 <tbody> 
                     <tr>
                       <?php 
-                          do {
+                          while($training = mysqli_fetch_assoc($training_query)) {
                             $list = $list + 1;   
 
                             $IDtrainer = $training['id_trainer'];
@@ -107,7 +106,7 @@
                     </tr>
                   <?php 
 
-                      } while($training = mysqli_fetch_assoc($training_query));
+                      } 
                    ?>
                  
                 </tbody>

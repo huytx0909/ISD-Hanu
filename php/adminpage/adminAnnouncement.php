@@ -1,10 +1,9 @@
 <?php 
 	
   $announce_sql = "SELECT * FROM announcement ORDER BY date_created DESC";
-  if($announce_query = mysqli_query($db,$announce_sql)) {
-  $announce = mysqli_fetch_assoc($announce_query);
+  $announce_query = mysqli_query($db,$announce_sql);
 
- }
+ 
 
  $list = 0;
  ?>
@@ -63,7 +62,7 @@
                 <tbody>       
                     <tr>
                          <?php 
-                          do {
+                          while($announce = mysqli_fetch_assoc($announce_query)) {
                             $list = $list + 1;   
 
                             $content1 = "";
@@ -71,7 +70,7 @@
                               $content1 = $announce['content'];
                             } else {
 
-                           $content1 = substr($announce['content'], 100);
+                           $content1 = substr($announce['content'],0, 100);
                                 }                            
 
                             ?>
@@ -91,7 +90,7 @@
                                <td align="center" class="cell-breakWord"><?= $announce['announcer']; ?>
                               </td>
 
-                             <td align="center" class="cell-breakWord"><?= $content1; ?><a href="admin.php?adminpage=adminAnnouncementContent&&ID=<?=$announce['id'];?>">Read more...</a>
+                             <td align="center" class="cell-breakWord"><?= $content1; ?><a href="admin.php?adminpage=adminAnnouncementContent&&ID=<?=$announce['id'];?>">...Read more</a>
                               </td>
 
                                  
@@ -108,7 +107,7 @@
                     </tr>
                   <?php 
 
-                      } while($announce = mysqli_fetch_assoc($announce_query));
+                      } 
                    ?>
 
                                        
