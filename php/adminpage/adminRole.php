@@ -1,8 +1,7 @@
 <?php 
   $role_sql = "SELECT * FROM role";
-  if($role_query = mysqli_query($db,$role_sql)) {
-  $role = mysqli_fetch_assoc($role_query);
- }
+  $role_query = mysqli_query($db,$role_sql);
+ 
  $list = 0;
  ?>
 
@@ -58,7 +57,8 @@
                 </thead>
                 <tbody> 
                     <tr>
-                         <?php do {
+                         <?php 
+                         while($role = mysqli_fetch_assoc($role_query)) {
                            $list = $list + 1;   ?>
                       
 
@@ -83,7 +83,7 @@
                         </td>
                   
                     </tr>
-                  <?php } while($role = mysqli_fetch_assoc($role_query)); ?>
+                  <?php }  ?>
                 </tbody>
             </table>
         </div>

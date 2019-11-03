@@ -1,0 +1,72 @@
+.team{
+	margin-top: 550px;
+	height: auto;
+	margin-bottom: 300px;
+}
+
+.cover{
+	position: absolute;
+	top: 0px;
+	z-index: -1;
+}
+
+.cover img {
+	height: 600px;
+	width: 100%;
+}
+
+.team-btn{
+	margin-top: 50px;
+}
+.teams {
+	background: white;
+	height: auto;
+	margin-top: 20px;
+	box-shadow: 4px 8px 10px 8px rgba(0, 0, 0, 0.4);
+	padding: 10px; 
+	border-radius: 5px;
+}
+
+
+.teams .item{
+	border-bottom: 1px solid orange; 
+}
+
+/*user team*/
+.teams .item .team-name,.teams .item .team-name:hover {
+	color: black;
+	text-decoration: none;
+}
+
+/*team*/
+.cell-breakWord {
+   word-wrap: break-word;
+   max-width: 60px;
+}
+
+.table th{
+	text-align: center;
+}
+
+/*user team detail*/
+.teams .assigned-task{
+	height: auto;
+	border-bottom: 1px solid orange; 
+}
+
+.teams .member{
+	height: auto;
+	border-bottom: 1px solid orange; 
+}
+
+.members {
+	background: white;
+	height: auto;
+	margin-top: 50px;
+	box-shadow: 4px 8px 10px 8px rgba(0, 0, 0, 0.4);
+	padding: 10px; 
+	border-radius: 5px;
+}
+.members .item{
+	border-bottom: 1px solid orange; 
+}

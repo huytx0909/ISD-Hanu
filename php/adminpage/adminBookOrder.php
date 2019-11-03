@@ -1,10 +1,9 @@
 <?php 
 
 	$order_sql = "SELECT * FROM `order` ORDER BY placeOrder_date DESC";
-	if($order_query = mysqli_query($db,$order_sql)) {
-  $order = mysqli_fetch_assoc($order_query);
+	$order_query = mysqli_query($db,$order_sql);
 
- }
+ 
 
 $list = 0;
  ?>
@@ -53,7 +52,7 @@ $list = 0;
                         <th>Full Name</th>                        
                         <th>Book Name</th>
                         <th>Author</th>
-                        <th>Prize</th>
+                        <th>Prize(VND)</th>
                         <th>type of order</th>
                         <th>order date</th>
                         <th>expired date</th>
@@ -64,7 +63,7 @@ $list = 0;
                 <tbody> 
                     <tr>
                          <?php 
-                          do {
+                          while($order = mysqli_fetch_assoc($order_query)) {
 
                             $list = $list + 1;
 
@@ -109,7 +108,7 @@ $list = 0;
                     </tr>
                   <?php 
 
-                      } while($order = mysqli_fetch_assoc($order_query));
+                      } 
                    ?>
 
                 </tbody>

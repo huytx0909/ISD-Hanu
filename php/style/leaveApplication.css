@@ -1,0 +1,46 @@
+.leave-application{
+	margin-top: 550px;
+	height: auto;
+	margin-bottom: 300px;
+}
+
+.cover{
+	position: absolute;
+	top: 0px;
+	z-index: -1;
+}
+
+.cover img {
+	height: 600px;
+	width: 100%;
+}
+
+.leave-btn{
+	margin-top: 50px;
+}
+.leave-applications {
+	background: white;
+	height: auto;
+	margin-top: 20px;
+	box-shadow: 4px 8px 10px 8px rgba(0, 0, 0, 0.4);
+	padding: 10px; 
+	border-radius: 5px;
+}
+
+
+.leave-applications .item{
+	border-bottom: 1px solid orange; 
+}
+
+.leave-applications .item h2{
+	text-align: center;
+}
+
+.leave-applications .item form{
+	margin-top: 50px;
+}
+
+.leave-applications .item form .leave_cancel_btn,.leave-applications .item form .leave_add_btn{
+	margin-bottom: 30px;
+	margin-right: 10px;
+}

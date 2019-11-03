@@ -3,15 +3,14 @@
     $IDcategory = $_GET['IDcategory'];
 	
   $book_sql = "SELECT * FROM book where id_category = '$IDcategory' ORDER BY book_title ASC";
-  if($book_query = mysqli_query($db,$book_sql)) {
-  $book = mysqli_fetch_assoc($book_query);
+  $book_query = mysqli_query($db,$book_sql);
 
- }
+ 
 
   $category0_sql = "SELECT * FROM category where id = '$IDcategory'";
   if($category0_query = mysqli_query($db,$category0_sql)) {
   $category0 = mysqli_fetch_assoc($category0_query);
-                                                                            }  
+                            }  
 
  $list = 0;
  ?>
@@ -79,7 +78,7 @@
                 <tbody>
                     <tr>
                          <?php 
-                          do {
+                          while($book = mysqli_fetch_assoc($book_query)) {
                             $list = $list + 1;   
 
                             $IDimage = $book['id_image'];
@@ -143,7 +142,7 @@
                     </tr>
                   <?php 
 
-                      } while($book = mysqli_fetch_assoc($book_query));
+                      } 
                    ?>
                 </tbody>
             </table>

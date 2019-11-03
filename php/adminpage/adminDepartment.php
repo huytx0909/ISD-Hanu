@@ -1,8 +1,7 @@
 <?php 
   $department_sql = "SELECT * FROM department ORDER BY name ASC";
-  if($department_query = mysqli_query($db,$department_sql)) {
-  $department = mysqli_fetch_assoc($department_query);
- }
+  $department_query = mysqli_query($db,$department_sql);
+ 
  $list = 0;
  ?>
 
@@ -57,7 +56,8 @@
                 </thead>
                 <tbody> 
                     <tr>
-                         <?php do { 
+                         <?php 
+                         while($department = mysqli_fetch_assoc($department_query)) { 
                           $list = $list + 1;   ?>
                       
 
@@ -74,7 +74,7 @@
                         <i class="far fa-trash-alt" onclick="return ConfirmDelete();"></i></a>
                       </td>
                     </tr>
-                  <?php } while($department = mysqli_fetch_assoc($department_query)); ?>
+                  <?php }  ?>
 
                 </tbody>
            

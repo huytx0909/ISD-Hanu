@@ -3,10 +3,9 @@
     $IDtraining = $_GET['IDtraining'];
 	
   $trainee_sql = "SELECT * FROM trainee where id_training = '$IDtraining'";
-  if($trainee_query = mysqli_query($db,$trainee_sql)) {
-  $trainee = mysqli_fetch_assoc($trainee_query);
+  $trainee_query = mysqli_query($db,$trainee_sql);
 
- }
+ 
 
    $training_sql = "SELECT * FROM training where id ='$IDtraining'";
   if($training_query = mysqli_query($db,$training_sql)) {
@@ -61,7 +60,7 @@
                 <tbody> 
                     <tr>
                       <?php 
-                        do {
+                        while($trainee = mysqli_fetch_assoc($trainee_query)) {
                           $IDuser = $trainee['id_user'];
                           $user_sql = "SELECT * FROM user where id ='$IDuser'";
                           $user_query = mysqli_query($db, $user_sql);
@@ -116,7 +115,7 @@
                     </tr>
                   <?php 
 
-                      } while($trainee = mysqli_fetch_assoc($trainee_query));
+                      } 
                    ?>             
               </tbody>
             </table>      

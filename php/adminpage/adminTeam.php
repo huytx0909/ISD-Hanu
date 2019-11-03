@@ -1,10 +1,9 @@
 <?php 
 	
   $team_sql = "SELECT * FROM team ORDER BY name ASC";
-  if($team_query = mysqli_query($db,$team_sql)) {
-  $team = mysqli_fetch_assoc($team_query);
+  $team_query = mysqli_query($db,$team_sql);
 
- }
+ 
 
  $list = 0;
  ?>
@@ -61,7 +60,7 @@
                 <tbody> 
                     <tr>
                       <?php 
-                        do {
+                        while($team = mysqli_fetch_assoc($team_query)) {
                           $list = $list + 1;   
                           $IDdepartment = $team['id_department'];
                           $department_sql = "SELECT * FROM department where id = '$IDdepartment'";
@@ -87,7 +86,7 @@
                     </tr>
                   <?php 
 
-                      } while($team = mysqli_fetch_assoc($team_query));
+                      } 
                    ?>
 
                 </tbody>

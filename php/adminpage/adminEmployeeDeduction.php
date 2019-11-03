@@ -1,10 +1,9 @@
 <?php 
 	
   $deduction_sql = "SELECT * FROM salary_deduction ORDER BY deduction_date DESC";
-  if($deduction_query = mysqli_query($db,$deduction_sql)) {
-  $deduction = mysqli_fetch_assoc($deduction_query);
+  $deduction_query = mysqli_query($db,$deduction_sql);
 
- }
+ 
 
  $list = 0;
  ?>
@@ -66,7 +65,7 @@
                      
                     <tr>
                          <?php 
-                          do {
+                          while($deduction = mysqli_fetch_assoc($deduction_query)) {
                             $list = $list + 1;
                             $IDuser = $deduction['id_user']; 
                             $user_sql = "SELECT * FROM user where id = '$IDuser'";
@@ -116,7 +115,7 @@
                     </tr>
                   <?php 
 
-                      } while($deduction = mysqli_fetch_assoc($deduction_query));
+                      } 
                    ?>
                  
 

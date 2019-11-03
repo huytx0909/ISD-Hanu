@@ -19,7 +19,7 @@ if(isset($_GET['key']) && isset($_GET['email']) && $_GET['username']) {
 <p>The link is invalid/expired. Either you did not copy the correct link
 from the email, or you have already used the key in which case it is 
 deactivated.</p>
-<p><a href="hhttp://localhost/hr/hr/resetPassword.php">
+<p><a href="hhttp://localhost/ISD-Hanu/php/resetPassword.php">
 Click here</a> to reset password.</p>';
   } else{
   $row1 = mysqli_fetch_assoc($query);

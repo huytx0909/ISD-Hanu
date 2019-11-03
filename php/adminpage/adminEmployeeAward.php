@@ -1,10 +1,9 @@
 <?php 
 	
   $award_sql = "SELECT * FROM employee_award ORDER BY award_date DESC";
-  if($award_query = mysqli_query($db,$award_sql)) {
-  $award = mysqli_fetch_assoc($award_query);
+  $award_query = mysqli_query($db,$award_sql);
 
- }
+ 
 
  $list = 0;
  ?>
@@ -66,7 +65,8 @@
                      
                     <tr>
                          <?php 
-                          do {
+                          while($award = mysqli_fetch_assoc($award_query))
+                           {
                             $list = $list + 1;
                             $IDuser = $award['id_user']; 
                             $user_sql = "SELECT * FROM user where id = '$IDuser'";
@@ -115,7 +115,7 @@
                     </tr>
                   <?php 
 
-                      } while($award = mysqli_fetch_assoc($award_query));
+                      } 
                    ?>
                  
 

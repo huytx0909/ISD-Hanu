@@ -1,10 +1,9 @@
 <?php 
 	
   $holiday_sql = "SELECT * FROM holiday ORDER BY start_date ASC";
-  if($holiday_query = mysqli_query($db,$holiday_sql)) {
-  $holiday = mysqli_fetch_assoc($holiday_query);
+  $holiday_query = mysqli_query($db,$holiday_sql);
 
- }
+ 
 
  $list = 0;
  ?>
@@ -63,7 +62,7 @@
                 <tbody>       
                     <tr>
                          <?php 
-                          do {
+                          while($holiday = mysqli_fetch_assoc($holiday_query)) {
                             $list = $list + 1;   
                             ?>
                       
@@ -99,7 +98,7 @@
                     </tr>
                   <?php 
 
-                      } while($holiday = mysqli_fetch_assoc($holiday_query));
+                      } 
                    ?>
 
                                        

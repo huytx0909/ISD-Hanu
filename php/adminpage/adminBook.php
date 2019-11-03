@@ -1,10 +1,9 @@
 <?php 
 
 	$book_sql = "SELECT * FROM book ORDER BY book_title ASC";
-	if($book_query = mysqli_query($db,$book_sql)) {
-  $book = mysqli_fetch_assoc($book_query);
+	$book_query = mysqli_query($db,$book_sql);
 
- }
+ 
 
  $list = 0;
  ?>
@@ -72,7 +71,7 @@
                      
                     <tr>
                          <?php 
-                          do {
+                         while($book = mysqli_fetch_assoc($book_query)) {
                             $list = $list + 1;   
 
                             $IDcategory = $book['id_category'];
@@ -99,7 +98,7 @@
                       <td align="center"><img src="img/<?= $image['url'];?>" width="50" height="50" alt="book"></td>
                       <td align="center" class="cell-breakWord"><?php if(isset($book['date_publication'])) { echo date("d/m/Y",strtotime($book['date_publication'])); } ?></td>
                       <td align="center" class="cell-breakWord"><?php $prize = number_format($book['prize']); echo $prize; ?></td>  
-                      <td align="center" <?php if($book['status'] == "unavailable") { ?> style="color: red;"  <?php } ?> > <?= $book['status']; ?> </td>             
+                      <td align="center" <?php if($book['status'] == "unavailable") { ?> style="color: red;"  <?php } else { ?> style="color: green;" <?php } ?> > <?= $book['status']; ?> </td>             
                       <td align="center" class="cell-breakWord"><?= $book['max_expired_day']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $category['category_name']; ?></td>
 
@@ -121,7 +120,7 @@
                     </tr>
                   <?php 
 
-                      } while($book = mysqli_fetch_assoc($book_query));
+                      } 
                    ?>
 
                 </tbody>

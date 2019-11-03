@@ -1,0 +1,57 @@
+.profile {
+	margin-top: 550px;
+	height: auto;
+	margin-bottom: 300px;
+}
+
+.cover{
+	position: absolute;
+	top: 0px;
+	z-index: -1;
+}
+
+.cover img {
+	height: 600px;
+	width: 100%;
+}
+
+.user-pic{
+	background: white;
+	height: 300px;
+	box-shadow: 4px 8px 10px 8px rgba(0, 0, 0, 0.4);
+	padding: 10px; 
+	border-radius: 5px;
+}
+
+.edit-profile{
+	margin-top: 20px;
+	width: 100%;
+}
+
+.file{
+	margin-top: 20px;
+	width: 100%;
+}
+
+.edit-profile a, .edit-profile a:hover{
+	color: white;
+	text-decoration: none;
+}
+
+.info {
+	background: white;
+	height: 400px;
+	box-shadow: 4px 8px 10px 8px rgba(0, 0, 0, 0.4);
+	padding: 10px; 
+	border-radius: 5px;
+
+}
+
+.info .user-info{
+	margin-top: 40px;
+}
+
+.item1 button{
+	margin-top: 10px;
+	margin-right: 10px;
+}

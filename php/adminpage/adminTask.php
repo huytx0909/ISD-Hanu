@@ -1,10 +1,9 @@
 <?php 
 	
   $task_sql = "SELECT * FROM task ORDER BY deadline DESC";
-  if($task_query = mysqli_query($db,$task_sql)) {
-  $task = mysqli_fetch_assoc($task_query);
+  $task_query = mysqli_query($db,$task_sql);
 
- }
+ 
   $todayDate = date("Y-m-d");
 
  $list = 0;
@@ -70,7 +69,7 @@
                      
                     <tr>
                          <?php 
-                          do {
+                          while($task = mysqli_fetch_assoc($task_query)) {
                             $list = $list + 1;
                             $IDteam = $task['id_team']; 
                             $team_sql = "SELECT * FROM team where id = '$IDteam'";
@@ -114,7 +113,7 @@
                     </tr>
                   <?php 
 
-                      } while($task = mysqli_fetch_assoc($task_query));
+                      } 
                    ?> 
 
                 </tbody>

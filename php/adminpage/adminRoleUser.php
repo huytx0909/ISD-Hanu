@@ -3,10 +3,9 @@
     $IDrole = $_GET['IDrole'];
 	
   $user_sql = "SELECT * FROM user where id_role = '$IDrole'";
-  if($user_query = mysqli_query($db,$user_sql)) {
-  $user = mysqli_fetch_assoc($user_query);
+  $user_query = mysqli_query($db,$user_sql);
 
- }
+ 
 
   $role1_sql = "SELECT * FROM role where id = '$IDrole'";
   if($role1_query = mysqli_query($db,$role1_sql)) {
@@ -74,7 +73,7 @@
           <tbody>    
               <tr>
                 <?php 
-                  do {
+                  while($user = mysqli_fetch_assoc($user_query)) {
                     $list = $list + 1;  
                     $IDdepartment = $user['id_department'];
                     $IDteam = $user['id_team'];
@@ -126,7 +125,7 @@
                   
               </tr>
               <?php 
-                } while($user = mysqli_fetch_assoc($user_query));
+                } 
               ?>
                 </tbody>
           </table>  

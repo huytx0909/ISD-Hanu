@@ -3,10 +3,9 @@
     $IDteam = $_GET['IDteam'];
 	
   $user_sql = "SELECT * FROM user where id_team = '$IDteam'";
-  if($user_query = mysqli_query($db,$user_sql)) {
-  $user = mysqli_fetch_assoc($user_query);
+  $user_query = mysqli_query($db,$user_sql);
 
- }
+ 
 
   $team1_sql = "SELECT * FROM team where id = '$IDteam'";
   if($team1_query = mysqli_query($db,$team1_sql)) {
@@ -74,7 +73,7 @@
                 <tbody>   
                     <tr>
                         <?php 
-                          do {
+                           while($user = mysqli_fetch_assoc($user_query)) {
                             $list = $list + 1;  
                             $IDdepartment = $user['id_department'];
                             $IDteam = $user['id_team'];
@@ -130,7 +129,7 @@
                     </tr>
                   <?php 
 
-                      } while($user = mysqli_fetch_assoc($user_query));
+                      }
                    ?>
 
                 </tbody>
