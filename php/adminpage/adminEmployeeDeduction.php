@@ -32,6 +32,9 @@
     </div>  
     <div class="row">
       <div class="col-6 col-xl-8">
+         <form method="post" action="exportDeduction.php" style="margin-bottom: 5px;">
+     <input type="submit" name="export" class="btn btn-success" value="Export" />
+    </form>   
         <button type="button" class="btn btn-primary"> <a href = "admin.php?adminpage=addEmployeeDeduction" >Add new penalty to employee</a></button>
       </div>
       <div class="col-6 col-xl-4">

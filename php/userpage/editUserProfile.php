@@ -149,7 +149,7 @@ if (isset($_POST['update'])) {
 		
 
 	<div class="container profile">
-								<form method="POST" action="user.php?userpage=editUserProfile" class="form">
+			<form method="POST" action="user.php?userpage=editUserProfile" class="form">
 
 		<div class="row">
 
@@ -157,6 +157,7 @@ if (isset($_POST['update'])) {
 				<div class="user-pic" data-aos="fade-down">
 					<img src="img/<?=$image['url'];?>"  width="234" height = "200" alt="pic">
 					<input type="file" class="form-control-file file" id="exampleFormControlFile1" name="image">
+
 				</div>
 			</div>
 			
@@ -202,9 +203,13 @@ if (isset($_POST['update'])) {
 						<label for="email">Email:</label>
 						<input type="text" name="email" class="form-control" value="<?= $email; ?>" required>
 					</div>
+
+
 					<div class="item1">
-						<button type="reset" class="btn btn-danger float-right" name="cancel" >Cancel</button>
+						<a href="user.php?userpage=profile" style="margin-top: 10px;" class="btn btn-danger float-right" name="cancel" >Cancel</a>
 						<button type="submit" class="btn btn-primary float-right" name="update">Update</button>
+
+
 					</div>
 					<div class="clearfix"></div>
 				</div>
