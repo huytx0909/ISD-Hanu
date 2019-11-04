@@ -68,6 +68,7 @@ $result = mysqli_query($db, $user_sql);
 				<div class="user-pic" data-aos="fade-down">
 					<img src="img/<?= $image['url'];?>" width="234" height = "200" alt="pic">
 					<button type="button" class="btn btn-primary edit-profile"><a href = "user.php?userpage=editUserProfile">Edit profile</a></button>
+
 				</div>
 			</div>
 			
@@ -114,6 +115,9 @@ $result = mysqli_query($db, $user_sql);
 					</div>
 					<div class="user-info">
 						<strong>Net Salary(VND):</strong> <?php $salary2 = number_format($netSalary); echo $salary2; ?>
+					</div>
+					<div class="user-info">
+						<a href="user.php?userpage=changePassword" style="margin-top: 10px; margin-right: 2px;" class="btn btn-warning edit-profile" name="cancel" >update password</a>
 					</div>
 				</div>
 			</div>

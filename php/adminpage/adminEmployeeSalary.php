@@ -58,10 +58,13 @@ if(isset($_POST['update'])) {
     </div>  
     <div class="row">
       <div class="col-6 col-xl-8">
+          <form method="post" action="exportSalary.php" style="margin-bottom: 5px;">
+     <input type="submit" name="export" class="btn btn-success" value="Export" />
+    </form>   
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#demoModal">Update Deduction</button>
-            
 
       </div>
+
       <div class="col-6 col-xl-4">
        <div class="float-right">
           <form  class="form-inline" action="admin.php?adminpage=search" method="post" enctype="multipart/form-data">
@@ -81,7 +84,6 @@ if(isset($_POST['update'])) {
                        <th>List</th>                  
                         <th>Username</th>
                         <th>Fullname</th>
-                        <th>Date of Birth</th>                   
                         <th>Gross Salary(VND)</th>
                         <th>Social Insurance(<?php if(isset($_SESSION['socialInsurance'])) { echo $_SESSION['socialInsurance']; } else {echo 8;} ?>%)</th>
                        <th>Provident Fund(<?php if(isset($_SESSION['providentFund'])) { echo $_SESSION['providentFund']; } else {echo 5;} ?>%)</th>
@@ -115,7 +117,6 @@ if(isset($_POST['update'])) {
                                <td align="center" class="cell-breakWord"><?= $user['fullName']; ?>
                               </td>
                            
-                              <td class="cell-breakWord" align="center"><?=date("d/m/Y",strtotime($user['DOB'])); ?></td>
 
 
                               <td align="center" class="cell-breakWord"><?php $grossSalary = number_format($user['gross_salary']); echo $grossSalary; ?>

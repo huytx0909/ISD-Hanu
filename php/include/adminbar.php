@@ -8,6 +8,14 @@
       <?php
         if(isset($_SESSION['admin'])) {
           $admin = $_SESSION['admin'];
+
+          $admin_query = mysqli_query($db,"SELECT * FROM user WHERE username = '$admin'");
+          $admin1 = mysqli_fetch_assoc($admin_query);
+          $IDimage = $admin1['id_image'];
+         $image_query = mysqli_query($db,"SELECT * FROM image WHERE id = '$IDimage'");
+          $image = mysqli_fetch_assoc($image_query);
+         
+
        ?>
       <li class="nav-item">
         <a class="nav-link" href="admin.php?adminpage=adminProfile"> 
@@ -30,9 +38,9 @@
   <ul>
       <li class="img">
         <a href="admin.php?adminpage=adminProfile
-  "><img src="img/tải xuống.png" alt="admin" height="70" width="70"></a>
+  "><img src="img/<?=$image['url'];?>" alt="admin" height="70" width="70"></a>
         <a href="admin.php?adminpage=adminProfile
-  " style="color: black;"><h4>Admin</h4></a>
+  " style="color: black;"><h4><?=$admin;?></h4></a>
       </li>
       <li class="nav-item active">
           <a class="nav-link" href="admin.php?adminpage=adminUser

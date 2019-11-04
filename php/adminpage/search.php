@@ -705,7 +705,6 @@ $user = mysqli_fetch_assoc($user_query);
                 <th>Department</th>
                 <th>Team</th>
                
-                <th>Date Created</th>
                 <th>Actions</th>
               </tr>
           </thead>
@@ -748,7 +747,7 @@ $user = mysqli_fetch_assoc($user_query);
                 <td align="center" class="cell-breakWord"><?= $departmentName['name']; ?></td>
                 <td align="center" class="cell-breakWord"><?= $teamName['name']; ?></td>   
               
-                <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d/m/Y",strtotime($user['date_created'])); } ?></td>
+                
 
                 <td align="center">
                     <a href = "admin.php?adminpage=deleteRoleUser&IDrole=<?=$user['id_role'];?>&ID=<?=$user['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">

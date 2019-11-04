@@ -40,6 +40,11 @@ $link = "http://localhost/ISD-Hanu/php/reset.php?key=".$key."&&email=".$email."&
     window.location.href='email/email.php';
     </script>";
 
+	 	} else {
+	 		echo "<script>
+				alert('wrong username or email');
+    </script>";
+
 	 	}
 
 	 }

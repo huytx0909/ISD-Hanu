@@ -25,6 +25,9 @@
   <div class="main">
     <div class="row">
       <div class="col-sm-11 col-xl-12">
+         <form method="post" action="exportTrainee.php?IDtraining=<?=$IDtraining;?>" style="margin-left: 10px;">
+     <input type="submit" name="export" class="btn btn-success" value="Export" />
+    </form> 
       <?php 
         if (isset($_SESSION['success'])) {
         echo "<div class='success' id='msg'>".$_SESSION['success']."</div>";
@@ -48,12 +51,10 @@
                       <th>Username</th>               
                       <th>Email</th>
                       <th>Phone</th>                        
-                      <th>Salary</th>                  
                       <th>Address</th>
                       <th>Department</th>
                       <th>Team</th>
                       <th>Role</th>
-                      <th>Date Created</th>
                       <th>Actions</th>
                     </tr>
                 </thead>
@@ -101,12 +102,11 @@
                           <td align="center" class="cell-breakWord"><?= $user['username']; ?></td>
                           <td align="center" class="cell-breakWord"><?= $user['email']; ?></td>
                           <td align="center" class="cell-breakWord"><?= $user['phone']; ?></td>
-                          <td align="center" class="cell-breakWord"><?= $user['salary']; ?></td>
                           <td align="center" class="cell-breakWord"><?= $user['address']; ?></td>
                           <td align="center" class="cell-breakWord"><?= $departmentName['name']; ?></td>   
                           <td align="center" class="cell-breakWord"><?= $teamName['name']; ?></td>   
                           <td align="center" class="cell-breakWord"><?= $roleName['name']; ?></td>
-                          <td align="center" class="cell-breakWord"><?php if(isset($user['date_created'])) { echo date("d/m/Y",strtotime($user['date_created'])); } ?></td>
+                        
 
                          <td align="center">
                           <a href = "admin.php?adminpage=deleteTrainee&ID=<?=$trainee['id'];?>" class="btn btn-danger" data-toogle="tooltip" title="Delete" onclick="return ConfirmDelete();">
