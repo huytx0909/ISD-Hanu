@@ -5,8 +5,7 @@ if (isset($_POST['Submit'])) {
 
 	$userName = mysqli_real_escape_string($db, $_POST['username']);
 	$fullName = mysqli_real_escape_string($db, $_POST['fullName']);
-	$password0 = (mysqli_real_escape_string($db, $_POST['password']));
-	$password = md5(mysqli_real_escape_string($db, $_POST['password']));
+	
 	$email = mysqli_real_escape_string($db, $_POST['email']);
 	$phone = mysqli_real_escape_string($db, $_POST['phone']);
 	$address = mysqli_real_escape_string($db, $_POST['address']);
@@ -36,7 +35,7 @@ if (isset($_POST['Submit'])) {
 	if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['error'] =  "User existed in database.";
 	}else{ 
-		if (empty($userName) || empty($password) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role) || empty($fullName) || empty($level) || empty($dob) || empty($gender)) {
+		if (empty($userName) || empty($email) || empty($phone) || empty($address) || empty($salary) || empty($department) || empty($team) || empty($role) || empty($fullName) || empty($level) || empty($dob) || empty($gender)) {
 			$_SESSION['error'] =  "All fields are required."; 
 		}else if(!ctype_alpha(str_replace(' ', '', $fullName))) {
 			$_SESSION['error'] = "Full Name could not contain numbers.";
@@ -59,16 +58,24 @@ if (isset($_POST['Submit'])) {
 	    $IDimage = $image1['id'];
     	 }
 
-		$insertResult = mysqli_query($db, "INSERT INTO user(username, fullName, password, email, phone, address, gross_salary, id_department, id_team, id_role, date_created, level, DOB, gender, image)
-			VALUES('$userName', '$fullName', '$password', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]', '$date', '$level','$dob','$gender', '$image')");
+    	 $length = 5;
+		$passwordToken = bin2hex(random_bytes($length));
+		$hashPassword = md5($passwordToken);
+
+
+		$insertResult = mysqli_query($db, "INSERT INTO user(username, fullName, password, email, phone, address, gross_salary, id_department, id_team, id_role, date_created, level, DOB, gender, id_image)
+			VALUES('$userName', '$fullName', '$hashPassword', '$email', '$phone', '$address', '$salary', '$departmentId[0]' ,'$teamId[0]', '$roleId[0]', '$date', '$level','$dob','$gender', '$IDimage')");
+		
 		$_SESSION['success'] = "Success."; 
+
+		$gross = number_format($salary);
 	
 		session_start();
 			$_SESSION["infoEmailArr"] = array("recipient" => $email,"subject" => "New Account!",
 			"Username" => $userName,
 			"Fullname" => $fullName,	
- 			"Password" => $password0,
- 			"Salary" => $salary,
+ 			"Password" => $passwordToken,
+ 			"Salary(VND)" => $gross,
  		    "Department" => $department,
  			"Team" => $team,
  			"Role" => $role,
@@ -117,10 +124,7 @@ $teamResult = mysqli_query($db, "SELECT * FROM team ORDER BY id DESC");
 				    <input type="text" class="form-control" name="fullName" placeholder="Enter full name">
 				  </div>
 
-				  <div class="form-group">
-				    <label for="password">Password:</label>
-				    <input type="password" class="form-control" name="password" minlength="8" placeholder="Enter password">
-				  </div>
+				 
 
 				  <div class="form-group">
 	    		<label for="image">Image</label>
