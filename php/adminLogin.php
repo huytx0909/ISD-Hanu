@@ -48,7 +48,7 @@ if (isset($_POST['login_button'])) {
 			<div class="icon">
 				<i class="far fa-user"></i>
 			</div>
-			<h1>Sign in</h1>
+			<h1 style="color: white;">Sign in</h1>
 			
 			
 			<form action="adminLogin.php" method="POST" role="form" class="beta-form-checkout">
@@ -69,12 +69,12 @@ if (isset($_POST['login_button'])) {
 				<button  type="submit" name="login_button" class="btn btn-primary">Login</button>
 
 				<div class="float-right">
-					<a href="resetPassword.php">Forgot Password?</a>
+					<a href="resetPassword.php" style="color: white;">Forgot Password?</a>
 				</div>
 
 				<div class="float-left">
 			      <input type="checkbox" name="remember" id="remember" value="" class="checkbox" <?php if(isset($_COOKIE["member_login"])) { ?> checked <?php } ?>>
-			  	  <a style="text-decoration: none;position: absolute;bottom:2px;left:30px;">Remember me</a>
+			  	  <a style="position: absolute;bottom:2px;left:30px;color: white;cursor: pointer;">Remember me</a>
 			    </div>
 			</form>
 

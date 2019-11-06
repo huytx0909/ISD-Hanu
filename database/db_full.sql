@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2019 at 04:41 PM
+-- Generation Time: Nov 06, 2019 at 04:17 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -35,6 +35,13 @@ CREATE TABLE `announcement` (
   `date_created` varchar(255) DEFAULT NULL,
   `announcer` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `announcement`
+--
+
+INSERT INTO `announcement` (`id`, `title`, `content`, `date_created`, `announcer`) VALUES
+(3, 'Hello World!', 'lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom lore ipsom', '2019-11-06', 'lamVB1');
 
 -- --------------------------------------------------------
 
@@ -179,7 +186,9 @@ INSERT INTO `image` (`id`, `url`) VALUES
 (32, 'Linemanager-5b62e38b46e0fb005028923a.jpg'),
 (33, 'Linemanager-5b62e38b46e0fb005028923a.jpg'),
 (34, 'Linemanager-5b62e38b46e0fb005028923a.jpg'),
-(35, 'presenter2.png');
+(35, 'presenter2.png'),
+(36, ''),
+(37, '');
 
 -- --------------------------------------------------------
 
@@ -410,12 +419,14 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `phone`, `address`, `gross_salary`, `id_role`, `date_created`, `id_department`, `id_team`, `fullName`, `level`, `DOB`, `gender`, `id_image`, `net_salary`) VALUES
-(8, 'lam123', '25d55ad283aa400af464c76d713c07', 'baolamvu98@gmail.com', '0123456789', 'co nhue', '1000000', 1, '2019-10-08', 6, 9, 'bao lam', 'level 1', NULL, NULL, NULL, '870000'),
-(9, 'lamVB', '25d55ad283aa400af464c76d713c07', 'baolamvu98@gmail.com', '0123456789', 'co nhue', '3000000', 1, '2019-10-09', 4, 1, 'Bao Lam', 'level 1', '1998-10-18', 'male', NULL, '2610000'),
-(10, 'lamVB1', '25d55ad283aa400af464c76d713c07ad', 'baolamvu98@gmail.com', '0123456789', 'co nhue HANOI', '3000000', 1, '2019-10-10', 4, 1, 'Vu Bao Lam', 'level 1', '1998-10-19', 'male', 30, '2588000'),
-(11, 'lam12', '25d55ad283aa400af464c76d713c07ad', 'baolamvu98@gmail.com', '0123456789', 'co nhue', '3000000', 1, '2019-10-14', 4, 9, 'Vu Bao Lam', 'level 1', '1998-10-17', 'male', 18, '2610000'),
-(12, 'Hai123', '8f9e11c8a31910336e65278ab982b104', 'baolamvu98@gmail.com', '0123456789', 'co nhue', '30000000', 2, '2019-11-05', 4, 11, 'Do Manh Hai', 'level 2', '1998-12-12', 'male', 30, NULL),
-(13, 'huy123', '25d55ad283aa400af464c76d713c07ad', 'baolamvu98@gmail.com', '0123456789', 'co nhue', '30000000', 1, '2019-11-05', 4, 11, 'Tran Huy', 'level 2', '1998-12-12', 'male', 35, NULL);
+(8, 'lam123', '25d55ad283aa400af464c76d713c07', 'baolamvu98@gmail.com', '0123456789', 'co nhue', '1000000', 1, '2019-10-08', 6, 9, 'bao lam', 'level 1', NULL, NULL, NULL, '800000'),
+(9, 'lamVB', '25d55ad283aa400af464c76d713c07', 'baolamvu98@gmail.com', '0123456789', 'co nhue', '3000000', 1, '2019-10-09', 4, 1, 'Bao Lam', 'level 1', '1998-10-18', 'male', NULL, '2600000'),
+(10, 'lamVB1', '25d55ad283aa400af464c76d713c07ad', 'baolamvu98@gmail.com', '0123456789', 'co nhue HANOI', '3000000', 1, '2019-10-10', 4, 1, 'Vu Bao Lam', 'level 1', '1998-10-19', 'male', 30, '2578000'),
+(11, 'lam12', '25d55ad283aa400af464c76d713c07ad', 'baolamvu98@gmail.com', '0123456789', 'co nhue', '3000000', 1, '2019-10-14', 4, 9, 'Vu Bao Lam', 'level 1', '1998-10-17', 'male', 18, '2600000'),
+(12, 'Hai123', '8f9e11c8a31910336e65278ab982b104', 'baolamvu98@gmail.com', '0123456789', 'co nhue', '30000000', 2, '2019-11-05', 4, 11, 'Do Manh Hai', 'level 2', '1998-12-12', 'male', 30, '26900000'),
+(13, 'huy123', '25d55ad283aa400af464c76d713c07ad', 'baolamvu98@gmail.com', '0123456789', 'co nhue', '30000000', 1, '2019-11-05', 4, 11, 'Tran Huy', 'level 2', '1998-12-12', 'male', 35, '26900000'),
+(14, 'duytung', '8ac135a07a4b8121917296cb0b16e828', 'duytung98@gmail.com', '0332548080', 'Dong Lao Street', '5000000', 2, '2019-11-06', 6, 9, 'duytung', 'level 2', '1998-11-02', 'male', 28, NULL),
+(15, 'nguyenduytung', '154fce252edde67ee139891c714bf807', 'duytung98@gmail.com', '0332548080', 'co nhue', '3000000', 2, '2019-11-06', 6, 9, 'nguyenduytung', 'level 2', '1998-11-02', 'male', 28, NULL);
 
 --
 -- Indexes for dumped tables
@@ -541,7 +552,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `book`
@@ -577,7 +588,7 @@ ALTER TABLE `holiday`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `leave_application`
@@ -631,7 +642,7 @@ ALTER TABLE `training`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

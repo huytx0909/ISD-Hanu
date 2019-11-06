@@ -1,0 +1,8 @@
+test for end-user web app: http://localhost/ISD-Hanu/php/user.php (login page)
+test for admin web app: http://localhost/ISD-Hanu/php/admin.php (login page)
+
+username: lamVB1
+password: 12345678
+(could not access to all links if not log in)
+
+full database: database/db_full.sql

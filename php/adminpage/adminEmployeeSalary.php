@@ -6,7 +6,6 @@
    
 
 
- $list = 0;
 
 
 
@@ -18,11 +17,8 @@ if(isset($_POST['update'])) {
         $_SESSION['socialInsurance'] = $_POST['socialInsurance'];
          $_SESSION['healthInsurance'] = $_POST['healthInsurance'];
          $_SESSION['providentFund'] = $_POST['providentFund'];
-       $_SESSION['success'] = "Success."; 
-       echo "<script>
-       alert('update successfully');
-    window.location.href='admin.php?adminpage=adminEmployeeSalary';
-    </script>"; 
+       $_SESSION['success'] = "Updated Successfully."; 
+     
 
             } 
 
@@ -81,7 +77,6 @@ if(isset($_POST['update'])) {
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                       <th>List</th>                  
                         <th>Username</th>
                         <th>Fullname</th>
                         <th>Gross Salary(VND)</th>
@@ -101,13 +96,8 @@ if(isset($_POST['update'])) {
                           while($user = mysqli_fetch_assoc($user_query)) {
 
                   
-                              $list = $list + 1;
                             ?>
-                                <td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                                </td>
+                               
                       
 
 
@@ -162,6 +152,7 @@ if(isset($_POST['update'])) {
                                $IDuser = $user['id'];
                                $user1_sql = "UPDATE user SET net_salary = '$netSalary' WHERE id = '$IDuser'";
                                $user1_query = mysqli_query($db, $user1_sql);
+
 
                                     }
 

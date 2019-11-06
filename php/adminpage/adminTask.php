@@ -6,7 +6,6 @@
  
   $todayDate = date("Y-m-d");
 
- $list = 0;
  ?>
 
 
@@ -55,7 +54,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                       <th>List</th>                  
                         <th>Task Name</th>                   
                         <th>Team</th>                   
                         <th>Description</th>
@@ -70,7 +68,6 @@
                     <tr>
                          <?php 
                           while($task = mysqli_fetch_assoc($task_query)) {
-                            $list = $list + 1;
                             $IDteam = $task['id_team']; 
                             $team_sql = "SELECT * FROM team where id = '$IDteam'";
                             $team_query = mysqli_query($db, $team_sql);
@@ -80,11 +77,7 @@
                             ?>
                       
 
-                                <td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                                </td>
+                              
                       
 
 

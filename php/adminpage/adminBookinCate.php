@@ -12,7 +12,6 @@
   $category0 = mysqli_fetch_assoc($category0_query);
                             }  
 
- $list = 0;
  ?>
   
   <div class = "header">
@@ -60,7 +59,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                       <th>list</th>                  
                         <th>book title</th>               
                         <th>author</th>
                         <th>image</th>                        
@@ -78,7 +76,6 @@
                     <tr>
                          <?php 
                           while($book = mysqli_fetch_assoc($book_query)) {
-                            $list = $list + 1;   
 
                             $IDimage = $book['id_image'];
 
@@ -95,10 +92,7 @@
                                                                             }  
                             ?> 
 
-                      <td align="center">
-                           
-                                <?= $list; ?>                     
-                      </td>
+                    
                       
 
 

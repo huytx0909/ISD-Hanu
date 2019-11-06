@@ -1,6 +1,7 @@
 <?php 
 if (isset($_POST['Submit'])) {
 	
+	//variables from fields
 	$title = $_POST['title'];
 	$authorName = $_POST['authorName'];
 	$datePublication = $_POST['datePublication'];
@@ -10,9 +11,11 @@ if (isset($_POST['Submit'])) {
     $category = $_POST['category'];
 	$image = $_POST['image'];
 
+	//query books
 	$sql1 = "SELECT * FROM book WHERE book_title = '$title' AND author_name = '$authorName' AND date_publication = '$datePublication' ";
 	$result1 = mysqli_query($db, $sql1);
 
+	//check if book existed in db
 	if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['error'] = "Book existed in database.";
 	} else {

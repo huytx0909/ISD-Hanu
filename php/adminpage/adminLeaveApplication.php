@@ -3,10 +3,7 @@
   $leave_sql = "SELECT * FROM leave_application ORDER BY application_date DESC";
   $leave_query = mysqli_query($db,$leave_sql);
 
- 
-
- $list = 0;
- ?>
+  ?>
   
   <div class = "header">
     <h2>Leave Application</h2>
@@ -50,7 +47,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                       <th>List</th>                  
                         <th>Username</th>
                         <th>Fullname</th>                   
                         <th>Application date</th>
@@ -68,7 +64,6 @@
                     <tr>
                          <?php 
                           while($leave = mysqli_fetch_assoc($leave_query)) {
-                            $list = $list + 1;
                             $IDuser = $leave['id_user']; 
                             $user_sql = "SELECT * FROM user where id = '$IDuser'";
                             $user_query = mysqli_query($db, $user_sql);
@@ -78,11 +73,7 @@
                             ?>
                       
 
-                                <td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                                </td>
+                              
                       
 
 

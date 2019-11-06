@@ -2,7 +2,6 @@
   $role_sql = "SELECT * FROM role";
   $role_query = mysqli_query($db,$role_sql);
  
- $list = 0;
  ?>
 
 
@@ -49,7 +48,6 @@
     <table class="table">
         <thead class="thead-dark">
                     <tr>
-                        <th>List</th>                  
                         <th>Role</th>
                         <th>Description</th>
                         <th>Actions</th>
@@ -59,14 +57,10 @@
                     <tr>
                          <?php 
                          while($role = mysqli_fetch_assoc($role_query)) {
-                           $list = $list + 1;   ?>
+                           ?>
                       
 
-                      <td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                      </td>
+                     
                       
 
 

@@ -4,8 +4,6 @@
   $deduction_query = mysqli_query($db,$deduction_sql);
 
  
-
- $list = 0;
  ?>
   
   <div class = "header">
@@ -53,7 +51,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                       <th>List</th>                  
                         <th>Username</th>
                          <th>Fullname</th>
                         <th>Date of Birth</th>
@@ -69,7 +66,6 @@
                     <tr>
                          <?php 
                           while($deduction = mysqli_fetch_assoc($deduction_query)) {
-                            $list = $list + 1;
                             $IDuser = $deduction['id_user']; 
                             $user_sql = "SELECT * FROM user where id = '$IDuser'";
                             $user_query = mysqli_query($db, $user_sql);
@@ -77,11 +73,7 @@
 
 
                             ?>
-                                <td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                                </td>
+                               
                       
 
 

@@ -8,7 +8,6 @@
     $todayDate = date("Y-m-d");
 
 
- $list = 0;
  ?>
   
   <div class = "header">
@@ -53,7 +52,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                      <th>List</th>                  
                       <th>Training Course Name</th> 
                       <th>Trainer</th>                                                                              
                       <th>Description</th>
@@ -69,7 +67,6 @@
                     <tr>
                       <?php 
                           while($training = mysqli_fetch_assoc($training_query)) {
-                            $list = $list + 1;   
 
                             $IDtrainer = $training['id_trainer'];
                             $trainer_sql = "SELECT * FROM user where id = '$IDtrainer'";
@@ -77,9 +74,7 @@
                            $trainer = mysqli_fetch_assoc($trainer_query);
                       }?>
                     
-                      <td align="center"> 
-                        <?= $list; ?>                  
-                      </td>
+                    
                       <td align="center" class="cell-breakWord"><a href="admin.php?adminpage=adminTrainee&IDtraining=<?=$training['id'];?>"><strong><?= $training['training_name']; ?></strong></a></td>
                       <td align="center" class="cell-breakWord"><?= $trainer['username']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $training['description']; ?></td>
