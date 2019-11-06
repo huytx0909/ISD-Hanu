@@ -2,7 +2,6 @@
 	$category_sql = "SELECT * FROM category ORDER BY category_name ASC";
 	$category_query = mysqli_query($db,$category_sql);
  
- $list = 0;
  ?>
 
 	
@@ -49,7 +48,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th>list</th>                  
                         <th>Book Category</th>
                         <th>Actions</th>
                     </tr>
@@ -59,14 +57,10 @@
                      
                     <tr>
                          <?php while($category = mysqli_fetch_assoc($category_query)) {  
-                          $list = $list + 1;   ?>
+                           ?>
                       
 
-                    	<td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                        </td>
+                    
                       
 
 

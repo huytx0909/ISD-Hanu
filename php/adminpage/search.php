@@ -2111,13 +2111,13 @@ if(isset($_POST['searchAnnouncement'])) {
                           do {
                             $list = $list + 1;   
 
-                            $content1 = "";
+                             $content1 = "";
                             if (strlen($announce['content']) < 100) {
                               $content1 = $announce['content'];
                             } else {
 
-                           $content1 = substr($announce['content'], 100);
-                                }                            
+                           $content1 = substr($announce['content'],0, 100);
+                                }                        
 
                             ?>
                       

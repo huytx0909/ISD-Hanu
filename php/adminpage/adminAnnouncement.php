@@ -3,10 +3,7 @@
   $announce_sql = "SELECT * FROM announcement ORDER BY date_created DESC";
   $announce_query = mysqli_query($db,$announce_sql);
 
- 
-
- $list = 0;
- ?>
+  ?>
 
   
   <div class = "header">
@@ -51,8 +48,7 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                      <th>list</th>                  
-                      <th>title</th>               
+                      <th>Title</th>               
                       <th>Posted by</th>
                       <th>Announcement Content</th>  
                       <th>Post date</th>                        
@@ -63,24 +59,19 @@
                     <tr>
                          <?php 
                           while($announce = mysqli_fetch_assoc($announce_query)) {
-                            $list = $list + 1;   
 
                             $content1 = "";
-                            if (strlen($announce['content']) < 100) {
+                            if (strlen($announce['content']) < 60) {
                               $content1 = $announce['content'];
                             } else {
 
-                           $content1 = substr($announce['content'],0, 100);
+                           $content1 = substr($announce['content'],0, 60);
                                 }                            
 
                             ?>
                       
 
-                                <td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                                </td>
+                              
                       
 
 

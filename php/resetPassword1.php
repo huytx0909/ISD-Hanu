@@ -30,13 +30,13 @@ $link = "http://localhost/ISD-Hanu/php/reset1.php?key=".$key."&&email=".$email."
 			$_SESSION["infoEmailArr"] = array("recipient" => $email,"subject" => "Reset password for Infore user",
 			"Username" => $username,
 			"Expired date" => $expDate,
-		     "click this link to rest your password" => $link);
+		     "click this link to reset your password" => $link);
 
-               		$_SESSION['success'] = "please check your email to obtain a code to reset your password";
+               		$_SESSION['success'] = "please check your email to obtain a link to reset your password";
 
 
 				echo "<script>
-				alert('mail has been sent. please check your email to obtain the reset code and a link to enter the code.');
+				alert('mail has been sent. please check your email to obtain a link to reset your password.');
     window.location.href='email/email.php';
     </script>";
 

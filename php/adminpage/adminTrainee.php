@@ -13,7 +13,6 @@
 
  }
 
- $list = 0;
  ?>
 
   
@@ -47,7 +46,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                      <th>List</th>                  
                       <th>Username</th>               
                       <th>Email</th>
                       <th>Phone</th>                        
@@ -66,7 +64,6 @@
                           $user_sql = "SELECT * FROM user where id ='$IDuser'";
                           $user_query = mysqli_query($db, $user_sql);
                           $user = mysqli_fetch_assoc($user_query);
-                          $list = $list + 1;  
                           $IDdepartment = $user['id_department'];
                           $IDteam = $user['id_team'];
                           $IDrole = $user['id_role']; 
@@ -95,9 +92,7 @@
                               //fetch to array
                             ?>
                       
-                          <td align="center">
-                            <?= $list; ?>                
-                          </td>
+                         
 
                           <td align="center" class="cell-breakWord"><?= $user['username']; ?></td>
                           <td align="center" class="cell-breakWord"><?= $user['email']; ?></td>

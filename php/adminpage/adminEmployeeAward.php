@@ -5,7 +5,6 @@
 
  
 
- $list = 0;
  ?>
   
   <div class = "header">
@@ -53,7 +52,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                       <th>List</th>                  
                         <th>Username</th>
                         <th>Fullname</th>                   
                         <th>Award title</th>
@@ -70,7 +68,6 @@
                          <?php 
                           while($award = mysqli_fetch_assoc($award_query))
                            {
-                            $list = $list + 1;
                             $IDuser = $award['id_user']; 
                             $user_sql = "SELECT * FROM user where id = '$IDuser'";
                             $user_query = mysqli_query($db, $user_sql);
@@ -78,11 +75,7 @@
 
 
                             ?>
-                                <td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                                </td>
+                               
                       
 
 

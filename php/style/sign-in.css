@@ -9,13 +9,20 @@
 .container{
 	height: 100%;
 	width: 100%;
-	background-image: linear-gradient(to right, pink, lightyellow, lightblue);
+
+}
+
+body{
+	background-image: url(../img/Parallax-Background-Dark-11.jpg);
+	 background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .login-form{
 	width: 520px;
 	height: 420px;
-	background: rgba(255,255,255,0.39);
+	background: rgba(255,255,255,0.2);
 	position: absolute;
 	top: 20%;
 	left: 30%;

@@ -2,6 +2,8 @@
  $success = "";
 
 if (isset($_POST['Submit'])) {
+
+		//variables
 	  $title = $_POST['title'];
 	  $content = $_POST['content'];
 	 
@@ -9,25 +11,30 @@ if (isset($_POST['Submit'])) {
 		$announcer = $_SESSION['admin'];
 
 	
-    
+    //query all announcements
     $sql1 = "SELECT * FROM announcement WHERE title = '$title' AND content = '$content'";
 	$result1 = mysqli_query($db, $sql1); 
+	//check fields empty or not
 	if (empty($title) || empty($content)) {
 			$_SESSION['error'] =  "All fields are required."; 
 	}
+		// check title and content are numeric or not
 	 else if(is_numeric($title) || is_numeric($content)) {
 					$_SESSION['error'] =  "title or content could not be numberic"; 
 
 	} 
+	// check if announcement exists in db
 	else if (mysqli_num_rows($result1) >= 1) {
 		$_SESSION['error'] = "announcement event existed in database.";
 	}   
 	  else {
 	
-		
+		// insert announcement
 		 $announce_sql = "INSERT INTO `announcement`(title, content, announcer, date_created) VALUES('$title', '$content', '$announcer', '$todayDate')";
 
 		 $announce_query = mysqli_query($db, $announce_sql); 
+
+		 // announce success
 				$_SESSION['success'] = "Success.";   
 				echo "<script>
     window.location.href='admin.php?adminpage=adminAnnouncement';

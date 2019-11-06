@@ -4,8 +4,6 @@
   $team_query = mysqli_query($db,$team_sql);
 
  
-
- $list = 0;
  ?>
   
   <div class = "header">
@@ -50,7 +48,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                       <th>list</th>                  
                         <th>Team name</th>               
                         <th>Description</th>
                         <th>Department</th>                        
@@ -61,7 +58,6 @@
                     <tr>
                       <?php 
                         while($team = mysqli_fetch_assoc($team_query)) {
-                          $list = $list + 1;   
                           $IDdepartment = $team['id_department'];
                           $department_sql = "SELECT * FROM department where id = '$IDdepartment'";
                           if($department_query = mysqli_query($db,$department_sql)) {
@@ -69,9 +65,7 @@
                           }            
                       ?>
                     
-                      <td align="center">
-                        <?= $list; ?>                 
-                      </td>
+                     
 
                       <td align="center" class="cell-breakWord"><a href="admin.php?adminpage=adminTeamUser&IDteam=<?=$team['id'];?>"><strong><?= $team['name']; ?></strong></td>
                       <td align="center" class="cell-breakWord"><?= $team['description']; ?></td>

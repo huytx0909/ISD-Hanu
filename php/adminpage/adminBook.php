@@ -3,10 +3,7 @@
 	$book_sql = "SELECT * FROM book ORDER BY book_title ASC";
 	$book_query = mysqli_query($db,$book_sql);
 
- 
-
- $list = 0;
- ?>
+  ?>
 	
 	<div class = "header">
 		<h2>Book Table</h2>
@@ -54,7 +51,6 @@
             <table class="table">            
                 <thead class="thead-dark">
                     <tr>
-                       <th>List</th>                  
                         <th>Book Title</th>               
                         <th>Author</th>
                         <th>Image</th>                        
@@ -72,7 +68,6 @@
                     <tr>
                          <?php 
                          while($book = mysqli_fetch_assoc($book_query)) {
-                            $list = $list + 1;   
 
                             $IDcategory = $book['id_category'];
                             $IDimage = $book['id_image'];
@@ -89,9 +84,7 @@
                             ?>
                       
 
-                    	<td align="center">
-                          <?= $list; ?>                         
-                      </td>
+                    
                       
                       <td align="center" class="cell-breakWord"><?= $book['book_title']; ?></td>
                       <td align="center" class="cell-breakWord"><?= $book['author_name']; ?> </td>

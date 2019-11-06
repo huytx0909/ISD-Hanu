@@ -5,7 +5,6 @@
 
  
 
- $list = 0;
  ?>
 
   
@@ -51,7 +50,6 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                      <th>list</th>                  
                       <th>Event name</th>               
                       <th>Description</th>
                       <th>Start Date</th>  
@@ -63,15 +61,10 @@
                     <tr>
                          <?php 
                           while($holiday = mysqli_fetch_assoc($holiday_query)) {
-                            $list = $list + 1;   
                             ?>
                       
 
-                                <td align="center">
-                           
-                                <?= $list; ?>
-                                                 
-                                </td>
+                                
                       
 
 

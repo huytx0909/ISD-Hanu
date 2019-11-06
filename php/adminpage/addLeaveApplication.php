@@ -132,24 +132,3 @@ if (isset($_POST['Submit'])) {
 </div>
 </div>
 </div>
-
-<script>
-	$(document).ready(function() {
-		$('#username').keyup(function() {
-			var query = $(this).val();
-			if(query != '')
-			{
-				$.ajax({
-					url: "hr/searchSuggestion.php",
-					method:"POST",
-					data:{query:query},
-					success:function(data)
-					{
-						$('usernameList').fadeIn();
-						$('#usernameList').html(data);
-					}
-				});
-			}
-		});
-	});
-</script>

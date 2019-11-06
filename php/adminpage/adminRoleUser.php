@@ -13,7 +13,6 @@
 
  }
 
- $list = 0;
  ?>
   
   <div class = "header">
@@ -58,7 +57,6 @@
         <table class="table">
           <thead class="thead-dark">
               <tr>
-                <th>list</th>                  
                 <th>Username</th> 
                 <th>Fullname</th>                                 
                 <th>Email</th>
@@ -74,7 +72,6 @@
               <tr>
                 <?php 
                   while($user = mysqli_fetch_assoc($user_query)) {
-                    $list = $list + 1;  
                     $IDdepartment = $user['id_department'];
                     $IDteam = $user['id_team'];
                     $IDrole = $user['id_role']; 
@@ -103,9 +100,7 @@
 
                             ?>     
 
-                <td align="center">
-                  <?= $list; ?>                         
-                </td>
+               
 
                 <td align="center" class="cell-breakWord"><?= $user['username']; ?></td>
                 <td align="center" class="cell-breakWord"><?= $user['fullName']; ?></td>                
